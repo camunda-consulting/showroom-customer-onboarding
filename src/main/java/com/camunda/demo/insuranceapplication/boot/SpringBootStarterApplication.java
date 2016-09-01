@@ -6,11 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.camunda.demo.environment.DemoDataGenerator;
 import com.camunda.demo.environment.LicenseHelper;
-import com.camunda.demo.environment.ProcessApplicationDemoSetup;
 import com.camunda.demo.environment.UserDataGenerator;
-import com.camunda.demo.insuranceapplication.InsuranceProcessApplication;
 
 @SpringBootApplication
 public class SpringBootStarterApplication extends SpringBootProcessApplication {
