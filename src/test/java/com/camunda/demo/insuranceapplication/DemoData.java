@@ -24,7 +24,7 @@ public class DemoData {
 
     application.getApplicant().setDateOfBirth(cal.getTime());
     application.getApplicant().setName("Bernd Rücker");
-    application.getApplicant().setEmail("br@camunda.com");
+    application.getApplicant().setEmail("trashcan@camunda.org");
     application.getApplicant().setGender("male");
     application.getCar().setManufacturer(hersteller);
     application.getCar().setType(typ);
