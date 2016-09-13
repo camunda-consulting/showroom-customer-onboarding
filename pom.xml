@@ -24,7 +24,7 @@
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 
 		<spring-boot.version>1.3.7.RELEASE</spring-boot.version>
-		<camunda.spring.starter.version>1.3.0-SNAPSHOT</camunda.spring.starter.version>
+		<camunda.spring.starter.version>1.3.0</camunda.spring.starter.version>
 
 		<!-- camunda and spring use different properties ... -->
 		<java.version>${version.java}</java.version>
