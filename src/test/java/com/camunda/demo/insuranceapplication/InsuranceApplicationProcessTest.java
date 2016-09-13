@@ -54,7 +54,7 @@ public class InsuranceApplicationProcessTest {
     // nothing is done here, as we just want to check for exceptions during deployment
   }
 
-  @Test
+//  @Test
   @Deployment(resources = {"InsuranceApplication.bpmn", "RiskAssessment.dmn"})
   public void testDunkelverarbeitungPoliciert() {
     Application neuantrag = DemoData.createNewApplication(40, "VW", "Golf V");
@@ -72,7 +72,7 @@ public class InsuranceApplicationProcessTest {
     assertThat(processInstance).isEnded();    
   }
 
-  @Test
+//  @Test
   @Deployment(resources = {"InsuranceApplication.bpmn", "RiskAssessment.dmn"})
   public void testDunkelverarbeitungAbgelehnt() {
     Application neuantrag = DemoData.createNewApplication(20, "Porsche", "911");
@@ -93,7 +93,7 @@ public class InsuranceApplicationProcessTest {
   }
 
   
-  @Test
+//  @Test
   @Deployment(resources = {"InsuranceApplication.bpmn", "RiskAssessment.dmn", "ApplicationCheck.cmmn"})
   public void testHellManuelleVerarbeitung() {
     String businessKey = UUID.randomUUID().toString();
