@@ -263,4 +263,29 @@
 
 	</build>
 
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/camunda-consulting/camunda-showcase-insurance-application</url>
+		<connection>scm:git:git@github.com:camunda-consulting/camunda-showcase-insurance-application.git</connection>
+		<developerConnection>scm:git:git@github.com:camunda-consulting/camunda-showcase-insurance-application.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>camunda-nexus</id>
+			<url>https://app.camunda.com/nexus/content/repositories/camunda-consulting-snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>camunda-nexus</id>
+			<url>https://app.camunda.com/nexus/content/repositories/camunda-consulting/</url>
+		</repository>
+	</distributionManagement>
+
 </project>
