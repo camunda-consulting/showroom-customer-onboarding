@@ -63,17 +63,26 @@ public class ApplicationCheckCaseTest {
   @Test
   @Deployment(resources = {"ApplicationCheck.cmmn"})
   public void testCmmn() {
-	  CaseInstance caseInstance = processEngine().getCaseService().createCaseInstanceByKey("applicationCheck");
+    VariableMap variables = Variables.createVariables();
+    Application application = DemoData.createNewApplication(40, "Porsche", "911");
+//    application.setFeeInCent(30001); // > 300 |, needs 4 eyes
+    variables.putValue(
+        ProcessVariables.VAR_NAME_application,
+        Variables.objectValue(application).serializationDataFormat(SerializationDataFormats.JSON).create());
+    
+	  CaseInstance caseInstance = processEngine().getCaseService().createCaseInstanceByKey("applicationCheck", variables);
 	  
 	  // Now: Drive the process by API and assert correct behavior by camunda-bpm-assert
 	  
 	  CaseExecution execution = processEngine().getCaseService().createCaseExecutionQuery().active().activityId("HumanTask_DecideOnApplication").singleResult();
+	  
 	  assertThat(caseInstance).stage("Stage_ApplicationDecision").humanTask("HumanTask_DecideOnApplication").isActive();
 	  processEngine().getCaseService().setVariable(caseInstance.getId(), "approved", Boolean.TRUE);
+	  
 	  complete(caseExecution("HumanTask_DecideOnApplication", caseInstance));
 
-	  assertThat(caseInstance).humanTask("HumanTask_ApproveDecision").isActive();
-	  complete(caseExecution("HumanTask_ApproveDecision", caseInstance));
+//	  assertThat(caseInstance).stage("Stage_ApplicationDecision").humanTask("HumanTask_ApproveDecision").isActive();
+//	  complete(caseExecution("HumanTask_ApproveDecision", caseInstance));
 
 	  printCaseStatusAndTasklist();
 

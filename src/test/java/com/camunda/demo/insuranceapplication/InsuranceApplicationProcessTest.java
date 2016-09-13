@@ -5,6 +5,8 @@ import static org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions.ini
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.*;
 import static org.junit.Assert.*;
 
+import java.util.UUID;
+
 import org.camunda.bpm.engine.runtime.CaseExecution;
 import org.camunda.bpm.engine.runtime.CaseInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -92,8 +94,9 @@ public class InsuranceApplicationProcessTest {
 
   
   @Test
-  @Deployment(resources = {"InsuranceApplication.bpmn", "RiskAssessment.dmn"})
+  @Deployment(resources = {"InsuranceApplication.bpmn", "RiskAssessment.dmn", "ApplicationCheck.cmmn"})
   public void testHellManuelleVerarbeitung() {
+    String businessKey = UUID.randomUUID().toString();
     Application neuantrag = DemoData.createNewApplication(40, "Porsche", "911"); //I
     
     VariableMap variables = Variables.createVariables();
@@ -101,16 +104,17 @@ public class InsuranceApplicationProcessTest {
         ProcessVariables.VAR_NAME_application,
         Variables.objectValue(neuantrag).serializationDataFormat(SerializationDataFormats.JSON).create());
         
-    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
+    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, businessKey, variables);
     
     assertThat(processInstance).job();
     execute(job()); // start event
     
-    assertThat(processInstance).task()
-      .hasDefinitionKey("userTaskAntragEntscheiden")
+    Task task = taskService().createTaskQuery().taskDefinitionKey("HumanTask_DecideOnApplication").singleResult();
+    assertThat(task)
+      .hasDefinitionKey("HumanTask_DecideOnApplication")
       .hasCandidateGroup("clerk");
     
-    complete(task(), withVariables("approved", Boolean.TRUE));
+    complete(task, withVariables("approved", Boolean.TRUE));
     
     assertThat(processInstance).job();
     execute(job()); // send task

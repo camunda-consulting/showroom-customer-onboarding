@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/cmmn" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.2.0">
+<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/cmmn" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.3.0">
   <cmmn:case id="applicationCheck" name="Application Check">
     <cmmn:casePlanModel id="CasePlanModel_1" name="Application check" autoComplete="true">
       <cmmn:planItem id="Stage_ApplicationDecision" definitionRef="Stage_0vth1x4" />
@@ -73,7 +73,7 @@
           </cmmn:extensionElements>
         </cmmn:processTask>
         <cmmn:humanTask id="HumanTask_0gu1j4z" name="Assess application [group leader]" camunda:formKey="embedded:app:forms/assess.html" />
-        <cmmn:humanTask id="HumanTask_0te6ifr" name="Decide on application" camunda:formKey="embedded:app:forms/decide.html" camunda:assignee="clerk" />
+        <cmmn:humanTask id="HumanTask_0te6ifr" name="Decide on application" camunda:formKey="embedded:app:forms/decide.html" camunda:candidateGroups="clerk" />
       </cmmn:stage>
       <cmmn:milestone id="Milestone_0m9td9c" name="Application rejected" />
       <cmmn:milestone id="Milestone_19rxgfz" name="Application accepted" />
