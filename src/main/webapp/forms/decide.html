@@ -110,7 +110,7 @@
   		       <h3>Decision
                       <input type="checkbox"
             	      name="ApprovalCheckbox"
-            	  	  data-on-text="Accept" data-off-text="Reject" data-on-color="success" data-off-color="danger"
+            	  	  data-on-text="OK" data-off-text="No way!" data-on-color="success" data-off-color="danger"
        				  cam-variable-name="approved"
        			      cam-variable-type="Boolean" />
        			   </h3>
@@ -118,7 +118,7 @@
              <script cam-script type="text/form-script">
             	$("[name='ApprovalCheckbox']").bootstrapSwitch();
              </script>
-             
+            
 			<button class="btn btn-primary ng-binding" type="submit" ng-click="complete()" ng-disabled="disableCompleteButton()">
 			      Complete
 		    </button>             
@@ -133,77 +133,71 @@
         </div>
 
         <div class="modal-body ng-scope">
-        	  <div class="alert alert-info" role="alert">
-			  	<p>
+ <div class="alert alert-info" role="alert">
+              <p>
 			  	Introspect the current case status determined by the CMMN model. 
 			  	Control if by executing lifecycle methods shown below.
-				</p>
-			  </div> 
-			  
-			  <table class="table table-striped table-hover">
-				  <tr>		  
+            </p>
+            </div> 
+            
+            <table class="table table-striped table-hover">
+              <tr>      
   			  		 <td colspan="3" style="background-color: #e5e5e5; font-weight: bold;">Active</td>
-  			  	  </tr>
+                  </tr>
 
-				  <tr ng-repeat="execution in activeCaseExecutions" >
-				    <td style="vertical-align: middle;">
-	  				    	<i style="font-size: x-large;" class="cmmn-icon-human-blocking-task" ng-if="execution.activityType=='humanTask'"></i>
-	  				    	<i style="font-size: x-large;" class="cmmn-icon-process-task" ng-if="execution.activityType=='processTask'"></i>
-	  						<i style="font-size: x-large;" class="cmmn-icon-decision-task" ng-if="execution.activityType=='decisionTask'"></i>
-	  						<i style="font-size: x-large;" class="cmmn-icon-milestone" ng-if="execution.activityType=='milestone'"></i>
-	  						<i style="font-size: x-large;" class="cmmn-icon-stage-collapsed" ng-if="execution.activityType=='stage'"></i>
-	  						<i style="font-size: x-large;" class="cmmn-icon-case-plan-model" ng-if="execution.activityType=='casePlanModel'"></i>
-				    </td>
-				    <td style="vertical-align: middle;">
-				    	{{execution.activityName}}
-				    </td>
-					<td></td>	    					    	  
-				  </tr>
+              <tr ng-repeat="execution in activeCaseExecutions" >
+                <td style="vertical-align: middle;">
+                      <i style="font-size: x-large;" class="cmmn-icon-human-blocking-task" ng-if="execution.activityType=='humanTask'"></i>
+                      <i style="font-size: x-large;" class="cmmn-icon-process-task" ng-if="execution.activityType=='processTask'"></i>
+                    <i style="font-size: x-large;" class="cmmn-icon-decision-task" ng-if="execution.activityType=='decisionTask'"></i>
+                    <i style="font-size: x-large;" class="cmmn-icon-milestone" ng-if="execution.activityType=='milestone'"></i>
+                    <i style="font-size: x-large;" class="cmmn-icon-stage-collapsed" ng-if="execution.activityType=='stage'"></i>
+                    <i style="font-size: x-large;" class="cmmn-icon-case-plan-model" ng-if="execution.activityType=='casePlanModel'"></i>
+                </td>
+                <td style="vertical-align: middle;">
+                  {{execution.activityName}}
+                </td>
+              <td></td>                       
+              </tr>
 
-				  <tr>		  
+              <tr>      
   			  		 <td colspan="3" style="background-color: #e5e5e5; font-weight: bold;">Enabled</td>
-  			  	  </tr>
+                  </tr>
 
-          	<!--
-  				  <div class="form-group"> 			  
-  				  	<label>Hints to add:</label>
-  				  	<textarea id="textareaHints" class="form-control"></textarea>
-  				  </div>
-  		 	-->
-  				  
-  				  <tr ng-repeat="execution in enabledCaseExecutions">
-  				    <td style="vertical-align: middle;">
-  				    	<i style="font-size: x-large;" class="cmmn-icon-human-blocking-task" ng-if="execution.activityType=='humanTask'"></i>
-  				    	<i style="font-size: x-large;" class="cmmn-icon-process-task" ng-if="execution.activityType=='processTask'"></i>
-  						<i style="font-size: x-large;" class="cmmn-icon-decision-task" ng-if="execution.activityType=='decisionTask'"></i>
-  				    </td>
-  				    <td style="vertical-align: middle;">
-  				    	{{execution.activityName}}
-  				    </td>	  
-  				    <td style="vertical-align: middle;">
-  				        <a ng-click="manualStartCaseExecution(execution)" title="manual start activity"><i class="glyphicon glyphicon-play"></i></a>
-  				    </td>
-  				  </tr>
+                <tr ng-repeat="execution in enabledCaseExecutions">
+                  <td style="vertical-align: middle;">
+                    <i style="font-size: x-large;" class="cmmn-icon-human-blocking-task" ng-if="execution.activityType=='humanTask'"></i>
+                    <i style="font-size: x-large;" class="cmmn-icon-process-task" ng-if="execution.activityType=='processTask'"></i>
+                  <i style="font-size: x-large;" class="cmmn-icon-decision-task" ng-if="execution.activityType=='decisionTask'"></i>
+                  </td>
+                  <td style="vertical-align: middle;">
+                    {{execution.activityName}}
+                  </td>   
+                  <td style="vertical-align: middle;">
+                      <a ng-click="manualStartCaseExecution(execution)" title="manual start"><i class="glyphicon glyphicon-play"></i></a>
+                  </td>
+                </tr>
 
-				  <tr>		  
+              <tr>      
   			  		 <td colspan="3" style="background-color: #e5e5e5; font-weight: bold;">Finished</td>
-  			  	  </tr>
+                  </tr>
 
-				  <tr ng-repeat="execution in finishedCaseExecutions" > <!--ng-if="execution.caseActivityType!='startEvent'"-->
-				    <td style="vertical-align: middle;">			    
-  				    	<i style="font-size: x-large;" class="cmmn-icon-human-blocking-task" ng-if="execution.caseActivityType=='humanTask'"></i>
-  				    	<i style="font-size: x-large;" class="cmmn-icon-process-task" ng-if="execution.caseActivityType=='processTask'"></i>
-  						<i style="font-size: x-large;" class="cmmn-icon-decision-task" ng-if="execution.caseActivityType=='decisionTask'"></i>
-  						<i style="font-size: x-large;" class="cmmn-icon-milestone" ng-if="execution.caseActivityType=='milestone'"></i>
-  						<i style="font-size: x-large;" class="cmmn-icon-stage-collapsed" ng-if="execution.caseActivityType=='stage'"></i>
-  						<i style="font-size: x-large;" class="cmmn-icon-case-plan-model" ng-if="execution.caseActivityType=='casePlanModel'"></i>
-				    </td>
-				    <td style="vertical-align: middle;">
-				    	{{execution.caseActivityName}}
-				    </td>
-				    <td></td>	  
-				  </tr>
-          </table>
+              <tr ng-repeat="execution in finishedCaseExecutions" > <!--ng-if="execution.caseActivityType!='startEvent'"-->
+                <td style="vertical-align: middle;">          
+                    <i style="font-size: x-large;" class="cmmn-icon-human-blocking-task" ng-if="execution.caseActivityType=='humanTask'"></i>
+                    <i style="font-size: x-large;" class="cmmn-icon-process-task" ng-if="execution.caseActivityType=='processTask'"></i>
+                  <i style="font-size: x-large;" class="cmmn-icon-decision-task" ng-if="execution.caseActivityType=='decisionTask'"></i>
+                  <i style="font-size: x-large;" class="cmmn-icon-milestone" ng-if="execution.caseActivityType=='milestone'"></i>
+                  <i style="font-size: x-large;" class="cmmn-icon-stage-collapsed" ng-if="execution.caseActivityType=='stage'"></i>
+                  <i style="font-size: x-large;" class="cmmn-icon-case-plan-model" ng-if="execution.caseActivityType=='casePlanModel'"></i>
+                </td>
+                <td style="vertical-align: middle;">
+                  {{execution.caseActivityName}}
+                </td>
+                <td></td>   
+              </tr>
+            </table>        	 
+           
         </div>
       </div>
     </div>
@@ -223,10 +217,10 @@
  
 	 function loadCaseStatus() {
 	   // load task details via REST API from Camunda
-  	   $.get( '/camunda/api/engine/engine/default/task/' + camForm.taskId, function( task ) {
+  	   $.get( '../../../api/engine/engine/default/task/' + camForm.taskId, function( task ) {
 
   	       // load "enabled" activities via REST API from Camunda
-		   $.get( '/camunda/api/engine/engine/default/case-execution?caseInstanceId=' + task.caseInstanceId + '&enabled=true', function( result1 ) {
+		   $.get( '../../../api/engine/engine/default/case-execution?caseInstanceId=' + task.caseInstanceId + '&enabled=true', function( result1 ) {
 	         $scope.$apply(function () {
 	            // remeber as Angular Scope Variable
 	            $scope.enabledCaseExecutions = result1;
@@ -234,14 +228,14 @@
 		   });
 
   	       // load "active" activities via REST API from Camunda
-	  	   $.get( '/camunda/api/engine/engine/default/case-execution?caseInstanceId=' + task.caseInstanceId + '&active=true', function( result2 ) {
+	  	   $.get( '../../../api/engine/engine/default/case-execution?caseInstanceId=' + task.caseInstanceId + '&active=true', function( result2 ) {
 	         $scope.$apply(function () {
 	            $scope.activeCaseExecutions = result2;
 	         });
 		   });	 
 
   	       // load "ended" activities via REST API from Camunda
-	  	   $.get( '/camunda/api/engine/engine/default/history/case-activity-instance?caseInstanceId=' + task.caseInstanceId + '&finished=true', function( result3 ) {
+	  	   $.get( '../../../api/engine/engine/default/history/case-activity-instance?caseInstanceId=' + task.caseInstanceId + '&finished=true', function( result3 ) {
 	         $scope.$apply(function () {
 	            $scope.finishedCaseExecutions = result3;
 	         });
@@ -266,7 +260,7 @@
 	       $('#textareaHints').val("");
 	       
 	       // Call according REST API
-		   $.ajax('/camunda/api/engine/engine/default/case-execution/' + caseExecution.id + '/manual-start', {
+		   $.ajax('../../../api/engine/engine/default/case-execution/' + caseExecution.id + '/manual-start', {
 		         data: JSON.stringify(data),
 		         contentType : 'application/json',
 		         type : 'POST',

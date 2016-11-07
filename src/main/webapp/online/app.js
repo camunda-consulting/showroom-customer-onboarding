@@ -148,7 +148,7 @@ function calculatePrice(priceindicationInCent) {
    if ($('#carManufacturer').val() == "Audi" && $('#carType').val()=="A6") {priceindicationInCent = 200}
    if ($('#carManufacturer').val() == "Audi" && $('#carType').val()=="A8") {priceindicationInCent = 280}
 
-   $('#priceindicationInCent').val(priceindicationInCent + ",00 EUR");
+   $('#priceindicationInCent').val(priceindicationInCent + " $");
 }
 
 function getPrice() {

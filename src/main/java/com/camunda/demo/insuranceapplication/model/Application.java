@@ -32,7 +32,7 @@ public class Application {
   }
 
   public String getFee() {
-    NumberFormat n = NumberFormat.getCurrencyInstance(Locale.GERMANY);
+    NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
     return n.format(feeInCent / 100.0);
   }
 
@@ -41,7 +41,7 @@ public class Application {
   }
 
   public String getPriceIndication() {
-    NumberFormat n = NumberFormat.getCurrencyInstance(Locale.GERMANY);
+    NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
     return n.format(priceIndicationInCents / 100.0);
   }
 
