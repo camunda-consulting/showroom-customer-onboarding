@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import com.camunda.demo.insuranceapplication.ProcessVariables;
+import com.camunda.demo.insuranceapplication.ProcessConstants;
 import com.camunda.demo.insuranceapplication.model.Application;
 
 /**
@@ -67,7 +67,7 @@ public class ApplicationCheckCaseTest {
     Application application = DemoData.createNewApplication(40, "Porsche", "911");
 //    application.setFeeInCent(30001); // > 300 |, needs 4 eyes
     variables.putValue(
-        ProcessVariables.VAR_NAME_application,
+        ProcessConstants.VAR_NAME_application,
         Variables.objectValue(application).serializationDataFormat(SerializationDataFormats.JSON).create());
     
 	  CaseInstance caseInstance = processEngine().getCaseService().createCaseInstanceByKey("applicationCheck", variables);

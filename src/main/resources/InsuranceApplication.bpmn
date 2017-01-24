@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="1.2.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="1.6.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <bpmn2:collaboration id="Collaboration_1u35ano">
     <bpmn2:participant id="Participant_0477s11" name="Insurance Application" processRef="insurance-application" />
   </bpmn2:collaboration>
@@ -25,16 +25,16 @@
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_16</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:businessRuleTask id="BusinessRuleTaskAntragAutomatischPruefen" name="Check risks" camunda:resultVariable="riskAssessmentResult" camunda:decisionRef="riskAssessment">
+    <bpmn2:businessRuleTask id="BusinessRuleTaskCheckRisks" name="Check risks" camunda:resultVariable="riskAssessmentResult" camunda:decisionRef="riskAssessment">
       <bpmn2:extensionElements>
         <camunda:executionListener class="com.camunda.demo.insuranceapplication.adapter.MapDmnResult" event="end" />
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:businessRuleTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_6" name="" sourceRef="StartEvent_1" targetRef="BusinessRuleTaskAntragAutomatischPruefen" />
-    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="BusinessRuleTaskAntragAutomatischPruefen" targetRef="ExclusiveGatewayPruefung" />
-    <bpmn2:sequenceFlow id="SequenceFlow_3" name="yellow&#10;&#10;(medium risks)" sourceRef="ExclusiveGatewayPruefung" targetRef="userTaskAntragEntscheiden">
+    <bpmn2:sequenceFlow id="SequenceFlow_6" name="" sourceRef="StartEvent_1" targetRef="BusinessRuleTaskCheckRisks" />
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="BusinessRuleTaskCheckRisks" targetRef="ExclusiveGatewayPruefung" />
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="yellow&#10;&#10;(medium risks)" sourceRef="ExclusiveGatewayPruefung" targetRef="CallActivityDecideAboutApplication">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property name="probability" value="30" />
@@ -42,7 +42,7 @@
       </bpmn2:extensionElements>
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression"><![CDATA[#{riskAssessment == 'yellow'}]]></bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:sequenceFlow id="SequenceFlow_7" name="green&#10;&#10;(no risks)" sourceRef="ExclusiveGatewayPruefung" targetRef="ServiceTaskPoliceAusstellen">
+    <bpmn2:sequenceFlow id="SequenceFlow_7" name="green&#10;&#10;(no risks)" sourceRef="ExclusiveGatewayPruefung" targetRef="ServiceTaskIssuePolicy">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property name="probability" value="55" />
@@ -58,7 +58,7 @@
       </bpmn2:extensionElements>
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression"><![CDATA[#{riskAssessment == 'red'}]]></bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:sequenceFlow id="SequenceFlow_8" name="Accept&#10;&#10;application" sourceRef="ExclusiveGateway_2" targetRef="ServiceTaskPoliceAusstellen">
+    <bpmn2:sequenceFlow id="SequenceFlow_8" name="Accept&#10;&#10;application" sourceRef="ExclusiveGateway_2" targetRef="ServiceTaskIssuePolicy">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property name="probability" value="80" />
@@ -74,14 +74,14 @@
       </bpmn2:extensionElements>
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{!approved}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:serviceTask id="ServiceTaskPoliceAusstellen" name="Issue policy in insurance backend" camunda:class="com.camunda.demo.insuranceapplication.adapter.IssuePolicyAdapter">
+    <bpmn2:serviceTask id="ServiceTaskIssuePolicy" name="Issue policy in insurance backend" camunda:class="com.camunda.demo.insuranceapplication.adapter.IssuePolicyAdapter">
       <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="ServiceTaskPoliceAusstellen" targetRef="sendTaskPoliceZusenden" />
-    <bpmn2:sequenceFlow id="SequenceFlow_11" name="" sourceRef="sendTaskPoliceZusenden" targetRef="EndEventAntragPoliciert" />
-    <bpmn2:sendTask id="SendTaskAblehnungZusenden" name="Send rejection" camunda:async="true" camunda:class="com.camunda.demo.insuranceapplication.adapter.EmailAdapter">
+    <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="ServiceTaskIssuePolicy" targetRef="SendTaskSendPolicy" />
+    <bpmn2:sequenceFlow id="SequenceFlow_11" name="" sourceRef="SendTaskSendPolicy" targetRef="EndEventApplicationIssued" />
+    <bpmn2:sendTask id="SendTaskSendRejection" name="Send rejection" camunda:async="true" camunda:class="com.camunda.demo.insuranceapplication.adapter.EmailAdapter">
       <bpmn2:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
@@ -105,7 +105,7 @@ Your Camundanzia.]]></camunda:script>
       <bpmn2:incoming>SequenceFlow_16</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_01vh1zw</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:endEvent id="EndEventAntragAbgelehnt" name="Application&#10;&#10;rejected">
+    <bpmn2:endEvent id="EndEventApplicationRejected" name="Application&#10;&#10;rejected">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property name="KPI-Ratio" value="Rejected" />
@@ -113,8 +113,8 @@ Your Camundanzia.]]></camunda:script>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_01vh1zw" sourceRef="ServiceTaskAblehnungVermerken" targetRef="SendTaskAblehnungZusenden" />
-    <bpmn2:sequenceFlow id="SequenceFlow_13" name="" sourceRef="SendTaskAblehnungZusenden" targetRef="EndEventAntragAbgelehnt" />
+    <bpmn2:sequenceFlow id="SequenceFlow_01vh1zw" sourceRef="ServiceTaskAblehnungVermerken" targetRef="SendTaskSendRejection" />
+    <bpmn2:sequenceFlow id="SequenceFlow_13" name="" sourceRef="SendTaskSendRejection" targetRef="EndEventApplicationRejected" />
     <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="UserTaskAntragspruefungBeschleunigen" targetRef="EndEventAntragBeschleunigt" />
     <bpmn2:userTask id="UserTaskAntragspruefungBeschleunigen" name="Speed up decision making process" camunda:candidateGroups="management">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
@@ -124,13 +124,13 @@ Your Camundanzia.]]></camunda:script>
       <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="BoundaryEvent_1" targetRef="UserTaskAntragspruefungBeschleunigen" />
-    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="userTaskAntragEntscheiden" targetRef="ExclusiveGateway_2" />
+    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="CallActivityDecideAboutApplication" targetRef="ExclusiveGateway_2" />
     <bpmn2:exclusiveGateway id="ExclusiveGateway_2" name="Decision?">
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_12</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:callActivity id="userTaskAntragEntscheiden" name="Decide about application" camunda:caseRef="applicationCheck">
+    <bpmn2:callActivity id="CallActivityDecideAboutApplication" name="Decide about application" camunda:caseRef="applicationCheck">
       <bpmn2:extensionElements>
         <camunda:out source="approved" target="approved" />
         <camunda:in source="risks" target="risks" />
@@ -140,13 +140,13 @@ Your Camundanzia.]]></camunda:script>
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:callActivity>
-    <bpmn2:boundaryEvent id="BoundaryEvent_1" name="2 days" cancelActivity="false" attachedToRef="userTaskAntragEntscheiden">
+    <bpmn2:boundaryEvent id="BoundaryEvent_1" name="2 days" cancelActivity="false" attachedToRef="CallActivityDecideAboutApplication">
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
       <bpmn2:timerEventDefinition id="_TimerEventDefinition_5">
         <bpmn2:timeDuration xsi:type="bpmn2:tFormalExpression">P2D</bpmn2:timeDuration>
       </bpmn2:timerEventDefinition>
     </bpmn2:boundaryEvent>
-    <bpmn2:sendTask id="sendTaskPoliceZusenden" name="Send policy" camunda:async="true" camunda:class="com.camunda.demo.insuranceapplication.adapter.EmailAdapter">
+    <bpmn2:sendTask id="SendTaskSendPolicy" name="Send policy" camunda:async="true" camunda:class="com.camunda.demo.insuranceapplication.adapter.EmailAdapter">
       <bpmn2:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
@@ -170,7 +170,7 @@ Your Camundanzia.]]></camunda:script>
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_11</bpmn2:outgoing>
     </bpmn2:sendTask>
-    <bpmn2:endEvent id="EndEventAntragPoliciert" name="Policy&#10;&#10;issued">
+    <bpmn2:endEvent id="EndEventApplicationIssued" name="Application issued">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property name="KPI-Ratio" value="Accepted" />
@@ -193,16 +193,16 @@ Your Camundanzia.]]></camunda:script>
           <dc:Bounds x="51" y="93" width="52" height="38" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_SendTask_2" bpmnElement="sendTaskPoliceZusenden">
+      <bpmndi:BPMNShape id="_BPMNShape_SendTask_2" bpmnElement="SendTaskSendPolicy">
         <dc:Bounds x="960" y="30" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_3" bpmnElement="ServiceTaskPoliceAusstellen">
+      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_3" bpmnElement="ServiceTaskIssuePolicy">
         <dc:Bounds x="816" y="31" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_2" bpmnElement="EndEventAntragPoliciert">
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_2" bpmnElement="EndEventApplicationIssued">
         <dc:Bounds x="1104" y="52" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1078" y="93" width="90" height="38" />
+          <dc:Bounds x="1079" y="93" width="87" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_2" bpmnElement="ExclusiveGatewayPruefung" isMarkerVisible="true">
@@ -211,7 +211,7 @@ Your Camundanzia.]]></camunda:script>
           <dc:Bounds x="247" y="20" width="101" height="22" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_BusinessRuleTask_2" bpmnElement="BusinessRuleTaskAntragAutomatischPruefen">
+      <bpmndi:BPMNShape id="_BPMNShape_BusinessRuleTask_2" bpmnElement="BusinessRuleTaskCheckRisks">
         <dc:Bounds x="139" y="30" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_UserTask_6" bpmnElement="UserTaskAntragspruefungBeschleunigen">
@@ -229,10 +229,10 @@ Your Camundanzia.]]></camunda:script>
           <dc:Bounds x="735" y="124" width="92" height="22" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_SendTask_3" bpmnElement="SendTaskAblehnungZusenden">
+      <bpmndi:BPMNShape id="_BPMNShape_SendTask_3" bpmnElement="SendTaskSendRejection">
         <dc:Bounds x="960" y="312" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_3" bpmnElement="EndEventAntragAbgelehnt">
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_3" bpmnElement="EndEventApplicationRejected">
         <dc:Bounds x="1104" y="334" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1091" y="375" width="62" height="38" />
@@ -350,7 +350,7 @@ Your Camundanzia.]]></camunda:script>
           <dc:Bounds x="558.4970414201183" y="134" width="90" height="6" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="CallActivity_1j9y8y5_di" bpmnElement="userTaskAntragEntscheiden">
+      <bpmndi:BPMNShape id="CallActivity_1j9y8y5_di" bpmnElement="CallActivityDecideAboutApplication">
         <dc:Bounds x="419" y="95" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>

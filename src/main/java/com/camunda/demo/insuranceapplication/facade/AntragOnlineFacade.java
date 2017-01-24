@@ -15,7 +15,7 @@ import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.engine.variable.Variables.SerializationDataFormats;
 import org.camunda.bpm.engine.variable.value.FileValue;
 
-import com.camunda.demo.insuranceapplication.ProcessVariables;
+import com.camunda.demo.insuranceapplication.ProcessConstants;
 import com.camunda.demo.insuranceapplication.model.Application;
 
 @Path("/")
@@ -29,7 +29,7 @@ public class AntragOnlineFacade {
         "insurance-application", 
         application.getNumber(),
         Variables.createVariables().putValueTyped( //
-            ProcessVariables.VAR_NAME_application, //
+            ProcessConstants.VAR_NAME_application, //
             Variables.objectValue(application).serializationDataFormat(SerializationDataFormats.JSON).create())
             .putValueTyped("newDocument", null));    
   }
@@ -48,14 +48,14 @@ public class AntragOnlineFacade {
 
    Execution execution = BpmPlatform.getDefaultProcessEngine().getRuntimeService().createExecutionQuery()
       .messageEventSubscriptionName("MSG_DOCUMENT_RECEIVED")
-      .processVariableValueEquals(ProcessVariables.VAR_NAME_refernceId, number)
+      .processVariableValueEquals(ProcessConstants.VAR_NAME_refernceId, number)
       .singleResult();
     BpmPlatform.getDefaultProcessEngine().getRuntimeService().setVariable(
-        execution.getProcessInstanceId(), ProcessVariables.VAR_NAME_document, 
+        execution.getProcessInstanceId(), ProcessConstants.VAR_NAME_document, 
         document);
     
     BpmPlatform.getDefaultProcessEngine().getRuntimeService().createMessageCorrelation("MSG_DOCUMENT_RECEIVED")
-      .processInstanceVariableEquals(ProcessVariables.VAR_NAME_refernceId, number)
+      .processInstanceVariableEquals(ProcessConstants.VAR_NAME_refernceId, number)
       .correlate();
     
     // Todo: Set variables in one call when https://app.camunda.com/jira/browse/CAM-4717 is implemented
