@@ -85,6 +85,4 @@ public class InsuranceApplicationScenarioTest {
 	    verify(sendEmailService, times(1)).sendEmail(eq(application.getApplicant().getEmail()), anyString(), anyString());
 
 	  }
-	
-	
 }

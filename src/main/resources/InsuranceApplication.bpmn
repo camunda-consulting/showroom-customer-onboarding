@@ -132,10 +132,11 @@ Your Camundanzia.]]></camunda:script>
     </bpmn2:exclusiveGateway>
     <bpmn2:callActivity id="CallActivityDecideAboutApplication" name="Decide about application" camunda:caseRef="applicationCheck">
       <bpmn2:extensionElements>
-        <camunda:out source="approved" target="approved" />
-        <camunda:in source="risks" target="risks" />
-        <camunda:in source="application" target="application" />
         <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
+        <camunda:out sourceExpression="#{execution.caseInstanceId}" target="completedCaseInstanceId" />
+        <camunda:executionListener class="com.camunda.demo.insuranceapplication.listener.CloseCaseInstanceListener" event="end" />
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>

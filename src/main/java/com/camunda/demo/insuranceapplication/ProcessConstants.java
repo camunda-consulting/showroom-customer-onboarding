@@ -3,6 +3,7 @@ package com.camunda.demo.insuranceapplication;
 public class ProcessConstants {
   
   public static final String PROCESS_KEY_insurance_application = "insurance-application";
+  public static final String CASE_KEY_applicationCheck = "applicationCheck";
 	
   public static final String VAR_NAME_application = "application";
   public static final String VAR_NAME_risks = "risks";
