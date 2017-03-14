@@ -5,7 +5,7 @@
 
 	<groupId>com.camunda.consulting.showcase</groupId>
 	<artifactId>camunda-showcase-insurance-application</artifactId>
-	<version>7.5.0-SNAPSHOT</version>
+	<version>7.6.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<parent>
@@ -16,7 +16,7 @@
   </parent>
 
 	<properties>
-		<camunda.version>7.6.0-alpha5</camunda.version>
+		<camunda.version>7.6.0</camunda.version>
 		<powermock.version>1.5.4</powermock.version>
 
 		<maven.compiler.source>1.6</maven.compiler.source>
