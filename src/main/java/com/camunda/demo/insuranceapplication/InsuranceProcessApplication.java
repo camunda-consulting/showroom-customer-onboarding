@@ -25,9 +25,9 @@ public class InsuranceProcessApplication extends ServletProcessApplication {
 
   public static final String PROCESS_DEFINITION_KEY = "insurance-application";
 
-@PostDeploy
+  @PostDeploy
   public void setupEnvironmentForDemo(ProcessEngine engine) {
-    ProcessApplicationDemoSetup.executeDefaultSetup(engine, PROCESS_DEFINITION_KEY, getReference());
+//    ProcessApplicationDemoSetup.executeDefaultSetup(engine, PROCESS_DEFINITION_KEY, getReference());
     
     addUser(engine, "ben", "ben", "Ben", "Brooks");
     addGroup(engine, "clerk", "Clerk", "ben");  
