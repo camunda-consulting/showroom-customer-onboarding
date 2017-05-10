@@ -207,7 +207,23 @@
 		<!-- Add your own dependencies here, if in compile scope, they are added 
 			to the war -->
 
+        <dependency>
+            <groupId>org.apache.chemistry.opencmis</groupId>
+            <artifactId>chemistry-opencmis-client-impl</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-multipart-provider</artifactId>
+            <version>3.0.19.Final</version>
+            <scope>provided</scope>
+        </dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>

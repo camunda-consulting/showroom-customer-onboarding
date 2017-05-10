@@ -1,16 +1,32 @@
 <form role="form"> 
  <script cam-script type="text/form-script">
-    camForm.on('form-loaded', function() {
-      camForm.variableManager.fetchVariable('application');
-      camForm.variableManager.fetchVariable('risks');
-    });
+      inject([ '$scope', '$http', 'Uri', function($scope, $http, Uri) {
+        camForm.on('form-loaded', function() {
+          $scope.previewFile = function(fileName, fileId) {
+            $scope.previewname = "Preview for " + fileName;
+            var newElement = "<embed type='application/pdf' src='/camunda-showcase-insurance-application/rest/rest/filePreview?inline=true&fileId="+fileId+"&fileName="+fileName+"'/>";
+            $('object').attr('data','/camunda-showcase-insurance-application/rest/rest/filePreview?inline=true&fileId='+fileId+'&fileName='+fileName);
+            $('object embed').remove();
+            $('object').append(newElement);
+          };
 
-    camForm.on('variables-fetched', function() {
-      // after the variables are fetched, bind the value of vacationRequest to a angular
-      // scope value such that the form can work on it
-      $scope.application = camForm.variableManager.variable('application').value;
-      $scope.risks = camForm.variableManager.variable('risks').value;
-    });
+          camForm.variableManager.fetchVariable('files');
+          camForm.variableManager.fetchVariable('folderName');
+          camForm.variableManager.fetchVariable('application');
+          camForm.variableManager.fetchVariable('risks');
+        });
+        camForm.on('variables-fetched', function() {
+          // work with the variable (bind it to the current AngularJS $scope)
+          var files = camForm.variableManager.variableValue('files');
+          var folderName = camForm.variableManager.variableValue('folderName');
+          if (files != null) {
+            $scope.files = JSON.parse(files);
+            $scope.folderName = folderName;
+          }
+          $scope.application = camForm.variableManager.variable('application').value;
+          $scope.risks = camForm.variableManager.variable('risks').value;
+        });
+      }]);
   </script>
 
 	 <div class="row">
@@ -196,7 +212,23 @@
                 </td>
                 <td></td>   
               </tr>
+              
+              <tr>      
+                <td colspan="3" style="background-color: #e5e5e5; font-weight: bold;">Documents</td>
+              </tr>
+              <tr ng-repeat="obj in files">
+                <td style="vertical-align: middle;">
+                  <span tooltip="{{obj.date}}">{{obj.filename}} (Version: {{obj.version}})</span>
+                </td>
+                <td style="vertical-align: middle;">
+                  <a href="/camunda-showcase-insurance-application/rest/rest/filePreview?fileId={{obj.id}}&fileName={{obj.filename}}">Download</a> | <a href="" ng-if="obj.filename.indexOf('pdf') > -1" ng-click="previewFile(obj.filename,obj.id)">Preview</a>
+                </td>
+              </tr>
             </table>        	 
+            <strong>{{previewname}}</strong>
+            <object data="" type="application/pdf" width="100%" height="400px" style="border: 1px solid #ccc">
+                <embed type="application/pdf" src=""></embed>
+            </object>
            
         </div>
       </div>
@@ -336,46 +368,46 @@
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
-.cmmn-icon-bpmn-io:before { content: '\e800'; } /* '' */
-.cmmn-icon-screw-wrench:before { content: '\e801'; } /* '' */
-.cmmn-icon-trash:before { content: '\e802'; } /* '' */
-.cmmn-icon-lasso-tool:before { content: '\e803'; } /* '' */
-.cmmn-icon-space-tool:before { content: '\e804'; } /* '' */
-.cmmn-icon-hand-tool:before { content: '\e805'; } /* '' */
-.cmmn-icon-case-plan-model:before { content: '\e806'; } /* '' */
-.cmmn-icon-stage-expanded:before { content: '\e807'; } /* '' */
-.cmmn-icon-milestone:before { content: '\e808'; } /* '' */
-.cmmn-icon-text-annotation:before { content: '\e809'; } /* '' */
-.cmmn-icon-task:before { content: '\e80a'; } /* '' */
-.cmmn-icon-case-task:before { content: '\e80b'; } /* '' */
-.cmmn-icon-case-task-discretionary:before { content: '\e80c'; } /* '' */
-.cmmn-icon-decision-task:before { content: '\e80d'; } /* '' */
-.cmmn-icon-decision-task-discretionary:before { content: '\e80e'; } /* '' */
-.cmmn-icon-human-blocking-task:before { content: '\e80f'; } /* '' */
-.cmmn-icon-human-blocking-task-discretionary:before { content: '\e810'; } /* '' */
-.cmmn-icon-human-non-blocking-task:before { content: '\e811'; } /* '' */
-.cmmn-icon-human-non-blocking-task-discretionary:before { content: '\e812'; } /* '' */
-.cmmn-icon-process-task:before { content: '\e813'; } /* '' */
-.cmmn-icon-process-task-discretionary:before { content: '\e814'; } /* '' */
-.cmmn-icon-task-discretionary:before { content: '\e815'; } /* '' */
-.cmmn-icon-task-none:before { content: '\e816'; } /* '' */
-.cmmn-icon-entry-criterion:before { content: '\e817'; } /* '' */
-.cmmn-icon-exit-criterion:before { content: '\e818'; } /* '' */
-.cmmn-icon-case-file-item:before { content: '\e819'; } /* '' */
-.cmmn-icon-connection:before { content: '\e81a'; } /* '' */
-.cmmn-icon-event-listener:before { content: '\e81b'; } /* '' */
-.cmmn-icon-timer-event-listener:before { content: '\e81c'; } /* '' */
-.cmmn-icon-user-event-listener:before { content: '\e81d'; } /* '' */
-.cmmn-icon-auto-complete-marker:before { content: '\e81e'; } /* '' */
-.cmmn-icon-manual-activation-marker:before { content: '\e81f'; } /* '' */
-.cmmn-icon-repetition-marker:before { content: '\e820'; } /* '' */
-.cmmn-icon-blocking:before { content: '\e821'; } /* '' */
-.cmmn-icon-required-marker:before { content: '\e822'; } /* '' */
-.cmmn-icon-plan-fragment-collapsed-discretionary:before { content: '\e823'; } /* '' */
-.cmmn-icon-plan-fragment-expanded-discretionary:before { content: '\e824'; } /* '' */
-.cmmn-icon-stage-collapsed:before { content: '\e825'; } /* '' */
-.cmmn-icon-stage-collapsed-discretionary:before { content: '\e826'; } /* '' */
-.cmmn-icon-stage-expanded-discretionary:before { content: '\e827'; } /* '' */
+.cmmn-icon-bpmn-io:before { content: '\e800'; } /* 'î €' */
+.cmmn-icon-screw-wrench:before { content: '\e801'; } /* 'î �' */
+.cmmn-icon-trash:before { content: '\e802'; } /* 'î ‚' */
+.cmmn-icon-lasso-tool:before { content: '\e803'; } /* 'î ƒ' */
+.cmmn-icon-space-tool:before { content: '\e804'; } /* 'î „' */
+.cmmn-icon-hand-tool:before { content: '\e805'; } /* 'î …' */
+.cmmn-icon-case-plan-model:before { content: '\e806'; } /* 'î †' */
+.cmmn-icon-stage-expanded:before { content: '\e807'; } /* 'î ‡' */
+.cmmn-icon-milestone:before { content: '\e808'; } /* 'î ˆ' */
+.cmmn-icon-text-annotation:before { content: '\e809'; } /* 'î ‰' */
+.cmmn-icon-task:before { content: '\e80a'; } /* 'î Š' */
+.cmmn-icon-case-task:before { content: '\e80b'; } /* 'î ‹' */
+.cmmn-icon-case-task-discretionary:before { content: '\e80c'; } /* 'î Œ' */
+.cmmn-icon-decision-task:before { content: '\e80d'; } /* 'î �' */
+.cmmn-icon-decision-task-discretionary:before { content: '\e80e'; } /* 'î Ž' */
+.cmmn-icon-human-blocking-task:before { content: '\e80f'; } /* 'î �' */
+.cmmn-icon-human-blocking-task-discretionary:before { content: '\e810'; } /* 'î �' */
+.cmmn-icon-human-non-blocking-task:before { content: '\e811'; } /* 'î ‘' */
+.cmmn-icon-human-non-blocking-task-discretionary:before { content: '\e812'; } /* 'î ’' */
+.cmmn-icon-process-task:before { content: '\e813'; } /* 'î “' */
+.cmmn-icon-process-task-discretionary:before { content: '\e814'; } /* 'î ”' */
+.cmmn-icon-task-discretionary:before { content: '\e815'; } /* 'î •' */
+.cmmn-icon-task-none:before { content: '\e816'; } /* 'î –' */
+.cmmn-icon-entry-criterion:before { content: '\e817'; } /* 'î —' */
+.cmmn-icon-exit-criterion:before { content: '\e818'; } /* 'î ˜' */
+.cmmn-icon-case-file-item:before { content: '\e819'; } /* 'î ™' */
+.cmmn-icon-connection:before { content: '\e81a'; } /* 'î š' */
+.cmmn-icon-event-listener:before { content: '\e81b'; } /* 'î ›' */
+.cmmn-icon-timer-event-listener:before { content: '\e81c'; } /* 'î œ' */
+.cmmn-icon-user-event-listener:before { content: '\e81d'; } /* 'î �' */
+.cmmn-icon-auto-complete-marker:before { content: '\e81e'; } /* 'î ž' */
+.cmmn-icon-manual-activation-marker:before { content: '\e81f'; } /* 'î Ÿ' */
+.cmmn-icon-repetition-marker:before { content: '\e820'; } /* 'î  ' */
+.cmmn-icon-blocking:before { content: '\e821'; } /* 'î ¡' */
+.cmmn-icon-required-marker:before { content: '\e822'; } /* 'î ¢' */
+.cmmn-icon-plan-fragment-collapsed-discretionary:before { content: '\e823'; } /* 'î £' */
+.cmmn-icon-plan-fragment-expanded-discretionary:before { content: '\e824'; } /* 'î ¤' */
+.cmmn-icon-stage-collapsed:before { content: '\e825'; } /* 'î ¥' */
+.cmmn-icon-stage-collapsed-discretionary:before { content: '\e826'; } /* 'î ¦' */
+.cmmn-icon-stage-expanded-discretionary:before { content: '\e827'; } /* 'î §' */
 </style>  
 
 <!--

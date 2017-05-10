@@ -1,0 +1,113 @@
+<form enctype="multipart/form-data" id="uploadFormCMIS" class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="control-label col-md-4">Applicant</label>
+        <div class="col-md-8">
+          {{application.applicant.name}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">Reference Number</label>
+        <div class="col-md-8">
+          {{referenceId}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4" for="file">Upload your Document</label>
+        <div class="col-md-8">
+            <p ng-if="uploadedDocuments"><strong>Recently uploaded documents</strong><br/>
+                <ul>
+                    <li ng-repeat="obj in uploadedDocuments">{{obj.name}}</li>
+                </ul>
+            </p>
+            <input name="file" type="file" class="form-control"/>
+            <div class="uploaded-file">
+                <input style="display:none" type="text" name="folderName" readonly cam-variable-name="folderName" cam-variable-type="String"/>
+            </div>
+            <div class="help-block {{fileUploadHelpBlockClass}}" ng-show="fileUploadHelpBlockShow">This field is required</div>
+            <p ng-if="error">{{error}}</p>
+            <div class="upload-area" ng-show="showUploadArea">
+                <img src="/camunda-invoice-box/assets/img/ajax-loader.gif" ng-show="showProgressIndicator" style="width:30px;margin-top:10px;"/>
+                <input ng-show="showUploadBtn" ng-click="uploadFile()" type="button" value="Upload" class="btn btn-primary upload-btn"/>
+            </div>
+        </div>
+    </div>
+
+    <script cam-script type="text/form-script">
+        camForm.on('form-loaded', function() {
+          camForm.variableManager.fetchVariable('application');
+          camForm.variableManager.fetchVariable('referenceId');
+        });
+        camForm.on('variables-fetched', function() {
+          $scope.application = camForm.variableManager.variable('application').value;
+          $scope.referenceId = camForm.variableManager.variable('referenceId').value;
+        });
+
+        $scope.showUploadArea = false;
+        $scope.showUploadBtn = true;
+        $scope.showProgressIndicator = false;
+    
+        var $form = $('#uploadFormCMIS');
+        var $fileUploadHelpBlock = $('.help-block', $form);
+        $('input[type="file"]', $form).change(function() {
+            var hasFile = $('input[type="file"]', $form)[0].files.length > 0;
+            if (hasFile) {
+                $scope.showUploadArea = true;
+            } else {
+                $scope.showUploadArea = false;
+            }
+            $scope.$apply();
+        });
+        $('.upload-btn').click(function(){
+            var formData = new FormData($form[0]);
+            $scope.showProgressIndicator = true;
+            $scope.showUploadBtn = false;
+            $scope.fileUploadHelpBlockShow = false;
+            $scope.fileUploadHelpBlockClass = '';
+            $.ajax({
+                url: '/camunda-showcase-insurance-application/rest/rest/upload',  //Server script to process data
+                type: 'POST',
+                success: function(data) {
+                    if (data != null) {
+                        var response = JSON.parse(data);
+                        var filename = response.filename;
+                        $('input[name="folderName"]').val(response.uniqueID);
+                        $scope.showProgressIndicator = false;
+                        $scope.showUploadBtn = true;
+                        
+                        if (response.success) {
+                            if ($scope.uploadedDocuments != null) {
+                                $scope.uploadedDocuments.push({name:filename});
+                            } else {
+                                var uploadedDocuments = [];
+                                uploadedDocuments.push({name:filename});
+                                $scope.uploadedDocuments = uploadedDocuments;
+                            }
+                            if ($scope.error) {
+                                delete $scope.error;
+                            }
+                        } else {
+                            $scope.error = 'There was an error while uploading the file. Please try again.';
+                        }
+                        $scope.$apply();
+                    }
+                },
+                data: formData,
+                //Options to tell jQuery not to process data or worry about content-type.
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+        camForm.on('submit', function(evt) {
+            if ($scope.uploadedDocuments == null || $scope.uploadedDocuments.length<1) {
+                evt.submitPrevented = true;
+                $scope.fileUploadHelpBlockShow = true;
+                $scope.fileUploadHelpBlockClass = 'error';
+            } else {
+                $scope.fileUploadHelpBlockShow = false;
+                $scope.fileUploadHelpBlockClass = '';
+            }
+        });
+    </script>
+</form>
+

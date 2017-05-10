@@ -30,6 +30,7 @@ public class InsuranceProcessApplication extends ServletProcessApplication {
   @PostDeploy
   public void setupEnvironmentForDemo(ProcessEngine engine) {
 //    ProcessApplicationDemoSetup.executeDefaultSetup(engine, PROCESS_DEFINITION_KEY, getReference());
+    ProcessApplicationDemoSetup.executeDefaultSetup(engine, "documentRequest", getReference());
     LicenseHelper.setLicense(engine);
     UserDataGenerator.createDefaultUsers(engine);
     

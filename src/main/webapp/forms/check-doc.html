@@ -1,0 +1,86 @@
+<form class="" role="form">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <div class="">
+            <h3>Application</h3>
+            <table class="table table-striped">
+               <tr>
+                  <td><b>Application number</b></td>
+                  <td><b>{{application.number}}</b></td>
+               </tr>
+               <tr>
+                  <td>Applicant</td>
+                  <td>{{application.applicant.name}}</td>
+               </tr>    
+               <tr>
+                  <td>Age</td>
+                  <td>{{application.applicant.age}}</td>
+               </tr>               
+               <tr>
+                  <td>Car</td>
+                  <td>{{application.car.manufacturer}} {{application.car.type}}</td>
+               </tr>
+               <tr>
+                  <td>Insurance product</td>
+                  <td>{{application.insuranceProduct}}</td>
+               </tr>  
+             </table>             
+                    <p><strong>Documents</strong></p>
+                    <ul>
+                        <li ng-repeat="obj in files">
+                            <span tooltip="{{obj.date}}">{{obj.filename}} (Version: {{obj.version}})</span>
+                            <br/>
+                            <a href="/camunda-showcase-insurance-application/rest/rest/filePreview?fileId={{obj.id}}&fileName={{obj.filename}}">Download</a> | <a href="" ng-if="obj.filename.indexOf('pdf') > -1" ng-click="previewFile(obj.filename,obj.id)">Preview</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <strong>{{previewname}}</strong>
+            <object data="" type="application/pdf" width="100%" height="400px" style="border: 1px solid #ccc">
+            	<embed type="application/pdf" src=""></embed>
+            </object>
+        </div>
+        <div class="col-xs-6">
+            <p>Do you approve this document?</p>
+
+            <div class="form-group">
+                <div class="">
+                    <div class="checkbox">
+                        <label>
+                            <input cam-variable-name="approved" cam-variable-type="Boolean" type="checkbox" name="approved" class="form-control" /> Do you approve?
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script cam-script type="text/form-script">
+      inject([ '$scope', '$http', 'Uri', function($scope, $http, Uri) {
+        camForm.on('form-loaded', function() {
+          $scope.previewFile = function(fileName, fileId) {
+            $scope.previewname = "Preview for " + fileName;
+			var newElement = "<embed type='application/pdf' src='/camunda-showcase-insurance-application/rest/rest/filePreview?inline=true&fileId="+fileId+"&fileName="+fileName+"'/>";
+			$('object').attr('data','/camunda-showcase-insurance-application/rest/rest/filePreview?inline=true&fileId='+fileId+'&fileName='+fileName);
+			$('object embed').remove();
+			$('object').append(newElement);
+          };
+
+          camForm.variableManager.fetchVariable('files');
+          camForm.variableManager.fetchVariable('folderName');
+          camForm.variableManager.fetchVariable('application');
+        });
+        camForm.on('variables-fetched', function() {
+          // work with the variable (bind it to the current AngularJS $scope)
+          var files = camForm.variableManager.variableValue('files');
+          var folderName = camForm.variableManager.variableValue('folderName');
+          if (files != null) {
+            $scope.files = JSON.parse(files);
+            $scope.folderName = folderName;
+          }
+          $scope.application = camForm.variableManager.variable('application').value;
+        });
+      }]);
+    </script>
+</form>
