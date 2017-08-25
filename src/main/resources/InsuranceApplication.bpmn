@@ -11,7 +11,7 @@
         <camunda:property name="simulateTimeBetweenStartsBusinessDaysSd" value="6000" />
       </camunda:properties>
     </bpmn2:extensionElements>
-    <bpmn2:startEvent id="StartEvent_1" name="Application&#10;&#10;received" camunda:asyncAfter="true">
+    <bpmn2:startEvent id="StartEvent_1" name="Application&#10;&#10;received" camunda:asyncAfter="true" camunda:formKey="app:online/">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property name="KPI-Cycle-Start" value="Decide about application" />
