@@ -9,7 +9,7 @@ public class CreateReferenceIdAdapter implements JavaDelegate {
 
   @Override
   public void execute(DelegateExecution execution) throws Exception {
-    execution.setVariable(ProcessConstants.VAR_NAME_refernceId, String.valueOf(System.currentTimeMillis()));
+    execution.setVariable(ProcessConstants.VAR_NAME_documentReferenceId, String.valueOf(System.currentTimeMillis()));
   }
 
 }

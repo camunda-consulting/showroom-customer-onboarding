@@ -1,6 +1,7 @@
 {
-  "name": "Camunda Showcase Template",
-  "repository": "https://github.com/camunda-consulting/camunda-showcase-template",
+  "name": "Demo Insurance Application",
+  "description": "Showcase for Camunda BPM platform",
+  "repository": "https://github.com/camunda-consulting/camunda-showcase-insurance-application",
   "logo": "https://camunda.com/img/camunda/icon.png",
-  "keywords": ["camunda"]
+  "keywords": ["camunda", "showcase"]
 }

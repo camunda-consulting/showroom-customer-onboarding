@@ -16,25 +16,31 @@ public class MapDmnResult implements ExecutionListener {
   @Override
   public void notify(DelegateExecution execution) throws Exception {
     List<String> risks = new ArrayList<String>();
-    Set<String> riskAssessments = new HashSet<String>();
-    
-    //DmnDecisionOutput vs DmnDecisionResult
-    List<Map<String, Object>> resultList = (List<Map<String, Object>>) execution.getVariable("riskAssessmentResult");
-    for (Map<String, Object> result : resultList) {
-      risks.add((String)result.get("risk"));
-      if (result.get("riskAssessment")!=null) {
-        riskAssessments.add(((String)result.get("riskAssessment")).toLowerCase());      
+    Set<String> riskLevels = new HashSet<String>();
+
+    Object oDMNresult = execution.getVariable("riskDMNresult");
+    if (!(oDMNresult instanceof List<?>)) {
+      throw new RuntimeException("DMN did not return list");
+    }
+    for (Object oResult : (List<?>) oDMNresult) {
+      if (!(oResult instanceof Map<?, ?>)) {
+        throw new RuntimeException("DMN result list does not contain map");
+      }
+      Map<?, ?> result = (Map<?, ?>) oResult;
+      risks.add((String) result.get("risk"));
+      if (result.get("riskLevel") != null) {
+        riskLevels.add(((String) result.get("riskLevel")).toLowerCase());
       }
     }
 
-    String riskAssessment = "green";
-    if (riskAssessments.contains("red")) {
-      riskAssessment = "red";
-    } else if (riskAssessments.contains("yellow")) {
-      riskAssessment = "yellow";
+    String accumulatedRiskLevel = "green";
+    if (riskLevels.contains("rot") || riskLevels.contains("red")) {
+      accumulatedRiskLevel = "red";
+    } else if (riskLevels.contains("gelb") || riskLevels.contains("yellow")) {
+      accumulatedRiskLevel = "yellow";
     }
     execution.setVariable("risks", Variables.objectValue(risks).serializationDataFormat(SerializationDataFormats.JSON).create());
-    execution.setVariable("riskAssessment", riskAssessment);
+    execution.setVariable("riskLevel", accumulatedRiskLevel);
   }
 
 }

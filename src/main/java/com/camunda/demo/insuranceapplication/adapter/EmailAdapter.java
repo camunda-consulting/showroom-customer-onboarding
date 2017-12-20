@@ -6,7 +6,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import com.camunda.demo.insuranceapplication.ProcessConstants;
-import com.camunda.demo.insuranceapplication.model.Application;
+import com.camunda.demo.insuranceapplication.model.NewApplication;
 
 public class EmailAdapter implements JavaDelegate {
 
@@ -14,16 +14,15 @@ public class EmailAdapter implements JavaDelegate {
   @Override
   public void execute(DelegateExecution execution) throws Exception {
     // get service reference
-	SendEmailService sendEmailService = new SendEmailService();
-	  
-	// data input mapping
-	String mailtext = (String) execution.getVariable("mailBody");
+    SendEmailService sendEmailService = new SendEmailService();
+
+    // data input mapping
+    String mailtext = (String) execution.getVariable("mailBody");
     String subject = (String) execution.getVariable("mailSubject");
-    Application application = (Application) execution.getVariable(ProcessConstants.VAR_NAME_application);
+    NewApplication application = (NewApplication) execution.getVariable(ProcessConstants.VAR_NAME_application);
     String email = application.getApplicant().getEmail();
-    
+
     // service call
     sendEmailService.sendEmail(email, mailtext, subject);
   }
-
 }

@@ -7,13 +7,14 @@ public class Person {
 
   private String name;
   private String email;
-  private Date dateOfBirth;
-  private String gender = "male"; // or female
+  private Date birthday;
+  // TODO: EN/DE switch
+  private String sex = "Frau";
   private int age;
   
-  public int calculateAge(Date atDate) {
+  public int calculateAlter(Date atDate) {
     Calendar dob = Calendar.getInstance();  
-    dob.setTime(dateOfBirth);  
+    dob.setTime(birthday);  
     Calendar today = Calendar.getInstance(); 
     today.setTime(atDate);
     
@@ -28,17 +29,20 @@ public class Person {
     return age;
   }
   
-  public void setDateOfBirth(Date geburtsdatum) {
-    this.dateOfBirth = geburtsdatum;
-     setAge(calculateAge(new Date()));
+  public Date getBirthday() {
+    return birthday;
+  }
+  public void setBirthday(Date birthday) {
+    this.birthday = birthday;
+     setAge(calculateAlter(new Date()));
   }
 
-  public String getName() {
-    return name;
+  public String getSex() {
+    return sex;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setSex(String sex) {
+    this.sex = sex;
   }
 
   public String getEmail() {
@@ -49,12 +53,12 @@ public class Person {
     this.email = email;
   }
 
-  public String getGender() {
-    return gender;
+  public String getName() {
+    return name;
   }
 
-  public void setGender(String gender) {
-    this.gender = gender;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public int getAge() {
@@ -64,9 +68,4 @@ public class Person {
   public void setAge(int age) {
     this.age = age;
   }
-
-  public Date getDateOfBirth() {
-    return dateOfBirth;
-  }
-
 }

@@ -1,40 +1,73 @@
 
 $( document ).ready(function() {
+	autofillWorkaround();
+	
+	var lang = "en";
+	
+	// fill fields from URL and remember language
+	(new URL(window.location.href)).searchParams.forEach((x, y) => {
+		if (y == "lang") {
+			lang = x;
+		}
+		var field = document.getElementById(y);
+		if (field) {
+			document.getElementById(y).value = x;
+	}});
 
-  var priceindicationInCent = 0;
+// // set URL to reach UI
+// if ($('#uiUrl')) {
+// var url = window.location;
+// var paths = url.pathname.split('/');
+// var guiUrl = url .protocol + "//" + url.host + "/";
+// paths.slice(0,paths.length -1).forEach((x) => guiUrl += x + "/");
+// $('#uiUrl').val(guiUrl);
+// }
+
+  var preisindikationInCent = 0;
+
+  // $('#birthdate').on('change', function() {
+  // console.log($('#birthdate').val());
+  // });
+
+  // Removed Auth
+	// beforeSend = function(xhr) {
+	// xhr.setRequestHeader('Authorization', 'Basic ' +
+	// window.btoa(unescape(encodeURIComponent('${camunda.rest.username}' + ':'
+	// + '${camunda.rest.password}'))))
+	// };
+
 
 	var pathArray = window.location.pathname.split( '/' );
 	var baseUrl = window.location.protocol + "//" + window.location.host + "/" + pathArray[1] + "/api";
 
   // Start single Process Instance
   $('#triggerStartApplication').click(function() {
-        var application = {
+        var neuantrag = {
           "applicant" : {
-               "name":         $('#applicantName').val(),
-               "gender":   $('#selectSex').val(),
-               "dateOfBirth": $('#birthdate').val() + "T00:00:00",
+               "name":         $('#applicant').val(),
+               "sex":   $('#selectSex').val(),
+               "birthday": $('#birthdate').val() + "T00:00:00",
                "email":        $('#email').val()
               },
-          "car" : {
-	          "manufacturer": $('#carManufacturer').val(),
-  	        "type":       $('#carType').val(),
-          },
-          "insuranceProduct": "Camundanzia Super Safe Plus",
-          "priceIndicationInCents": getPrice() * 100
+          "vehicleManufacturer": $('#vehicleManufacturer').val(),
+          "vehicleType":       $('#vehicleType').val(),
+          "product": "Camundanzia Vollkasko Plus",
+          "priceIndicationInCent": getPrice() * 100
+          // ,
+          // "uiUrl": $('#uiUrl').val()
           };
 
-        var data = JSON.stringify(application);
-        var url = baseUrl + "/insuranceApplication";
-
+        var data = JSON.stringify(neuantrag);
+       
         console.log( data );
 
         $.ajax({
               type: 'POST',
-              url: url,
+              url: baseUrl + "/new-application/" + lang,
               data: data,
               contentType: 'application/json; charset=utf-8',
-              dataType: 'json',
-              success: function (info) {
+              success: function(result) {
+            	  	  $('#applicationId').text(result);
                   $('#applicationReceived').toggle();
                   $('#fieldsetForm').toggle();
               },
@@ -45,7 +78,7 @@ $( document ).ready(function() {
 
   // correlate message for Antrag
   $('#triggerUploadDocuments').click(function() {
-  	
+	  debugger;
 	      var fileUpload = $('#documentToUpload').get(0);
 
      	  var fileVar = {};
@@ -61,7 +94,7 @@ $( document ).ready(function() {
 	            }
 	            fileVar.value = btoa(binary);
 	
-	            // set file metadata as value info 
+	            // set file metadata as value info
 	            fileVar.type = 'File';
 	            fileVar.valueInfo = {
 	                filename: fileUpload.files[0].name,
@@ -98,79 +131,198 @@ $( document ).ready(function() {
 
 
   // Dynamic stuff to fill data into car selection
-  $('#carManufacturer').on('change', function() {
-      if ($('#carManufacturer').val() == "VW") {
-        $('#carType').children()[0].value = 'Beatle';  $('#carType').children()[0].text = 'Beatle';
-        $('#carType').children()[1].value = 'Golf IV'; $('#carType').children()[1].text = 'Golf IV';
-        $('#carType').children()[2].value = 'Golf V';  $('#carType').children()[2].text = 'Golf V';
-        $('#carType').children()[3].value = 'Passat';  $('#carType').children()[3].text = 'Passat';
+  $('#vehicleManufacturer').on('change', function() {
+      if ($('#vehicleManufacturer').val() == "VW") {
+        $('#vehicleType').children()[0].value = 'Beatle';  $('#vehicleType').children()[0].text = 'Beatle';
+        $('#vehicleType').children()[1].value = 'Golf IV'; $('#vehicleType').children()[1].text = 'Golf IV';
+        $('#vehicleType').children()[2].value = 'Golf V';  $('#vehicleType').children()[2].text = 'Golf V';
+        $('#vehicleType').children()[3].value = 'Passat';  $('#vehicleType').children()[3].text = 'Passat';
       }
-      if ($('#carManufacturer').val() == "BMW") {
-        $('#carType').children()[0].value = '318i';  $('#carType').children()[0].text = '318i';
-        $('#carType').children()[1].value = '525i';  $('#carType').children()[1].text = '525i';
-        $('#carType').children()[2].value = '735i';  $('#carType').children()[2].text = '735i';
-        $('#carType').children()[3].value = 'X3';    $('#carType').children()[3].text = 'X3';
+      if ($('#vehicleManufacturer').val() == "BMW") {
+        $('#vehicleType').children()[0].value = '318i';  $('#vehicleType').children()[0].text = '318i';
+        $('#vehicleType').children()[1].value = '525i';  $('#vehicleType').children()[1].text = '525i';
+        $('#vehicleType').children()[2].value = '735i';  $('#vehicleType').children()[2].text = '735i';
+        $('#vehicleType').children()[3].value = 'X3';    $('#vehicleType').children()[3].text = 'X3';
       }
-      if ($('#carManufacturer').val() == "Porsche") {
-        $('#carType').children()[0].value = '911';       $('#carType').children()[0].text = '911';
-        $('#carType').children()[1].value = '925';       $('#carType').children()[1].text = '925';
-        $('#carType').children()[2].value = 'Boxster';   $('#carType').children()[2].text = 'Boxster';
-        $('#carType').children()[3].value = 'Cayenne';  $('#carType').children()[3].text = 'Cayenne';
+      if ($('#vehicleManufacturer').val() == "Porsche") {
+        $('#vehicleType').children()[0].value = '911';       $('#vehicleType').children()[0].text = '911';
+        $('#vehicleType').children()[1].value = '925';       $('#vehicleType').children()[1].text = '925';
+        $('#vehicleType').children()[2].value = 'Boxster';   $('#vehicleType').children()[2].text = 'Boxster';
+        $('#vehicleType').children()[3].value = 'Cayenne';  $('#vehicleType').children()[3].text = 'Cayenne';
       }
-      if ($('#carManufacturer').val() == "Audi") {
-        $('#carType').children()[0].value = 'A3';  $('#carType').children()[0].text = 'A3';
-        $('#carType').children()[1].value = 'A4';  $('#carType').children()[1].text = 'A4';
-        $('#carType').children()[2].value = 'A6';  $('#carType').children()[2].text = 'A6';
-        $('#carType').children()[3].value = 'A8';  $('#carType').children()[3].text = 'A8';
+      if ($('#vehicleManufacturer').val() == "Audi") {
+        $('#vehicleType').children()[0].value = 'A3';  $('#vehicleType').children()[0].text = 'A3';
+        $('#vehicleType').children()[1].value = 'A4';  $('#vehicleType').children()[1].text = 'A4';
+        $('#vehicleType').children()[2].value = 'A6';  $('#vehicleType').children()[2].text = 'A6';
+        $('#vehicleType').children()[3].value = 'A8';  $('#vehicleType').children()[3].text = 'A8';
       }
-      calculatePrice(priceindicationInCent);
+      calculatePrice(preisindikationInCent);
   });
 
-  $('#carType').on('change', function() {
-      calculatePrice(priceindicationInCent);
+  $('#vehicleType').on('change', function() {
+      calculatePrice(preisindikationInCent);
   });
 
-function calculatePrice(priceindicationInCent) {
-   if ($('#carManufacturer').val() == "VW" && $('#carType').val()=="Beatle") { priceindicationInCent = 120}
-   if ($('#carManufacturer').val() == "VW" && $('#carType').val()=="Golf IV") {priceindicationInCent = 160}
-   if ($('#carManufacturer').val() == "VW" && $('#carType').val()=="Golf V") {priceindicationInCent = 150}
-   if ($('#carManufacturer').val() == "VW" && $('#carType').val()=="Passat") {priceindicationInCent = 150}
-   if ($('#carManufacturer').val() == "BMW" && $('#carType').val()=="318i") {priceindicationInCent = 190}
-   if ($('#carManufacturer').val() == "BMW" && $('#carType').val()=="525i") {priceindicationInCent = 210}
-   if ($('#carManufacturer').val() == "BMW" && $('#carType').val()=="735i") {priceindicationInCent = 240}
-   if ($('#carManufacturer').val() == "BMW" && $('#carType').val()=="X3") {priceindicationInCent = 280}
-   if ($('#carManufacturer').val() == "Porsche" && $('#carType').val()=="911") {priceindicationInCent = 310}
-   if ($('#carManufacturer').val() == "Porsche" && $('#carType').val()=="925") {priceindicationInCent = 300}
-   if ($('#carManufacturer').val() == "Porsche" && $('#carType').val()=="Boxster") {priceindicationInCent = 290}
-   if ($('#carManufacturer').val() == "Porsche" && $('#carType').val()=="Cayenne") {priceindicationInCent = 300}
-   if ($('#carManufacturer').val() == "Audi" && $('#carType').val()=="A3") {priceindicationInCent = 180}
-   if ($('#carManufacturer').val() == "Audi" && $('#carType').val()=="A4") {priceindicationInCent = 180}
-   if ($('#carManufacturer').val() == "Audi" && $('#carType').val()=="A6") {priceindicationInCent = 200}
-   if ($('#carManufacturer').val() == "Audi" && $('#carType').val()=="A8") {priceindicationInCent = 280}
+function calculatePrice(preisindikationInCent) {
+   if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val()=="Beatle") { preisindikationInCent = 120}
+   if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val()=="Golf IV") {preisindikationInCent = 160}
+   if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val()=="Golf V") {preisindikationInCent = 150}
+   if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val()=="Passat") {preisindikationInCent = 150}
+   if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val()=="318i") {preisindikationInCent = 190}
+   if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val()=="525i") {preisindikationInCent = 210}
+   if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val()=="735i") {preisindikationInCent = 240}
+   if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val()=="X3") {preisindikationInCent = 280}
+   if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val()=="911") {preisindikationInCent = 310}
+   if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val()=="925") {preisindikationInCent = 300}
+   if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val()=="Boxster") {preisindikationInCent = 290}
+   if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val()=="Cayenne") {preisindikationInCent = 300}
+   if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val()=="A3") {preisindikationInCent = 180}
+   if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val()=="A4") {preisindikationInCent = 180}
+   if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val()=="A6") {preisindikationInCent = 200}
+   if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val()=="A8") {preisindikationInCent = 280}
 
-   $('#priceindicationInCent').val(priceindicationInCent + " $");
+   $('#priceIndicationInCent').val(preisindikationInCent + ",00 EUR");
 }
 
 function getPrice() {
-  var priceindicationInCent;
-   if ($('#carManufacturer').val() == "VW" && $('#carType').val()=="Beatle") { priceindicationInCent = 120}
-   if ($('#carManufacturer').val() == "VW" && $('#carType').val()=="Golf IV") {priceindicationInCent = 160}
-   if ($('#carManufacturer').val() == "VW" && $('#carType').val()=="Golf V") {priceindicationInCent = 150}
-   if ($('#carManufacturer').val() == "VW" && $('#carType').val()=="Passat") {priceindicationInCent = 150}
-   if ($('#carManufacturer').val() == "BMW" && $('#carType').val()=="318i") {priceindicationInCent = 190}
-   if ($('#carManufacturer').val() == "BMW" && $('#carType').val()=="525i") {priceindicationInCent = 210}
-   if ($('#carManufacturer').val() == "BMW" && $('#carType').val()=="735i") {priceindicationInCent = 240}
-   if ($('#carManufacturer').val() == "BMW" && $('#carType').val()=="X3") {priceindicationInCent = 280}
-   if ($('#carManufacturer').val() == "Porsche" && $('#carType').val()=="911") {priceindicationInCent = 310}
-   if ($('#carManufacturer').val() == "Porsche" && $('#carType').val()=="925") {priceindicationInCent = 300}
-   if ($('#carManufacturer').val() == "Porsche" && $('#carType').val()=="Boxster") {priceindicationInCent = 290}
-   if ($('#carManufacturer').val() == "Porsche" && $('#carType').val()=="Cayenne") {priceindicationInCent = 300}
-   if ($('#carManufacturer').val() == "Audi" && $('#carType').val()=="A3") {priceindicationInCent = 180}
-   if ($('#carManufacturer').val() == "Audi" && $('#carType').val()=="A4") {priceindicationInCent = 180}
-   if ($('#carManufacturer').val() == "Audi" && $('#carType').val()=="A6") {priceindicationInCent = 200}
-   if ($('#carManufacturer').val() == "Audi" && $('#carType').val()=="A8") {priceindicationInCent = 280}
+  var preisindikationInCent;
+   if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val()=="Beatle") { preisindikationInCent = 120}
+   if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val()=="Golf IV") {preisindikationInCent = 160}
+   if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val()=="Golf V") {preisindikationInCent = 150}
+   if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val()=="Passat") {preisindikationInCent = 150}
+   if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val()=="318i") {preisindikationInCent = 190}
+   if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val()=="525i") {preisindikationInCent = 210}
+   if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val()=="735i") {preisindikationInCent = 240}
+   if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val()=="X3") {preisindikationInCent = 280}
+   if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val()=="911") {preisindikationInCent = 310}
+   if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val()=="925") {preisindikationInCent = 300}
+   if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val()=="Boxster") {preisindikationInCent = 290}
+   if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val()=="Cayenne") {preisindikationInCent = 300}
+   if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val()=="A3") {preisindikationInCent = 180}
+   if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val()=="A4") {preisindikationInCent = 180}
+   if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val()=="A6") {preisindikationInCent = 200}
+   if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val()=="A8") {preisindikationInCent = 280}
 
-   return priceindicationInCent;
+   return preisindikationInCent;
 }
-
 });
+
+function autofillWorkaround() {
+	 /**
+	  * Autofill event polyfill ##version:1.0.0##
+	  * (c) 2014 Google, Inc.
+	  * License: MIT
+	  */
+	 (function(window) {
+	   var $ = window.jQuery || window.angular.element;
+	   var rootElement = window.document.documentElement,
+	     $rootElement = $(rootElement);
+
+	   addGlobalEventListener('change', markValue);
+	   addValueChangeByJsListener(markValue);
+
+	   $.prototype.checkAndTriggerAutoFillEvent = jqCheckAndTriggerAutoFillEvent;
+
+	   // Need to use blur and not change event
+	   // as Chrome does not fire change events in all cases an input is changed
+	   // (e.g. when starting to type and then finish the input by auto filling a username)
+	   addGlobalEventListener('blur', function(target) {
+	     // setTimeout needed for Chrome as it fills other
+	     // form fields a little later...
+	     window.setTimeout(function() {
+	       findParentForm(target).find('input').checkAndTriggerAutoFillEvent();
+	     }, 20);
+	   });
+
+	   window.document.addEventListener('DOMContentLoaded', function() {
+	     // The timeout is needed for Chrome as it auto fills
+	     // login forms some time after DOMContentLoaded!
+	     window.setTimeout(function() {
+	       $rootElement.find('input').checkAndTriggerAutoFillEvent();
+	     }, 200);
+	   }, false);
+
+	   return;
+
+	   // ----------
+
+	   function jqCheckAndTriggerAutoFillEvent() {
+	     var i, el;
+	     for (i=0; i<this.length; i++) {
+	       el = this[i];
+	       if (!valueMarked(el)) {
+	         markValue(el);
+	         triggerChangeEvent(el);
+	       }
+	     }
+	   }
+
+	   function valueMarked(el) {
+	     var val = el.value,
+	          $$currentValue = el.$$currentValue;
+	     if (!val && !$$currentValue) {
+	       return true;
+	     }
+	     return val === $$currentValue;
+	   }
+
+	   function markValue(el) {
+	     el.$$currentValue = el.value;
+	   }
+
+	   function addValueChangeByJsListener(listener) {
+	     var jq = window.jQuery || window.angular.element,
+	         jqProto = jq.prototype;
+	     var _val = jqProto.val;
+	     jqProto.val = function(newValue) {
+	       var res = _val.apply(this, arguments);
+	       if (arguments.length > 0) {
+	         forEach(this, function(el) {
+	           listener(el, newValue);
+	         });
+	       }
+	       return res;
+	     }
+	   }
+
+	   function addGlobalEventListener(eventName, listener) {
+	     // Use a capturing event listener so that
+	     // we also get the event when it's stopped!
+	     // Also, the blur event does not bubble.
+	     rootElement.addEventListener(eventName, onEvent, true);
+
+	     function onEvent(event) {
+	       var target = event.target;
+	       listener(target);
+	     }
+	   }
+
+	   function findParentForm(el) {
+	     while (el) {
+	       if (el.nodeName === 'FORM') {
+	         return $(el);
+	       }
+	       el = el.parentNode;
+	     }
+	     return $();
+	   }
+
+	   function forEach(arr, listener) {
+	     if (arr.forEach) {
+	       return arr.forEach(listener);
+	     }
+	     var i;
+	     for (i=0; i<arr.length; i++) {
+	       listener(arr[i]);
+	     }
+	   }
+
+	   function triggerChangeEvent(element) {
+	     var doc = window.document;
+	     var event = doc.createEvent("HTMLEvents");
+	     event.initEvent("change", true, true);
+	     element.dispatchEvent(event);
+	   }
+
+	 })(window);
+}

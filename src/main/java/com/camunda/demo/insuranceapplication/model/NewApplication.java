@@ -1,0 +1,113 @@
+package com.camunda.demo.insuranceapplication.model;
+
+import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+public class NewApplication {
+  
+  private String applicationNumber = generateUUID();
+
+  private Person applicant;
+  private String vehicleManufacturer;
+  private String vehicleType;
+  
+  private String product;
+  
+  private String contractNumber;
+  private long priceIndicationInCent;
+  private long premiumInCent;
+  
+  public static int counter = 0;
+  public static String generateUUID() {
+    // for demo reasons we generate something readable
+    if (counter==0) {
+      counter = Calendar.getInstance().get(Calendar.MINUTE) + Calendar.getInstance().get(Calendar.SECOND);      
+    } else {
+      counter++;
+    }
+    String result = "A-"
+        + Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
+        + counter; 
+    return result;
+  }
+  
+  public String getPremium() {
+    // TODO: EN/DE switch
+    NumberFormat n = NumberFormat.getCurrencyInstance(Locale.GERMANY); 
+    return n.format(premiumInCent / 100.0);
+  }
+  
+  public void setPremium(String s) {
+    // ignore - currently needed because JsonIgnore configuration not yet done
+  }
+  
+  public String getPriceIndication() {
+    NumberFormat n = NumberFormat.getCurrencyInstance(Locale.GERMANY); 
+    return n.format(priceIndicationInCent / 100.0);
+  }
+  
+  public void setPriceIndication(String s) {
+    // ignore - currently needed because JsonIgnore configuration not yet done
+  }
+  
+  public Person getApplicant() {
+    return applicant;
+  }
+
+  public void setApplicant(Person applicant) {
+    this.applicant = applicant;
+  }
+
+  public String getProduct() {
+    return product;
+  }
+
+  public void setProduct(String product) {
+    this.product = product;
+  }
+
+  public String getVehicleManufacturer() {
+    return vehicleManufacturer;
+  }
+
+  public void setVehicleManufacturer(String vehicleManufacturer) {
+    this.vehicleManufacturer = vehicleManufacturer;
+  }
+
+  public String getVehicleType() {
+    return vehicleType;
+  }
+
+  public void setVehicleType(String vehicleType) {
+    this.vehicleType = vehicleType;
+  }
+
+  public String getContractNumber() {
+    return contractNumber;
+  }
+
+  public void setContractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
+  }
+
+  public long getPremiumInCent() {
+    return premiumInCent;
+  }
+
+  public void setPremiumInCent(long premiumInCent) {
+    this.premiumInCent = premiumInCent;
+  }
+
+  public long getPriceIndicationInCent() {
+    return priceIndicationInCent;
+  }
+
+  public void setPriceIndicationInCent(long priceIndicationInCents) {
+    this.priceIndicationInCent = priceIndicationInCents;
+  }
+
+  public String getApplicationNumber() {
+    return applicationNumber;
+  }
+}

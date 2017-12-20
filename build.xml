@@ -5,15 +5,12 @@
 	<property file="${user.home}/.camunda/build.properties" />
 	<property name="target.dir" value="target" />
 
-	<condition property="mvn.executable" value="mvn.bat" else="mvn">
+	<condition property="mvn.executable" value="mvn.cmd" else="mvn">
 		<os family="windows"/>
 	</condition>
 	
-	<target name="property.tomcat.mtext">
-		<property name="mvn.profiles" value="-P mtext,tomcat"/>
-	</target>
-	<target name="property.mtext">
-		<property name="mvn.profiles" value="-Pmtext"/>
+	<target name="property.tomcat">
+		<property name="mvn.profiles" value="-P tomcat"/>
 	</target>
 	<target name="property.normal">
 		<property name="mvn.profiles" value=""/>
@@ -26,16 +23,14 @@
 		</exec>
 	</target>
 
-	<target name="build.tomcat.mtext" depends="property.tomcat.mtext, package.mvn" description="Copies the process application to the deployment directory defined in '${basedir}/build.properties' or '${user.home}/.camunda/build.properties'">
+	<target name="build.tomcat" depends="property.tomcat, package.mvn" description="Copies the process application to the deployment directory defined in '${basedir}/build.properties' or '${user.home}/.camunda/build.properties'">
 	</target>
 
-	<target name="deploy.tomcat.mtext" depends="build.tomcat.mtext" description="Copies the process application to the deployment directory defined in '${basedir}/build.properties' or '${user.home}/.camunda/build.properties'">
+	<target name="deploy.tomcat" depends="build.tomcat" description="Copies the process application to the deployment directory defined in '${basedir}/build.properties' or '${user.home}/.camunda/build.properties'">
 		<fail unless="deploy.tomcat.dir" message="No deployment folder has been configured. Please copy the file '${basedir}/build.properties.example' to '${basedir}/build.properties' or '${user.home}/.camunda/build.properties' and change it according to your environment." />
 		<copy file="${target.dir}/${ant.project.name}.war" todir="${deploy.tomcat.dir}" />
 	</target>
 	
-	<target name="deploy.jboss.mtext" depends="property.mtext, deploy.jboss" description="Copies the process application to the deployment directory defined in '${basedir}/build.properties' or '${user.home}/.camunda/build.properties'">
-	</target>
 
 	<target name="deploy.jboss.normal" depends="property.normal, deploy.jboss" description="Copies the process application to the deployment directory defined in '${basedir}/build.properties' or '${user.home}/.camunda/build.properties'">
 	</target>
