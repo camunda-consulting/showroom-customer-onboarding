@@ -6,8 +6,13 @@ import static com.camunda.consulting.util.UserGenerator.addGroup;
 import static com.camunda.consulting.util.UserGenerator.addUser;
 import static com.camunda.consulting.util.UserGenerator.createGrantGroupAuthorization;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 import org.camunda.bpm.application.PostDeploy;
 import org.camunda.bpm.application.ProcessApplication;
@@ -17,25 +22,29 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.authorization.Permission;
 import org.camunda.bpm.engine.authorization.Permissions;
 import org.camunda.bpm.engine.authorization.Resources;
+import org.camunda.bpm.engine.filter.Filter;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.repository.Deployment;
 import org.camunda.bpm.engine.repository.DeploymentBuilder;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
+import org.camunda.bpm.engine.repository.ResumePreviousBy;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.variable.Variables;
 
 import com.camunda.consulting.util.FilterGenerator;
-import com.camunda.consulting.util.LicenseHelper;
 import com.camunda.consulting.util.UserGenerator;
 import com.camunda.demo.environment.DemoDataGenerator;
+
+import jersey.repackaged.com.google.common.collect.ImmutableMap;
 
 @ProcessApplication
 public class InsuranceApplicationProcessApplication extends ServletProcessApplication {
 
   @PostDeploy
   public void setupEnvironmentForDemo(ProcessEngine engine) {
-    LicenseHelper.setLicense(engine);
+    // this should be done by camunda-util-license-installer-war - if we have
+    // both, DB exceptions may occur
     // LicenseHelper.setLicense(engine);
     UserGenerator.createDefaultUsers(engine);
     setupUsersForDemo(engine);
@@ -43,12 +52,16 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
     List<ProcessDefinition> isThereOldOne = engine.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("insurance_application_en")
         .list();
 
-    DeploymentBuilder deploymentB = engine.getRepositoryService().createDeployment() //
+    DeploymentBuilder deploymentB = engine.getRepositoryService().createDeployment(getReference()) //
+        .enableDuplicateFiltering(true) //
+        .name(getName()) //
         .addClasspathResource("risk_check_en.dmn") //
         .addClasspathResource("risk_check_de.dmn") //
         .addClasspathResource("document_request_en.bpmn") //
         .addClasspathResource("document_request_de.bpmn") //
-        .enableDuplicateFiltering(true);
+        .resumePreviousVersions() //
+        .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY) //
+    ;
     if (isThereOldOne.isEmpty()) {
       deploymentB.addClasspathResource("insurance_application_old_en.bpmn") //
           .addClasspathResource("insurance_application_old_de.bpmn");
@@ -60,10 +73,13 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
       generateDataInOldModel(engine);
     }
 
-    deployment = engine.getRepositoryService().createDeployment() //
+    deployment = engine.getRepositoryService().createDeployment(getReference()) //
+        .enableDuplicateFiltering(true) //
+        .name(getName()) //
         .addClasspathResource("insurance_application_en.bpmn") //
         .addClasspathResource("insurance_application_de.bpmn") //
-        .enableDuplicateFiltering(true) //
+        .resumePreviousVersions() //
+        .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY) //
         .deploy();
     engine.getManagementService().registerProcessApplication(deployment.getId(), getReference());
 
@@ -81,7 +97,7 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
     engine.getManagementService().executeJob(engine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
 
     // and the other one to the second
-    pi = engine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_insurance_application_en, "A-456",DemoData.createYellowInitVars());
+    pi = engine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_insurance_application_en, "A-456", DemoData.createYellowInitVars());
     engine.getManagementService().executeJob(engine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
     Task decideOnApplication = engine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).active().singleResult();
     engine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
@@ -145,6 +161,33 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
         engine.getTaskService().createTaskQuery());
     FilterGenerator.filterIds.put("allDe", allDe);
     FilterGenerator.filterIds.put("allEn", allEn);
+
+    Stream.of(myDe, groupDe, overdueDe, followUpDe, managementDe, allDe).forEach(fId -> {
+      Filter filter = engine.getFilterService().getFilter(fId);
+      Map<String, Object> properties = filter.getProperties();
+      HashMap<String, String> prop1 = new HashMap<String, String>();
+      prop1.put("name", "applicationNumber");
+      prop1.put("label", "Antrag-Nr.");
+      HashMap<String, String> prop2 = new HashMap<String, String>();
+      prop2.put("name", "applicantName");
+      prop2.put("label", "Name");
+      properties.put("variables", Arrays.asList(prop1, prop2));
+      filter.setProperties(properties);
+      engine.getFilterService().saveFilter(filter);
+    });
+    Stream.of(myEn, groupEn, overdueEn, followUpEn, managementEn, allEn).forEach(fId -> {
+      Filter filter = engine.getFilterService().getFilter(fId);
+      Map<String, Object> properties = filter.getProperties();
+      HashMap<String, String> prop1 = new HashMap<String, String>();
+      prop1.put("name", "applicationNumber");
+      prop1.put("label", "Application-No.");
+      HashMap<String, String> prop2 = new HashMap<String, String>();
+      prop2.put("name", "applicantName");
+      prop2.put("label", "Name");
+      properties.put("variables", Arrays.asList(prop1, prop2));
+      filter.setProperties(properties);
+      engine.getFilterService().saveFilter(filter);
+    });
 
     addUser(engine, "marc", "marc", "Marc", "Mustermann");
     addGroup(engine, "sachbearbeiter", "Sachbearbeiter", "marc");

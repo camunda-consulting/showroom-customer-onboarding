@@ -20,7 +20,7 @@
     <bpmn2:endEvent id="EndEvent_ApplicationIssued" name="Application&#10; issued">
       <bpmn2:extensionElements>
         <camunda:properties>
-          <camunda:property name="KPI-Ratio" value="Policiert" />
+          <camunda:property name="KPI-Ratio" value="Policed" />
         </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
@@ -68,7 +68,7 @@ Camundanzia.]]></camunda:script>
     <bpmn2:startEvent id="StartEvent_1" name="Application received" camunda:asyncAfter="true" camunda:formKey="/camunda-showcase-insurance-application/online/landing_en.html">
       <bpmn2:extensionElements>
         <camunda:properties>
-          <camunda:property name="KPI-Cycle-Start" value="Antragsentscheidung" />
+          <camunda:property name="KPI-Cycle-Start" value="Application decision" />
         </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
@@ -79,7 +79,7 @@ Camundanzia.]]></camunda:script>
     <bpmn2:endEvent id="EndEvent_ApplicationRejected" name="Application &#10;rejected">
       <bpmn2:extensionElements>
         <camunda:properties>
-          <camunda:property name="KPI-Ratio" value="Abgelehnt" />
+          <camunda:property name="KPI-Ratio" value="Rejected" />
         </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
@@ -109,7 +109,7 @@ Camundanzia.]]></camunda:script>
     <bpmn2:userTask id="UserTask_DecideOnApplication" name="Decide on application" camunda:asyncAfter="true" camunda:formKey="embedded:app:forms/decide_en.html" camunda:candidateGroups="clerk" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
       <bpmn2:extensionElements>
         <camunda:properties>
-          <camunda:property name="KPI-Cycle-End" value="Antragsentscheidung" />
+          <camunda:property name="KPI-Cycle-End" value="Application decision" />
           <camunda:property name="durationMean" value="129600" />
           <camunda:property name="durationSd" value="86400" />
         </camunda:properties>

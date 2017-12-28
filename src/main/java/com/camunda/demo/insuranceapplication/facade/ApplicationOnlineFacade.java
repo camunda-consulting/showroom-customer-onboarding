@@ -51,7 +51,10 @@ public class ApplicationOnlineFacade {
             .putValueTyped(ProcessConstants.VAR_NAME_application,
                 Variables.objectValue(application).serializationDataFormat(SerializationDataFormats.JSON).create()) //
             .putValue(ProcessConstants.VAR_NAME_documents, JSON("{}"))//
-            .putValue(ProcessConstants.VAR_NAME_uiBaseUrl, uiBaseUrl));
+            .putValue(ProcessConstants.VAR_NAME_uiBaseUrl, uiBaseUrl)//
+            .putValue(ProcessConstants.VAR_NAME_applicationNumber, application.getApplicationNumber())//
+            .putValue(ProcessConstants.VAR_NAME_applicantName, application.getApplicant().getName())//
+            );
     
     return Response.status(200).entity(processInstance.getBusinessKey()).build();
   }
