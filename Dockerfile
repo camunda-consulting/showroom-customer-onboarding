@@ -7,8 +7,11 @@ RUN rm -rf /camunda/standalone/deployments/camunda-example-invoice-*.war
 # add showcase
 ADD target/camunda-showcase-insurance-application.war /camunda/standalone/deployments/
 
-# increase default session timeout to 8h
-RUN /camunda/bin/jboss-cli.sh --commands="embed-server, /subsystem=undertow/servlet-container=default:write-attribute(name=default-session-timeout, value=480)"
+# increase default session timeout to 8h and deployment timeout to 15min
+RUN /camunda/bin/jboss-cli.sh --commands="embed-server, \
+	/subsystem=undertow/servlet-container=default:write-attribute(name=default-session-timeout, value=480), \
+	/system-property=jboss.as.management.blocking.timeout:add(value=900), \
+	/subsystem=deployment-scanner/scanner=default:write-attribute(name=deployment-timeout,value=900)"
 
 EXPOSE 8787
 
