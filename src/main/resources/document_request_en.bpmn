@@ -76,6 +76,7 @@ Camundanzia.]]></camunda:script>
         <camunda:properties>
           <camunda:property name="durationMean" value="345600" />
           <camunda:property name="durationSd" value="259200" />
+          <camunda:property name="simulateSetVariable" value="document=${g:smallPdf(&#39;mockument&#39;)}" />
         </camunda:properties>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_18a0pzl</bpmn:incoming>

@@ -114,7 +114,6 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
         ProcessConstants.DECISION_KEY_checkRisk_en);
     DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_insurance_application_de, reference, ProcessConstants.PROCESS_KEY_requestDocument_de,
         ProcessConstants.DECISION_KEY_checkRisk_de);
-
   }
 
   public static void setupUsersForDemo(ProcessEngine engine) {
@@ -214,11 +213,11 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
     addFilterGroupAuthorization(engine, "management", "myEn", "groupEn", "overdueEn", "followUpEn", "managementEn", "allEn");
 
     createGrantGroupAuthorization(engine, new String[] { "sachbearbeiter", "gruppenleiter" },
-        new Permission[] { Permissions.READ, Permissions.READ_HISTORY, Permissions.UPDATE_INSTANCE }, Resources.PROCESS_DEFINITION,
+        new Permission[] { Permissions.READ, Permissions.READ_HISTORY, Permissions.READ_INSTANCE, Permissions.UPDATE_INSTANCE }, Resources.PROCESS_DEFINITION,
         new String[] { "insurance_application_de" });
 
     createGrantGroupAuthorization(engine, new String[] { "clerk", "teamlead" },
-        new Permission[] { Permissions.READ, Permissions.READ_HISTORY, Permissions.UPDATE_INSTANCE }, Resources.PROCESS_DEFINITION,
+        new Permission[] { Permissions.READ, Permissions.READ_HISTORY, Permissions.READ_INSTANCE, Permissions.UPDATE_INSTANCE }, Resources.PROCESS_DEFINITION,
         new String[] { "insurance_application_en" });
 
     createGrantGroupAuthorization(engine, new String[] { "geschaeftsfuehrung" }, Permissions.values(), Resources.PROCESS_DEFINITION,
