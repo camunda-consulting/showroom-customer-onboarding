@@ -174,9 +174,7 @@
 
 
 <script cam-script type="text/form-script">
-debugger;
       camForm.on('form-loaded', function() {
-debugger;
 
       camForm.variableManager.fetchVariable('application');
       camForm.variableManager.fetchVariable('risks');
@@ -192,11 +190,10 @@ debugger;
       $scope.uiBaseUrl = camForm.variableManager.variableValue('uiBaseUrl');
       $scope.referenceId = camForm.variableManager.variableValue('documentReferenceId');
 
-debugger;
 
-      if (! $scope.application.premiumInCent) {
-        $scope.application.premiumInCent = $scope.application.priceIndicationInCent;
-      }
+      //if (! $scope.application.premiumInCent) {
+      //  $scope.application.premiumInCent = $scope.application.priceIndicationInCent;
+      //}
 
       $scope.contentUrls = new Object();
       $.each($scope.documents, function(index, value) {
@@ -212,77 +209,92 @@ debugger;
     });
 </script>
 
-<div class="row">
-    <div class="col-xs-12">
-           <h3>Application data</h3>
-            <table class="table table-striped">
-               <tr>
-                  <td><b>Application number</b></td>
-                  <td><b>{{application.applicationNumber}}</b></td>
-               </tr>
-               <tr>
-                  <td>Applicant</td>
-                  <td>{{application.applicant.name}}</td>
-               </tr>  
-               <tr>
-                  <td>Current age</td>
-                  <td>{{application.applicant.age}}</td>
-               </tr>               
-               <tr>
-                  <td>Vehicle</td>
-                  <td>{{application.vehicleManufacturer}} {{application.vehicleType}}</td>
-               </tr>
-               <tr>
-                  <td>Insurance product</td>
-                  <td>{{application.product}}</td>
-               </tr>               
-               <tr>
-                  <td>Price indication</td>
-                  <td>{{application.priceIndication}}</td>
-               </tr>               
-            </table>
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>Application data</h3>
+			<table class="table table-striped">
+				<tr>
+					<td><b>Application number</b></td>
+					<td><b>{{application.applicationNumber}}</b></td>
+				</tr>
+				<tr>
+					<td>Applicant</td>
+					<td>{{application.applicant.name}}</td>
+				</tr>
+				<tr>
+					<td>Current age</td>
+					<td>{{application.applicant.age}}</td>
+				</tr>
+				<tr>
+					<td>Vehicle</td>
+					<td>{{application.vehicleManufacturer}}
+						{{application.vehicleType}}</td>
+				</tr>
+				<tr>
+					<td>Insurance product</td>
+					<td>{{application.product}}</td>
+				</tr>
+				<tr>
+					<td>Price indication</td>
+					<td>{{application.priceIndication}}</td>
+				</tr>
+			</table>
 
 
-            <h3>Risks</h3>
-       		    <table class="table table-striped table-hover">
-        			  <tr ng-repeat="risk in risks">
-        			  	<td>{{risk}}</td>
-        			  </tr>
-        			</table>
-  			
-  			<h3>Document(s)</h3>
-   		    <table class="table table-striped table-hover">
-			  <tr ng-repeat="(referenceId,doc) in documents"> 
-<!--                 <td><a cam-file-download="document"></a></td> -->
-			    <td>{{doc.description}}</td>
-                <td><a href="{{camForm.taskBasePath}}/variables/document_{{referenceId}}/data">{{doc.filename}}</a></td>
-                <td><object id="o_{{referenceId}}" width="300" height="424"></object></td>
-              </tr>
-            </table>
-            <p>
-              		Request new document:
-	              	<input name="documentDetails" placeholder="Description" ng-model="documentDetails" />
-					<a class="btn btn-default" href="" ng-click="requestDocument(documentDetails)" tooltip-placement="left" ng-disabled="!documentDetails">Request</a>
-				</p>
-				
-				<h3>Premium</h3>
-				<p>
-				  in Cent: <input name="premiumInCent" required ng-model="application.premiumInCent" />
-				</p>
-				
-  		       <h3>Decision</h3>
-                      <input type="checkbox"
-            	      name="ApprovalCheckbox"
-            	  	  data-on-text="Approve" data-off-text="Deny" data-on-color="success" data-off-color="danger"
-       				  cam-variable-name="approved"
-       			      cam-variable-type="Boolean" />
-				<script cam-script type="text/form-script">
+			<h3>Risks</h3>
+			<table class="table table-striped table-hover">
+				<tr ng-repeat="risk in risks">
+					<td>{{risk}}</td>
+				</tr>
+			</table>
+
+			<h3>Document(s)</h3>
+			<table class="table table-striped table-hover">
+				<tr ng-repeat="(referenceId,doc) in documents">
+					<!--                 <td><a cam-file-download="document"></a></td> -->
+					<td>{{doc.description}}</td>
+					<td><a
+						href="{{camForm.taskBasePath}}/variables/document_{{referenceId}}/data">{{doc.filename}}</a></td>
+					<td><object id="o_{{referenceId}}" width="300" height="424"></object></td>
+				</tr>
+			</table>
+			<p>
+				Request new document: <input name="documentDetails"
+					placeholder="Description" ng-model="documentDetails" /> <a
+					class="btn btn-default" href=""
+					ng-click="requestDocument(documentDetails)"
+					tooltip-placement="left" ng-disabled="!documentDetails">Request</a>
+			</p>
+
+			<h3>Premium</h3>
+			<p>
+				<select ng-required="approved" ng-model="selectedPremium" ng-change="updatePremium()">
+					<option value="{{application.priceIndicationInCent}}">Standard ({{application.priceIndicationInCent / 100 | number:2}} €)</option>
+					<option value="{{application.priceIndicationInCent * 1.1 }}">+10% ({{application.priceIndicationInCent * 1.1 / 100 | number:2}} €)</option>
+					<option value="{{application.priceIndicationInCent * 1.3 }}">+30% ({{application.priceIndicationInCent * 1.3 / 100 | number:2}} €)</option>
+					<option value="{{application.priceIndicationInCent * 2 }}">+100% ({{application.priceIndicationInCent * 2 / 100 | number:2}} €)</option>
+				</select>
+			</p>
+
+			<h3>Decision</h3>
+			<input type="checkbox" name="ApprovalCheckbox" data-on-text="Approve"
+				data-off-text="Deny" data-on-color="success" data-off-color="danger"
+				cam-variable-name="approved" cam-variable-type="Boolean" />
+			<script cam-script type="text/form-script">
 					$("[name='ApprovalCheckbox']").bootstrapSwitch();
-				</script>        
-	</div>         
-  </div>
- 
- <script cam-script type="text/form-script">
+					$("[name='ApprovalCheckbox']").on('switchChange.bootstrapSwitch', function(event, state) {
+					    $scope.approved = state;
+						$scope.$apply()
+					});
+			</script>
+		</div>
+	</div>
+
+	<script cam-script type="text/form-script">
+    $scope.updatePremium = function() {
+		$scope.application.premiumInCent = Math.round($scope.selectedPremium);
+	}
+
 	$scope.requestDocument = function(documentDetails) {
 		   var data = {
 	            "messageName" : "Message_DocumentRequested",
