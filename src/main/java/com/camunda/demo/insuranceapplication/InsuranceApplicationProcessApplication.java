@@ -6,12 +6,12 @@ import static com.camunda.consulting.util.UserGenerator.addGroup;
 import static com.camunda.consulting.util.UserGenerator.addUser;
 import static com.camunda.consulting.util.UserGenerator.createGrantGroupAuthorization;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Stream;
 
 import org.camunda.bpm.application.PostDeploy;
@@ -31,15 +31,16 @@ import org.camunda.bpm.engine.repository.ResumePreviousBy;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.variable.Variables;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.camunda.consulting.util.FilterGenerator;
 import com.camunda.consulting.util.UserGenerator;
 import com.camunda.demo.environment.DemoDataGenerator;
 
-import jersey.repackaged.com.google.common.collect.ImmutableMap;
-
 @ProcessApplication
 public class InsuranceApplicationProcessApplication extends ServletProcessApplication {
+  private static final Logger LOGGER = LoggerFactory.getLogger(InsuranceApplicationProcessApplication.class);
 
   @PostDeploy
   public void setupEnvironmentForDemo(ProcessEngine engine) {
@@ -83,7 +84,32 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
         .deploy();
     engine.getManagementService().registerProcessApplication(deployment.getId(), getReference());
 
-    generateDemoData(engine, getReference());
+    new Timer().schedule(new TimerTask() {
+
+      @Override
+      public void run() {
+        LOGGER.info("----                                                             ----");
+        LOGGER.info("----                                                             ----");
+        LOGGER.info("---- Starting demo data generation. PLEASE WAIT UNTIL IT'S DONE. ----");
+        LOGGER.info("----                                                             ----");
+        LOGGER.info("----                                                             ----");
+        long begin = System.currentTimeMillis();
+        long instances = generateDemoData(engine, getReference());
+        long end = System.currentTimeMillis();
+        LOGGER.info("----                                                     ----");
+        LOGGER.info("----                                                     ----");
+        LOGGER.info("---- Demo data generation for insurance showcase DONE :) ----");
+        LOGGER.info("----                                                     ----");
+        LOGGER.info("----              .,      .           ,__                ----");
+        LOGGER.info("----              | \\    / \\   |\\  |  |                  ----");
+        LOGGER.info("----              |  |  |   |  | \\ |  |--                ----");
+        LOGGER.info("----              | /    \\ /   |  \\|  |                  ----");
+        LOGGER.info("----              ''      '           '--                ----");
+        LOGGER.info("----                                                     ----");
+        LOGGER.info("---- It took " + String.format("%02.1f", (end - begin) / 60_000d) + " minutes to start " + String.format("%05d", instances)
+            + " instances.       ----");
+      }
+    }, 10_000);
   }
 
   public static void generateDataInOldModel(ProcessEngine engine) {
@@ -109,11 +135,13 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
     ((ProcessEngineConfigurationImpl) engine.getProcessEngineConfiguration()).getJobExecutor().start();
   }
 
-  public static void generateDemoData(ProcessEngine engine, ProcessApplicationReference reference) {
-    DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_insurance_application_en, reference, ProcessConstants.PROCESS_KEY_requestDocument_en,
-        ProcessConstants.DECISION_KEY_checkRisk_en);
-    DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_insurance_application_de, reference, ProcessConstants.PROCESS_KEY_requestDocument_de,
-        ProcessConstants.DECISION_KEY_checkRisk_de);
+  public static long generateDemoData(ProcessEngine engine, ProcessApplicationReference reference) {
+    long startedInstances = 0;
+    startedInstances += DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_insurance_application_en, reference,
+        ProcessConstants.PROCESS_KEY_requestDocument_en, ProcessConstants.DECISION_KEY_checkRisk_en);
+    startedInstances += DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_insurance_application_de, reference,
+        ProcessConstants.PROCESS_KEY_requestDocument_de, ProcessConstants.DECISION_KEY_checkRisk_de);
+    return startedInstances;
   }
 
   public static void setupUsersForDemo(ProcessEngine engine) {

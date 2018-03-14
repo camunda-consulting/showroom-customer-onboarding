@@ -6,8 +6,8 @@
   <bpmn2:process id="insurance_application_en" name="Insurance Application" isExecutable="true">
     <bpmn2:extensionElements>
       <camunda:properties>
-        <camunda:property name="simulateNumberOfDaysInPast" value="30" />
-        <camunda:property name="simulateTimeBetweenStartsBusinessDaysMean" value="3600" />
+        <camunda:property name="simulateNumberOfDaysInPast" value="45" />
+        <camunda:property name="simulateTimeBetweenStartsBusinessDaysMean" value="2600" />
         <camunda:property name="simulateTimeBetweenStartsBusinessDaysSd" value="2000" />
         <camunda:property name="simulateRunAlways" value="false" />
         <camunda:property name="simulateContentGenerator" value="com.camunda.demo.insuranceapplication.DemoData$ContentGenerator" />
