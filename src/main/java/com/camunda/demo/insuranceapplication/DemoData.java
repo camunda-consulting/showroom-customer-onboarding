@@ -29,9 +29,8 @@ public class DemoData {
       }
       p.setEmail(email(p.getName(), uniformFromArgs3("GoogleMail", "Hotmail", "Yahoo")));
 
-      NewApplication a = new NewApplication();
+      NewApplication a = new NewApplication(businessKey());
       a.setApplicant(p);
-      a.setContractNumber(format1("A%05d", uniqueNumber()));
 
       a.setVehicleManufacturer(uniformFromArgs4("VW", "BMW", "Porsche", "Audi"));
       switch (a.getVehicleManufacturer()) {
