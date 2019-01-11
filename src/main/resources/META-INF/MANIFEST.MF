@@ -1,0 +1,1 @@
+Dependencies: com.camunda.consulting.camunda-bpm-simulator, org.mybatis.mybatis

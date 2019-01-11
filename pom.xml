@@ -43,14 +43,6 @@
 				<type>pom</type>
 			</dependency>
 			<dependency>
-				<!-- Import dependency management from Spring Boot -->
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
 				<groupId>org.camunda.bpm.webapp</groupId>
 				<artifactId>camunda-webapp-webjar</artifactId>
 				<version>${camunda.version}</version>
@@ -71,11 +63,13 @@
 			<artifactId>camunda-engine</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.camunda.bpm.dmn</groupId>
 			<artifactId>camunda-engine-dmn</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<!-- only needed for debugging -->
 			<groupId>org.camunda.bpm</groupId>
@@ -85,15 +79,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.camunda.bpm.extension</groupId>
-			<artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
-			<version>${camunda.spring.starter.version}</version>
-			<scope>provided</scope>
+			<groupId>org.camunda.bpm</groupId>
+			<artifactId>camunda-engine-cdi</artifactId>
 		</dependency>
+
 		<dependency>
-			<groupId>org.camunda.bpm.extension</groupId>
-			<artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
-			<version>${camunda.spring.starter.version}</version>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-7.0</artifactId>
+			<version>1.0.0.Final</version>
+			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
 
@@ -102,10 +96,12 @@
 			<artifactId>camunda-util-demo-support</artifactId>
 			<version>0.4.0</version>
 		</dependency>
+
 		<dependency>
-			<groupId>com.camunda.consulting.util</groupId>
-			<artifactId>camunda-util-demo-data-generator</artifactId>
-			<version>0.5.3</version>
+			<groupId>com.camunda.consulting</groupId>
+			<artifactId>camunda-bpm-simulator</artifactId>
+			<version>1.2.0-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -185,11 +181,17 @@
 			<version>2.1.0-2</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet</groupId>
+			<artifactId>jboss-servlet-api_4.0_spec</artifactId>
+			<version>1.0.0.Final</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -197,6 +199,7 @@
 			<!-- Needed for InMemoryH2Test -->
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<version>1.4.197</version>
 			<scope>provided</scope>
 		</dependency>
 

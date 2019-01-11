@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="1.12.0-alpha-3" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.1" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <bpmn2:collaboration id="Collaboration_1u35ano">
     <bpmn2:participant id="Participant_0477s11" name="Versicherungsneuantrag" processRef="insurance_application_de" />
   </bpmn2:collaboration>
@@ -14,11 +14,6 @@
       </camunda:properties>
     </bpmn2:extensionElements>
     <bpmn2:exclusiveGateway id="ExclusiveGateway_2" name="Entscheidung?">
-      <bpmn2:extensionElements>
-        <camunda:properties>
-          <camunda:property name="simulateKeepImplementation" value="true" />
-        </camunda:properties>
-      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1h4oxvl</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_12</bpmn2:outgoing>
@@ -35,7 +30,7 @@
       <bpmn2:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker"><![CDATA[Sehr <#if application.applicant.sex = "Mann">geehrter Herr<#else>geehrte Frau</#if> ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker">Sehr &lt;#if application.applicant.sex = "Mann"&gt;geehrter Herr&lt;#else&gt;geehrte Frau&lt;/#if&gt; ${application.applicant.name}.
 
 Wir freuen uns Ihnen mitteilen zu können, dass wir Ihre KFZ Versicherungspolice ausgestellt haben. 
 
@@ -45,7 +40,7 @@ Wir haben Ihnen hier die wichtigsten Informationen zusammengestellt:
 - Produkt: ${application.product}
 
 Schöne Grüße
-Ihre Camundanzia.]]></camunda:script>
+Ihre Camundanzia.</camunda:script>
           </camunda:inputParameter>
           <camunda:inputParameter name="mailSubject">Ihre Police wurde ausgestellt</camunda:inputParameter>
         </camunda:inputOutput>
@@ -56,7 +51,7 @@ Ihre Camundanzia.]]></camunda:script>
     <bpmn2:serviceTask id="ServiceTask_DeliverPolicy" name="Policierung im Bestandssystem" camunda:class="com.camunda.demo.insuranceapplication.adapter.IssuePolicyAdapter">
       <bpmn2:extensionElements>
         <camunda:properties>
-          <camunda:property name="simulateKeepImplementation" value="true" />
+          <camunda:property name="simCallRealImplementation" value="true" />
         </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
@@ -67,7 +62,10 @@ Ihre Camundanzia.]]></camunda:script>
       <bpmn2:extensionElements>
         <camunda:executionListener class="com.camunda.demo.insuranceapplication.adapter.MapDmnResult" event="end" />
         <camunda:properties>
-          <camunda:property name="simulateKeepImplementation" value="true" />
+          <camunda:property name="simCallRealImplementation" value="true" />
+          <camunda:property name="simKeepListeners" value="true" />
+          <camunda:property name="simGeneratePayload" value="applicationNumber=${application.getApplicationNumber()}" />
+          <camunda:property name="simGeneratePayload" value="applicantName=${application.getApplicant().getName()}" />
         </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
@@ -84,19 +82,6 @@ Ihre Camundanzia.]]></camunda:script>
       <bpmn2:outgoing>SequenceFlow_16</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:startEvent id="StartEvent_1" name="Antrag&#10;erhalten" camunda:asyncAfter="true" camunda:formKey="/camunda-showcase-insurance-application/online/landing_de.html">
-      <bpmn2:extensionElements>
-        <camunda:properties>
-          <camunda:property name="KPI-Cycle-Start" value="Antragsentscheidung" />
-          <camunda:property name="simulateSetVariable" value="application=${g:json(g:newApplication(true))}" />
-          <camunda:property name="simulateSetVariable" value="documents=${g:json(g:emptyList())}" />
-          <camunda:property name="simulateSetVariable" value="applicationNumber=${application.getApplicationNumber()}" />
-          <camunda:property name="simulateSetVariable" value="applicantName=${application.getApplicant().getName()}" />
-          <camunda:property name="simulateSetBusinessKey" value="A-${g:format1(&#39;%05d&#39;, g:uniqueNumber())}" />
-        </camunda:properties>
-      </bpmn2:extensionElements>
-      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
-    </bpmn2:startEvent>
     <bpmn2:endEvent id="EndEvent_DecisionAccelerated" name="Entscheidung &#10;beschleunigt">
       <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
     </bpmn2:endEvent>
@@ -117,12 +102,12 @@ Ihre Camundanzia.]]></camunda:script>
       <bpmn2:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker"><![CDATA[Sehr <#if application.applicant.sex = "Mann">geehrter Herr<#else>geehrte Frau</#if> ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker">Sehr &lt;#if application.applicant.sex = "Mann"&gt;geehrter Herr&lt;#else&gt;geehrte Frau&lt;/#if&gt; ${application.applicant.name}.
 
 Leider müssen wir Ihnen mitteilen, dass wir Ihnen die gewünschte KFZ Versicherungspolice nicht ausstellen können. 
 
 Schöne Grüße
-Ihre Camundanzia.]]></camunda:script>
+Ihre Camundanzia.</camunda:script>
           </camunda:inputParameter>
           <camunda:inputParameter name="mailSubject">Antrag abgelehnt</camunda:inputParameter>
         </camunda:inputOutput>
@@ -134,21 +119,20 @@ Ihre Camundanzia.]]></camunda:script>
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property name="KPI-Cycle-End" value="Antragsentscheidung" />
-          <camunda:property name="durationMean" value="129600" />
-          <camunda:property name="durationSd" value="86400" />
-          <camunda:property name="simulateSetVariable" value="approved=${g:uniformBoolean()}" />
-          <camunda:property name="simulateKeepImplementation" value="true" />
+          <camunda:property name="simKeepListeners" value="true" />
+          <camunda:property name="simNextFire" value="${g.nowPlusHours(g.uniformInt(1,72))}" />
+          <camunda:property name="simGeneratePayload" value="approved=${g.randBool(0.75)}" />
         </camunda:properties>
         <camunda:taskListener event="create">
-          <camunda:script scriptFormat="JavaScript"><![CDATA[task.setVariable('documentReferenceId', String(Date.now()));
+          <camunda:script scriptFormat="JavaScript">task.setVariable('documentReferenceId', String(Date.now()));
 
 var lastAssignee = task.getVariable('lastAssignee');
 if (lastAssignee != null) {
   task.setAssignee(lastAssignee);
-}]]></camunda:script>
+}</camunda:script>
         </camunda:taskListener>
         <camunda:taskListener event="assignment">
-          <camunda:script scriptFormat="JavaScript"><![CDATA[task.setVariable('lastAssignee', task.getAssignee());]]></camunda:script>
+          <camunda:script scriptFormat="JavaScript">task.setVariable('lastAssignee', task.getAssignee());</camunda:script>
         </camunda:taskListener>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1te4zir</bpmn2:incoming>
@@ -161,8 +145,8 @@ if (lastAssignee != null) {
         <camunda:in source="requestedDocumentDescription" target="requestedDocumentDescription" />
         <camunda:out source="document" target="document" />
         <camunda:executionListener event="end">
-          <camunda:script scriptFormat="JavaScript"><![CDATA[var typedDocument = execution.getVariableTyped('document');
-if (typedDocument != null && typedDocument.getValue() != null) {
+          <camunda:script scriptFormat="JavaScript">var typedDocument = execution.getVariableTyped('document');
+if (typedDocument != null &amp;&amp; typedDocument.getValue() != null) {
   execution.setVariable('document_' + documentReferenceId, typedDocument);
 
   var json = S('{}');
@@ -172,12 +156,12 @@ if (typedDocument != null && typedDocument.getValue() != null) {
   var documents = S(execution.getVariable('documents'));
   documents.prop(documentReferenceId, json);
   execution.setVariable('documents', documents);
-}]]></camunda:script>
+}</camunda:script>
         </camunda:executionListener>
         <camunda:in source="documentReferenceId" target="documentReferenceId" />
         <camunda:in source="uiBaseUrl" target="uiBaseUrl" />
         <camunda:properties>
-          <camunda:property name="simulateKeepLogic" value="true" />
+          <camunda:property name="simKeepListeners" value="true" />
         </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_0lwkj1f</bpmn2:incoming>
@@ -186,8 +170,7 @@ if (typedDocument != null && typedDocument.getValue() != null) {
     <bpmn2:userTask id="UserTask_AccelerateDecision" name="Antragsprüfung beschleunigen" camunda:candidateGroups="gruppenleiter">
       <bpmn2:extensionElements>
         <camunda:properties>
-          <camunda:property name="durationSd" value="21600" />
-          <camunda:property name="durationMean" value="43200" />
+          <camunda:property name="simNextFire" value="${g.nowPlusHours(g.uniformInt(2,10))}" />
         </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_0o6gf8v</bpmn2:incoming>
@@ -211,19 +194,9 @@ if (typedDocument != null && typedDocument.getValue() != null) {
     </bpmn2:boundaryEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_1h4oxvl" sourceRef="UserTask_DecideOnApplication" targetRef="ExclusiveGateway_2" />
     <bpmn2:sequenceFlow id="SequenceFlow_12" name="Antrag&#10;abgelehnt" sourceRef="ExclusiveGateway_2" targetRef="ServiceTask_RejectPolicy">
-      <bpmn2:extensionElements>
-        <camunda:properties>
-          <camunda:property name="probability" value="12" />
-        </camunda:properties>
-      </bpmn2:extensionElements>
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{not approved}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:sequenceFlow id="SequenceFlow_8" name="Antrag angenommen" camunda:modelerTemplate="com.camunda.demo.environment.probability" sourceRef="ExclusiveGateway_2" targetRef="ServiceTask_DeliverPolicy">
-      <bpmn2:extensionElements>
-        <camunda:properties>
-          <camunda:property name="probability" value="75" />
-        </camunda:properties>
-      </bpmn2:extensionElements>
+    <bpmn2:sequenceFlow id="SequenceFlow_8" name="Antrag angenommen" sourceRef="ExclusiveGateway_2" targetRef="ServiceTask_DeliverPolicy">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{approved}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_11" name="" sourceRef="SendTask_SendPolicy" targetRef="EndEvent_ApplicationIssued" />
@@ -234,9 +207,8 @@ if (typedDocument != null && typedDocument.getValue() != null) {
           <camunda:property name="probability" value="55" />
         </camunda:properties>
       </bpmn2:extensionElements>
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression"><![CDATA[#{riskLevel == 'green'}]]></bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{riskLevel == 'green'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:sequenceFlow id="SequenceFlow_6" name="" sourceRef="StartEvent_1" targetRef="BusinessRuleTask_CheckApplicationAutomatically" />
     <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="BusinessRuleTask_CheckApplicationAutomatically" targetRef="ExclusiveGatewayPruefung" />
     <bpmn2:sequenceFlow id="SequenceFlow_3" name="gelb&#10;(Risiken erkannt)&#10;" sourceRef="ExclusiveGatewayPruefung" targetRef="UserTask_DecideOnApplication">
       <bpmn2:extensionElements>
@@ -244,7 +216,7 @@ if (typedDocument != null && typedDocument.getValue() != null) {
           <camunda:property name="probability" value="35" />
         </camunda:properties>
       </bpmn2:extensionElements>
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression"><![CDATA[#{riskLevel == 'yellow'}]]></bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{riskLevel == 'yellow'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_16" name="rot &#10;(Hohes Risiko)" sourceRef="ExclusiveGatewayPruefung" targetRef="ServiceTask_RejectPolicy">
       <bpmn2:extensionElements>
@@ -252,7 +224,7 @@ if (typedDocument != null && typedDocument.getValue() != null) {
           <camunda:property name="probability" value="20" />
         </camunda:properties>
       </bpmn2:extensionElements>
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression"><![CDATA[#{riskLevel.contains('red')}]]></bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{riskLevel.contains('red')}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="UserTask_AccelerateDecision" targetRef="EndEvent_DecisionAccelerated" />
     <bpmn2:sequenceFlow id="SequenceFlow_13" name="" sourceRef="SendTask_SendRejection" targetRef="EndEvent_ApplicationRejected" />
@@ -260,18 +232,25 @@ if (typedDocument != null && typedDocument.getValue() != null) {
     <bpmn2:sequenceFlow id="SequenceFlow_1te4zir" sourceRef="CallActivity_RequestDocument" targetRef="UserTask_DecideOnApplication" />
     <bpmn2:sequenceFlow id="SequenceFlow_0lwkj1f" sourceRef="BoundaryEvent_1i1spfe" targetRef="CallActivity_RequestDocument" />
     <bpmn2:sequenceFlow id="SequenceFlow_0o6gf8v" sourceRef="BoundaryEvent_0mcjys5" targetRef="UserTask_AccelerateDecision" />
+    <bpmn2:sequenceFlow id="SequenceFlow_6" name="" sourceRef="StartEvent_1" targetRef="BusinessRuleTask_CheckApplicationAutomatically" />
+    <bpmn2:startEvent id="StartEvent_1" name="Antrag&#10;erhalten" camunda:asyncAfter="true" camunda:formKey="/camunda-showcase-insurance-application/online/landing_de.html">
+      <bpmn2:extensionElements>
+        <camunda:properties>
+          <camunda:property name="KPI-Cycle-Start" value="Antragsentscheidung" />
+          <camunda:property name="simInitBusinessKey" value="A-${g.format1(&#39;%05d&#39;, g.uniqueNumber())}" />
+          <camunda:property name="simInitPayload" value="application=${g.json(g.newApplication(false, &#34;hello&#34;))}" />
+          <camunda:property name="simInitPayload" value="documents=${g.json(g.emptyList())}" />
+          <camunda:property name="simNextFire" value="${g.timesPerDay(&#34;shower&#34;,&#34;07:30&#34;,&#34;22:30&#34;, g.linearBySimulationTime(5,15))}" />
+        </camunda:properties>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
+    </bpmn2:startEvent>
   </bpmn2:process>
   <bpmn2:message id="Message_0fvpzfg" name="Message_DocumentRequested" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1u35ano">
       <bpmndi:BPMNShape id="Participant_0477s11_di" bpmnElement="Participant_0477s11" isHorizontal="false">
         <dc:Bounds x="83" y="64" width="1224" height="563" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_4" bpmnElement="StartEvent_1">
-        <dc:Bounds x="133" y="106" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="132" y="147" width="40" height="25" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_SendTask_2" bpmnElement="SendTask_SendPolicy">
         <dc:Bounds x="1081" y="84" width="100" height="80" />
@@ -309,13 +288,6 @@ if (typedDocument != null && typedDocument.getValue() != null) {
           <dc:Bounds x="1230" y="590" width="49" height="25" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="_BPMNShape_StartEvent_4" targetElement="_BPMNShape_BusinessRuleTask_2">
-        <di:waypoint x="169" y="124" />
-        <di:waypoint x="212" y="124" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="127" y="124" width="90" height="6" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_10" sourceElement="_BPMNShape_ServiceTask_3" targetElement="_BPMNShape_SendTask_2">
         <di:waypoint x="1030" y="124" />
         <di:waypoint x="1081" y="124" />
@@ -357,7 +329,7 @@ if (typedDocument != null && typedDocument.getValue() != null) {
         <di:waypoint x="871" y="142" />
         <di:waypoint x="930" y="142" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="879" y="248" width="68" height="25" />
+          <dc:Bounds x="879" y="248" width="68" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_12" bpmnElement="SequenceFlow_12" sourceElement="_BPMNShape_ExclusiveGateway_3">
@@ -459,6 +431,19 @@ if (typedDocument != null && typedDocument.getValue() != null) {
         <dc:Bounds x="563" y="262" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="597" y="247" width="67" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6">
+        <di:waypoint x="169" y="124" />
+        <di:waypoint x="212" y="124" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="127" y="124" width="90" height="6" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="StartEvent_03ovnze_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="133" y="106" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="132" y="147" width="40" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>

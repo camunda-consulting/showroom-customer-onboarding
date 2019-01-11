@@ -6,9 +6,11 @@ import static com.camunda.consulting.util.UserGenerator.addGroup;
 import static com.camunda.consulting.util.UserGenerator.addUser;
 import static com.camunda.consulting.util.UserGenerator.createGrantGroupAuthorization;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,23 +26,30 @@ import org.camunda.bpm.engine.authorization.Permissions;
 import org.camunda.bpm.engine.authorization.Resources;
 import org.camunda.bpm.engine.filter.Filter;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.camunda.bpm.engine.repository.Deployment;
-import org.camunda.bpm.engine.repository.DeploymentBuilder;
-import org.camunda.bpm.engine.repository.ProcessDefinition;
-import org.camunda.bpm.engine.repository.ResumePreviousBy;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.variable.Variables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.camunda.consulting.simulator.SimulationExecutor;
+import com.camunda.consulting.simulator.SimulatorPlugin;
 import com.camunda.consulting.util.FilterGenerator;
 import com.camunda.consulting.util.UserGenerator;
-import com.camunda.demo.environment.DemoDataGenerator;
 
 @ProcessApplication
 public class InsuranceApplicationProcessApplication extends ServletProcessApplication {
   private static final Logger LOGGER = LoggerFactory.getLogger(InsuranceApplicationProcessApplication.class);
+
+  static {
+    SimulatorPlugin.setPayloadGenerator(new Generator());
+  }
+
+  public static long generateDemoData(ProcessEngine engine, ProcessApplicationReference reference) {
+    Date start = Date.from(LocalDateTime.now().minusMonths(6).atZone(ZoneId.systemDefault()).toInstant());
+    SimulationExecutor.execute(start, new Date());
+    return 0;
+  }
 
   @PostDeploy
   public void setupEnvironmentForDemo(ProcessEngine engine) {
@@ -50,39 +59,46 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
     UserGenerator.createDefaultUsers(engine);
     setupUsersForDemo(engine);
 
-    List<ProcessDefinition> isThereOldOne = engine.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("insurance_application_en")
-        .list();
-
-    DeploymentBuilder deploymentB = engine.getRepositoryService().createDeployment(getReference()) //
-        .enableDuplicateFiltering(true) //
-        .name(getName()) //
-        .addClasspathResource("risk_check_en.dmn") //
-        .addClasspathResource("risk_check_de.dmn") //
-        .addClasspathResource("document_request_en.bpmn") //
-        .addClasspathResource("document_request_de.bpmn") //
-        .resumePreviousVersions() //
-        .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY) //
-    ;
-    if (isThereOldOne.isEmpty()) {
-      deploymentB.addClasspathResource("insurance_application_old_en.bpmn") //
-          .addClasspathResource("insurance_application_old_de.bpmn");
-    }
-    Deployment deployment = deploymentB.deploy();
-    engine.getManagementService().registerProcessApplication(deployment.getId(), getReference());
-
-    if (isThereOldOne.isEmpty()) {
-      generateDataInOldModel(engine);
-    }
-
-    deployment = engine.getRepositoryService().createDeployment(getReference()) //
-        .enableDuplicateFiltering(true) //
-        .name(getName()) //
-        .addClasspathResource("insurance_application_en.bpmn") //
-        .addClasspathResource("insurance_application_de.bpmn") //
-        .resumePreviousVersions() //
-        .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY) //
-        .deploy();
-    engine.getManagementService().registerProcessApplication(deployment.getId(), getReference());
+    // List<ProcessDefinition> isThereOldOne =
+    // engine.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("insurance_application_en")
+    // .list();
+    //
+    // DeploymentBuilder deploymentB =
+    // engine.getRepositoryService().createDeployment(getReference()) //
+    // .enableDuplicateFiltering(true) //
+    // .name(getName()) //
+    // .addClasspathResource("risk_check_en.dmn") //
+    // .addClasspathResource("risk_check_de.dmn") //
+    // .addClasspathResource("document_request_en.bpmn") //
+    // .addClasspathResource("document_request_de.bpmn") //
+    // .resumePreviousVersions() //
+    // .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY)
+    // //
+    // ;
+    // if (isThereOldOne.isEmpty()) {
+    // deploymentB.addClasspathResource("insurance_application_old_en.bpmn") //
+    // .addClasspathResource("insurance_application_old_de.bpmn");
+    // }
+    // Deployment deployment = deploymentB.deploy();
+    // engine.getManagementService().registerProcessApplication(deployment.getId(),
+    // getReference());
+    //
+    // if (isThereOldOne.isEmpty()) {
+    // generateDataInOldModel(engine);
+    // }
+    //
+    // deployment =
+    // engine.getRepositoryService().createDeployment(getReference()) //
+    // .enableDuplicateFiltering(true) //
+    // .name(getName()) //
+    // .addClasspathResource("insurance_application_en.bpmn") //
+    // .addClasspathResource("insurance_application_de.bpmn") //
+    // .resumePreviousVersions() //
+    // .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY)
+    // //
+    // .deploy();
+    // engine.getManagementService().registerProcessApplication(deployment.getId(),
+    // getReference());
 
     new Timer().schedule(new TimerTask() {
 
@@ -109,7 +125,7 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
         LOGGER.info("---- It took " + String.format("%02.1f", (end - begin) / 60_000d) + " minutes to start " + String.format("%05d", instances)
             + " instances.       ----");
       }
-    }, 10_000);
+    }, 2_000);
   }
 
   public static void generateDataInOldModel(ProcessEngine engine) {
@@ -133,15 +149,6 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
     engine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
 
     ((ProcessEngineConfigurationImpl) engine.getProcessEngineConfiguration()).getJobExecutor().start();
-  }
-
-  public static long generateDemoData(ProcessEngine engine, ProcessApplicationReference reference) {
-    long startedInstances = 0;
-    startedInstances += DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_insurance_application_en, reference,
-        ProcessConstants.PROCESS_KEY_requestDocument_en, ProcessConstants.DECISION_KEY_checkRisk_en);
-    startedInstances += DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_insurance_application_de, reference,
-        ProcessConstants.PROCESS_KEY_requestDocument_de, ProcessConstants.DECISION_KEY_checkRisk_de);
-    return startedInstances;
   }
 
   public static void setupUsersForDemo(ProcessEngine engine) {
