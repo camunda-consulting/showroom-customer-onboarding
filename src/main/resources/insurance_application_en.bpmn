@@ -42,7 +42,7 @@ We happily inform you that your car insurance application was accepted and the p
 Please check the key facts: 
 - Application Number: ${application.applicationNumber}
 - Premium per anno: ${application.premium}
-- Product: ${application.product}
+- Category: ${application.category}
 
 Kind regards,
 Camundanzia.]]></camunda:script>

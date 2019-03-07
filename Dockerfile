@@ -13,6 +13,6 @@ RUN /camunda/bin/jboss-cli.sh --commands="embed-server, \
 	/system-property=jboss.as.management.blocking.timeout:add(value=900), \
 	/subsystem=deployment-scanner/scanner=default:write-attribute(name=deployment-timeout,value=900)"
 
-EXPOSE 8787
+EXPOSE 8084
 
 CMD ["/camunda/bin/standalone.sh","-b","0.0.0.0","-bmanagement","0.0.0.0","--debug"]

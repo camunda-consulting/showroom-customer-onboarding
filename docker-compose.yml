@@ -4,9 +4,17 @@ services:
 
         showcase:
                 build: .
-                environment:
-                        TZ: Europe/Berlin
+                environment: 
+                 - JAVA_OPTS=-Xmx3072m
                 ports:
-                        - 8080:8080
-                        - 8787:8787
-                        - 9990:9990
+                 - 8084:8080
+                volumes: 
+                 - ~/docker-volumes/logsTraining:/camunda/logs
+                networks:
+                 - training
+                mem_limit: 3072M
+                restart: always
+
+networks: 
+  training:
+

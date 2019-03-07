@@ -14,7 +14,7 @@ import com.camunda.demo.insuranceapplication.model.NewApplication;
 import com.camunda.demo.insuranceapplication.model.Person;
 
 public class DemoData {
-
+/*
   static public class ContentGenerator extends DefaultContentGenerator {
     public NewApplication newApplication(boolean german) {
       Person p = new Person();
@@ -32,8 +32,8 @@ public class DemoData {
       NewApplication a = new NewApplication(businessKey());
       a.setApplicant(p);
 
-      a.setVehicleManufacturer(uniformFromArgs4("VW", "BMW", "Porsche", "Audi"));
-      switch (a.getVehicleManufacturer()) {
+      a.setCategory(uniformFromArgs4(Categorys.BASISPAKET.displayName, Categorys.STANDARDPAKET.displayName, Categorys.PREMIUMPAKET, Categorys.BASISPAKET.displayName));
+      switch (a.getIncome()) {
       case "VW":
         a.setVehicleType(uniformFromArgs4("Beatle", "Golf IV", "Golf V", "Passat"));
         switch (a.getVehicleType()) {
@@ -124,27 +124,24 @@ public class DemoData {
       a.setPriceIndicationInCent(100 * a.getPriceIndicationInCent());
       a.setPremiumInCent(a.getPriceIndicationInCent());
 
-      a.setProduct("Camundanzia Vollkasko Plus");
-
       return a;
     }
-  }
+  }*/
 
-  public static final String PRODUCT = "Camundanzia Vollkasko Plus";
   public static final String SEX = "Mann";
   public static final String NAME = "Gentle Driver";
   public static final String EMAIL = "trashcan@camunda.org";
 
   public static NewApplication green() {
-    return createNeuantrag(40, "VW", "Golf V");
+    return createNeuantrag(40, 40000, Categorys.STANDARDPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
   }
 
   public static NewApplication yellow() {
-    return createNeuantrag(40, "BMW", "X3");
+    return createNeuantrag(40, 30000, Categorys.PREMIUMPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
   }
 
   public static NewApplication red() {
-    return createNeuantrag(20, "Porsche", "911");
+    return createNeuantrag(20, 150000, Categorys.PREMIUMPAKET.displayName , Employment.SELBSTSTAENDIG.displayName);
   }
 
   public static Map<String, Object> createGreenInitVars() {
@@ -173,7 +170,31 @@ public class DemoData {
     ;
   }
 
-  public static NewApplication createNeuantrag(int alter, String hersteller, String typ) {
+  enum Categorys {
+	  BASISPAKET("Basispaket"), STANDARDPAKET("Standard Paket"), PREMIUMPAKET("Premium Paket");
+	  
+	  private String displayName;
+
+	  Categorys(String displayName) {
+	        this.displayName = displayName;
+	    }
+
+	    public String displayName() { return displayName; }
+  }
+  
+  enum Employment {
+	  NICHT_ERWERBSTAETIG("Nicht erwerbstätig"), FREELANCER("Freelancer"), SELBSTSTAENDIG("Selbstständig"), FEST_ANGESTELLT("Fest angestellt"), TEILZEIT("Teilzeit");
+	  
+	  private String displayName;
+
+	  Employment(String displayName) {
+	        this.displayName = displayName;
+	    }
+
+	    public String displayName() { return displayName; }
+  }
+  
+  public static NewApplication createNeuantrag(int alter, int income, String category, String employment) {
     NewApplication newApplication = new NewApplication();
     newApplication.setApplicant(new Person());
 
@@ -184,9 +205,9 @@ public class DemoData {
     newApplication.getApplicant().setName(NAME);
     newApplication.getApplicant().setEmail(EMAIL);
     newApplication.getApplicant().setSex(SEX);
-    newApplication.setVehicleManufacturer(hersteller);
-    newApplication.setVehicleType(typ);
-    newApplication.setProduct(PRODUCT);
+    newApplication.setIncome(income);
+    newApplication.setCategory(category);
+    newApplication.setEmployment(employment);
     newApplication.setPriceIndicationInCent(32000);
     return newApplication;
   }

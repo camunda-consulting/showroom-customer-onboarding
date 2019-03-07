@@ -9,10 +9,10 @@ public class NewApplication {
   private String applicationNumber;
 
   private Person applicant;
-  private String vehicleManufacturer;
-  private String vehicleType;
+  private int income;
+  private String employment;
 
-  private String product;
+  private String category;
 
   private String contractNumber;
   private long priceIndicationInCent;
@@ -67,28 +67,28 @@ public class NewApplication {
     this.applicant = applicant;
   }
 
-  public String getProduct() {
-    return product;
+  public String getCategory() {
+    return category;
   }
 
-  public void setProduct(String product) {
-    this.product = product;
+  public void setCategory(String category) {
+    this.category = category;
   }
 
-  public String getVehicleManufacturer() {
-    return vehicleManufacturer;
+  public int getIncome() {
+    return income;
   }
 
-  public void setVehicleManufacturer(String vehicleManufacturer) {
-    this.vehicleManufacturer = vehicleManufacturer;
+  public void setIncome(int income2) {
+    this.income = income2;
   }
 
-  public String getVehicleType() {
-    return vehicleType;
+  public String getEmployment() {
+    return employment;
   }
 
-  public void setVehicleType(String vehicleType) {
-    this.vehicleType = vehicleType;
+  public void setEmployment(String employment) {
+    this.employment = employment;
   }
 
   public String getContractNumber() {

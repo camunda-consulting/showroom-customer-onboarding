@@ -42,7 +42,7 @@ Wir freuen uns Ihnen mitteilen zu können, dass wir Ihre KFZ Versicherungspolice
 Wir haben Ihnen hier die wichtigsten Informationen zusammengestellt: 
 - Vertragsnummer: ${application.applicationNumber}
 - Jahresbeitrag: ${application.premium}
-- Produkt: ${application.product}
+- Produkt: ${application.category}
 
 Schöne Grüße
 Ihre Camundanzia.]]></camunda:script>
