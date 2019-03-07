@@ -7,12 +7,12 @@
           <text>application.applicant.age</text>
         </inputExpression>
       </input>
-      <input id="InputClause_0ohc5m6" label="Vehicle Manufacturer" camunda:inputVariable="">
+      <input id="InputClause_0ohc5m6" label="Vehicle Maker" camunda:inputVariable="">
         <inputExpression id="LiteralExpression_0o7difo" typeRef="string">
           <text>application.vehicleManufacturer</text>
         </inputExpression>
       </input>
-      <input id="InputClause_0pg433y" label="Vehicle Type" camunda:inputVariable="">
+      <input id="InputClause_0pg433y" label="Vehicle Model" camunda:inputVariable="">
         <inputExpression id="LiteralExpression_1si98id" typeRef="string">
           <text>application.vehicleType</text>
         </inputExpression>

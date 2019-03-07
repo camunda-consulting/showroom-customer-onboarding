@@ -28,7 +28,7 @@
    </head>
    <body class="boxed home">
       <div class="page-mask">
-            <div class="page-loader"> 
+            <div class="page-loader">
 
                 <div class="spinner"></div>
                 Loading...
@@ -38,7 +38,7 @@
       <div class="wrap">
          <!-- Header Start -->
          <header id="header">
-<%@ include file="headerTopBar.inc" %>            
+<%@ include file="headerTopBar.inc" %>
 <%@ include file="mainHeader.inc" %>
 		</header>
          <!-- Content Start -->
@@ -80,7 +80,7 @@
                                     <input class="form-control" id="applicant" name="name" type="text" value="" required>
                                  </div>
                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					 <label>${param.lang == 'de' ? 'Fahrzeug Hersteller' : 'Car Manufacturer'}: <span>*</span></label>
+					 <label>${param.lang == 'de' ? 'Fahrzeug Hersteller' : 'Car Maker'}: <span>*</span></label>
                                     <select class="form-control" id="vehicleManufacturer">
                                        <option value="VW" selected>VW</option>
                                        <option value="BMW">BMW</option>
@@ -95,7 +95,7 @@
                                     <input class="form-control" type="date" id="birthdate" name="birthdate" value="1980-01-01" required>
                                  </div>
                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					 <label>${param.lang == 'de' ? 'Fahrzeug Typ' : 'Car Type'}: <span>*</span></label>
+					 <label>${param.lang == 'de' ? 'Fahrzeug Typ' : 'Car Model'}: <span>*</span></label>
                                     <select class="form-control" id="vehicleType">
                                        <option value="Beatle">Beatle</option>
                                        <option value="Golf IV" selected>Golf IV</option>
@@ -112,7 +112,7 @@
                               </div>
                               <div class="row">
                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					 <label>${param.lang == 'de' ? 'Geschlecht' : 'Sex'}: <span>*</span></label>
+					 <label>${param.lang == 'de' ? 'Geschlecht' : 'Gender'}: <span>*</span></label>
                                     <select class="form-control" id="selectSex" name="selectSex">
 					    <option value="${param.lang == 'de' ? 'Frau' : 'female'}">${param.lang == 'de' ? 'weiblich' : 'female'}</option>
 					    <option value="${param.lang == 'de' ? 'Mann' : 'male'}">${param.lang == 'de' ? 'männlich' : 'male'}</option>

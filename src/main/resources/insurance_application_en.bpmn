@@ -47,7 +47,7 @@ Please check the key facts:
 Kind regards,
 Camundanzia.]]></camunda:script>
           </camunda:inputParameter>
-          <camunda:inputParameter name="mailSubject">Your police was issued</camunda:inputParameter>
+          <camunda:inputParameter name="mailSubject">Your policy was issued</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
