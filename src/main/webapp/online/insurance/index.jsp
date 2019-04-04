@@ -55,8 +55,8 @@
       <div class="wrap">
          <!-- Header Start -->
          <header id="header">
-<%@ include file="headerTopBar.inc" %>            
-<%@ include file="mainHeader.inc" %>
+<%@ include file="../js/headerTopBar.inc" %>            
+<%@ include file="../js/mainHeader.inc" %>
 		</header>
          <!-- Header End --> 
          <!-- Content Start -->
@@ -130,9 +130,9 @@
                   </div>
                </div>
             </div>
-<%@ include file="footer.inc" %>
+<%@ include file="../js/footer.inc" %>
       </div>
       <!-- Wrap End -->
-<%@ include file="scripts.inc" %>
+<%@ include file="../js/scripts.inc" %>
    </body>
 </html>
