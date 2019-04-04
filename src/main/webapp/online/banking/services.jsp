@@ -204,18 +204,18 @@
                            <label>${param.lang == 'de' ? 'Geschlecht' : 'Gender'}: <span>*</span></label>
                            <select class="form-control" id="selectSex" name="selectSex">
                              <option value="${param.lang == 'de' ? 'Frau' : 'female'}">${param.lang == 'de' ? 'weiblich' : 'female'}</option>
-               					     <option value="${param.lang == 'de' ? 'Mann' : 'male'}">${param.lang == 'de' ? 'männlich' : 'male'}</option>
+               					     <option value="${param.lang == 'de' ? 'Mann' : 'male'}">${param.lang == 'de' ? 'm&auml;nnlich' : 'male'}</option>
                            </select>
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                           <label>${param.lang == 'de' ? 'Unverbindliche Preisindikation' : 'Price Indication (non-binding)'}: </label>
-                           <input class="form-control" type="email" id="priceIndicationInCent" name="preisindikation" value="160,00 &euro;" readonly>
+                           <input class="form-control" type="text" id="priceIndicationInCent" name="preisindikation" value="160,00 &euro;" readonly>
                         </div>
                      </div>
 
                   </fieldset>
-                  <button id="triggerStartApplication" class="btn btn-normal btn-color submit" style="background-color:#003679;color:white;margin-top:1.5em;" type="button">Apply</button>
+                  <button id="triggerStartApplication" class="btn btn-normal btn-color submit" style="background-color:#003679;color:white;margin-top:1.5em;" type="button">Versenden</button>
                </form>
                   </div>
 
@@ -390,6 +390,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+
+    <%@ include file="../js/scripts.inc" %>
 </body>
 
 </html>
