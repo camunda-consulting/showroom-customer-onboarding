@@ -9,7 +9,7 @@ public class Person {
   private String email;
   private Date birthday;
   // TODO: EN/DE switch
-  private String sex = "Frau";
+  private String gender = "Frau";
   private int age;
   
   public int calculateAlter(Date atDate) {
@@ -37,12 +37,12 @@ public class Person {
      setAge(calculateAlter(new Date()));
   }
 
-  public String getSex() {
-    return sex;
+  public String getGender() {
+    return gender;
   }
 
-  public void setSex(String sex) {
-    this.sex = sex;
+  public void setGender(String sex) {
+    this.gender = sex;
   }
 
   public String getEmail() {
