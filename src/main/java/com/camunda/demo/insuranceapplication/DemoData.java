@@ -137,7 +137,7 @@ public class DemoData {
   }
 
   public static NewApplication yellow() {
-    return createNeuantrag(40, 30000, Categorys.PREMIUMPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
+    return createNeuantrag(40, 30000, Categorys.PREMIUMPAKET.displayName, Employment.FREELANCER.displayName);
   }
 
   public static NewApplication red() {
@@ -204,7 +204,7 @@ public class DemoData {
     newApplication.getApplicant().setBirthday(cal.getTime());
     newApplication.getApplicant().setName(NAME);
     newApplication.getApplicant().setEmail(EMAIL);
-    newApplication.getApplicant().setSex(SEX);
+    newApplication.getApplicant().setGender(SEX);
     newApplication.setIncome(income);
     newApplication.setCategory(category);
     newApplication.setEmployment(employment);
