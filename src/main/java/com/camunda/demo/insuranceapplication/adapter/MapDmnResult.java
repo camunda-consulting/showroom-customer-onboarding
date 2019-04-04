@@ -27,7 +27,7 @@ public class MapDmnResult implements ExecutionListener {
         throw new RuntimeException("DMN result list does not contain map");
       }
       Map<?, ?> result = (Map<?, ?>) oResult;
-      risks.add((String) result.get("risk"));
+      risks.add(result.containsKey("risk") ? (String) result.get("risk") : "");
       if (result.get("riskLevel") != null) {
         riskLevels.add(((String) result.get("riskLevel")).toLowerCase());
       }

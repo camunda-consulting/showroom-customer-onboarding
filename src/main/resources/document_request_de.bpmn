@@ -9,7 +9,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker"><![CDATA[Sehr <#if application.applicant.sex = "Mann">geehrter Herr<#else>geehrte Frau</#if> ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker"><![CDATA[Sehr <#if application.applicant.gender = "Mann">geehrter Herr<#else>geehrte Frau</#if> ${application.applicant.name}.
 
 Um Ihren KFZ-Neuantrag zu bearbeiten benötigen wir noch folgende Unterlagen von Ihnen:
 
@@ -40,7 +40,7 @@ Ihre Camundanzia.]]></camunda:script>
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker"><![CDATA[Sehr <#if application.applicant.sex = "Mann">geehrter Herr<#else>geehrte Frau</#if> ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker"><![CDATA[Sehr <#if application.applicant.gender = "Mann">geehrter Herr<#else>geehrte Frau</#if> ${application.applicant.name}.
 
 Um Ihren KFZ-Neuantrag zu bearbeiten benötigen wir noch folgende Unterlagen von Ihnen:
 

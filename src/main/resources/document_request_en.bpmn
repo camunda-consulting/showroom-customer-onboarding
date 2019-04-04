@@ -9,7 +9,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker"><![CDATA[Dear <#if application.applicant.sex = "male">Mr.<#else>Mrs.</#if> ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker"><![CDATA[Dear <#if application.applicant.gender = "male">Mr.<#else>Mrs.</#if> ${application.applicant.name}.
 
 To process your car insurance application we need some additional documents:
 
@@ -40,7 +40,7 @@ Camundanzia.]]></camunda:script>
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker"><![CDATA[Dear <#if application.applicant.sex = "male">Mr.<#else>Mrs.</#if> ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker"><![CDATA[Dear <#if application.applicant.gender = "male">Mr.<#else>Mrs.</#if> ${application.applicant.name}.
 
 To process your car insurance application we need some additional documents:
 
