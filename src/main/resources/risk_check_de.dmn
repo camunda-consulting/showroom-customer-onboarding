@@ -46,6 +46,7 @@
         </outputEntry>
       </rule>
       <rule id="row-314105272-5">
+        <description>"eine"</description>
         <inputEntry id="UnaryTests_0av35iy">
           <text></text>
         </inputEntry>
@@ -66,6 +67,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1euaw2y">
+        <description>"wirklich"</description>
         <inputEntry id="UnaryTests_0bctfm4">
           <text></text>
         </inputEntry>
@@ -86,6 +88,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0c99hq3">
+        <description>"echte"</description>
         <inputEntry id="UnaryTests_16q1ghi">
           <text>&lt;= 25</text>
         </inputEntry>
@@ -106,6 +109,7 @@
         </outputEntry>
       </rule>
       <rule id="row-314105272-4">
+        <description>"gefahrenvolle"</description>
         <inputEntry id="UnaryTests_194oa9u">
           <text></text>
         </inputEntry>
@@ -126,8 +130,9 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1el8xxk">
+        <description>"Situation"</description>
         <inputEntry id="UnaryTests_1lbnlv1">
-          <text>&lt; 21 , &gt;70 </text>
+          <text>&lt; 21 , &gt;70</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ptrvh0">
           <text></text>

@@ -46,6 +46,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0s72fjf">
+        <description>""</description>
         <inputEntry id="UnaryTests_1dkokb9">
           <text></text>
         </inputEntry>
@@ -66,6 +67,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1euaw2y">
+        <description>""</description>
         <inputEntry id="UnaryTests_0bctfm4">
           <text></text>
         </inputEntry>
@@ -79,13 +81,14 @@
           <text>&lt;= 50000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1pwrw8z">
-          <text></text>
+          <text>""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0zcjpew">
           <text>"yellow"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0c99hq3">
+        <description>""</description>
         <inputEntry id="UnaryTests_16q1ghi">
           <text>&lt;= 25</text>
         </inputEntry>
@@ -99,13 +102,14 @@
           <text>&lt;= 50000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0jlpe55">
-          <text></text>
+          <text>""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_05qilq2">
           <text>"yellow"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_08nz8pq">
+        <description>""</description>
         <inputEntry id="UnaryTests_0adgp9c">
           <text></text>
         </inputEntry>
@@ -119,13 +123,14 @@
           <text>&lt;= 40000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1xwbye7">
-          <text></text>
+          <text>""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1s5g29d">
           <text>"yellow"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1el8xxk">
+        <description>""</description>
         <inputEntry id="UnaryTests_1lbnlv1">
           <text>&lt; 21 , &gt;70</text>
         </inputEntry>
@@ -139,7 +144,7 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0zvishz">
-          <text></text>
+          <text>""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0gcf0p6">
           <text>"yellow"</text>
