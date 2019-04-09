@@ -53,7 +53,7 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
     List<ProcessDefinition> isThereOldOne = engine.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("insurance_application_en")
         .list();
 
-    DeploymentBuilder deploymentB = engine.getRepositoryService().createDeployment(getReference()) //
+    DeploymentBuilder deploymentBuilder = engine.getRepositoryService().createDeployment(getReference()) //
         .enableDuplicateFiltering(true) //
         .name(getName()) //
         .addClasspathResource("risk_check_en.dmn") //
@@ -62,12 +62,11 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
         .addClasspathResource("document_request_de.bpmn") //
         .resumePreviousVersions() //
         .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY) //
-    ;
-    if (isThereOldOne.isEmpty()) {
-      deploymentB.addClasspathResource("insurance_application_old_en.bpmn") //
+    ;    if (isThereOldOne.isEmpty()) {
+      deploymentBuilder.addClasspathResource("insurance_application_old_en.bpmn") //
           .addClasspathResource("insurance_application_old_de.bpmn");
     }
-    Deployment deployment = deploymentB.deploy();
+    Deployment deployment = deploymentBuilder.deploy();
     engine.getManagementService().registerProcessApplication(deployment.getId(), getReference());
 
     if (isThereOldOne.isEmpty()) {

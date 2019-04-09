@@ -41,6 +41,7 @@ public class ApplicationOnlineFacade {
       throw new RuntimeException("Unsupported language requested.");
     }
     String referer = headers.getHeaderString("Referer");
+    System.out.println("ich bin der refererer: " + referer);
     String uiBaseUrl = referer.substring(0, referer.lastIndexOf('/')) + "/";
 
     // we start by using the shown price - user can change it on decision form
