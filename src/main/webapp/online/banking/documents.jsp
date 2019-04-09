@@ -80,7 +80,7 @@
                                         <ul class="dropdown">
                                             <li><a >${param.lang == 'de' ? '&Uuml;ber Uns' : 'About Us'}</a></li>
                                             <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Kredite' : 'Bank Loans'}</a></li>
-                                            <li><a href="post.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
+                                            <li><a href="documents.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Einfacher Post' : 'Single Post'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Weitere Elemente' : 'Elements'}</a></li>
@@ -162,7 +162,7 @@
                                <fieldset>
                                   <div class="row" >
                                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-bottom:2em;">
-                                        <label style="margin-bottom:0.5em;">${param.lang == 'de' ? 'Referenznummer' : 'Reference Number'}: <span>*</span></label>
+                                        <label style="margin-bottom:0.5em;">${param.lang == 'de' ? 'Vorgangsnummer' : 'Reference Number'}: <span>*</span></label>
                                         <input class="form-control" id="referenceId" name="name" type="text" value="" required>
                                      </div>
                                   </div>
