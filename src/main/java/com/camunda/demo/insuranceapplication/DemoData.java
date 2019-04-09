@@ -14,119 +14,120 @@ import com.camunda.demo.insuranceapplication.model.NewApplication;
 import com.camunda.demo.insuranceapplication.model.Person;
 
 public class DemoData {
-/*
+
   static public class ContentGenerator extends DefaultContentGenerator {
     public NewApplication newApplication(boolean german) {
       Person p = new Person();
       p.setBirthday(uniformBirthdate(16, 99));
       boolean male = uniformBoolean();
       if (german) {
-        p.setSex(male ? "Mann" : "Frau");
+        p.setGender(male ? "Mann" : "Frau");
         p.setName((male ? firstnameMale() : firstnameFemale()) + " " + surnameGerman());
       } else {
-        p.setSex(male ? "male" : "female");
+        p.setGender(male ? "male" : "female");
         p.setName((male ? firstnameMale() : firstnameFemale()) + " " + surnameEnglish());
       }
       p.setEmail(email(p.getName(), uniformFromArgs3("GoogleMail", "Hotmail", "Yahoo")));
 
       NewApplication a = new NewApplication(businessKey());
       a.setApplicant(p);
-
-      a.setCategory(uniformFromArgs4(Categorys.BASISPAKET.displayName, Categorys.STANDARDPAKET.displayName, Categorys.PREMIUMPAKET, Categorys.BASISPAKET.displayName));
-      switch (a.getIncome()) {
-      case "VW":
-        a.setVehicleType(uniformFromArgs4("Beatle", "Golf IV", "Golf V", "Passat"));
-        switch (a.getVehicleType()) {
-        case "Beatle":
-          a.setPriceIndicationInCent(120);
-          break;
-        case "Golf IV":
-          a.setPriceIndicationInCent(160);
-          break;
-        case "Golf V":
-          a.setPriceIndicationInCent(150);
-          break;
-        case "Passat":
-          a.setPriceIndicationInCent(150);
-          break;
-
-        default:
-          break;
-        }
-        break;
-
-      case "BMW":
-        a.setVehicleType(uniformFromArgs4("318i", "525i", "735i", "X3"));
-        switch (a.getVehicleType()) {
-        case "318i":
-          a.setPriceIndicationInCent(190);
-          break;
-        case "525i":
-          a.setPriceIndicationInCent(210);
-          break;
-        case "735i":
-          a.setPriceIndicationInCent(240);
-          break;
-        case "X3":
-          a.setPriceIndicationInCent(280);
-          break;
-
-        default:
-          break;
-        }
-        break;
-
-      case "Porsche":
-        a.setVehicleType(uniformFromArgs4("911", "925", "Boxster", "Cayenne"));
-        switch (a.getVehicleType()) {
-        case "911":
-          a.setPriceIndicationInCent(310);
-          break;
-        case "925":
-          a.setPriceIndicationInCent(300);
-          break;
-        case "Boxster":
-          a.setPriceIndicationInCent(290);
-          break;
-        case "Cayenne":
-          a.setPriceIndicationInCent(300);
-          break;
-
-        default:
-          break;
-        }
-        break;
-
-      case "Audi":
-        a.setVehicleType(uniformFromArgs4("A3", "A4", "A6", "A8"));
-        switch (a.getVehicleType()) {
-        case "A3":
-          a.setPriceIndicationInCent(180);
-          break;
-        case "A4":
-          a.setPriceIndicationInCent(180);
-          break;
-        case "A6":
-          a.setPriceIndicationInCent(200);
-          break;
-        case "A8":
-          a.setPriceIndicationInCent(280);
-          break;
-
-        default:
-          break;
-        }
-        break;
-
-      default:
-        break;
-      }
+      
+      a.setPriceIndication("333");
+      a.setCategory(Categorys.BASISPAKET.displayName);//uniformFromArgs4(Categorys.BASISPAKET.displayName, Categorys.STANDARDPAKET.displayName, Categorys.PREMIUMPAKET, Categorys.BASISPAKET.displayName));
+//      switch (a.getIncome()) {
+//      case "VW":
+//        a.setVehicleType(uniformFromArgs4("Beatle", "Golf IV", "Golf V", "Passat"));
+//        switch (a.getVehicleType()) {
+//        case "Beatle":
+//          a.setPriceIndicationInCent(120);
+//          break;
+//        case "Golf IV":
+//          a.setPriceIndicationInCent(160);
+//          break;
+//        case "Golf V":
+//          a.setPriceIndicationInCent(150);
+//          break;
+//        case "Passat":
+//          a.setPriceIndicationInCent(150);
+//          break;
+//
+//        default:
+//          break;
+//        }
+//        break;
+//
+//      case "BMW":
+//        a.setVehicleType(uniformFromArgs4("318i", "525i", "735i", "X3"));
+//        switch (a.getVehicleType()) {
+//        case "318i":
+//          a.setPriceIndicationInCent(190);
+//          break;
+//        case "525i":
+//          a.setPriceIndicationInCent(210);
+//          break;
+//        case "735i":
+//          a.setPriceIndicationInCent(240);
+//          break;
+//        case "X3":
+//          a.setPriceIndicationInCent(280);
+//          break;
+//
+//        default:
+//          break;
+//        }
+//        break;
+//
+//      case "Porsche":
+//        a.setVehicleType(uniformFromArgs4("911", "925", "Boxster", "Cayenne"));
+//        switch (a.getVehicleType()) {
+//        case "911":
+//          a.setPriceIndicationInCent(310);
+//          break;
+//        case "925":
+//          a.setPriceIndicationInCent(300);
+//          break;
+//        case "Boxster":
+//          a.setPriceIndicationInCent(290);
+//          break;
+//        case "Cayenne":
+//          a.setPriceIndicationInCent(300);
+//          break;
+//
+//        default:
+//          break;
+//        }
+//        break;
+//
+//      case "Audi":
+//        a.setVehicleType(uniformFromArgs4("A3", "A4", "A6", "A8"));
+//        switch (a.getVehicleType()) {
+//        case "A3":
+//          a.setPriceIndicationInCent(180);
+//          break;
+//        case "A4":
+//          a.setPriceIndicationInCent(180);
+//          break;
+//        case "A6":
+//          a.setPriceIndicationInCent(200);
+//          break;
+//        case "A8":
+//          a.setPriceIndicationInCent(280);
+//          break;
+//
+//        default:
+//          break;
+//        }
+//        break;
+//
+//      default:
+//        break;
+//      }
       a.setPriceIndicationInCent(100 * a.getPriceIndicationInCent());
       a.setPremiumInCent(a.getPriceIndicationInCent());
-
+      System.out.println("started");
       return a;
     }
-  }*/
+  }
 
   public static final String SEX = "Mann";
   public static final String NAME = "Gentle Driver";
