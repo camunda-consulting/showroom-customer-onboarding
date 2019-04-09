@@ -52,7 +52,7 @@ $(document).ready(function() {
       "employment": $('#employment').val(),
       "income": $('#income').val(),
       "category": $('#category').val(),
-      "priceIndicationInCent": 1600 //getPrice() * 100 TODO: change getPrice to new circumstances
+      "priceIndicationInCent": getPrice() * 100
       // ,
       // "uiUrl": $('#uiUrl').val()
     };
@@ -129,104 +129,51 @@ $(document).ready(function() {
 
   });
 
-
-  // Dynamic stuff to fill data into car selection
-  $('#vehicleManufacturer').on('change', function() {
-    if ($('#vehicleManufacturer').val() == "VW") {
-      $('#vehicleType').children()[0].value = 'Beatle';
-      $('#vehicleType').children()[0].text = 'Beatle';
-      $('#vehicleType').children()[1].value = 'Golf IV';
-      $('#vehicleType').children()[1].text = 'Golf IV';
-      $('#vehicleType').children()[2].value = 'Golf V';
-      $('#vehicleType').children()[2].text = 'Golf V';
-      $('#vehicleType').children()[3].value = 'Passat';
-      $('#vehicleType').children()[3].text = 'Passat';
-    }
-    if ($('#vehicleManufacturer').val() == "BMW") {
-      $('#vehicleType').children()[0].value = '318i';
-      $('#vehicleType').children()[0].text = '318i';
-      $('#vehicleType').children()[1].value = '525i';
-      $('#vehicleType').children()[1].text = '525i';
-      $('#vehicleType').children()[2].value = '735i';
-      $('#vehicleType').children()[2].text = '735i';
-      $('#vehicleType').children()[3].value = 'X3';
-      $('#vehicleType').children()[3].text = 'X3';
-    }
-    if ($('#vehicleManufacturer').val() == "Porsche") {
-      $('#vehicleType').children()[0].value = '911';
-      $('#vehicleType').children()[0].text = '911';
-      $('#vehicleType').children()[1].value = '925';
-      $('#vehicleType').children()[1].text = '925';
-      $('#vehicleType').children()[2].value = 'Boxster';
-      $('#vehicleType').children()[2].text = 'Boxster';
-      $('#vehicleType').children()[3].value = 'Cayenne';
-      $('#vehicleType').children()[3].text = 'Cayenne';
-    }
-    if ($('#vehicleManufacturer').val() == "Audi") {
-      $('#vehicleType').children()[0].value = 'A3';
-      $('#vehicleType').children()[0].text = 'A3';
-      $('#vehicleType').children()[1].value = 'A4';
-      $('#vehicleType').children()[1].text = 'A4';
-      $('#vehicleType').children()[2].value = 'A6';
-      $('#vehicleType').children()[2].text = 'A6';
-      $('#vehicleType').children()[3].value = 'A8';
-      $('#vehicleType').children()[3].text = 'A8';
-    }
+  $('#category').on('change', function() {
     calculatePrice(preisindikationInCent);
   });
 
-  $('#vehicleType').on('change', function() {
+
+  $('#employment').on('change', function() {
     calculatePrice(preisindikationInCent);
   });
+
+
+  $('#income').on('change', function() {
+    calculatePrice(preisindikationInCent);
+  });
+
+  function isEqualToOneOf(objectToBeChecked) {
+    for (var i = 1; i < arguments.length; i++) {
+      if (arguments[i] == objectToBeChecked) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   function calculatePrice(preisindikationInCent) {
-    if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val() == "Beatle") {
-      preisindikationInCent = 120
+
+    var category = $('#category').val();
+    var employment = $('#employment').val();
+    var income = $('#income').val();
+
+    if (isEqualToOneOf(category, 'Basispaket', 'Basic Package')) {
+      preisindikationInCent = 40;
+    } else if (isEqualToOneOf(category, 'Standard Paket', 'Standard Package')) {
+      preisindikationInCent = 60;
+    } else {
+      preisindikationInCent = 120;
     }
-    if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val() == "Golf IV") {
-      preisindikationInCent = 160
-    }
-    if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val() == "Golf V") {
-      preisindikationInCent = 150
-    }
-    if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val() == "Passat") {
-      preisindikationInCent = 150
-    }
-    if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val() == "318i") {
-      preisindikationInCent = 190
-    }
-    if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val() == "525i") {
-      preisindikationInCent = 210
-    }
-    if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val() == "735i") {
-      preisindikationInCent = 240
-    }
-    if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val() == "X3") {
-      preisindikationInCent = 280
-    }
-    if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val() == "911") {
-      preisindikationInCent = 310
-    }
-    if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val() == "925") {
-      preisindikationInCent = 300
-    }
-    if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val() == "Boxster") {
-      preisindikationInCent = 290
-    }
-    if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val() == "Cayenne") {
-      preisindikationInCent = 300
-    }
-    if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val() == "A3") {
-      preisindikationInCent = 180
-    }
-    if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val() == "A4") {
-      preisindikationInCent = 180
-    }
-    if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val() == "A6") {
-      preisindikationInCent = 200
-    }
-    if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val() == "A8") {
-      preisindikationInCent = 280
+
+    if (isEqualToOneOf(employment, 'Fest angestellt', 'Salaried')) {
+      preisindikationInCent += income * 0.005;
+    } else if (isEqualToOneOf(employment, 'Selbstständig', 'Self-employed')) {
+      preisindikationInCent += income * 0.005;
+    } else if (isEqualToOneOf(employment, 'Teilzeit', 'Part-time')) {
+      preisindikationInCent += income * 0.0025;
+    } else if (isEqualToOneOf(employment, 'Freelancer')) {
+      preisindikationInCent += income * 0.01;
     }
 
     $('#priceIndicationInCent').val(preisindikationInCent + ",00 EUR");
@@ -234,53 +181,27 @@ $(document).ready(function() {
 
   function getPrice() {
     var preisindikationInCent;
-    if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val() == "Beatle") {
-      preisindikationInCent = 120
+
+    var category = $('#category').val();
+    var employment = $('#employment').val();
+    var income = $('#income').val();
+
+    if (isEqualToOneOf(category, 'Basispaket', 'Basic Package')) {
+      preisindikationInCent = 40;
+    } else if (isEqualToOneOf(category, 'Standard Paket', 'Standard Package')) {
+      preisindikationInCent = 60;
+    } else {
+      preisindikationInCent = 120;
     }
-    if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val() == "Golf IV") {
-      preisindikationInCent = 160
-    }
-    if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val() == "Golf V") {
-      preisindikationInCent = 150
-    }
-    if ($('#vehicleManufacturer').val() == "VW" && $('#vehicleType').val() == "Passat") {
-      preisindikationInCent = 150
-    }
-    if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val() == "318i") {
-      preisindikationInCent = 190
-    }
-    if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val() == "525i") {
-      preisindikationInCent = 210
-    }
-    if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val() == "735i") {
-      preisindikationInCent = 240
-    }
-    if ($('#vehicleManufacturer').val() == "BMW" && $('#vehicleType').val() == "X3") {
-      preisindikationInCent = 280
-    }
-    if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val() == "911") {
-      preisindikationInCent = 310
-    }
-    if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val() == "925") {
-      preisindikationInCent = 300
-    }
-    if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val() == "Boxster") {
-      preisindikationInCent = 290
-    }
-    if ($('#vehicleManufacturer').val() == "Porsche" && $('#vehicleType').val() == "Cayenne") {
-      preisindikationInCent = 300
-    }
-    if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val() == "A3") {
-      preisindikationInCent = 180
-    }
-    if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val() == "A4") {
-      preisindikationInCent = 180
-    }
-    if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val() == "A6") {
-      preisindikationInCent = 200
-    }
-    if ($('#vehicleManufacturer').val() == "Audi" && $('#vehicleType').val() == "A8") {
-      preisindikationInCent = 280
+
+    if (isEqualToOneOf(employment, 'Fest angestellt', 'Salaried')) {
+      preisindikationInCent += income * 0.005;
+    } else if (isEqualToOneOf(employment, 'Selbstständig', 'Self-employed')) {
+      preisindikationInCent += income * 0.005;
+    } else if (isEqualToOneOf(employment, 'Teilzeit', 'Part-time')) {
+      preisindikationInCent += income * 0.0025;
+    } else if (isEqualToOneOf(employment, 'Freelancer')) {
+      preisindikationInCent += income * 0.01;
     }
 
     return preisindikationInCent;

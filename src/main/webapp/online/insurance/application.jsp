@@ -80,7 +80,7 @@
                                     <input class="form-control" id="applicant" name="name" type="text" value="" required>
                                  </div>
                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					                          <label>${param.lang == 'de' ? 'Fahrzeug Hersteller' : 'Automobile Producer'}:  change this, maybe have values in backround in dmn<span>*</span></label>
+					                          <label>${param.lang == 'de' ? 'Fahrzeug Hersteller' : 'Automobile Producer'}:  <span>*</span></label>
                                     <select class="form-control" id="vehicleManufacturer">
                                        <option value="VW" selected>VW</option>
                                        <option value="BMW">BMW</option>
