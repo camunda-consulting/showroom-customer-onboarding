@@ -80,13 +80,14 @@
                                     <input class="form-control" id="applicant" name="name" type="text" value="" required>
                                  </div>
                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					                          <label>${param.lang == 'de' ? 'Fahrzeug Hersteller' : 'Automobile Producer'}:  <span>*</span></label>
-                                    <select class="form-control" id="vehicleManufacturer">
-                                       <option value="VW" selected>VW</option>
-                                       <option value="BMW">BMW</option>
-                                       <option value="Porsche">Porsche</option>
-                                       <option value="Audi">Audi</option>
-                                    </select>
+                                   <label>${param.lang == 'de' ? 'Anstellungsverh&auml;ltnis' : 'Employment'}: <span>*</span></label>
+                                   <select class="form-control" id="employment">
+                                      <option value="${param.lang == 'de' ? 'Fest angestellt' : 'Salaried'}"  selected>${param.lang == 'de' ? 'Fest angestellt' : 'Salaried'}</option>
+                                      <option value="${param.lang == 'de' ? 'Selbstst&auml;ndig' : 'Self-employed'}">${param.lang == 'de' ? 'Selbstst&auml;ndig' : 'Self-employed'}</option>
+                                      <option value="${param.lang == 'de' ? 'Teilzeit' : 'Part-time'}">${param.lang == 'de' ? 'Teilzeit' : 'Part-time'}</option>
+                                      <option value="Freelancer">${param.lang == 'de' ? 'Freelancer' : 'Freelancer'}</option>
+                                      <option value="${param.lang == 'de' ? 'Nicht erwerbst&auml;tig' : 'unemployed'}">${param.lang == 'de' ? 'Nicht erwerbst&auml;tig' : 'Unemployed'}</option>
+                                   </select>
                                  </div>
                               </div>
                               <div class="row">
@@ -95,19 +96,22 @@
                                     <input class="form-control" type="date" id="birthdate" name="birthdate" value="1980-01-01" required>
                                  </div>
                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					                          <label>${param.lang == 'de' ? 'Fahrzeug Typ' : 'Model'}: <span>*</span></label>
-                                    <select class="form-control" id="vehicleType">
-                                       <option value="Beatle">Beatle</option>
-                                       <option value="Golf IV" selected>Golf IV</option>
-                                       <option value="Golf V">Golf V</option>
-                                       <option value="Passat">Passat</option>
-                                    </select>
+                                    <label>${param.lang == 'de' ? 'Einkommen' : 'Income'}: <span>*</span></label>
+                                    <input class="form-control" id="income" name="income" type="text" value="" required>
                                  </div>
                               </div>
                               <div class="row">
                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					                          <label>${param.lang == 'de' ? 'E-Mail' : 'Email'}: <span>*</span></label>
                                     <input class="form-control" type="email" id="email" name="email" value="" required>
+                                 </div>
+                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                   <label>${param.lang == 'de' ? 'Kategorie' : 'Category'}: <span>*</span></label>
+                                   <select class="form-control" id="category">
+                                      <option value="${param.lang == 'de' ? 'Basispaket' : 'Basic Package'}">${param.lang == 'de' ? 'Basispaket' : 'Basic Package'}</option>
+                                      <option value="${param.lang == 'de' ? 'Standard Paket' : 'Standard Package'}" selected>${param.lang == 'de' ? 'Standard Paket' : 'Standard Package'}</option>
+                                      <option value="${param.lang == 'de' ? 'Premium Paket' : 'Premium Package'}">${param.lang == 'de' ? 'Premium Paket' : 'Premium Package'}</option>
+                                   </select>
                                  </div>
                               </div>
                               <div class="row">
