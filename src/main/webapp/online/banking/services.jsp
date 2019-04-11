@@ -1,10 +1,11 @@
+<%@ page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
@@ -80,8 +81,7 @@
                                         <ul class="dropdown">
                                             <li><a >${param.lang == 'de' ? '&Uuml;ber Uns' : 'About Us'}</a></li>
                                             <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Kredite' : 'Bank Loans'}</a></li>
-                                            <li><a href="post.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
-                                            <li><a >${param.lang == 'de' ? 'Einfacher Post' : 'Single Post'}</a></li>
+                                            <li><a href="documents.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Weitere Elemente' : 'Elements'}</a></li>
                                         </ul>

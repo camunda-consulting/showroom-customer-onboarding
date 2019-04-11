@@ -80,8 +80,7 @@
                                         <ul class="dropdown">
                                             <li><a >${param.lang == 'de' ? '&Uuml;ber Uns' : 'About Us'}</a></li>
                                             <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Kredite' : 'Bank Loans'}</a></li>
-                                            <li><a href="post.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
-                                            <li><a >${param.lang == 'de' ? 'Einfacher Post' : 'Single Post'}</a></li>
+                                            <li><a href="documents.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Weitere Elemente' : 'Elements'}</a></li>
                                         </ul>
@@ -118,7 +117,7 @@
                                 <h6 data-animation="fadeInUp" data-delay="100ms">${param.lang == 'de' ? '2 Jahre Zinsen' :'2 years interest'}</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'Hol dir deinen <span>Kredit</span> jetzt</h2>' :'get your <span>loan</span> now</h2>'}
                                 <p data-animation="fadeInUp" data-delay="500ms">Vestibulum eu vehicula elit, nec elementum orci. Praesent aliquet ves tibulum tempus. Pellentesque posuere pharetra turpis, eget finibus erat porta placerat.</p>
-                                <a href="#" class="btn credit-btn mt-50" data-animation="fadeInUp" data-delay="700ms">Discover</a>
+                                <a href="services.jsp?lang=${param.lang}" class="btn credit-btn mt-50" data-animation="fadeInUp" data-delay="700ms">${param.lang == 'de' ? 'Entdecken' :'Discover'}</a>
                             </div>
                         </div>
                     </div>
@@ -139,7 +138,7 @@
                                 <h6 data-animation="fadeInUp" data-delay="100ms">${param.lang == 'de' ? '2 Jahre Zinsen' :'2 years interest'}</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'Hol dir deinen <span>Kredit</span> jetzt</h2>' :'get your <span>loan</span> now</h2>'}
                                 <p data-animation="fadeInDown" data-delay="500ms">Vestibulum eu vehicula elit, nec elementum orci. Praesent aliquet ves tibulum tempus. Pellentesque posuere pharetra turpis, eget finibus erat porta placerat.</p>
-                                <a href="#" class="btn credit-btn mt-50" data-animation="fadeInDown" data-delay="700ms">Discover</a>
+                                <a href="services.jsp?lang=${param.lang}" class="btn credit-btn mt-50" data-animation="fadeInDown" data-delay="700ms">${param.lang == 'de' ? 'Entdecken' :'Discover'}</a>
                             </div>
                         </div>
                     </div>
@@ -160,7 +159,7 @@
                                 <h6 data-animation="fadeInUp" data-delay="100ms">${param.lang == 'de' ? '2 Jahre Zinsen' :'2 years interest'}</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'Hol dir deinen <span>Kredit</span> jetzt</h2>' :'get your <span>loan</span> now</h2>'}
                                 <p data-animation="fadeInUp" data-delay="500ms">Vestibulum eu vehicula elit, nec elementum orci. Praesent aliquet ves tibulum tempus. Pellentesque posuere pharetra turpis, eget finibus erat porta placerat.</p>
-                                <a href="#" class="btn credit-btn mt-50" data-animation="fadeInUp" data-delay="700ms">Discover</a>
+                                <a href="services.jsp?lang=${param.lang}" class="btn credit-btn mt-50" data-animation="fadeInUp" data-delay="700ms">${param.lang == 'de' ? 'Entdecken' :'Discover'}</a>
                             </div>
                         </div>
                     </div>
@@ -181,7 +180,7 @@
                                 <h6 data-animation="fadeInUp" data-delay="100ms">${param.lang == 'de' ? '2 Jahre Zinsen' :'2 years interest'}</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'Hol dir deinen <span>Kredit</span> jetzt</h2>' :'get your <span>loan</span> now</h2>'}
                                 <p data-animation="fadeInDown" data-delay="500ms">Vestibulum eu vehicula elit, nec elementum orci. Praesent aliquet ves tibulum tempus. Pellentesque posuere pharetra turpis, eget finibus erat porta placerat.</p>
-                                <a href="#" class="btn credit-btn mt-50" data-animation="fadeInDown" data-delay="700ms">Discover</a>
+                                <a href="services.jsp?lang=${param.lang}" class="btn credit-btn mt-50" data-animation="fadeInDown" data-delay="700ms">${param.lang == 'de' ? 'Entdecken' :'Discover'}</a>
                             </div>
                         </div>
                     </div>
@@ -207,7 +206,7 @@
                             <h2>Our Loans</h2>
                         </div>
                         <h6>In vitae nisi aliquam, scelerisque leo a, volutpat sem. Viva mus rutrum dui fermentum eros hendrerit.</h6>
-                        <a href="#" class="btn credit-btn mt-50">Discover</a>
+                        <a href="services.jsp?lang=${param.lang}" class="btn credit-btn mt-50">${param.lang == 'de' ? 'Entdecken' :'Discover'}</a>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
