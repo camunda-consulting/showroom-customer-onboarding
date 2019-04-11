@@ -13,6 +13,7 @@ public class NewApplication {
   private String employment;
 
   private String category;
+  private String corporation;
 
   private String contractNumber;
   private long priceIndicationInCent;
@@ -38,6 +39,14 @@ public class NewApplication {
   public NewApplication(String applicationNumber) {
     super();
     this.applicationNumber = applicationNumber;
+  }
+
+  public String getCorporation() {
+	return corporation;
+  }
+
+  public void setCorporation(String corporation) {
+	this.corporation = corporation;
   }
 
   public String getPremium() {
