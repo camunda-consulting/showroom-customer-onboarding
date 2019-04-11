@@ -52,7 +52,8 @@ $(document).ready(function() {
       "employment": $('#employment').val(),
       "income": $('#income').val(),
       "category": $('#category').val(),
-      "priceIndicationInCent": getPrice() * 100
+      "priceIndicationInCent": getPrice() * 100,
+      "corporation": "Camundanzia"
       // ,
       // "uiUrl": $('#uiUrl').val()
     };
@@ -129,17 +130,17 @@ $(document).ready(function() {
 
   });
 
-  $('#category').on('change', function() {
+  $('#category').on('change, keyup, mouseup', function() {
     calculatePrice(preisindikationInCent);
   });
 
 
-  $('#employment').on('change', function() {
+  $('#employment').on('change, keyup, mouseup', function() {
     calculatePrice(preisindikationInCent);
   });
 
 
-  $('#income').on('change', function() {
+  $('#income').on('change, keyup', function() {
     calculatePrice(preisindikationInCent);
   });
 
@@ -173,9 +174,10 @@ $(document).ready(function() {
     } else if (isEqualToOneOf(employment, 'Teilzeit', 'Part-time')) {
       preisindikationInCent += income * 0.0025;
     } else if (isEqualToOneOf(employment, 'Freelancer')) {
-      preisindikationInCent += income * 0.01;
+      preisindikationInCent += income * 0.0075;
     }
 
+    preisindikationInCent = Math.round(preisindikationInCent);
     $('#priceIndicationInCent').val(preisindikationInCent + ",00 EUR");
   }
 
