@@ -11,7 +11,7 @@
           <camunda:inputParameter name="mailBody">
             <camunda:script scriptFormat="freemarker"><![CDATA[Dear <#if application.applicant.gender = "male">Mr.<#else>Mrs.</#if> ${application.applicant.name}.
 
-To process your car insurance application we need some additional documents:
+To process your request we need some additional documents:
 
 ${requestedDocumentDescription}
 
@@ -19,10 +19,10 @@ You can upload the document following this link:
 
   ${uiBaseUrl}/documents.jsp?lang=en&referenceId=${documentReferenceId}
 
-As soon as we receive the document we will continue to process your application.
+As soon as we receive the document we will continue to process your request.
 
 Kind regards,
-Camundanzia.]]></camunda:script>
+${application.corporation}.]]></camunda:script>
           </camunda:inputParameter>
           <camunda:inputParameter name="mailSubject">We need some documents</camunda:inputParameter>
         </camunda:inputOutput>
@@ -42,7 +42,7 @@ Camundanzia.]]></camunda:script>
           <camunda:inputParameter name="mailBody">
             <camunda:script scriptFormat="freemarker"><![CDATA[Dear <#if application.applicant.gender = "male">Mr.<#else>Mrs.</#if> ${application.applicant.name}.
 
-To process your car insurance application we need some additional documents:
+To process your request we need some additional documents:
 
 ${requestedDocumentDescription}
 
@@ -50,10 +50,10 @@ You can upload the document following this link:
 
   ${uiBaseUrl}/documents.jsp?lang=en&referenceId=${documentReferenceId}
 
-As soon as we receive the document we will continue to process your application.
+As soon as we receive the document we will continue to process your request.
 
 Kind regards,
-Camundanzia.]]></camunda:script>
+${application.corporation}.]]></camunda:script>
           </camunda:inputParameter>
           <camunda:inputParameter name="mailSubject">We still need documents</camunda:inputParameter>
         </camunda:inputOutput>

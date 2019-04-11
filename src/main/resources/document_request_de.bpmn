@@ -11,7 +11,7 @@
           <camunda:inputParameter name="mailBody">
             <camunda:script scriptFormat="freemarker"><![CDATA[Sehr <#if application.applicant.gender = "Mann">geehrter Herr<#else>geehrte Frau</#if> ${application.applicant.name}.
 
-Um Ihren KFZ-Neuantrag zu bearbeiten benötigen wir noch folgende Unterlagen von Ihnen:
+Um Ihren Auftrag zu bearbeiten benötigen wir noch folgende Unterlagen von Ihnen:
 
 ${requestedDocumentDescription}
 
@@ -22,7 +22,7 @@ Sie können das Dokument unter folgendem Link hochladen:
 Sobald die Unterlagen bei uns eingegangen sind werden wir Ihren Antrag umgehend weiter bearbeiten.
 
 Schöne Grüße
-Ihre Camundanzia.]]></camunda:script>
+Ihre ${application.corporation}.]]></camunda:script>
           </camunda:inputParameter>
           <camunda:inputParameter name="mailSubject">Wir benötigen noch Unterlagen</camunda:inputParameter>
         </camunda:inputOutput>
@@ -42,7 +42,7 @@ Ihre Camundanzia.]]></camunda:script>
           <camunda:inputParameter name="mailBody">
             <camunda:script scriptFormat="freemarker"><![CDATA[Sehr <#if application.applicant.gender = "Mann">geehrter Herr<#else>geehrte Frau</#if> ${application.applicant.name}.
 
-Um Ihren KFZ-Neuantrag zu bearbeiten benötigen wir noch folgende Unterlagen von Ihnen:
+Um Ihren Auftrag zu bearbeiten benötigen wir noch folgende Unterlagen von Ihnen:
 
 ${requestedDocumentDescription}
 
@@ -53,7 +53,7 @@ Sie können das Dokument unter folgendem Link hochladen:
 Sobald die Unterlagen bei uns eingegangen sind werden wir Ihren Antrag umgehend weiter bearbeiten.
 
 Schöne Grüße
-Ihre Camundanzia.]]></camunda:script>
+Ihre ${application.corporation}.]]></camunda:script>
           </camunda:inputParameter>
           <camunda:inputParameter name="mailSubject">Wir benötigen noch Unterlagen</camunda:inputParameter>
         </camunda:inputOutput>

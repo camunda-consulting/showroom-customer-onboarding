@@ -81,7 +81,6 @@
                                             <li><a >${param.lang == 'de' ? '&Uuml;ber Uns' : 'About Us'}</a></li>
                                             <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Kredite' : 'Bank Loans'}</a></li>
                                             <li><a href="documents.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
-                                            <li><a >${param.lang == 'de' ? 'Einfacher Post' : 'Single Post'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Weitere Elemente' : 'Elements'}</a></li>
                                         </ul>
@@ -349,6 +348,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+    <!-- App js -->
+    <script src="app.js"></script>
 </body>
 
 </html>

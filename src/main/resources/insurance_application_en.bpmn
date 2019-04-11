@@ -37,7 +37,7 @@
           <camunda:inputParameter name="mailBody">
             <camunda:script scriptFormat="freemarker"><![CDATA[Dear <#if application.applicant.gender = "male">Mr.<#else>Mrs.</#if> ${application.applicant.name}.
 
-We happily inform you that your car insurance application was accepted and the policy issued.
+We happily inform you that your request was accepted.
 
 Please check the key facts: 
 - Application Number: ${application.applicationNumber}
@@ -45,9 +45,9 @@ Please check the key facts:
 - Category: ${application.category}
 
 Kind regards,
-Camundanzia.]]></camunda:script>
+${application.corporation}.]]></camunda:script>
           </camunda:inputParameter>
-          <camunda:inputParameter name="mailSubject">Your police was issued</camunda:inputParameter>
+          <camunda:inputParameter name="mailSubject">Your request was issued</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
@@ -119,12 +119,12 @@ Camundanzia.]]></camunda:script>
           <camunda:inputParameter name="mailBody">
             <camunda:script scriptFormat="freemarker"><![CDATA[Dear <#if application.applicant.gender = "male">Mr.<#else>Mrs.</#if> ${application.applicant.name}.
 
-Unfortunately we have to inform you that we cannot issue the desired car insurance policy.
+Unfortunately we have to inform you that we cannot issue the desired request.
 
 Kind regards,
-Camundanzia.]]></camunda:script>
+${application.corporation}.]]></camunda:script>
           </camunda:inputParameter>
-          <camunda:inputParameter name="mailSubject">Application rejected</camunda:inputParameter>
+          <camunda:inputParameter name="mailSubject">Request rejected</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_01vh1zw</bpmn2:incoming>
