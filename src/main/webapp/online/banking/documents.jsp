@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
-    <title>Camunbankia ${param.lang == 'de' ? 'fiktionales GmbH' :'- The Business Loan fictionality'}</title>
+    <title>Camunbankia ${param.lang == 'de' ? 'fiktionales GmbH' :'- The Business Account fictionality'}</title>
 
     <!-- Favicon -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -79,7 +79,7 @@
                                     <li><a href="#">${param.lang == 'de' ? 'Seiten' :'Pages'}</a>
                                         <ul class="dropdown">
                                             <li><a >${param.lang == 'de' ? '&Uuml;ber Uns' : 'About Us'}</a></li>
-                                            <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Kredite' : 'Bank Loans'}</a></li>
+                                            <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Kredite' : 'Bank Accounts'}</a></li>
                                             <li><a href="documents.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Weitere Elemente' : 'Elements'}</a></li>
@@ -237,7 +237,7 @@
                         <!-- Nav -->
                         <nav>
                             <ul>
-                                <li><a href="#">${param.lang == 'de' ? 'Unsere Kredite' : 'Our Loans'}</a></li>
+                                <li><a href="#">${param.lang == 'de' ? 'Unsere Kredite' : 'Our Accounts'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'kommerzielles Handeln' : 'Trading &amp; Commerce'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'Banking &amp; Private Equity' : 'Banking &amp; Private Equity'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'Industrie &amp; Fabrik' : 'Industrial &amp; Factory'}</a></li>
@@ -254,7 +254,7 @@
                         <!-- Nav -->
                         <nav>
                             <ul>
-                                <li><a href="#">${param.lang == 'de' ? 'Unsere Kredite' : 'Our Loans'}</a></li>
+                                <li><a href="#">${param.lang == 'de' ? 'Unsere Kredite' : 'Our Accounts'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'kommerzielles Handeln' : 'Trading &amp; Commerce'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'Banking &amp; Private Equity' : 'Banking &amp; Private Equity'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'Industrie &amp Fabrik;' : 'Industrial &amp; Factory'}</a></li>
@@ -275,7 +275,7 @@
                                 <img src="img/bg-img/7.jpg" alt="">
                             </div>
                             <div class="news-content">
-                                <a href="#">${param.lang == 'de' ? 'Wie bekommt man den besten Kredit' : 'How to get the best loan'}?</a>
+                                <a href="#">${param.lang == 'de' ? 'Wie bekommt man den besten Kredit' : 'How to get the best Account'}?</a>
                                 <div class="news-meta">
                                     <a href="#" class="post-author"><img src="img/core-img/pencil.png" alt=""> Jane Smith</a>
                                     <a href="#" class="post-date"><img src="img/core-img/calendar.png" alt=""> April 26</a>
@@ -289,7 +289,7 @@
                                 <img src="img/bg-img/8.jpg" alt="">
                             </div>
                             <div class="news-content">
-                                <a href="#">${param.lang == 'de' ? 'Neue Wege f&uuml;r neue Kredite' : 'A new way to get a loan'}</a>
+                                <a href="#">${param.lang == 'de' ? 'Neue Wege f&uuml;r neue Kredite' : 'A new way to get a Account'}</a>
                                 <div class="news-meta">
                                     <a href="#" class="post-author"><img src="img/core-img/pencil.png" alt=""> Jane Smith</a>
                                     <a href="#" class="post-date"><img src="img/core-img/calendar.png" alt=""> April 26</a>
