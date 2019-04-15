@@ -9,6 +9,12 @@
 @import url(css/font-awesome.min.css);
 @import url(css/credit-icon.css);
 /* :: 3.0 Base CSS */
+
+/*own css*/
+.accListElem {
+	margin-bottom:0.5em;
+}
+
 * {
   margin: 0;
   padding: 0; }

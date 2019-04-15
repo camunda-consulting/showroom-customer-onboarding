@@ -39,7 +39,7 @@
           <text>&gt;= 80000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1f3y5xd">
-          <text>"Illegale Aktivitäten"</text>
+          <text>"Unseriöse Aktivitäten"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1w57ja5">
           <text>"rot"</text>
@@ -81,7 +81,7 @@
           <text>&lt;= 50000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1pwrw8z">
-          <text></text>
+          <text>"Unregelmäßiges Einkommen"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0zcjpew">
           <text>"gelb"</text>
@@ -99,10 +99,10 @@
           <text>"Premium Paket"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0p7n3di">
-          <text>&lt;= 50000</text>
+          <text>&lt;= 60000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0jlpe55">
-          <text></text>
+          <text>"Zusammenbruch des Einkommens durch Insolvenz"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_05qilq2">
           <text>"gelb"</text>
@@ -120,33 +120,12 @@
           <text>"Premium Paket"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0sg4o54">
-          <text>&lt;= 40000</text>
+          <text>&lt;= 60000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0wves9k">
-          <text>"Sinnlose Raserei"</text>
+          <text>"Kreditkartenschulden"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0cayvqc">
-          <text>"gelb"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1el8xxk">
-        <description>"Situation"</description>
-        <inputEntry id="UnaryTests_1lbnlv1">
-          <text>&lt; 21 , &gt;70</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ptrvh0">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1f8ah6b">
-          <text>not("Basispaket")</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0btzy8d">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0zvishz">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0gcf0p6">
           <text>"gelb"</text>
         </outputEntry>
       </rule>

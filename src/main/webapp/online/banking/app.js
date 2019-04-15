@@ -130,6 +130,46 @@ $(document).ready(function() {
 
   });
 
+  function chooseCategory(categoryDe, categoryEn) {
+    var isGerman = lang.endsWith('de');
+    $('#category').val(isGerman ? categoryDe : categoryEn);
+    calculatePrice(preisindikationInCent);
+  }
+
+  function scrollToAnchor() {
+    if (this.hash !== "") {
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $('#standardButton').offset().top - 25
+      }, 800, function() {
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  }
+
+  //choose category on click
+  $('#basicButton').click(function() {
+    chooseCategory('Basispaket', 'Basic Package');
+    scrollToAnchor();
+  });
+
+  $('#standardButton').click(function() {
+    chooseCategory('Standard Paket', 'Standard Package');
+    scrollToAnchor();
+  });
+
+  $('#premiumButton').click(function() {
+    chooseCategory('Premium Paket', 'Premium Package');
+    scrollToAnchor();
+  });
+
   $('#category').on('change, keyup, mouseup', function() {
     calculatePrice(preisindikationInCent);
   });
@@ -160,21 +200,11 @@ $(document).ready(function() {
     var income = $('#income').val();
 
     if (isEqualToOneOf(category, 'Basispaket', 'Basic Package')) {
-      preisindikationInCent = 40;
+      preisindikationInCent = 36;
     } else if (isEqualToOneOf(category, 'Standard Paket', 'Standard Package')) {
       preisindikationInCent = 60;
     } else {
-      preisindikationInCent = 120;
-    }
-
-    if (isEqualToOneOf(employment, 'Fest angestellt', 'Salaried')) {
-      preisindikationInCent += income * 0.005;
-    } else if (isEqualToOneOf(employment, 'Selbstständig', 'Self-employed')) {
-      preisindikationInCent += income * 0.005;
-    } else if (isEqualToOneOf(employment, 'Teilzeit', 'Part-time')) {
-      preisindikationInCent += income * 0.0025;
-    } else if (isEqualToOneOf(employment, 'Freelancer')) {
-      preisindikationInCent += income * 0.0075;
+      preisindikationInCent = 180;
     }
     preisindikationInCent = Math.round(preisindikationInCent);
     $('#priceIndicationInCent').val(preisindikationInCent + ",00 EUR");
@@ -188,21 +218,11 @@ $(document).ready(function() {
     var income = $('#income').val();
 
     if (isEqualToOneOf(category, 'Basispaket', 'Basic Package')) {
-      preisindikationInCent = 40;
+      preisindikationInCent = 36;
     } else if (isEqualToOneOf(category, 'Standard Paket', 'Standard Package')) {
       preisindikationInCent = 60;
     } else {
-      preisindikationInCent = 120;
-    }
-
-    if (isEqualToOneOf(employment, 'Fest angestellt', 'Salaried')) {
-      preisindikationInCent += income * 0.005;
-    } else if (isEqualToOneOf(employment, 'Selbstständig', 'Self-employed')) {
-      preisindikationInCent += income * 0.005;
-    } else if (isEqualToOneOf(employment, 'Teilzeit', 'Part-time')) {
-      preisindikationInCent += income * 0.0025;
-    } else if (isEqualToOneOf(employment, 'Freelancer')) {
-      preisindikationInCent += income * 0.01;
+      preisindikationInCent = 180;
     }
 
     return preisindikationInCent;

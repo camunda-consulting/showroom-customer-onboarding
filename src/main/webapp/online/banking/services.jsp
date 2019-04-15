@@ -10,7 +10,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
-    <title>Camunbankia - The Business Loan Company</title>
+    <title>Camunbankia - The Business Account Company</title>
 
     <!-- Favicon -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -80,7 +80,7 @@
                                     <li><a href="#">${param.lang == 'de' ? 'Seiten' :'Pages'}</a>
                                         <ul class="dropdown">
                                             <li><a >${param.lang == 'de' ? '&Uuml;ber Uns' : 'About Us'}</a></li>
-                                            <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Kredite' : 'Bank Loans'}</a></li>
+                                            <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Kredite' : 'Bank Accounts'}</a></li>
                                             <li><a href="documents.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Weitere Elemente' : 'Elements'}</a></li>
@@ -146,6 +146,47 @@
                 </div>
             </div>
 
+            <!-- choose product category -->
+
+            <div class="container-fluid" style="clear: both;margin-bottom:3em;">
+              <div class="row" style="text-align:center;">
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                  <h4>${param.lang == 'de' ? 'Only online' : 'Only online'}</h4>
+                  <img src="img/laptop_8.jpg" alt="" style="margin-bottom:2em;">
+                  <ul style="text-align:left;">
+                    <li class="accListElem">❌<span> ${param.lang == 'de' ? 'Bargeldausgabe' : 'Cash Money'}</span></li>
+                    <li class="accListElem">❌<span > ${param.lang == 'de' ? 'Dispokredit' : 'Overdraft Facility'}</span></li>
+                    <li class="accListElem">✅<span style="font-weight:550;"> ${param.lang == 'de' ? 'Nur 3€/Monat' : 'Only 3$ monthly'}</span></li>
+                    <li class="accListElem">✅<span style="font-weight:550;"> ${param.lang == 'de' ? 'Einfacher Online-Zugang' : 'Easy Online-Acces'}</span></li>
+
+                  </ul>
+                  <button id="basicButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">${param.lang == 'de' ? 'W&auml;hlen' : 'choose'}</button>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                  <h4>${param.lang == 'de' ? 'Aktivkonto' : 'Active Account'}</h4>
+                  <img src="img/bank_7.jpg" alt="" style="margin-bottom:2em;">
+                  <ul style="text-align:left;">
+                    <li class="accListElem">✅<span> ${param.lang == 'de' ? 'Bargeldausgabe' : 'Cash Money'}</span></li>
+                    <li class="accListElem">✅<span> ${param.lang == 'de' ? 'Nur 5€/Monat' : 'Only 5$ monthly'}</span></li>
+                    <li class="accListElem">✅<span style="font-weight:550;"> ${param.lang == 'de' ? 'Dispokredit bis 1000 €' : 'Overdraft Facility up to 1000$'}</span></li>
+                    <li class="accListElem">✅<span style="font-weight:550;"> ${param.lang == 'de' ? 'Mastercard' : 'Mastercard'}</span></li>
+                  </ul>
+                  <button id="standardButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">${param.lang == 'de' ? 'W&auml;hlen' : 'choose'}</button>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                  <h4>${param.lang == 'de' ? 'Premium Konto' : 'Premium Account'}</h4>
+                  <img src="img/skyscraper_6.jpg" alt="" style="margin-bottom:2em;">
+                  <ul style="text-align:left;">
+                    <li class="accListElem">✅<span> ${param.lang == 'de' ? 'Bargeldausgabe' : 'Cash Money'}</span></li>
+                    <li class="accListElem">✅<span> ${param.lang == 'de' ? '15€/Monat' : 'Only 15$ monthly'}</span></li>
+                    <li class="accListElem">✅<span style="font-weight:1000;"> ${param.lang == 'de' ? 'Dispokredit bis 5000 €' : 'Overdraft Facility up to 5000$'}</span></li>
+                    <li class="accListElem">✅<span style="font-weight:1000;"> ${param.lang == 'de' ? 'Platin-Mastercard' : 'Platin-Mastercard'}</span></li>
+                  </ul>
+                  <button id="premiumButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">${param.lang == 'de' ? 'W&auml;hlen' : 'choose'}</button>
+                </div>
+              </div>
+            </div>
+
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12" id="contact-form" style="margin-bottom: 6em;margin-left: 15em;clear:both;">
             <h3 class="title">${param.lang == 'de' ? 'Konto er&ouml;ffnen' : 'Open An Account'}</h3>
             <div class="divider"></div>
@@ -166,7 +207,7 @@
                              <option value="${param.lang == 'de' ? 'Selbstst&auml;ndig' : 'Self-employed'}">${param.lang == 'de' ? 'Selbstst&auml;ndig' : 'Self-employed'}</option>
                              <option value="${param.lang == 'de' ? 'Teilzeit' : 'Part-time'}">${param.lang == 'de' ? 'Teilzeit' : 'Part-time'}</option>
                              <option value="Freelancer">${param.lang == 'de' ? 'Freelancer' : 'Freelancer'}</option>
-                             <option value="${param.lang == 'de' ? 'Nicht erwerbst&auml;tig' : 'unemployed'}">${param.lang == 'de' ? 'Nicht erwerbst&auml;tig' : 'Unemployed'}</option>
+                             <option value="${param.lang == 'de' ? 'Nicht erwerbst&auml;tig' : 'Unemployed'}">${param.lang == 'de' ? 'Nicht erwerbst&auml;tig' : 'Unemployed'}</option>
                           </select>
                         </div>
                      </div>
@@ -190,11 +231,11 @@
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                          <label>${param.lang == 'de' ? 'Kategorie' : 'Category'}: <span>*</span></label>
-                          <select class="form-control" id="category">
-                             <option value="${param.lang == 'de' ? 'Basispaket' : 'Basic Package'}">${param.lang == 'de' ? 'Basispaket' : 'Basic Package'}</option>
-                             <option value="${param.lang == 'de' ? 'Standard Paket' : 'Standard Package'}" selected>${param.lang == 'de' ? 'Standard Paket' : 'Standard Package'}</option>
-                             <option value="${param.lang == 'de' ? 'Premium Paket' : 'Premium Package'}">${param.lang == 'de' ? 'Premium Paket' : 'Premium Package'}</option>
+                          <label>${param.lang == 'de' ? 'Typ' : 'Account Type'}: <span>*</span></label>
+                          <select class="form-control" id="category" disabled style="background:white;-webkit-appearance:none;">
+                             <option value="${param.lang == 'de' ? 'Basispaket' : 'Basic Package'}">${param.lang == 'de' ? 'Only online' : 'Only online'}</option>
+                             <option value="${param.lang == 'de' ? 'Standard Paket' : 'Standard Package'}" selected>${param.lang == 'de' ? 'Aktivkonto' : 'Active Account'}</option>
+                             <option value="${param.lang == 'de' ? 'Premium Paket' : 'Premium Package'}">${param.lang == 'de' ? 'Premium Konto' : 'Premium Account'}</option>
                           </select>
                         </div>
                      </div>
@@ -210,12 +251,12 @@
 
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                           <label>${param.lang == 'de' ? 'Unverbindliche Preisindikation' : 'Price Indication (non-binding)'}: </label>
-                           <input class="form-control" type="text" id="priceIndicationInCent" name="preisindikation" value="160,00 &euro;" readonly>
+                           <input class="form-control" type="text" id="priceIndicationInCent" name="preisindikation" value="60,00 &euro;" readonly>
                         </div>
                      </div>
 
                   </fieldset>
-                  <button id="triggerStartApplication" class="btn btn-normal btn-color submit" style="background-color:#003679;color:white;margin-top:1.5em;" type="button">Versenden</button>
+                  <button id="triggerStartApplication" class="btn btn-normal btn-color submit" style="background-color:#003679;color:white;margin-top:1.5em;" type="button">${param.lang == 'de' ? 'Versenden' : 'Send'}</button>
                </form>
                   </div>
 
@@ -279,7 +320,7 @@
                         <!-- Nav -->
                         <nav>
                             <ul>
-                                <li><a href="#">${param.lang == 'de' ? 'Unsere Kredite' : 'Our Loans'}</a></li>
+                                <li><a href="#">${param.lang == 'de' ? 'Unsere Kredite' : 'Our Accounts'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'kommerzielles Handeln' : 'Trading &amp; Commerce'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'Banking &amp; Private Equity' : 'Banking &amp; Private Equity'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'Industrie &amp; Fabrik' : 'Industrial &amp; Factory'}</a></li>
@@ -296,7 +337,7 @@
                         <!-- Nav -->
                         <nav>
                             <ul>
-                                <li><a href="#">${param.lang == 'de' ? 'Unsere Kredite' : 'Our Loans'}</a></li>
+                                <li><a href="#">${param.lang == 'de' ? 'Unsere Kredite' : 'Our Accounts'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'kommerzielles Handeln' : 'Trading &amp; Commerce'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'Banking &amp; Private Equity' : 'Banking &amp; Private Equity'}</a></li>
                                 <li><a href="#">${param.lang == 'de' ? 'Industrie &amp Fabrik;' : 'Industrial &amp; Factory'}</a></li>
@@ -317,7 +358,7 @@
                                 <img src="img/bg-img/7.jpg" alt="">
                             </div>
                             <div class="news-content">
-                                <a href="#">${param.lang == 'de' ? 'Wie bekommt man den besten Kredit' : 'How to get the best loan'}?</a>
+                                <a href="#">${param.lang == 'de' ? 'Wie bekommt man den besten Kredit' : 'How to get the best Account'}?</a>
                                 <div class="news-meta">
                                     <a href="#" class="post-author"><img src="img/core-img/pencil.png" alt=""> Jane Smith</a>
                                     <a href="#" class="post-date"><img src="img/core-img/calendar.png" alt=""> April 26</a>
@@ -331,7 +372,7 @@
                                 <img src="img/bg-img/8.jpg" alt="">
                             </div>
                             <div class="news-content">
-                                <a href="#">${param.lang == 'de' ? 'Neue Wege f&uuml;r neue Kredite' : 'A new way to get a loan'}</a>
+                                <a href="#">${param.lang == 'de' ? 'Neue Wege f&uuml;r neue Kredite' : 'A new way to get a Account'}</a>
                                 <div class="news-meta">
                                     <a href="#" class="post-author"><img src="img/core-img/pencil.png" alt=""> Jane Smith</a>
                                     <a href="#" class="post-date"><img src="img/core-img/calendar.png" alt=""> April 26</a>
