@@ -79,7 +79,7 @@
                                     <li><a href="#">${param.lang == 'de' ? 'Seiten' :'Pages'}</a>
                                         <ul class="dropdown">
                                             <li><a >${param.lang == 'de' ? '&Uuml;ber Uns' : 'About Us'}</a></li>
-                                            <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Kredite' : 'Bank Accounts'}</a></li>
+                                            <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Konten' : 'Bank Accounts'}</a></li>
                                             <li><a href="documents.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
                                             <li><a >${param.lang == 'de' ? 'Weitere Elemente' : 'Elements'}</a></li>
@@ -92,7 +92,7 @@
 
                         <!-- Contact -->
                         <div class="contact">
-                            <a href="#"><img src="img/core-img/call2.png" alt="">${param.lang == 'de' ? '030 664040900' :'+1 619 876 7897'}</a>
+                            <a href="#"><img src="img/core-img/call2.png" alt="">${param.lang == 'de' ? '&nbsp;030 664040900' :'&nbsp;+1 619 876 7897'}</a>
                         </div>
                     </nav>
                 </div>
@@ -114,9 +114,10 @@
                     <div class="row h-100 align-items-center justify-content-center">
                         <div class="col-12 col-lg-9">
                             <div class="welcome-text text-center">
-                                <h6 data-animation="fadeInUp" data-delay="100ms">${param.lang == 'de' ? '2 Jahre Zinsen' :'2 years interest'}</h6>
-                                <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'Hol dir deinen <span>Kredit</span> jetzt</h2>' :'get your <span>Account</span> now</h2>'}
-                                <p data-animation="fadeInUp" data-delay="500ms">Vestibulum eu vehicula elit, nec elementum orci. Praesent aliquet ves tibulum tempus. Pellentesque posuere pharetra turpis, eget finibus erat porta placerat.</p>
+                                <h6 data-animation="fadeInUp" data-delay="100ms">${param.lang == 'de' ? 'Direkt - Einfach - Gut!' :'direct - easy - awesome'}</h6>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'Hol dir jetzt</h2>' :'Get </h2>'}
+                                <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? '<span>Dein Girokonto,</span></h2>' :'<span>your personal account</span></h2>'}
+                                <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'das zu Dir passt</h2>' :'now</h2>'}
                                 <a href="services.jsp?lang=${param.lang}" class="btn credit-btn mt-50" data-animation="fadeInUp" data-delay="700ms">${param.lang == 'de' ? 'Entdecken' :'Discover'}</a>
                             </div>
                         </div>
@@ -135,10 +136,11 @@
                     <div class="row h-100 align-items-center justify-content-center">
                         <div class="col-12 col-lg-9">
                             <div class="welcome-text text-center">
-                                <h6 data-animation="fadeInUp" data-delay="100ms">${param.lang == 'de' ? '2 Jahre Zinsen' :'2 years interest'}</h6>
-                                <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'Hol dir deinen <span>Kredit</span> jetzt</h2>' :'get your <span>Account</span> now</h2>'}
-                                <p data-animation="fadeInDown" data-delay="500ms">Vestibulum eu vehicula elit, nec elementum orci. Praesent aliquet ves tibulum tempus. Pellentesque posuere pharetra turpis, eget finibus erat porta placerat.</p>
-                                <a href="services.jsp?lang=${param.lang}" class="btn credit-btn mt-50" data-animation="fadeInDown" data-delay="700ms">${param.lang == 'de' ? 'Entdecken' :'Discover'}</a>
+                                <h6 data-animation="fadeInUp" data-delay="100ms">${param.lang == 'de' ? '0,23 effektiver Jahreszins' :'0.23 APR'}</h6>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'Hol Dir die</h2>' :'Get your</h2>'}
+                                <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? '<span>Immobilien-Finanzierung,</span></h2>' :'<span>personal mortgage loan</span></h2>'}
+                                <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'die zu Dir passt!</h2>' :'now!</h2>'}
+                                <a href="services.jsp?lang=${param.lang}" class="btn credit-btn mt-50" data-animation="fadeInDown" data-delay="700ms">${param.lang == 'de' ? 'Jetzt entdecken' :'Discover'}</a>
                             </div>
                         </div>
                     </div>
@@ -146,49 +148,6 @@
                 <!-- Slide Duration Indicator -->
                 <div class="slide-du-indicator"></div>
             </div>
-
-            <!-- Single Slide -->
-            <div class="single-slide bg-img">
-                <!-- Background Image-->
-                <div class="slide-bg-img bg-img bg-overlay" style="background-image: url(img/bg-img/1.jpg);"></div>
-                <!-- Welcome Text -->
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center justify-content-center">
-                        <div class="col-12 col-lg-9">
-                            <div class="welcome-text text-center">
-                                <h6 data-animation="fadeInUp" data-delay="100ms">${param.lang == 'de' ? '2 Jahre Zinsen' :'2 years interest'}</h6>
-                                <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'Hol dir deinen <span>Kredit</span> jetzt</h2>' :'get your <span>Account</span> now</h2>'}
-                                <p data-animation="fadeInUp" data-delay="500ms">Vestibulum eu vehicula elit, nec elementum orci. Praesent aliquet ves tibulum tempus. Pellentesque posuere pharetra turpis, eget finibus erat porta placerat.</p>
-                                <a href="services.jsp?lang=${param.lang}" class="btn credit-btn mt-50" data-animation="fadeInUp" data-delay="700ms">${param.lang == 'de' ? 'Entdecken' :'Discover'}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide Duration Indicator -->
-                <div class="slide-du-indicator"></div>
-            </div>
-
-            <!-- Single Slide -->
-            <div class="single-slide bg-img">
-                <!-- Background Image-->
-                <div class="slide-bg-img bg-img bg-overlay" style="background-image: url(img/bg-img/5.jpg);"></div>
-                <!-- Welcome Text -->
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center justify-content-center">
-                        <div class="col-12 col-lg-9">
-                            <div class="welcome-text text-center">
-                                <h6 data-animation="fadeInUp" data-delay="100ms">${param.lang == 'de' ? '2 Jahre Zinsen' :'2 years interest'}</h6>
-                                <h2 data-animation="fadeInUp" data-delay="300ms">${param.lang == 'de' ? 'Hol dir deinen <span>Kredit</span> jetzt</h2>' :'get your <span>Account</span> now</h2>'}
-                                <p data-animation="fadeInDown" data-delay="500ms">Vestibulum eu vehicula elit, nec elementum orci. Praesent aliquet ves tibulum tempus. Pellentesque posuere pharetra turpis, eget finibus erat porta placerat.</p>
-                                <a href="services.jsp?lang=${param.lang}" class="btn credit-btn mt-50" data-animation="fadeInDown" data-delay="700ms">${param.lang == 'de' ? 'Entdecken' :'Discover'}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide Duration Indicator -->
-                <div class="slide-du-indicator"></div>
-            </div>
-
         </div>
     </div>
     <!-- ##### Hero Area End ##### -->
