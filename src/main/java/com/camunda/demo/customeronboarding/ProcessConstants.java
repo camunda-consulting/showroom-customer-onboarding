@@ -1,9 +1,9 @@
-package com.camunda.demo.insuranceapplication;
+package com.camunda.demo.customeronboarding;
 
 public class ProcessConstants {
 
-  public static final String PROCESS_KEY_insurance_application_en = "insurance_application_en";
-  public static final String PROCESS_KEY_insurance_application_de = "insurance_application_de";
+  public static final String PROCESS_KEY_customer_onboarding_en = "customer_onboarding_en";
+  public static final String PROCESS_KEY_customer_onboarding_de = "customer_onboarding_de";
 
   public static final String PROCESS_KEY_requestDocument_en = "requestDocument_en";
   public static final String PROCESS_KEY_requestDocument_de = "requestDocument_de";
@@ -35,5 +35,5 @@ public class ProcessConstants {
   public static final String MESSAGE_documentReceived = "MESSAGE_documentReceived";
   public static final String VAR_NAME_document = "document";
 
-  public static final String VERSION_TAG_old_insurace_application = "oldInsuranceApplication";
+  public static final String VERSION_TAG_old_insurace_application = "oldCustomerOnboarding";
 }

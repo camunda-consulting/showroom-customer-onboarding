@@ -1,4 +1,4 @@
-package com.camunda.demo.insuranceapplication.facade;
+package com.camunda.demo.customeronboarding.facade;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

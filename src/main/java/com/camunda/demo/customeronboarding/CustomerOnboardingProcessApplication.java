@@ -1,4 +1,4 @@
-package com.camunda.demo.insuranceapplication;
+package com.camunda.demo.customeronboarding;
 
 import static com.camunda.consulting.util.FilterGenerator.createFilter;
 import static com.camunda.consulting.util.UserGenerator.addFilterGroupAuthorization;
@@ -39,8 +39,8 @@ import com.camunda.consulting.util.UserGenerator;
 import com.camunda.demo.environment.DemoDataGenerator;
 
 @ProcessApplication
-public class InsuranceApplicationProcessApplication extends ServletProcessApplication {
-  private static final Logger LOGGER = LoggerFactory.getLogger(InsuranceApplicationProcessApplication.class);
+public class CustomerOnboardingProcessApplication extends ServletProcessApplication {
+  private static final Logger LOGGER = LoggerFactory.getLogger(CustomerOnboardingProcessApplication.class);
 
   @PostDeploy
   public void setupEnvironmentForDemo(ProcessEngine engine) {
@@ -50,7 +50,7 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
     UserGenerator.createDefaultUsers(engine);
     setupUsersForDemo(engine);
 
-    List<ProcessDefinition> isThereOldOne = engine.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("insurance_application_en")
+    List<ProcessDefinition> isThereOldOne = engine.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("customer_onboarding_en")
         .list();
 
     DeploymentBuilder deploymentBuilder = engine.getRepositoryService().createDeployment(getReference()) //
@@ -63,8 +63,8 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
         .resumePreviousVersions() //
         .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY) //
     ;    if (isThereOldOne.isEmpty()) {
-      deploymentBuilder.addClasspathResource("insurance_application_old_en.bpmn") //
-          .addClasspathResource("insurance_application_old_de.bpmn");
+      deploymentBuilder.addClasspathResource("customer_onboarding_old_en.bpmn") //
+          .addClasspathResource("customer_onboarding_old_de.bpmn");
     }
     Deployment deployment = deploymentBuilder.deploy();
     engine.getManagementService().registerProcessApplication(deployment.getId(), getReference());
@@ -76,8 +76,8 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
     deployment = engine.getRepositoryService().createDeployment(getReference()) //
         .enableDuplicateFiltering(true) //
         .name(getName()) //
-        .addClasspathResource("insurance_application_en.bpmn") //
-        .addClasspathResource("insurance_application_de.bpmn") //
+        .addClasspathResource("customer_onboarding_en.bpmn") //
+        .addClasspathResource("customer_onboarding_de.bpmn") //
         .resumePreviousVersions() //
         .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY) //
         .deploy();
@@ -97,7 +97,7 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
         long end = System.currentTimeMillis();
         LOGGER.info("----                                                     ----");
         LOGGER.info("----                                                     ----");
-        LOGGER.info("---- Demo data generation for insurance showcase DONE :) ----");
+        LOGGER.info("---- Demo data generation for customer onboarding showcase DONE :) ----");
         LOGGER.info("----                                                     ----");
         LOGGER.info("----              .,      .           ,__                ----");
         LOGGER.info("----              | \\    / \\   |\\  |  |                  ----");
@@ -115,18 +115,18 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
     ((ProcessEngineConfigurationImpl) engine.getProcessEngineConfiguration()).getJobExecutor().shutdown();
 
     // push one instance to the first user task
-    ProcessInstance pi = engine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_insurance_application_en, "A-123",
+    ProcessInstance pi = engine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_en, "A-123",
         DemoData.createYellowInitVars());
     engine.getManagementService().executeJob(engine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
-    pi = engine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_insurance_application_de, DemoData.createYellowInitVars());
+    pi = engine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_de, DemoData.createYellowInitVars());
     engine.getManagementService().executeJob(engine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
 
     // and the other one to the second
-    pi = engine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_insurance_application_en, "A-456", DemoData.createYellowInitVars());
+    pi = engine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_en, "A-456", DemoData.createYellowInitVars());
     engine.getManagementService().executeJob(engine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
     Task decideOnApplication = engine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).active().singleResult();
     engine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
-    pi = engine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_insurance_application_de, DemoData.createYellowInitVars());
+    pi = engine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_de, DemoData.createYellowInitVars());
     engine.getManagementService().executeJob(engine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
     decideOnApplication = engine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).active().singleResult();
     engine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
@@ -136,9 +136,9 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
 
   public static long generateDemoData(ProcessEngine engine, ProcessApplicationReference reference) {
     long startedInstances = 0;
-    startedInstances += DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_insurance_application_en, reference,
+    startedInstances += DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_customer_onboarding_en, reference,
         ProcessConstants.PROCESS_KEY_requestDocument_en, ProcessConstants.DECISION_KEY_checkRisk_en);
-    startedInstances += DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_insurance_application_de, reference,
+    startedInstances += DemoDataGenerator.autoGenerateFor(engine, ProcessConstants.PROCESS_KEY_customer_onboarding_de, reference,
         ProcessConstants.PROCESS_KEY_requestDocument_de, ProcessConstants.DECISION_KEY_checkRisk_de);
     return startedInstances;
   }
@@ -241,17 +241,17 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
 
     createGrantGroupAuthorization(engine, new String[] { "sachbearbeiter", "gruppenleiter" },
         new Permission[] { Permissions.READ, Permissions.READ_HISTORY, Permissions.READ_INSTANCE, Permissions.UPDATE_INSTANCE }, Resources.PROCESS_DEFINITION,
-        new String[] { "insurance_application_de" });
+        new String[] { "customer_onboarding_de" });
 
     createGrantGroupAuthorization(engine, new String[] { "clerk", "teamlead" },
         new Permission[] { Permissions.READ, Permissions.READ_HISTORY, Permissions.READ_INSTANCE, Permissions.UPDATE_INSTANCE }, Resources.PROCESS_DEFINITION,
-        new String[] { "insurance_application_en" });
+        new String[] { "customer_onboarding_en" });
 
     createGrantGroupAuthorization(engine, new String[] { "geschaeftsfuehrung" }, Permissions.values(), Resources.PROCESS_DEFINITION,
-        new String[] { "insurance_application_de", "requestDocument_de" });
+        new String[] { "customer_onboarding_de", "requestDocument_de" });
 
     createGrantGroupAuthorization(engine, new String[] { "management" }, Permissions.values(), Resources.PROCESS_DEFINITION,
-        new String[] { "insurance_application_en", "requestDocument_en" });
+        new String[] { "customer_onboarding_en", "requestDocument_en" });
 
     createGrantGroupAuthorization(engine, new String[] { "geschaeftsfuehrung" }, Permissions.values(), Resources.DECISION_DEFINITION,
         new String[] { "checkRisk_de" });

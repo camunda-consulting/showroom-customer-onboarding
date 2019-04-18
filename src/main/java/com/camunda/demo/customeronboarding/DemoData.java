@@ -1,4 +1,4 @@
-package com.camunda.demo.insuranceapplication;
+package com.camunda.demo.customeronboarding;
 
 import static org.camunda.spin.Spin.JSON;
 
@@ -10,8 +10,8 @@ import org.camunda.bpm.engine.variable.Variables.SerializationDataFormats;
 import org.camunda.bpm.engine.variable.value.FileValue;
 
 import com.camunda.demo.environment.simulation.DefaultContentGenerator;
-import com.camunda.demo.insuranceapplication.model.NewApplication;
-import com.camunda.demo.insuranceapplication.model.Person;
+import com.camunda.demo.customeronboarding.model.NewApplication;
+import com.camunda.demo.customeronboarding.model.Person;
 
 public class DemoData {
 
@@ -124,7 +124,7 @@ public class DemoData {
 //      }
       a.setPriceIndicationInCent(100 * a.getPriceIndicationInCent());
       a.setPremiumInCent(a.getPriceIndicationInCent());
-      System.out.println("started");
+      // System.out.println("started");
       return a;
     }
   }

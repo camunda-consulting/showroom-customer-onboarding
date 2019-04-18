@@ -1,4 +1,4 @@
-package com.camunda.demo.insuranceapplication;
+package com.camunda.demo.customeronboarding;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.historyService;
@@ -37,9 +37,9 @@ import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.camunda.demo.insuranceapplication.DemoData;
-import com.camunda.demo.insuranceapplication.ProcessConstants;
-import com.camunda.demo.insuranceapplication.adapter.SendEmailService;
+import com.camunda.demo.customeronboarding.DemoData;
+import com.camunda.demo.customeronboarding.ProcessConstants;
+import com.camunda.demo.customeronboarding.adapter.SendEmailService;
 
 /*
  * we must use this PowerMock-restriction together with PowerMockRule instead of
@@ -47,8 +47,8 @@ import com.camunda.demo.insuranceapplication.adapter.SendEmailService;
  * fixed
  */
 @PowerMockIgnore("*")
-@PrepareOnlyThisForTest(fullyQualifiedNames = { "com.camunda.demo.insuranceapplication.adapter.EmailAdapter" })
-@Deployment(resources = { "insurance_application_en.bpmn", "document_request_en.bpmn", "risk_check_en.dmn", "insurance_application_de.bpmn",
+@PrepareOnlyThisForTest(fullyQualifiedNames = { "com.camunda.demo.customeronboarding.adapter.EmailAdapter" })
+@Deployment(resources = { "customer_onboarding_en.bpmn", "document_request_en.bpmn", "risk_check_en.dmn", "customer_onboarding_de.bpmn",
     "document_request_de.bpmn", "risk_check_de.dmn" })
 public class VersicherungsneuantragScenarioTest {
   static final Logger logger = LoggerFactory.getLogger(VersicherungsneuantragScenarioTest.class);
@@ -62,7 +62,7 @@ public class VersicherungsneuantragScenarioTest {
 
   // Mock all wait states in main process and call activity with a scenario
   @Mock
-  private ProcessScenario insuranceApplication;
+  private ProcessScenario customerOnboarding;
   @Mock
   private ProcessScenario documentRequest;
   @Mock
@@ -80,112 +80,112 @@ public class VersicherungsneuantragScenarioTest {
     }).when(sendEmailService).sendEmail(anyString(), anyString(), anyString());
 
     // standard behavior
-    when(insuranceApplication.waitsAtUserTask("UserTask_AccelerateDecision")).thenReturn(TaskDelegate::complete);
-    when(insuranceApplication.runsCallActivity("CallActivity_RequestDocument")).thenReturn(Scenario.use(documentRequest));
+    when(customerOnboarding.waitsAtUserTask("UserTask_AccelerateDecision")).thenReturn(TaskDelegate::complete);
+    when(customerOnboarding.runsCallActivity("CallActivity_RequestDocument")).thenReturn(Scenario.use(documentRequest));
     when(documentRequest.waitsAtUserTask("UserTask_CallCustomer")).thenReturn(TaskDelegate::complete);
   }
 
   @Test
   public void testAutomaticNoRisk() throws Exception {
-    testAutomaticNoRisk(ProcessConstants.PROCESS_KEY_insurance_application_en);
+    testAutomaticNoRisk(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
   }
 
   @Test
   public void testAutomaticNoRisk_de() throws Exception {
-    testAutomaticNoRisk(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testAutomaticNoRisk(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testAutomaticNoRisk(String whatever) throws EmailException {
-    Scenario.run(insuranceApplication) //
+    Scenario.run(customerOnboarding) //
         .startByKey(whatever, DemoData.createGreenInitVars()).execute();
 
-    verify(insuranceApplication, never()).hasStarted("SubProcess_ManualCheck");
-    verify(insuranceApplication, never()).hasStarted("ServiceTask_RejectPolicy");
-    verify(insuranceApplication).hasCompleted("EndEvent_ApplicationIssued");
+    verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
+    verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
+    verify(customerOnboarding).hasCompleted("EndEvent_ApplicationIssued");
 
     verify(sendEmailService, times(1)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());
   }
 
   @Test
   public void testAutomaticHighRisk() throws Exception {
-    testAutomaticHighRisk(ProcessConstants.PROCESS_KEY_insurance_application_en);
+    testAutomaticHighRisk(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
   }
 
   @Test
   public void testAutomaticHighRisk_de() throws Exception {
-    testAutomaticHighRisk(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testAutomaticHighRisk(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testAutomaticHighRisk(String sldkfhsdf) throws EmailException {
-    Scenario.run(insuranceApplication) //
+    Scenario.run(customerOnboarding) //
         .startByKey(sldkfhsdf, DemoData.createRedInitVars()).execute();
 
-    verify(insuranceApplication, never()).hasStarted("SubProcess_ManualCheck");
-    verify(insuranceApplication, never()).hasStarted("ServiceTask_DeliverPolicy");
-    verify(insuranceApplication).hasCompleted("EndEvent_ApplicationRejected");
+    verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
+    verify(customerOnboarding, never()).hasStarted("ServiceTask_DeliverPolicy");
+    verify(customerOnboarding).hasCompleted("EndEvent_ApplicationRejected");
 
     verify(sendEmailService, times(1)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());
   }
 
   @Test
   public void testManualImmediateApprove() throws Exception {
-    testManualImmediateApprove(ProcessConstants.PROCESS_KEY_insurance_application_en);
+    testManualImmediateApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
   }
 
   @Test
   public void testManualImmediateApprove_de() throws Exception {
-    testManualImmediateApprove(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testManualImmediateApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testManualImmediateApprove(String lskdfhdksf) throws EmailException {
-    when(insuranceApplication.waitsAtUserTask("UserTask_DecideOnApplication")).thenReturn(task -> task.complete(withVariables("approved", true)));
+    when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication")).thenReturn(task -> task.complete(withVariables("approved", true)));
 
-    Scenario.run(insuranceApplication) //
+    Scenario.run(customerOnboarding) //
         .startByKey(lskdfhdksf, DemoData.createYellowInitVars()).execute();
 
-    verify(insuranceApplication, never()).hasStarted("SubProcess_ManualCheck");
-    verify(insuranceApplication, never()).hasStarted("ServiceTask_RejectPolicy");
-    verify(insuranceApplication).hasCompleted("EndEvent_ApplicationIssued");
+    verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
+    verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
+    verify(customerOnboarding).hasCompleted("EndEvent_ApplicationIssued");
 
     verify(sendEmailService, times(1)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());
   }
 
   @Test
   public void testManualDelayedApprove() throws Exception {
-    testManualDelayedApprove(ProcessConstants.PROCESS_KEY_insurance_application_en);
+    testManualDelayedApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
   }
 
   @Test
   public void testManualDelayedApprove_de() throws Exception {
-    testManualDelayedApprove(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testManualDelayedApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testManualDelayedApprove(String skdfhdsjhf) {
-    when(insuranceApplication.waitsAtUserTask("UserTask_DecideOnApplication"))
+    when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         .thenReturn(task -> task.defer("P5D", () -> task.complete(withVariables("approved", true))));
 
-    Scenario.run(insuranceApplication) //
+    Scenario.run(customerOnboarding) //
         .startByKey(skdfhdsjhf, DemoData.createYellowInitVars()).execute();
 
     // we snub our employees only once (not every 2 days)
-    verify(insuranceApplication, times(1)).hasCompleted("EndEvent_DecisionAccelerated");
-    verify(insuranceApplication).hasCompleted("EndEvent_ApplicationIssued");
+    verify(customerOnboarding, times(1)).hasCompleted("EndEvent_DecisionAccelerated");
+    verify(customerOnboarding).hasCompleted("EndEvent_ApplicationIssued");
   }
 
   String firstRef, secondRef;
 
   @Test
   public void testManualRequestDocumentThenApprove() throws Exception {
-    testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_insurance_application_en);
+    testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
   }
 
   @Test
   public void testManualRequestDocumentThenApprove_de() throws Exception {
-    testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testManualRequestDocumentThenApprove(String sadkjfh) throws EmailException {
-    when(insuranceApplication.waitsAtUserTask("UserTask_DecideOnApplication"))
+    when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> {
           runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentRequested, new HashMap<>(),
@@ -203,14 +203,14 @@ public class VersicherungsneuantragScenarioTest {
     /*
      * Run and verify
      */
-    ProcessInstance processInstance = Scenario.run(insuranceApplication) //
-        .startByKey(sadkjfh, DemoData.createYellowInitVars()).execute().instance(insuranceApplication);
+    ProcessInstance processInstance = Scenario.run(customerOnboarding) //
+        .startByKey(sadkjfh, DemoData.createYellowInitVars()).execute().instance(customerOnboarding);
 
     verify(documentRequest, never()).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, never()).hasStarted("SendTask_SendReminderEmail");
     verify(documentRequest).hasCompleted("EndEvent_GotDocument");
-    verify(insuranceApplication, never()).hasStarted("ServiceTask_RejectPolicy");
-    verify(insuranceApplication).hasCompleted("EndEvent_ApplicationIssued");
+    verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
+    verify(customerOnboarding).hasCompleted("EndEvent_ApplicationIssued");
 
     // we expect exactly one document
     @SuppressWarnings("unchecked")
@@ -224,16 +224,16 @@ public class VersicherungsneuantragScenarioTest {
 
   @Test
   public void testManualRequestTwoDocumentsThenApprove() throws Exception {
-    testManualRequestTwoDocumentsThenApprove(ProcessConstants.PROCESS_KEY_insurance_application_en);
+    testManualRequestTwoDocumentsThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
   }
 
   @Test
   public void testManualRequestTwoDocumentsThenApprove_de() throws Exception {
-    testManualRequestTwoDocumentsThenApprove(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testManualRequestTwoDocumentsThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testManualRequestTwoDocumentsThenApprove(String askdjfhdsf) throws EmailException {
-    when(insuranceApplication.waitsAtUserTask("UserTask_DecideOnApplication"))
+    when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> {
           runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentRequested, new HashMap<>(),
@@ -259,14 +259,14 @@ public class VersicherungsneuantragScenarioTest {
     /*
      * Run and verify
      */
-    ProcessInstance processInstance = Scenario.run(insuranceApplication) //
-        .startByKey(askdjfhdsf, DemoData.createYellowInitVars()).execute().instance(insuranceApplication);
+    ProcessInstance processInstance = Scenario.run(customerOnboarding) //
+        .startByKey(askdjfhdsf, DemoData.createYellowInitVars()).execute().instance(customerOnboarding);
 
     verify(documentRequest, never()).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, never()).hasStarted("SendTask_SendReminderEmail");
     verify(documentRequest, times(2)).hasCompleted("EndEvent_GotDocument");
-    verify(insuranceApplication, never()).hasStarted("ServiceTask_RejectPolicy");
-    verify(insuranceApplication).hasCompleted("EndEvent_ApplicationIssued");
+    verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
+    verify(customerOnboarding).hasCompleted("EndEvent_ApplicationIssued");
 
     // we expect exactly two documents
     @SuppressWarnings("unchecked")
@@ -281,16 +281,16 @@ public class VersicherungsneuantragScenarioTest {
 
   @Test
   public void testManualRequestDocumentLittleLateCustomerThenApprove() throws Exception {
-    testManualRequestDocumentLittleLateCustomerThenApprove(ProcessConstants.PROCESS_KEY_insurance_application_en);
+    testManualRequestDocumentLittleLateCustomerThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
   }
 
   @Test
   public void testManualRequestDocumentLittleLateCustomerThenApprove_de() throws Exception {
-    testManualRequestDocumentLittleLateCustomerThenApprove(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testManualRequestDocumentLittleLateCustomerThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testManualRequestDocumentLittleLateCustomerThenApprove(String askdjfhdaskjfh) throws EmailException {
-    when(insuranceApplication.waitsAtUserTask("UserTask_DecideOnApplication"))
+    when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentRequested, new HashMap<>(),
             withVariables(ProcessConstants.VAR_NAME_requestedDocumentDescription, "Driver's license")))
@@ -305,15 +305,15 @@ public class VersicherungsneuantragScenarioTest {
     /*
      * Run and verify
      */
-    ProcessInstance processInstance = Scenario.run(insuranceApplication) //
-        .startByKey(askdjfhdaskjfh, DemoData.createYellowInitVars()).execute().instance(insuranceApplication);
+    ProcessInstance processInstance = Scenario.run(customerOnboarding) //
+        .startByKey(askdjfhdaskjfh, DemoData.createYellowInitVars()).execute().instance(customerOnboarding);
 
     verify(documentRequest, never()).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, times(5)).hasStarted("SendTask_SendReminderEmail");
     verify(documentRequest, times(5)).hasCompleted("EndEvent_ReminderSent");
     verify(documentRequest).hasCompleted("EndEvent_GotDocument");
-    verify(insuranceApplication, never()).hasStarted("ServiceTask_RejectPolicy");
-    verify(insuranceApplication).hasCompleted("EndEvent_ApplicationIssued");
+    verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
+    verify(customerOnboarding).hasCompleted("EndEvent_ApplicationIssued");
 
     // we expect exactly one document
     assertThat((Map<?, ?>) JSON(historyService().createHistoricVariableInstanceQuery().processInstanceId(processInstance.getId())
@@ -325,16 +325,16 @@ public class VersicherungsneuantragScenarioTest {
 
   @Test
   public void testManualRequestDocumentVeryLateCustomerThenReject() throws Exception {
-    testManualRequestDocumentVeryLateCustomerThenReject(ProcessConstants.PROCESS_KEY_insurance_application_en);
+    testManualRequestDocumentVeryLateCustomerThenReject(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
   }
 
   @Test
   public void testManualRequestDocumentVeryLateCustomerThenReject_de() throws Exception {
-    testManualRequestDocumentVeryLateCustomerThenReject(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testManualRequestDocumentVeryLateCustomerThenReject(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testManualRequestDocumentVeryLateCustomerThenReject(String ajsdfhdaskfhdasf) throws EmailException {
-    when(insuranceApplication.waitsAtUserTask("UserTask_DecideOnApplication"))
+    when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentRequested, new HashMap<>(),
             withVariables(ProcessConstants.VAR_NAME_requestedDocumentDescription, "Driver's license")))
@@ -349,7 +349,7 @@ public class VersicherungsneuantragScenarioTest {
     /*
      * Run and verify
      */
-    Scenario.run(insuranceApplication) //
+    Scenario.run(customerOnboarding) //
         .startByKey(ajsdfhdaskfhdasf, DemoData.createYellowInitVars()).execute();
 
     verify(documentRequest).hasStarted("UserTask_CallCustomer");
@@ -357,8 +357,8 @@ public class VersicherungsneuantragScenarioTest {
     verify(documentRequest, times(6)).hasCompleted("EndEvent_ReminderSent");
     verify(documentRequest).hasCanceled("ReceiveTask_WaitForDocument");
     verify(documentRequest).hasCompleted("EndEvent_TalkedToCustomer");
-    verify(insuranceApplication, never()).hasStarted("ServiceTask_DeliverPolicy");
-    verify(insuranceApplication).hasCompleted("EndEvent_ApplicationRejected");
+    verify(customerOnboarding, never()).hasStarted("ServiceTask_DeliverPolicy");
+    verify(customerOnboarding).hasCompleted("EndEvent_ApplicationRejected");
 
     // Driver's license request, 6 reminders and rejection
     verify(sendEmailService, times(8)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());

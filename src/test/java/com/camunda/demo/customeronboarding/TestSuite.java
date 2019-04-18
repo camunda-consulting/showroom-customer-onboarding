@@ -1,4 +1,4 @@
-package com.camunda.demo.insuranceapplication;
+package com.camunda.demo.customeronboarding;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

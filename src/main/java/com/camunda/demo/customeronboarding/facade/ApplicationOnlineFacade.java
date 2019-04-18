@@ -1,4 +1,4 @@
-package com.camunda.demo.insuranceapplication.facade;
+package com.camunda.demo.customeronboarding.facade;
 
 import static org.camunda.spin.Spin.JSON;
 
@@ -21,8 +21,8 @@ import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.engine.variable.Variables.SerializationDataFormats;
 import org.camunda.bpm.engine.variable.value.FileValue;
 
-import com.camunda.demo.insuranceapplication.ProcessConstants;
-import com.camunda.demo.insuranceapplication.model.NewApplication;
+import com.camunda.demo.customeronboarding.ProcessConstants;
+import com.camunda.demo.customeronboarding.model.NewApplication;
 
 @Path("/")
 public class ApplicationOnlineFacade {
@@ -34,9 +34,9 @@ public class ApplicationOnlineFacade {
   public Response submitNewApplication(NewApplication application, @Context HttpHeaders headers, @PathParam("lang") String lang) {
     String processInstanceKey;
     if ("en".equals(lang)) {
-      processInstanceKey = ProcessConstants.PROCESS_KEY_insurance_application_en;
+      processInstanceKey = ProcessConstants.PROCESS_KEY_customer_onboarding_en;
     } else if ("de".equals(lang)) {
-      processInstanceKey = ProcessConstants.PROCESS_KEY_insurance_application_de;
+      processInstanceKey = ProcessConstants.PROCESS_KEY_customer_onboarding_de;
     } else {
       throw new RuntimeException("Unsupported language requested.");
     }

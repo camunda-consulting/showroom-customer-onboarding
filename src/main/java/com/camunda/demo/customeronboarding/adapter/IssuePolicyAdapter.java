@@ -1,4 +1,4 @@
-package com.camunda.demo.insuranceapplication.adapter;
+package com.camunda.demo.customeronboarding.adapter;
 
 import javax.inject.Named;
 
@@ -6,8 +6,8 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.bpm.engine.variable.value.ObjectValue;
 
-import com.camunda.demo.insuranceapplication.ProcessConstants;
-import com.camunda.demo.insuranceapplication.model.NewApplication;
+import com.camunda.demo.customeronboarding.ProcessConstants;
+import com.camunda.demo.customeronboarding.model.NewApplication;
 
 @Named
 public class IssuePolicyAdapter implements JavaDelegate {

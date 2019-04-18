@@ -1,14 +1,14 @@
 <web-app>
     <servlet>
-        <display-name>insurance-application</display-name>
-        <servlet-name>com.camunda.demo.insuranceapplication.facade.RestApplication</servlet-name>
+        <display-name>customer-onboarding</display-name>
+        <servlet-name>com.camunda.demo.customeronboarding.facade.RestApplication</servlet-name>
         <init-param>
             <param-name>javax.ws.rs.Application</param-name>
-            <param-value>com.camunda.demo.insuranceapplication.facade.RestApplication</param-value>
+            <param-value>com.camunda.demo.customeronboarding.facade.RestApplication</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>com.camunda.demo.insuranceapplication.facade.RestApplication</servlet-name>
+        <servlet-name>com.camunda.demo.customeronboarding.facade.RestApplication</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 </web-app>

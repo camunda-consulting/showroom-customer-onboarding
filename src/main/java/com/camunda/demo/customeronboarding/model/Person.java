@@ -1,4 +1,4 @@
-package com.camunda.demo.insuranceapplication.model;
+package com.camunda.demo.customeronboarding.model;
 
 import java.util.Calendar;
 import java.util.Date;

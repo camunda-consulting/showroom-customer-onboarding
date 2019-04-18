@@ -1,8 +1,8 @@
-package com.camunda.demo.insuranceapplication;
+package com.camunda.demo.customeronboarding;
 
-import static com.camunda.demo.insuranceapplication.DemoData.createGreenInitVars;
-import static com.camunda.demo.insuranceapplication.DemoData.createRedInitVars;
-import static com.camunda.demo.insuranceapplication.DemoData.createYellowInitVars;
+import static com.camunda.demo.customeronboarding.DemoData.createGreenInitVars;
+import static com.camunda.demo.customeronboarding.DemoData.createRedInitVars;
+import static com.camunda.demo.customeronboarding.DemoData.createYellowInitVars;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.init;
 import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.processEngine;
@@ -38,9 +38,9 @@ import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.camunda.demo.insuranceapplication.DemoData;
-import com.camunda.demo.insuranceapplication.ProcessConstants;
-import com.camunda.demo.insuranceapplication.adapter.SendEmailService;
+import com.camunda.demo.customeronboarding.DemoData;
+import com.camunda.demo.customeronboarding.ProcessConstants;
+import com.camunda.demo.customeronboarding.adapter.SendEmailService;
 
 /**
  * Test case starting an in-memory database-backed Process Engine.
@@ -52,8 +52,8 @@ import com.camunda.demo.insuranceapplication.adapter.SendEmailService;
  * fixed
  */
 @PowerMockIgnore("*")
-@PrepareOnlyThisForTest(fullyQualifiedNames = { "com.camunda.demo.insuranceapplication.adapter.EmailAdapter" })
-@Deployment(resources = { "insurance_application_en.bpmn", "document_request_en.bpmn", "risk_check_en.dmn", "insurance_application_de.bpmn",
+@PrepareOnlyThisForTest(fullyQualifiedNames = { "com.camunda.demo.customeronboarding.adapter.EmailAdapter" })
+@Deployment(resources = { "customer_onboarding_en.bpmn", "document_request_en.bpmn", "risk_check_en.dmn", "customer_onboarding_de.bpmn",
     "document_request_de.bpmn", "risk_check_de.dmn" })
 public class VersicherungsneuantragProcessTest {
   static final Logger logger = LoggerFactory.getLogger(VersicherungsneuantragProcessTest.class);
@@ -99,8 +99,8 @@ public class VersicherungsneuantragProcessTest {
 
   @Test
   public void testAutomaticIssued() {
-    testAutomaticIssued(ProcessConstants.PROCESS_KEY_insurance_application_en);
-    testAutomaticIssued(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testAutomaticIssued(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
+    testAutomaticIssued(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testAutomaticIssued(String processKey) {
@@ -117,8 +117,8 @@ public class VersicherungsneuantragProcessTest {
 
   @Test
   public void testAutomaticRejected() {
-    testAutomaticRejected(ProcessConstants.PROCESS_KEY_insurance_application_en);
-    testAutomaticRejected(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testAutomaticRejected(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
+    testAutomaticRejected(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
 
   }
 
@@ -137,8 +137,8 @@ public class VersicherungsneuantragProcessTest {
 
   @Test
   public void testManualImmediateApprove() {
-    testManualImmediateApprove(ProcessConstants.PROCESS_KEY_insurance_application_en);
-    testManualImmediateApprove(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testManualImmediateApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
+    testManualImmediateApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testManualImmediateApprove(String whatever) {
@@ -161,8 +161,8 @@ public class VersicherungsneuantragProcessTest {
 
   @Test
   public void testManualRequestDocumentThenApprove() {
-    testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_insurance_application_en);
-    testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_insurance_application_de);
+    testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_en);
+    testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
   protected void testManualRequestDocumentThenApprove(String whatever) {

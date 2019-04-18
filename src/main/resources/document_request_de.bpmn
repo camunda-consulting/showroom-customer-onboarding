@@ -5,7 +5,7 @@
     <bpmn:participant id="Participant_012xlj2" name="Dokumentenanforderung" processRef="requestDocument_de" />
   </bpmn:collaboration>
   <bpmn:process id="requestDocument_de" name="Dokumentenanforderung" isExecutable="true">
-    <bpmn:sendTask id="SendTask_RequestDocument" name="Dokument anfordern" camunda:async="true" camunda:class="com.camunda.demo.insuranceapplication.adapter.EmailAdapter">
+    <bpmn:sendTask id="SendTask_RequestDocument" name="Dokument anfordern" camunda:async="true" camunda:class="com.camunda.demo.customeronboarding.adapter.EmailAdapter">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
@@ -36,7 +36,7 @@ Ihre ${application.corporation}.]]></camunda:script>
     <bpmn:endEvent id="EndEvent_ReminderSent" name="E-Mail verschickt">
       <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sendTask id="SendTask_SendReminderEmail" name="Erinnerungsmail schicken" camunda:class="com.camunda.demo.insuranceapplication.adapter.EmailAdapter">
+    <bpmn:sendTask id="SendTask_SendReminderEmail" name="Erinnerungsmail schicken" camunda:class="com.camunda.demo.customeronboarding.adapter.EmailAdapter">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">

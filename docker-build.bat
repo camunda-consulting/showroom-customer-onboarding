@@ -1,1 +1,1 @@
-docker build -t camcon/showcase-insurance-application .
+docker build -t camcon/showcase-customer-onboarding .

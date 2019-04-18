@@ -1,9 +1,9 @@
-package com.camunda.demo.insuranceapplication.adapter;
+package com.camunda.demo.customeronboarding.adapter;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import com.camunda.demo.insuranceapplication.ProcessConstants;
+import com.camunda.demo.customeronboarding.ProcessConstants;
 
 public class CreateReferenceIdAdapter implements JavaDelegate {
 

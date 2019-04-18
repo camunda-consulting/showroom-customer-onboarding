@@ -5,7 +5,7 @@ RUN rm -rf /camunda/standalone/deployments/camunda-example-invoice-*.war
 #ADD ~/.camunda/ /root/
 
 # add showcase
-ADD target/camunda-showcase-insurance-application.war /camunda/standalone/deployments/
+ADD target/camunda-showcase-customer-onboarding.war /camunda/standalone/deployments/
 
 # increase default session timeout to 8h and deployment timeout to 15min
 RUN /camunda/bin/jboss-cli.sh --commands="embed-server, \

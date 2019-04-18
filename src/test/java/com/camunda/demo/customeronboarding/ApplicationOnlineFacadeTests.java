@@ -1,4 +1,4 @@
-package com.camunda.demo.insuranceapplication;
+package com.camunda.demo.customeronboarding;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -7,10 +7,10 @@ import org.jboss.resteasy.core.Headers;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.camunda.demo.insuranceapplication.DemoData.Categorys;
-import com.camunda.demo.insuranceapplication.DemoData.Employment;
-import com.camunda.demo.insuranceapplication.facade.ApplicationOnlineFacade;
-import com.camunda.demo.insuranceapplication.model.NewApplication;
+import com.camunda.demo.customeronboarding.DemoData.Categorys;
+import com.camunda.demo.customeronboarding.DemoData.Employment;
+import com.camunda.demo.customeronboarding.facade.ApplicationOnlineFacade;
+import com.camunda.demo.customeronboarding.model.NewApplication;
 
 @Ignore
 public class ApplicationOnlineFacadeTests {

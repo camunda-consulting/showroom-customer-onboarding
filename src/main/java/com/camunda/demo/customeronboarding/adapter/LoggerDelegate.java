@@ -1,4 +1,4 @@
-package com.camunda.demo.insuranceapplication.adapter;
+package com.camunda.demo.customeronboarding.adapter;
 
 import java.util.logging.Logger;
 
