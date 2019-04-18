@@ -25,7 +25,7 @@
       <output id="output1" label="Risiko" name="risk" typeRef="string" />
       <output id="OutputClause_0hh62nv" label="Risikobewertung" name="riskLevel" typeRef="string" />
       <rule id="DecisionRule_09dgf3c">
-        <description>Also das geht nun wirklich nicht!</description>
+        <description></description>
         <inputEntry id="UnaryTests_0ual6ir">
           <text>&lt;= 21</text>
         </inputEntry>
@@ -46,7 +46,7 @@
         </outputEntry>
       </rule>
       <rule id="row-314105272-5">
-        <description>"eine"</description>
+        <description></description>
         <inputEntry id="UnaryTests_0av35iy">
           <text></text>
         </inputEntry>
@@ -60,14 +60,14 @@
           <text>-</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1h3sboh">
-          <text>"Überzogener Dispokredit"</text>
+          <text>"Fehlendes Einkommen"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0asc7l5">
           <text>"rot"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1euaw2y">
-        <description>"wirklich"</description>
+        <description></description>
         <inputEntry id="UnaryTests_0bctfm4">
           <text></text>
         </inputEntry>
@@ -88,7 +88,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0c99hq3">
-        <description>"echte"</description>
+        <description></description>
         <inputEntry id="UnaryTests_16q1ghi">
           <text>&lt;= 25</text>
         </inputEntry>
@@ -102,14 +102,14 @@
           <text>&lt;= 60000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0jlpe55">
-          <text>"Zusammenbruch des Einkommens durch Insolvenz"</text>
+          <text>"Unregelmäßiges und ggf. zu geringes Einkommen"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_05qilq2">
           <text>"gelb"</text>
         </outputEntry>
       </rule>
       <rule id="row-314105272-4">
-        <description>"gefahrenvolle"</description>
+        <description></description>
         <inputEntry id="UnaryTests_194oa9u">
           <text></text>
         </inputEntry>
@@ -123,7 +123,7 @@
           <text>&lt;= 60000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0wves9k">
-          <text>"Kreditkartenschulden"</text>
+          <text>"Ggf. zu geringes Einkommen"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0cayvqc">
           <text>"gelb"</text>

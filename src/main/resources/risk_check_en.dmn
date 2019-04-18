@@ -25,7 +25,7 @@
       <output id="output1" label="Risk" name="risk" typeRef="string" />
       <output id="OutputClause_0hh62nv" label="Risk Level" name="riskLevel" typeRef="string" />
       <rule id="DecisionRule_09dgf3c">
-        <description>No way!</description>
+        <description></description>
         <inputEntry id="UnaryTests_0ual6ir">
           <text>&lt;= 21</text>
         </inputEntry>
@@ -39,14 +39,14 @@
           <text>&gt;= 80000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1f3y5xd">
-          <text>"DubiousActivities"</text>
+          <text>"Dubious Activities"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1w57ha5">
           <text>"red"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0s72fjf">
-        <description>""</description>
+        <description></description>
         <inputEntry id="UnaryTests_1dkokb9">
           <text></text>
         </inputEntry>
@@ -60,14 +60,14 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_18kpqx8">
-          <text>"Overdrawn Account"</text>
+          <text>"Lack Of Income"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0mrbkzr">
           <text>"red"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1euaw2y">
-        <description>""</description>
+        <description></description>
         <inputEntry id="UnaryTests_0bctfm4">
           <text></text>
         </inputEntry>
@@ -88,7 +88,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0c99hq3">
-        <description>""</description>
+        <description></description>
         <inputEntry id="UnaryTests_16q1ghi">
           <text>&lt;= 25</text>
         </inputEntry>
@@ -102,14 +102,14 @@
           <text>&lt;= 60000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0jlpe55">
-          <text>"Sudden Bankruptcy"</text>
+          <text>"Irregular And Possibly Lack Of Income"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_05qilq2">
           <text>"yellow"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_08nz8pq">
-        <description>""</description>
+        <description></description>
         <inputEntry id="UnaryTests_0adgp9c">
           <text></text>
         </inputEntry>
@@ -123,7 +123,7 @@
           <text>&lt;= 60000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1xwbye7">
-          <text>"Credit Card Debt"</text>
+          <text>"Possibly Too Low Income"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1s5g29d">
           <text>"yellow"</text>
