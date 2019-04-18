@@ -269,16 +269,6 @@
 					tooltip-placement="left" ng-disabled="!documentDetails">Request</a>
 			</p>
 
-			<h3>Premium</h3>
-			<p>
-				<select ng-required="approved" ng-model="selectedPremium" ng-change="updatePremium()">
-					<option value="{{application.priceIndicationInCent}}">Standard ({{application.priceIndicationInCent / 100 | number:2}} €)</option>
-					<option value="{{application.priceIndicationInCent * 1.1 }}">+10% ({{application.priceIndicationInCent * 1.1 / 100 | number:2}} €)</option>
-					<option value="{{application.priceIndicationInCent * 1.3 }}">+30% ({{application.priceIndicationInCent * 1.3 / 100 | number:2}} €)</option>
-					<option value="{{application.priceIndicationInCent * 2 }}">+100% ({{application.priceIndicationInCent * 2 / 100 | number:2}} €)</option>
-				</select>
-			</p>
-
 			<h3>Decision</h3>
 			<input type="checkbox" name="ApprovalCheckbox" data-on-text="Approve"
 				data-off-text="Deny" data-on-color="success" data-off-color="danger"
@@ -294,9 +284,6 @@
 	</div>
 
 	<script cam-script type="text/form-script">
-    $scope.updatePremium = function() {
-		$scope.application.premiumInCent = Math.round($scope.selectedPremium);
-	}
 
 	$scope.requestDocument = function(documentDetails) {
 		   var data = {
