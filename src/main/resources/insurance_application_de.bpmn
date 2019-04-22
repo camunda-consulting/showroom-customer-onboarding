@@ -66,6 +66,7 @@ Ihre Camundanzia.</camunda:script>
           <camunda:property name="simKeepListeners" value="true" />
           <camunda:property name="simGeneratePayload" value="applicationNumber=${application.getApplicationNumber()}" />
           <camunda:property name="simGeneratePayload" value="applicantName=${application.getApplicant().getName()}" />
+          <camunda:property name="simGeneratePayload" value="vehicleManufacturer=${application.vehicleManufacturer}" />
         </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
@@ -120,8 +121,9 @@ Ihre Camundanzia.</camunda:script>
         <camunda:properties>
           <camunda:property name="KPI-Cycle-End" value="Antragsentscheidung" />
           <camunda:property name="simKeepListeners" value="true" />
-          <camunda:property name="simNextFire" value="${g.nowPlusHours(g.uniformInt(1,72))}" />
+          <camunda:property name="simNextFire" value="${g.nowPlusHours(g.uniformInt(g.exponentialBySimulationTime(1,48,3),72))}" />
           <camunda:property name="simGeneratePayload" value="approved=${g.randBool(0.75)}" />
+          <camunda:property name="simGeneratePayload" value="requestedDocumentDescription=someDocument" />
         </camunda:properties>
         <camunda:taskListener event="create">
           <camunda:script scriptFormat="JavaScript">task.setVariable('documentReferenceId', String(Date.now()));
@@ -179,8 +181,7 @@ if (typedDocument != null &amp;&amp; typedDocument.getValue() != null) {
     <bpmn2:boundaryEvent id="BoundaryEvent_1i1spfe" name="Dokument benötigt" attachedToRef="UserTask_DecideOnApplication">
       <bpmn2:extensionElements>
         <camunda:properties>
-          <camunda:property name="durationMean" value="129600" />
-          <camunda:property name="durationSd" value="86400" />
+          <camunda:property name="simNextFire" value="${g.nowPlusHours(g.uniformInt(24,96))}" />
         </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:outgoing>SequenceFlow_0lwkj1f</bpmn2:outgoing>
@@ -189,7 +190,7 @@ if (typedDocument != null &amp;&amp; typedDocument.getValue() != null) {
     <bpmn2:boundaryEvent id="BoundaryEvent_0mcjys5" name="nach 2 Tagen" cancelActivity="false" attachedToRef="UserTask_DecideOnApplication">
       <bpmn2:outgoing>SequenceFlow_0o6gf8v</bpmn2:outgoing>
       <bpmn2:timerEventDefinition>
-        <bpmn2:timeDuration xsi:type="bpmn2:tFormalExpression">P2D</bpmn2:timeDuration>
+        <bpmn2:timeDuration xsi:type="bpmn2:tFormalExpression">PT48H</bpmn2:timeDuration>
       </bpmn2:timerEventDefinition>
     </bpmn2:boundaryEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_1h4oxvl" sourceRef="UserTask_DecideOnApplication" targetRef="ExclusiveGateway_2" />
@@ -239,8 +240,9 @@ if (typedDocument != null &amp;&amp; typedDocument.getValue() != null) {
           <camunda:property name="KPI-Cycle-Start" value="Antragsentscheidung" />
           <camunda:property name="simInitBusinessKey" value="A-${g.format1(&#39;%05d&#39;, g.uniqueNumber())}" />
           <camunda:property name="simInitPayload" value="application=${g.json(g.newApplication(false, &#34;hello&#34;))}" />
-          <camunda:property name="simInitPayload" value="documents=${g.json(g.emptyList())}" />
+          <camunda:property name="simInitPayload" value="documents={}" />
           <camunda:property name="simNextFire" value="${g.timesPerDay(&#34;shower&#34;,&#34;07:30&#34;,&#34;22:30&#34;, g.linearBySimulationTime(5,15))}" />
+          <camunda:property name="simInitPayload" value="uiBaseUrl=http://simulated.camunda.com/" />
         </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>

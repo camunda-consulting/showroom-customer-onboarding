@@ -46,7 +46,7 @@ public class InsuranceApplicationProcessApplication extends ServletProcessApplic
   }
 
   public static long generateDemoData(ProcessEngine engine, ProcessApplicationReference reference) {
-    Date start = Date.from(LocalDateTime.now().minusMonths(6).atZone(ZoneId.systemDefault()).toInstant());
+    Date start = Date.from(LocalDateTime.now().minusMonths(12).atZone(ZoneId.systemDefault()).toInstant());
     SimulationExecutor.execute(start, new Date());
     return 0;
   }
