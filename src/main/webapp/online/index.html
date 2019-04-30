@@ -47,20 +47,23 @@
    </div>
   </div>
 
-  <div>
-    Language:<button id="langbutton"></button>
+  <div style="margin-top:5em;">
+    Language currently:<button id="langbutton" >german</button>
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-  $(document).ready(function(){
-    $("langbutton").click(function(){
-      $("#insuranceHref").attr("href", "https://www.w3schools.com/jquery/");
-      $("#bankingHref").attr("href", "https://www.w3schools.com/jquery/");
-    });
-  });
+  <script src="js/js/jquery.min.js"></script>
+
+  <script>
+      $("#langbutton").click(function(){
+        console.log($(this));
+        var lang = $(this).html() === "german" ? 'en' : 'de';
+        console.log(lang);
+        $(this).html(lang === 'en' ? 'english' : 'german');
+        $("#insuranceHref").attr("href", "insurance/application.jsp?lang=" + lang);
+        $("#bankingHref").attr("href", "insurance/application.jsp?lang=" + lang);
+      });
   </script>
 
 </body>
-
 
 </html>
