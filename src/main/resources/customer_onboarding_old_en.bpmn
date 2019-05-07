@@ -108,7 +108,7 @@ if (lastAssignee != null) {
       <bpmn2:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker">Sehr &lt;#if application.applicant.sex = "Mann"&gt;geehrter Herr&lt;#else&gt;geehrte Frau&lt;/#if&gt; ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker">Sehr &lt;#if application.applicant.gender = "Mann"&gt;geehrter Herr&lt;#else&gt;geehrte Frau&lt;/#if&gt; ${application.applicant.name}.
 
 Leider müssen wir Ihnen mitteilen, dass wir Ihnen die gewünschte KFZ Versicherungspolice nicht ausstellen können. 
 
@@ -167,7 +167,7 @@ Ihre Camundanzia.</camunda:script>
       <bpmn2:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker">Sehr &lt;#if application.applicant.sex = "Mann"&gt;geehrter Herr&lt;#else&gt;geehrte Frau&lt;/#if&gt; ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker">Sehr &lt;#if application.applicant.gender = "Mann"&gt;geehrter Herr&lt;#else&gt;geehrte Frau&lt;/#if&gt; ${application.applicant.name}.
 
 Wir freuen uns Ihnen mitteilen zu können, dass wir Ihre KFZ Versicherungspolice ausgestellt haben. 
 

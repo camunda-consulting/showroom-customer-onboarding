@@ -129,7 +129,7 @@ public class DemoData {
     }
   }
 
-  public static final String SEX = "Mann";
+  public static final String GENDER = "Mann";
   public static final String NAME = "Gentle Driver";
   public static final String EMAIL = "trashcan@camunda.org";
 
@@ -205,7 +205,7 @@ public class DemoData {
     newApplication.getApplicant().setBirthday(cal.getTime());
     newApplication.getApplicant().setName(NAME);
     newApplication.getApplicant().setEmail(EMAIL);
-    newApplication.getApplicant().setGender(SEX);
+    newApplication.getApplicant().setGender(GENDER);
     newApplication.setIncome(income);
     newApplication.setCategory(category);
     newApplication.setEmployment(employment);

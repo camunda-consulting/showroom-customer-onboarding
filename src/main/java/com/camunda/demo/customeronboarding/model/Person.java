@@ -41,8 +41,8 @@ public class Person {
     return gender;
   }
 
-  public void setGender(String sex) {
-    this.gender = sex;
+  public void setGender(String gender) {
+    this.gender = gender;
   }
 
   public String getEmail() {
