@@ -1,12 +1,12 @@
 <%@ page pageEncoding="UTF-8" %>
          <!-- Footer Start -->
 		<footer>
-            <!-- Footer Top End --> 
+            <!-- Footer Top End -->
             <!-- Footer Bottom Start -->
             <div class="footer-bottom">
                <div class="container">
                   <div class="row">
-                     <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6 "> &copy; Copyright 2014 by <a href="#">Camunda</a>. All Rights Reserved. </div>
+                     <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6 "> &copy; Copyright <script>document.write(new Date().getFullYear());</script> by <a href="#">Camunda</a>. All Rights Reserved. </div>
                      <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6 ">
                         <ul class="social social-icons-footer-bottom">
                            <li class="facebook"><a href="#" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -19,7 +19,7 @@
                   </div>
                </div>
             </div>
-            <!-- Footer Bottom End --> 
+            <!-- Footer Bottom End -->
          </footer>
-         <!-- Scroll To Top --> 
+         <!-- Scroll To Top -->
          <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
