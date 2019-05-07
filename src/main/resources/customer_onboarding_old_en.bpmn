@@ -121,7 +121,7 @@ Ihre Camundanzia.</camunda:script>
       <bpmn2:incoming>SequenceFlow_01vh1zw</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
     </bpmn2:sendTask>
-    <bpmn2:serviceTask id="ServiceTask_RejectPolicy" name="Reject policy" camunda:class="com.camunda.demo.customeronboarding.adapter.LoggerDelegate">
+    <bpmn2:serviceTask id="ServiceTask_RejectPolicy" name="Reject application" camunda:class="com.camunda.demo.customeronboarding.adapter.LoggerDelegate">
       <bpmn2:incoming>SequenceFlow_12</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_16</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_01vh1zw</bpmn2:outgoing>

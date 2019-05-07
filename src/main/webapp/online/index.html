@@ -48,16 +48,14 @@
   </div>
 
   <div style="margin-top:5em;">
-    Language currently:<button id="langbutton" >german</button>
+    Language currently:<button id="langbutton" >english</button>
   </div>
 
   <script src="js/js/jquery.min.js"></script>
 
   <script>
       $("#langbutton").click(function(){
-        console.log($(this));
         var lang = $(this).html() === "german" ? 'en' : 'de';
-        console.log(lang);
         $(this).html(lang === 'en' ? 'english' : 'german');
         $("#insuranceHref").attr("href", "insurance/application.jsp?lang=" + lang);
         $("#bankingHref").attr("href", "insurance/application.jsp?lang=" + lang);

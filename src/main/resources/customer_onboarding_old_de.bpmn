@@ -69,7 +69,7 @@
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:sendTask id="SendTask_SendPolicy" name="Police zusenden" camunda:async="true" camunda:class="com.camunda.demo.customeronboarding.adapter.EmailAdapter">
+    <bpmn2:sendTask id="SendTask_SendPolicy" name="Antrags-annahme zusenden" camunda:async="true" camunda:class="com.camunda.demo.customeronboarding.adapter.EmailAdapter">
       <bpmn2:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
