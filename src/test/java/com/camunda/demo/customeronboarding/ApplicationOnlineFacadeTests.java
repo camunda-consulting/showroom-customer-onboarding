@@ -1,9 +1,9 @@
 package com.camunda.demo.customeronboarding;
 
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.HttpHeaders;
-import org.jboss.resteasy.core.Headers;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -22,7 +22,6 @@ public class ApplicationOnlineFacadeTests {
 		NewApplication application = new NewApplication();
 		application.setCategory(Categorys.BASISPAKET.displayName());
 		application.setEmployment(Employment.FREELANCER.displayName());
-		application.setIncome(354584);
 		application.setPremium("34345");
 		application.setPremiumInCent(566464646);
 		

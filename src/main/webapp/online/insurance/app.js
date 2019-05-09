@@ -50,7 +50,6 @@ $(document).ready(function() {
         "email": $('#email').val()
       },
       "employment": $('#employment').val(),
-      "income": $('#income').val(),
       "category": $('#category').val(),
       "priceIndicationInCent": getPrice() * 100,
       "corporation": "Camundanzia"
@@ -140,10 +139,6 @@ $(document).ready(function() {
   });
 
 
-  $('#income').on('change, keyup', function() {
-    calculatePrice(preisindikationInCent);
-  });
-
   function isEqualToOneOf(objectToBeChecked) {
     for (var i = 1; i < arguments.length; i++) {
       if (arguments[i] == objectToBeChecked) {
@@ -157,24 +152,13 @@ $(document).ready(function() {
 
     var category = $('#category').val();
     var employment = $('#employment').val();
-    var income = $('#income').val();
 
     if (isEqualToOneOf(category, 'Basispaket', 'Basic Package')) {
-      preisindikationInCent = 40;
-    } else if (isEqualToOneOf(category, 'Standard Paket', 'Standard Package')) {
-      preisindikationInCent = 60;
-    } else {
       preisindikationInCent = 120;
-    }
-
-    if (isEqualToOneOf(employment, 'Fest angestellt', 'Salaried')) {
-      preisindikationInCent += income * 0.005;
-    } else if (isEqualToOneOf(employment, 'Selbstständig', 'Self-employed')) {
-      preisindikationInCent += income * 0.005;
-    } else if (isEqualToOneOf(employment, 'Teilzeit', 'Part-time')) {
-      preisindikationInCent += income * 0.0025;
-    } else if (isEqualToOneOf(employment, 'Freelancer')) {
-      preisindikationInCent += income * 0.0075;
+    } else if (isEqualToOneOf(category, 'Standard Paket', 'Standard Package')) {
+      preisindikationInCent = 200;
+    } else {
+      preisindikationInCent = 340;
     }
 
     preisindikationInCent = Math.round(preisindikationInCent);
@@ -186,24 +170,13 @@ $(document).ready(function() {
 
     var category = $('#category').val();
     var employment = $('#employment').val();
-    var income = $('#income').val();
 
     if (isEqualToOneOf(category, 'Basispaket', 'Basic Package')) {
-      preisindikationInCent = 40;
-    } else if (isEqualToOneOf(category, 'Standard Paket', 'Standard Package')) {
-      preisindikationInCent = 60;
-    } else {
       preisindikationInCent = 120;
-    }
-
-    if (isEqualToOneOf(employment, 'Fest angestellt', 'Salaried')) {
-      preisindikationInCent += income * 0.005;
-    } else if (isEqualToOneOf(employment, 'Selbstständig', 'Self-employed')) {
-      preisindikationInCent += income * 0.005;
-    } else if (isEqualToOneOf(employment, 'Teilzeit', 'Part-time')) {
-      preisindikationInCent += income * 0.0025;
-    } else if (isEqualToOneOf(employment, 'Freelancer')) {
-      preisindikationInCent += income * 0.01;
+    } else if (isEqualToOneOf(category, 'Standard Paket', 'Standard Package')) {
+      preisindikationInCent = 200;
+    } else {
+      preisindikationInCent = 340;
     }
 
     return preisindikationInCent;

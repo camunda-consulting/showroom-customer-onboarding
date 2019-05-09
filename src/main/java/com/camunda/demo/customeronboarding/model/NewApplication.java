@@ -9,7 +9,6 @@ public class NewApplication {
   private String applicationNumber;
 
   private Person applicant;
-  private int income;
   private String employment;
 
   private String category;
@@ -82,14 +81,6 @@ public class NewApplication {
 
   public void setCategory(String category) {
     this.category = category;
-  }
-
-  public int getIncome() {
-    return income;
-  }
-
-  public void setIncome(int income2) {
-    this.income = income2;
   }
 
   public String getEmployment() {

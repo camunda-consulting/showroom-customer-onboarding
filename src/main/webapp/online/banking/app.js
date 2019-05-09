@@ -50,7 +50,6 @@ $(document).ready(function() {
         "email": $('#email').val()
       },
       "employment": $('#employment').val(),
-      "income": $('#income').val(),
       "category": $('#category').val(),
       "priceIndicationInCent": getPrice() * 100,
       "corporation": "Camunbankia"
@@ -179,11 +178,6 @@ $(document).ready(function() {
     calculatePrice(preisindikationInCent);
   });
 
-
-  $('#income').on('change, keyup', function() {
-    calculatePrice(preisindikationInCent);
-  });
-
   function isEqualToOneOf(objectToBeChecked) {
     for (var i = 1; i < arguments.length; i++) {
       if (arguments[i] == objectToBeChecked) {
@@ -197,14 +191,13 @@ $(document).ready(function() {
 
     var category = $('#category').val();
     var employment = $('#employment').val();
-    var income = $('#income').val();
 
     if (isEqualToOneOf(category, 'Basispaket', 'Basic Package')) {
-      preisindikationInCent = 36;
+      preisindikationInCent = 3;
     } else if (isEqualToOneOf(category, 'Standard Paket', 'Standard Package')) {
-      preisindikationInCent = 60;
+      preisindikationInCent = 5;
     } else {
-      preisindikationInCent = 180;
+      preisindikationInCent = 15;
     }
     preisindikationInCent = Math.round(preisindikationInCent);
     $('#priceIndicationInCent').val(preisindikationInCent + ",00 EUR");
@@ -215,14 +208,13 @@ $(document).ready(function() {
 
     var category = $('#category').val();
     var employment = $('#employment').val();
-    var income = $('#income').val();
 
     if (isEqualToOneOf(category, 'Basispaket', 'Basic Package')) {
-      preisindikationInCent = 36;
+      preisindikationInCent = 3;
     } else if (isEqualToOneOf(category, 'Standard Paket', 'Standard Package')) {
-      preisindikationInCent = 60;
+      preisindikationInCent = 5;
     } else {
-      preisindikationInCent = 180;
+      preisindikationInCent = 15;
     }
 
     return preisindikationInCent;

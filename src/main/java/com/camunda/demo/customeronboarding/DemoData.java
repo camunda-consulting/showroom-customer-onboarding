@@ -34,97 +34,10 @@ public class DemoData {
       
       a.setPriceIndication("333");
       a.setCategory(Categorys.BASISPAKET.displayName);//uniformFromArgs4(Categorys.BASISPAKET.displayName, Categorys.STANDARDPAKET.displayName, Categorys.PREMIUMPAKET, Categorys.BASISPAKET.displayName));
-//      switch (a.getIncome()) {
-//      case "VW":
-//        a.setVehicleType(uniformFromArgs4("Beatle", "Golf IV", "Golf V", "Passat"));
-//        switch (a.getVehicleType()) {
-//        case "Beatle":
-//          a.setPriceIndicationInCent(120);
-//          break;
-//        case "Golf IV":
-//          a.setPriceIndicationInCent(160);
-//          break;
-//        case "Golf V":
-//          a.setPriceIndicationInCent(150);
-//          break;
-//        case "Passat":
-//          a.setPriceIndicationInCent(150);
-//          break;
-//
-//        default:
-//          break;
-//        }
-//        break;
-//
-//      case "BMW":
-//        a.setVehicleType(uniformFromArgs4("318i", "525i", "735i", "X3"));
-//        switch (a.getVehicleType()) {
-//        case "318i":
-//          a.setPriceIndicationInCent(190);
-//          break;
-//        case "525i":
-//          a.setPriceIndicationInCent(210);
-//          break;
-//        case "735i":
-//          a.setPriceIndicationInCent(240);
-//          break;
-//        case "X3":
-//          a.setPriceIndicationInCent(280);
-//          break;
-//
-//        default:
-//          break;
-//        }
-//        break;
-//
-//      case "Porsche":
-//        a.setVehicleType(uniformFromArgs4("911", "925", "Boxster", "Cayenne"));
-//        switch (a.getVehicleType()) {
-//        case "911":
-//          a.setPriceIndicationInCent(310);
-//          break;
-//        case "925":
-//          a.setPriceIndicationInCent(300);
-//          break;
-//        case "Boxster":
-//          a.setPriceIndicationInCent(290);
-//          break;
-//        case "Cayenne":
-//          a.setPriceIndicationInCent(300);
-//          break;
-//
-//        default:
-//          break;
-//        }
-//        break;
-//
-//      case "Audi":
-//        a.setVehicleType(uniformFromArgs4("A3", "A4", "A6", "A8"));
-//        switch (a.getVehicleType()) {
-//        case "A3":
-//          a.setPriceIndicationInCent(180);
-//          break;
-//        case "A4":
-//          a.setPriceIndicationInCent(180);
-//          break;
-//        case "A6":
-//          a.setPriceIndicationInCent(200);
-//          break;
-//        case "A8":
-//          a.setPriceIndicationInCent(280);
-//          break;
-//
-//        default:
-//          break;
-//        }
-//        break;
-//
-//      default:
-//        break;
-//      }
+
       a.setPriceIndicationInCent(100 * a.getPriceIndicationInCent());
       a.setPremiumInCent(a.getPriceIndicationInCent());
-      // System.out.println("started");
+
       return a;
     }
   }
@@ -134,15 +47,15 @@ public class DemoData {
   public static final String EMAIL = "trashcan@camunda.org";
 
   public static NewApplication green() {
-    return createNeuantrag(40, 40000, Categorys.STANDARDPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
+    return createNeuantrag(43, Categorys.STANDARDPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
   }
 
   public static NewApplication yellow() {
-    return createNeuantrag(40, 30000, Categorys.PREMIUMPAKET.displayName, Employment.FREELANCER.displayName);
+    return createNeuantrag(35, Categorys.PREMIUMPAKET.displayName, Employment.FREELANCER.displayName);
   }
 
   public static NewApplication red() {
-    return createNeuantrag(20, 150000, Categorys.PREMIUMPAKET.displayName , Employment.SELBSTSTAENDIG.displayName);
+    return createNeuantrag(22, Categorys.PREMIUMPAKET.displayName , Employment.SELBSTSTAENDIG.displayName);
   }
 
   public static Map<String, Object> createGreenInitVars() {
@@ -195,18 +108,17 @@ public class DemoData {
 	    public String displayName() { return displayName; }
   }
   
-  public static NewApplication createNeuantrag(int alter, int income, String category, String employment) {
+  public static NewApplication createNeuantrag(int birthYear, String category, String employment) {
     NewApplication newApplication = new NewApplication();
     newApplication.setApplicant(new Person());
 
     Calendar cal = Calendar.getInstance();
-    cal.add(Calendar.YEAR, -1 * alter);
+    cal.set(Calendar.YEAR, birthYear);
 
     newApplication.getApplicant().setBirthday(cal.getTime());
     newApplication.getApplicant().setName(NAME);
     newApplication.getApplicant().setEmail(EMAIL);
     newApplication.getApplicant().setGender(GENDER);
-    newApplication.setIncome(income);
     newApplication.setCategory(category);
     newApplication.setEmployment(employment);
     newApplication.setPriceIndicationInCent(32000);

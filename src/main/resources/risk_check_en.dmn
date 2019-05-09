@@ -17,13 +17,33 @@
           <text>application.category</text>
         </inputExpression>
       </input>
-      <input id="InputClause_0pg433y" label="Income" camunda:inputVariable="">
-        <inputExpression id="LiteralExpression_1si98id" typeRef="integer">
-          <text>application.income</text>
+      <input id="InputClause_0g6gbjp" label="Score">
+        <inputExpression id="LiteralExpression_0zotgls" typeRef="integer">
+          <text>score</text>
         </inputExpression>
       </input>
       <output id="output1" label="Risk" name="risk" typeRef="string" />
       <output id="OutputClause_0hh62nv" label="Risk Level" name="riskLevel" typeRef="string" />
+      <rule id="DecisionRule_08uypi2">
+        <inputEntry id="UnaryTests_0xadklv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1scedoi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vze2c5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pvyd2n">
+          <text>&lt;85</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02sru48">
+          <text>"Won't Pay In Time"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k7wldf">
+          <text>"red"</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_09dgf3c">
         <description></description>
         <inputEntry id="UnaryTests_0ual6ir">
@@ -35,11 +55,11 @@
         <inputEntry id="UnaryTests_0c3lrnz">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_08b1xhs">
-          <text>&gt;= 80000</text>
+        <inputEntry id="UnaryTests_1l0btob">
+          <text>&lt;=95</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1f3y5xd">
-          <text>"Dubious Activities"</text>
+          <text>"Won't Pay In Time"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1w57ha5">
           <text>"red"</text>
@@ -56,35 +76,14 @@
         <inputEntry id="UnaryTests_1v6fey5">
           <text>not("Basic Package")</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0w5w7kj">
-          <text></text>
+        <inputEntry id="UnaryTests_1rw2hjn">
+          <text>&lt;=95</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_18kpqx8">
           <text>"Lack Of Income"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0mrbkzr">
           <text>"red"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1euaw2y">
-        <description></description>
-        <inputEntry id="UnaryTests_0bctfm4">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_12o8otd">
-          <text>"Freelancer", "Self-employed"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0o842fe">
-          <text>-</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0alfq57">
-          <text>&lt;= 50000</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1pwrw8z">
-          <text>"Irregular Income"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0zcjpew">
-          <text>"yellow"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0c99hq3">
@@ -98,13 +97,34 @@
         <inputEntry id="UnaryTests_0l8wmca">
           <text>"Premium Package"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0p7n3di">
-          <text>&lt;= 60000</text>
+        <inputEntry id="UnaryTests_1qkgqif">
+          <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0jlpe55">
           <text>"Irregular And Possibly Lack Of Income"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_05qilq2">
+          <text>"yellow"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1euaw2y">
+        <description></description>
+        <inputEntry id="UnaryTests_0bctfm4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12o8otd">
+          <text>"Freelancer", "Self-employed"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o842fe">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h8e7id">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pwrw8z">
+          <text>"Irregular Income"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zcjpew">
           <text>"yellow"</text>
         </outputEntry>
       </rule>
@@ -119,11 +139,11 @@
         <inputEntry id="UnaryTests_17itih0">
           <text>"Premium Package"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1hq3s13">
-          <text>&lt;= 60000</text>
+        <inputEntry id="UnaryTests_0dgmj4d">
+          <text>&lt;90</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1xwbye7">
-          <text>"Possibly Too Low Income"</text>
+          <text>"Too Low Income"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1s5g29d">
           <text>"yellow"</text>

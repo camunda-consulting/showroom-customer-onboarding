@@ -95,10 +95,6 @@
 					                          <label>${param.lang == 'de' ? 'Geburtsdatum' : 'Date of Birth'}: <span>*</span></label>
                                     <input class="form-control" type="date" id="birthdate" name="birthdate" value="1980-01-01" required>
                                  </div>
-                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <label>${param.lang == 'de' ? 'Einkommen' : 'Income'}: <span>*</span></label>
-                                    <input class="form-control" id="income" name="income" type="text" value="" required>
-                                 </div>
                               </div>
                               <div class="row">
                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -124,7 +120,7 @@
                                  </div>
                                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					                          <label>${param.lang == 'de' ? 'Unverbindliche Preisindikation' : 'Price Indication (non-binding)'}: </label>
-                                    <input class="form-control" type="email" id="priceIndicationInCent" name="preisindikation" value="160,00 €" readonly>
+                                    <input class="form-control" type="email" id="priceIndicationInCent" name="preisindikation" value="120,00 EUR" readonly>
                                  </div>
 
                               </div>
