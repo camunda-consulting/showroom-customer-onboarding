@@ -7,6 +7,9 @@
 		<resource>insurance_application_de.bpmn</resource>
 		<resource>risk_check_de.dmn</resource>
 		<resource>document_request_de.bpmn</resource>
+		<resource>insurance_application_en.bpmn</resource>
+		<resource>risk_check_en.dmn</resource>
+		<resource>document_request_en.bpmn</resource>
 		<properties>
 			<property name="isDeleteUponUndeploy">false</property>
 			<property name="isScanForProcessDefinitions">false</property>

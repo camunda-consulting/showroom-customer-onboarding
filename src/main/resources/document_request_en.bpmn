@@ -9,7 +9,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker"><![CDATA[Dear <#if application.applicant.sex = "male">Mr.<#else>Mrs.</#if> ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker">Dear &lt;#if application.applicant.sex = "male"&gt;Mr.&lt;#else&gt;Mrs.&lt;/#if&gt; ${application.applicant.name}.
 
 To process your car insurance application we need some additional documents:
 
@@ -17,12 +17,12 @@ ${requestedDocumentDescription}
 
 You can upload the document following this link:
 
-  ${uiBaseUrl}/documents.jsp?lang=en&referenceId=${documentReferenceId}
+  ${uiBaseUrl}/documents.jsp?lang=en&amp;referenceId=${documentReferenceId}
 
 As soon as we receive the document we will continue to process your application.
 
 Kind regards,
-Camundanzia.]]></camunda:script>
+Camundanzia.</camunda:script>
           </camunda:inputParameter>
           <camunda:inputParameter name="mailSubject">We need some documents</camunda:inputParameter>
         </camunda:inputOutput>
@@ -40,7 +40,7 @@ Camundanzia.]]></camunda:script>
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker"><![CDATA[Dear <#if application.applicant.sex = "male">Mr.<#else>Mrs.</#if> ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker">Dear &lt;#if application.applicant.sex = "male"&gt;Mr.&lt;#else&gt;Mrs.&lt;/#if&gt; ${application.applicant.name}.
 
 To process your car insurance application we need some additional documents:
 
@@ -48,12 +48,12 @@ ${requestedDocumentDescription}
 
 You can upload the document following this link:
 
-  ${uiBaseUrl}/documents.jsp?lang=en&referenceId=${documentReferenceId}
+  ${uiBaseUrl}/documents.jsp?lang=en&amp;referenceId=${documentReferenceId}
 
 As soon as we receive the document we will continue to process your application.
 
 Kind regards,
-Camundanzia.]]></camunda:script>
+Camundanzia.</camunda:script>
           </camunda:inputParameter>
           <camunda:inputParameter name="mailSubject">We still need documents</camunda:inputParameter>
         </camunda:inputOutput>
@@ -64,8 +64,7 @@ Camundanzia.]]></camunda:script>
     <bpmn:userTask id="UserTask_CallCustomer" name="Call customer">
       <bpmn:extensionElements>
         <camunda:properties>
-          <camunda:property name="durationMean" value="3600" />
-          <camunda:property name="durationSd" value="300" />
+          <camunda:property name="simNextFire" value="${g.nowPlusHours(g.uniformInt(1,16))}" />
         </camunda:properties>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0i97ejj</bpmn:incoming>
@@ -74,9 +73,8 @@ Camundanzia.]]></camunda:script>
     <bpmn:receiveTask id="ReceiveTask_WaitForDocument" name="Wait for answer" messageRef="Message_1">
       <bpmn:extensionElements>
         <camunda:properties>
-          <camunda:property name="durationMean" value="345600" />
-          <camunda:property name="durationSd" value="259200" />
-          <camunda:property name="simulateSetVariable" value="document=${g:smallPdf(&#39;mockument&#39;)}" />
+          <camunda:property name="simGeneratePayload" value="document=${g.smallPdf(&#39;mockument&#39;)}" />
+          <camunda:property name="simNextFire" value="${g.nowPlusHours(g.uniformInt(1,9*24))}" />
         </camunda:properties>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_18a0pzl</bpmn:incoming>
