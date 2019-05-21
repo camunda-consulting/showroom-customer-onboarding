@@ -58,7 +58,7 @@
         var lang = $(this).html() === "german" ? 'en' : 'de';
         $(this).html(lang === 'en' ? 'english' : 'german');
         $("#insuranceHref").attr("href", "insurance/application.jsp?lang=" + lang);
-        $("#bankingHref").attr("href", "insurance/application.jsp?lang=" + lang);
+        $("#bankingHref").attr("href", "banking/index.jsp?lang=" + lang);
       });
   </script>
 
