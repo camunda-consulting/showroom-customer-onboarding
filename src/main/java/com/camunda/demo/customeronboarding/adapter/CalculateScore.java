@@ -15,12 +15,12 @@ public class CalculateScore implements JavaDelegate {
 		NewApplication application = (NewApplication) execution.getVariable("application");
 		int yearLastDigit = application.getApplicant().getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() % 10;
 		
-		int score = 82;
+		int score = 97;
 		
 		if(yearLastDigit == 3) {
-			score = 97;
-		} else if (yearLastDigit == 5) {
 			score = 93;
+		} else if (yearLastDigit == 5) {
+			score = 82;
 		} 
 		
 		execution.setVariable("score", score);
