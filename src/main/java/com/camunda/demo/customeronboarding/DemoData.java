@@ -47,15 +47,15 @@ public class DemoData {
   public static final String EMAIL = "trashcan@camunda.org";
 
   public static NewApplication green() {
-    return createNeuantrag(43, Categorys.STANDARDPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
+    return createNeuantrag(40, Categorys.STANDARDPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
   }
 
   public static NewApplication yellow() {
-    return createNeuantrag(35, Categorys.PREMIUMPAKET.displayName, Employment.FREELANCER.displayName);
+    return createNeuantrag(33, Categorys.PREMIUMPAKET.displayName, Employment.FREELANCER.displayName);
   }
 
   public static NewApplication red() {
-    return createNeuantrag(22, Categorys.PREMIUMPAKET.displayName , Employment.SELBSTSTAENDIG.displayName);
+    return createNeuantrag(25, Categorys.PREMIUMPAKET.displayName , Employment.SELBSTSTAENDIG.displayName);
   }
 
   public static Map<String, Object> createGreenInitVars() {
