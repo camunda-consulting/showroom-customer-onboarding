@@ -44,7 +44,7 @@
 
                         <!-- Top Contact Info -->
                         <div class="top-contact-info d-flex align-items-center">
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Zossener Str. 55, 10961 Berlin"><img src="img/core-img/placeholder.png" alt=""> <span>${param.lang == 'de' ? 'Zossener Str. 55, 10961 Berlin' :'2301 Blake Street, Denver, CO 80205'}</span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Zossener Str. 55, 10961 Berlin"><img src="img/core-img/placeholder.png" alt=""> <span>${param.lang == 'de' ? 'Zossener Str. 55, 10961 Berlin' :'3001 Brighton Blvd, Suite 450, Denver, CO 80216'}</span></a>
                             <a href="#" data-toggle="tooltip" data-placement="bottom" title="info@camunda.com"><img src="img/core-img/message.png" alt=""> <span>${param.lang == 'de' ? 'info@camunda.com' :'contact@camunda.com'}</span></a>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
 
                         <!-- Contact -->
                         <div class="contact">
-                            <a href="#"><img src="img/core-img/call2.png" alt="">${param.lang == 'de' ? '030 664040900' :'+1 619 876 7897'}</a>
+                            <a href="#"><img src="img/core-img/call2.png" alt="">${param.lang == 'de' ? '030 664040900' :'+1 415 513 0111'}</a>
                         </div>
                     </nav>
                 </div>
