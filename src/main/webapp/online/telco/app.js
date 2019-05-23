@@ -41,7 +41,7 @@ $(document).ready(function() {
   var baseUrl = window.location.protocol + "//" + window.location.host + "/" + pathArray[1] + "/api";
 
   // Start single Process Instance
-  $('#triggerStartApplication').click(function() {
+  $('#triggerStartApplication').click(function(evt) {
     var neuantrag = {
       "applicant": {
         "name": $('#applicant').val(),
@@ -53,8 +53,6 @@ $(document).ready(function() {
       "category": $('#category').val(),
       "priceIndicationInCent": getPrice() * 100,
       "corporation": "Camuntelia"
-      // ,
-      // "uiUrl": $('#uiUrl').val()
     };
 
     var data = JSON.stringify(neuantrag);
@@ -72,12 +70,34 @@ $(document).ready(function() {
       contentType: 'application/json; charset=utf-8',
       success: function(result) {
         $('#applicationId').text(result);
+        $('#applicationReceived').height($('#fieldsetForm').css('height'));
         $('#applicationReceived').toggle();
         $('#fieldsetForm').toggle();
       },
       crossDomain: true,
     });
 
+    var remaining = neuantrag.category;
+
+    var divsToHide = ['basic', 'standard', 'premium']
+
+    divsToHide = divsToHide.filter(elem => {
+      var categoryIsEqual = remaining.toLowerCase().substring(0, 4) === elem.substring(0, 4);
+      if (categoryIsEqual)
+        remaining = elem;
+      return !categoryIsEqual;
+    });
+
+    divsToHide.forEach(name => {
+      $('#' + name).remove();
+    });
+
+    $('#' + remaining).css('margin', 'auto');
+    $('#' + remaining + 'Button').remove();
+
+    scrollToAnchor(200);
+
+    evt.preventDefault();
   });
 
   // correlate message for Antrag
@@ -149,7 +169,7 @@ $(document).ready(function() {
       // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
       $('html, body').animate({
         scrollTop: $('#fieldsetForm').offset().top - 85
-      }, 800, function() {
+      }, arguments[0] !== undefined ? arguments[0] : 800, function() {
 
         // Add hash (#) to URL when done scrolling (default click behavior)
         window.location.hash = hash;
@@ -182,7 +202,16 @@ $(document).ready(function() {
     calculatePrice(preisindikationInCent);
   });
 
+  $('#documentToUpload').on('change', function() {
+    $('#fileDesc').css('border-bottom', '1px solid blue');
+    var text = $('#documentToUpload').val().match(/\\[\w-\s]+\.\w+/g).toString().substring(1);
+    if (text.length > 19)
+      text = '...' + text.substring(text.length - 16);
+    $('#fileDesc').text(text);
+  });
+
   function isEqualToOneOf(objectToBeChecked) {
+
     for (var i = 1; i < arguments.length; i++) {
       if (arguments[i] == objectToBeChecked) {
         return true;
