@@ -27,16 +27,16 @@
 
 	  <nav class="navbar navbar-expand-lg ftco-navbar-light w-100 rounded px-auto scrolled awake" style="background: #fff !important;top:0;" id="ftco-navbar">
 	    <div class="container rounded">
-	      <a class="navbar-brand" href="index.html" style="color:black !important;">Camuntelia</a>
+	      <a class="navbar-brand" href="index.jsp?lang=${param.lang}" style="color:black !important;">Camuntelia</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> ${param.lang == 'de' ? 'Men&uuml;' : 'Menu'}
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.jsp" class="nav-link font-weight-bold"  style="color:black !important;">Home</a></li>
-	          <li class="nav-item"><a href="index.jsp" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? '&Uuml;ber' : 'About'}</a></li>
-	          <li class="nav-item"><a href="contact.jsp" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
+	          <li class="nav-item active"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold"  style="color:black !important;">Home</a></li>
+	          <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? '&Uuml;ber' : 'About'}</a></li>
+	          <li class="nav-item"><a href="contact.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -44,7 +44,7 @@
     <!-- END nav -->
 
     <div class="hero-wrap" style="background-image: url('images/bg_2.jpg');height:929px;background-position: 50% 0px;" data-stellar-background-ratio="0.5">
-      <div class="overlay" style="opacity:.4;"></div>
+      <div class="overlay" style="opacity:.4;position:fixed;"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-start justify-content-start mt-5" data-scrollax-parent="true">
           <div class="col-xl-10 ftco-animate my-5 py-5" data-scrollax=" properties: { translateY: '30%' }">
@@ -63,7 +63,7 @@
 			            <div class="tab-content py-3 pl-3 pr-1" id="v-pills-tabContent">
 
 			              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-			              	<form action="./services.jsp" class="search-job">
+			              	<form action="./services.jsp?lang=${param.lang}" class="search-job">
 			              		<div class="row" style="margin-right:-45px;">
 			              			<div class="col-md">
 			              				<div class="form-group">
@@ -195,7 +195,7 @@
     	</div>
     </section>
 
-		<section class="ftco-section-parallax">
+    <section class="ftco-section-parallax">
       <div class="parallax-img d-flex align-items-center">
         <div class="container">
           <div class="row d-flex justify-content-center">
@@ -206,8 +206,8 @@
                 <div class="col-md-8">
                   <form action="#" class="subscribe-form">
                     <div class="form-group d-flex">
-                      <input type="text" class="form-control" placeholder="Enter email address">
-                      <input type="submit" value="Subscribe" class="submit px-3">
+                      <input type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Email-Adresse eingeben' : 'Enter email address'}">
+                      <input type="submit" value="${param.lang == 'de' ? 'Abbonieren' : 'Subscribe'}" class="submit px-3">
                     </div>
                   </form>
                 </div>

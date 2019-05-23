@@ -30,16 +30,16 @@
 
     <nav class="navbar navbar-expand-lg ftco-navbar-light w-100 rounded px-auto scrolled awake" style="background: #fff !important;top:0;" id="ftco-navbar">
 	    <div class="container rounded">
-	      <a class="navbar-brand" href="index.html" style="color:black !important;">Camuntelia</a>
+	      <a class="navbar-brand" href="index.jsp?lang=${param.lang}" style="color:black !important;">Camuntelia</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="index.jsp" class="nav-link font-weight-bold"  style="color:black !important;">Home</a></li>
-	          <li class="nav-item"><a href="index.jsp" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? '&Uuml;ber' : 'About'}</a></li>
-	          <li class="nav-item"><a href="contact.jsp" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
+            <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold"  style="color:black !important;">Home</a></li>
+	          <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? '&Uuml;ber' : 'About'}</a></li>
+	          <li class="nav-item"><a href="contact.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -51,49 +51,49 @@
         <div class="row no-gutters slider-text  align-items-center" data-scrollax-parent="true">
           <div class="col-xl-12 ftco-animate mb-5 pb-5" data-scrollax=" properties: { translateY: '30%' }">
           	<p class="mb-4 mt-5 pt-5 justify-content-start" data-scrollax="properties: { translateY: '30%', opacity: 1.3 }">${param.lang == 'de' ? 'Es warten <span class="number" data-number="1000000">0</span> mega bytes darauf, Sie zu treffen!' : 'We have <span class="number" data-number="1000000">0</span> mega bytes who are waiting to meet you!'}</p>
-            <h1 class="mb-5 justify-content-start" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">${param.lang == 'de' ? 'Unsere Dienstleistungen' : 'Our services are available'}<br>${param.lang == 'de' ? ' sind verfügbar!' : ' in your area!'}</h1>
+            <h1 class="mb-5 justify-content-start" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">${param.lang == 'de' ? 'Unsere Dienstleistungen' : 'Our services are available'}<br>${param.lang == 'de' ? ' sind verf&uuml;gbar!' : ' in your area!'}</h1>
 
 						<div class="ftco-search">
                 <!-- choose product category -->
               <div class="container-fluid" style="clear:both;margin-bottom:3em;">
                 <div class="row justify-content-between" style="text-align:center;color:black;opacity:0.99;">
-                  <div class="col-sm-4 col-md-4 col-lg-4 tab-content px-0 productdiv">
+                  <div id="basic" class="col-sm-4 col-md-4 col-lg-4 tab-content px-0 productdiv">
                     <div class="mr-2 pb-2">
                       <img src="images/products/onlyOnline_9.jpg" alt="" class="productimg">
                       <h4 class="font-weight-bold">Only online</h4>
                       <ul style="text-align:left;list-style: none;">
-                        <li class="accListElem"><img srcset="images/icons/cross-icon.svg" class="smallCross" /><span style="font-weight:550;"> No mobile internet</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span> 50 mb/s</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span > up to 1000 GB volume</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;"> 3 phone numbers</span></li>
+                        <li class="accListElem"><img srcset="images/icons/cross-icon.svg" class="smallCross" /><span style="font-weight:550;">&nbsp;${param.lang == 'de' ? 'Kein mobiles Internet' : 'No Mobile Internet'}</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;50 mb/s</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span >&nbsp;${param.lang == 'de' ? 'Bis zu 1000 GB Volumen' : 'Up To 1000 GB Volume'}</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;">&nbsp;3 ${param.lang == 'de' ? 'Rufnummern' : 'Phone Numbers'}</span></li>
                       </ul>
-                      <button id="basicButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">buy now</button>
+                      <button id="basicButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">&nbsp;${param.lang == 'de' ? 'Jetzt Bestellen' : 'Buy Now'}</button>
                     </div>
                   </div>
-                  <div class="col-sm-4 col-md-4 col-lg-4 tab-content px-0 productdiv">
+                  <div id="standard" class="col-sm-4 col-md-4 col-lg-4 tab-content px-0 productdiv">
                     <div class="pb-2">
                       <img src="images/products/onlineEverywhere_8_5.jpg" alt="" class="productimg">
                       <h4 class="font-weight-bold">Online everywhere</h4>
                       <ul style="text-align:left;list-style: none;">
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span> mobile internet 5 GB</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span> 100 mb/s</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;"> flatrate</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;"> 5 phone numbers</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;${param.lang == 'de' ? '5 GB Mobile Daten' : ' Mobile Internet 5 GB'}</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;100 mb/s</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;">&nbsp;Flatrate</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;">&nbsp;5 ${param.lang == 'de' ? 'Rufnummern' : 'Phone Numbers'}</span></li>
                       </ul>
-                      <button id="standardButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">buy now</button>
+                      <button id="standardButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">&nbsp;${param.lang == 'de' ? 'Jetzt Bestellen' : 'Buy Now'}</button>
                     </div>
                   </div>
-                  <div class="productdiv px-0 col-sm-4 col-md-4 col-lg-4 tab-content">
+                  <div id="premium" class="productdiv px-0 col-sm-4 col-md-4 col-lg-4 tab-content">
                     <div class="pb-2">
                       <img src="images/products/highSpeed_6_5.jpg" alt="" class="productimg">
                       <h4 class="font-weight-bold">Super High Speed</h4>
                       <ul style="text-align:left;list-style: none;">
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span> mobile internet 10 GB</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span> 250 mb/s</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:1000;"> flatrate</span></li>
-                          <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:1000;"> 10 phone numbers</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;${param.lang == 'de' ? '' : ''} mobile internet 10 GB</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;250 mb/s</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:1000;">&nbsp;Flatrate</span></li>
+                          <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:1000;">&nbsp;10 ${param.lang == 'de' ? 'Rufnummern' : 'Phone Numbers'}</span></li>
                       </ul>
-                      <button id="premiumButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">buy now</button>
+                      <button id="premiumButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">&nbsp;${param.lang == 'de' ? 'Jetzt Bestellen' : 'Buy Now'}</button>
                     </div>
                   </div>
                 </div>
@@ -107,9 +107,9 @@
 
       <div class="divider"></div>
       <div id="fieldsetForm">
-         <form method="post" class="reply justify-content-between" id="contact">
+         <form class="reply justify-content-between" id="contact">
             <fieldset class="w-75 m-auto">
-               <h3 class="title">${param.lang == 'de' ? 'Anmelden' : 'Sign up'}</h3>
+               <h3 class="title">${param.lang == 'de' ? 'Anmelden' : 'Sign Up'}</h3>
                <div class="w-75">
                <div class="row">
 
@@ -165,13 +165,13 @@
 
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>${param.lang == 'de' ? 'Preisindikation' : 'Price Indication'}: </label>
-                    <input class="form-control" type="text" id="priceIndicationInCent" name="preisindikation" value="60,00 &euro;" readonly>
+                    <input class="form-control" type="text" id="priceIndicationInCent" name="preisindikation" value="5,00 &euro;" readonly>
                   </div>
                </div>
                <div class="row text-right mt-4">
                  <div class="col-md-8"></div>
                  <div class="col-md-4 form-control border-0">
-                   <button type="submit" id="triggerStartApplication" class="btn btn-primary py-2 w-50" type="button">Send</button>
+                   <button type="button" id="triggerStartApplication" class="btn btn-primary py-2 w-50" type="button">${param.lang == 'de' ? 'Senden' : 'Send'}</button>
                  </div>
                </div>
              </div>
@@ -180,9 +180,9 @@
          </form>
          </div>
 
-         <div id="applicationReceived" class="success alert-success alert" style="display:none">
-               <p>Application received - we get in touch with you shortly!</p>
-               <p>Your application id is: <span id="applicationId"></span></p>
+         <div id="applicationReceived" class="success alert-success alert" style="display:none;text-align:center;line-height:500%;font-size:1.8em;">
+               <div>${param.lang == 'de' ? 'Anfrage erhalten - wir kontaktieren Sie innerhalb k&uuml;rzester Zeit!' : 'Application received - we get in touch with you shortly'}!</div>
+               <div>${param.lang == 'de' ? 'Ihre Anfragfen-Id ist' : 'Your application id is'}: <span id="applicationId"></span></div>
          </div>
 
          <div class="clearfix">
@@ -202,8 +202,8 @@
                 <div class="col-md-8">
                   <form action="#" class="subscribe-form">
                     <div class="form-group d-flex">
-                      <input type="text" class="form-control" placeholder="Enter email address">
-                      <input type="submit" value="Subscribe" class="submit px-3">
+                      <input type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Email-Adresse eingeben' : 'Enter email address'}">
+                      <input type="submit" value="${param.lang == 'de' ? 'Abbonieren' : 'Subscribe'}" class="submit px-3">
                     </div>
                   </form>
                 </div>
