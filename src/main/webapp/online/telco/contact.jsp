@@ -29,16 +29,16 @@
 
     <nav class="navbar navbar-expand-lg ftco-navbar-light w-100 rounded px-auto scrolled awake" style="background: #fff !important;top:0;" id="ftco-navbar">
       <div class="container rounded">
-        <a class="navbar-brand" href="index.html" style="color:black !important;">Camuntelia</a>
+        <a class="navbar-brand" href="index.jsp?lang=${param.lang}" style="color:black !important;">Camuntelia</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="index.jsp" class="nav-link font-weight-bold"  style="color:black !important;">Home</a></li>
-	          <li class="nav-item"><a href="index.jsp" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? '&Uuml;ber' : 'About'}</a></li>
-	          <li class="nav-item active"><a href="contact.jsp" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
+            <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold"  style="color:black !important;">Home</a></li>
+	          <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? '&Uuml;ber' : 'About'}</a></li>
+	          <li class="nav-item active"><a href="contact.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
           </ul>
         </div>
       </div>
@@ -46,7 +46,7 @@
     <!-- END nav -->
 
     <div class="hero-wrap" style="background-image: url('images/bg_2.jpg');height:929px;background-position: 50% 0px;" data-stellar-background-ratio="0.5">
-      <div class="overlay" style="opacity:.4;"></div>
+      <div class="overlay" style="opacity:.4;position:fixed;"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-start justify-content-start mt-5" data-scrollax-parent="true">
           <div class="col-md-8 mt-5 pt-5 ftco-animate text-center text-md-left mb-2" data-scrollax=" properties: { translateY: '30%' }">${param.lang == 'de' ? '' : ''}
@@ -79,18 +79,23 @@
                 <form action="#" class="p-5 contact-form rounded">
                   <div class="form-group  text-dark">
                     <label>${param.lang == 'de' ? 'Referenznummer' : 'Reference number'}</label>
-                    <input type="text" class="form-control" placeholder="Your reference number">
+                    <input type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Ihre Referenznummer' : 'Your reference number'}">
                   </div>
                   <div class="form-group mt-4">
                     <label class="text-dark">${param.lang == 'de' ? 'Dokument w&auml;hlen' : 'Choose your document'}</label>
-                    <textarea class="form-control" style="border-bottom-left-radius: 0;" placeholder="Additional information" cols="30" rows="7"></textarea>
-                    <div class="input-group w-50">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="documentToUpload" name="Dokument hochladen" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                        aria-describedby="inputGroupFileAddon01">
-                      <label class="custom-file-label border-top-0" style="border-top-left-radius:0;border-top-right-radius:0;" for="inputGroupFile01">${param.lang == 'de' ? 'Dokument w&auml;hlen' : 'Choose file'}</label>
+                    <textarea class="form-control" style="border-bottom-left-radius: 0;" placeholder="${param.lang == 'de' ? 'Weitere Informationen' : 'Additional information'}" cols="30" rows="7"></textarea>
+                    <div class="input-group">
+                      <div class="row w-100 m-0">
+                        <div class="custom-file col-md-6">
+                          <input type="file" class="custom-file-input" lang="${param.lang}" id="documentToUpload" name="Dokument hochladen" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                            aria-describedby="inputGroupFileAddon01">
+                          <label class="custom-file-label border-top-0" style="border-top-left-radius:0;border-top-right-radius:0;" for="documentToUpload">${param.lang == 'de' ? 'Dokument w&auml;hlen' : 'Choose file'}</label>
+                        </div>
+                        <div class="col-md-6 mt-auto text-center">
+                          <span id="fileDesc" class="span-decoration-underlined w-75 text-secondary" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${param.lang == 'de' ? 'Ihr Dokument...' : 'Your document...'}</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
                   </div>
                   <div class="form-group text-right">
                     <button value="Send Message" class="btn btn-primary py-2 px-4">${param.lang == 'de' ? 'Versenden' : 'Send Message'}</button>
@@ -116,8 +121,8 @@
                 <div class="col-md-8">
                   <form action="#" class="subscribe-form">
                     <div class="form-group d-flex">
-                      <input type="text" class="form-control" placeholder="Enter email address">
-                      <input type="submit" value="Subscribe" class="submit px-3">
+                      <input type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Email-Adresse eingeben' : 'Enter email address'}">
+                      <input type="submit" value="${param.lang == 'de' ? 'Abbonieren' : 'Subscribe'}" class="submit px-3">
                     </div>
                   </form>
                 </div>
