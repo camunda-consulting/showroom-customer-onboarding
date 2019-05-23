@@ -42,3 +42,13 @@ font-weight: 300
   width:21px;
   height:21px;
 }
+
+.span-decoration-underlined {
+  border-bottom: 1px solid black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.span-decoration-underlined:hover {
+  border-bottom: 1px solid blue;
+}
