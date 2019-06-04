@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
   <decision id="checkRisk_de" name="Risikoprüfung">
-    <decisionTable id="decisionTable" hitPolicy="FIRST">
+    <decisionTable id="decisionTable" hitPolicy="COLLECT">
       <input id="input1" label="Alter" camunda:inputVariable="">
         <inputExpression id="inputExpression1" typeRef="integer">
           <text>application.applicant.age</text>
@@ -24,30 +24,10 @@
       </input>
       <output id="output1" label="Risiko" name="risk" typeRef="string" />
       <output id="OutputClause_0hh62nv" label="Risikobewertung" name="riskLevel" typeRef="string" />
-      <rule id="DecisionRule_1cxrger">
-        <inputEntry id="UnaryTests_0fj9ys5">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0fxukan">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1g4f1yc">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0t8gqdn">
-          <text>&lt;85</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0bk5bep">
-          <text>"Zahlung unwahrscheinlich"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_024ki50">
-          <text>"rot"</text>
-        </outputEntry>
-      </rule>
       <rule id="DecisionRule_09dgf3c">
         <description></description>
         <inputEntry id="UnaryTests_0ual6ir">
-          <text>&lt;= 21</text>
+          <text>&lt;= 30</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1e397n3">
           <text>-</text>
@@ -56,7 +36,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0bwyzik">
-          <text>&lt;=95</text>
+          <text>&lt;=85</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1f3y5xd">
           <text>"Zahlung unwahrscheinlich"</text>
@@ -89,7 +69,7 @@
       <rule id="DecisionRule_0c99hq3">
         <description></description>
         <inputEntry id="UnaryTests_16q1ghi">
-          <text>&lt;= 25</text>
+          <text>&lt;= 30</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0c86j25">
           <text>"Selbstständig"</text>
@@ -119,10 +99,10 @@
           <text>-</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1x76amu">
-          <text></text>
+          <text>&lt;=95</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1pwrw8z">
-          <text>"Unregelmäßiges Einkommen"</text>
+          <text>"Nicht vertrauenswürdig"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0zcjpew">
           <text>"gelb"</text>

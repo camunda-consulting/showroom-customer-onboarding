@@ -2,6 +2,7 @@ package com.camunda.demo.customeronboarding;
 
 import static org.camunda.spin.Spin.JSON;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -47,15 +48,22 @@ public class DemoData {
   public static final String EMAIL = "trashcan@camunda.org";
 
   public static NewApplication green() {
-    return createNeuantrag(40, Categorys.STANDARDPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
+    return createNeuantrag(getBirthYear(0), Categorys.STANDARDPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
   }
 
   public static NewApplication yellow() {
-    return createNeuantrag(33, Categorys.PREMIUMPAKET.displayName, Employment.FREELANCER.displayName);
+    return createNeuantrag(getBirthYear(3), Categorys.PREMIUMPAKET.displayName, Employment.FREELANCER.displayName);
   }
 
   public static NewApplication red() {
-    return createNeuantrag(25, Categorys.PREMIUMPAKET.displayName , Employment.SELBSTSTAENDIG.displayName);
+    return createNeuantrag(getBirthYear(5), Categorys.PREMIUMPAKET.displayName , Employment.NICHT_ERWERBSTAETIG.displayName);
+  }
+  
+  public static int getBirthYear(int endNumber) {
+	  int thisYear = LocalDate.now().getYear();
+	  int numberForCorrectEnding = - (20 + 10 - endNumber);
+	  int numberForEvenDigits = thisYear % 10 >= 5 ? (thisYear % 10) - 10 : (thisYear % 10);
+	  return LocalDate.now().plusYears(numberForCorrectEnding - numberForEvenDigits).getYear();
   }
 
   public static Map<String, Object> createGreenInitVars() {
