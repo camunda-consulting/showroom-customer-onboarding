@@ -216,7 +216,7 @@
 
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                           <label>${param.lang == 'de' ? 'Geburtsdatum' : 'Date of Birth'}: <span>*</span></label>
-                          <input class="form-control" type="date" id="birthdate" name="birthdate" value="1980-01-01" required>
+                          <input class="form-control" type="date" id="birthdate" name="birthdate" value="1990-01-01" required>
                         </div>
                      </div>
 
