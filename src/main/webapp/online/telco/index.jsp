@@ -63,7 +63,8 @@
 			            <div class="tab-content py-3 pl-3 pr-1" id="v-pills-tabContent">
 
 			              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-			              	<form action="./services.jsp?lang=${param.lang}" class="search-job">
+			              	<form action="services.jsp" method="get" class="search-job">
+                        		<input type="hidden" name="lang" value="${param.lang}" />
 			              		<div class="row" style="margin-right:-45px;">
 			              			<div class="col-md">
 			              				<div class="form-group">
