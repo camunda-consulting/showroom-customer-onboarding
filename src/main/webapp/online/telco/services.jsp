@@ -75,7 +75,7 @@
                       <img src="images/products/onlineEverywhere_8_5.jpg" alt="" class="productimg">
                       <h4 class="font-weight-bold">Online everywhere</h4>
                       <ul style="text-align:left;list-style: none;">
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;${param.lang == 'de' ? '5 GB Mobile Daten' : ' Mobile Internet 5 GB'}</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;${param.lang == 'de' ? '5 GB Mobile Daten' : 'Mobile Internet 5 GB'}</span></li>
                         <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;100 mb/s</span></li>
                         <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;">&nbsp;Flatrate</span></li>
                         <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;">&nbsp;5 ${param.lang == 'de' ? 'Rufnummern' : 'Phone Numbers'}</span></li>
@@ -88,7 +88,7 @@
                       <img src="images/products/highSpeed_6_5.jpg" alt="" class="productimg">
                       <h4 class="font-weight-bold">Super High Speed</h4>
                       <ul style="text-align:left;list-style: none;">
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;${param.lang == 'de' ? '' : ''} mobile internet 10 GB</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;${param.lang == 'de' ? '10 GB Mobile Daten' : 'Mobile Internet 10 GB'}</span></li>
                         <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;250 mb/s</span></li>
                         <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:1000;">&nbsp;Flatrate</span></li>
                           <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:1000;">&nbsp;10 ${param.lang == 'de' ? 'Rufnummern' : 'Phone Numbers'}</span></li>
