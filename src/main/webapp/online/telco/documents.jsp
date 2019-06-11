@@ -38,7 +38,7 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold"  style="color:black !important;">Home</a></li>
 	          <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? '&Uuml;ber' : 'About'}</a></li>
-	          <li class="nav-item active"><a href="contact.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
+	          <li class="nav-item active"><a href="documents.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
           </ul>
         </div>
       </div>
@@ -79,7 +79,7 @@
                 <form action="#" class="p-5 contact-form rounded">
                   <div class="form-group  text-dark">
                     <label>${param.lang == 'de' ? 'Referenznummer' : 'Reference number'}</label>
-                    <input type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Ihre Referenznummer' : 'Your reference number'}">
+                    <input id="referenceId" type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Ihre Referenznummer' : 'Your reference number'}">
                   </div>
                   <div class="form-group mt-4">
                     <label class="text-dark">${param.lang == 'de' ? 'Dokument w&auml;hlen' : 'Choose your document'}</label>
