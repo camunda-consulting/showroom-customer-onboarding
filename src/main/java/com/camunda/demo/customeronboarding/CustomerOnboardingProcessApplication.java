@@ -61,11 +61,8 @@ public class CustomerOnboardingProcessApplication extends ServletProcessApplicat
         .addClasspathResource("document_request_en.bpmn") //
         .addClasspathResource("document_request_de.bpmn") //
         .resumePreviousVersions() //
-        .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY) //
-    ;    if (isThereOldOne.isEmpty()) {
-      deploymentBuilder.addClasspathResource("customer_onboarding_old_en.bpmn") //
-          .addClasspathResource("customer_onboarding_old_de.bpmn");
-    }
+        .resumePreviousVersionsBy(ResumePreviousBy.RESUME_BY_PROCESS_DEFINITION_KEY)
+        ;    
     Deployment deployment = deploymentBuilder.deploy();
     engine.getManagementService().registerProcessApplication(deployment.getId(), getReference());
 
