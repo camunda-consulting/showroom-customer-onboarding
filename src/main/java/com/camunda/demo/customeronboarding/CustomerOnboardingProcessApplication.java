@@ -66,9 +66,9 @@ public class CustomerOnboardingProcessApplication extends ServletProcessApplicat
     Deployment deployment = deploymentBuilder.deploy();
     engine.getManagementService().registerProcessApplication(deployment.getId(), getReference());
 
-    if (isThereOldOne.isEmpty()) {
-      generateDataInOldModel(engine);
-    }
+//    if (isThereOldOne.isEmpty()) {
+//      generateDataInOldModel(engine);
+//    }
 
     deployment = engine.getRepositoryService().createDeployment(getReference()) //
         .enableDuplicateFiltering(true) //

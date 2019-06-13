@@ -261,6 +261,11 @@ if (typedDocument != null &amp;&amp; typedDocument.getValue() != null) {
     <bpmn2:sequenceFlow id="SequenceFlow_0lwkj1f" sourceRef="BoundaryEvent_1i1spfe" targetRef="CallActivity_RequestDocument" />
     <bpmn2:sequenceFlow id="SequenceFlow_0o6gf8v" sourceRef="BoundaryEvent_0mcjys5" targetRef="UserTask_AccelerateDecision" />
     <bpmn2:serviceTask id="ServiceTask_0tixwo5" name="Calculate score" camunda:class="com.camunda.demo.customeronboarding.adapter.CalculateScore">
+      <bpmn2:extensionElements>
+        <camunda:properties>
+          <camunda:property name="simulateKeepImplementation" value="true" />
+        </camunda:properties>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_1gd6p37</bpmn2:outgoing>
     </bpmn2:serviceTask>

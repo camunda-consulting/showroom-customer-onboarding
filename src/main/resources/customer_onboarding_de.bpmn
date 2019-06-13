@@ -262,6 +262,11 @@ if (typedDocument != null &amp;&amp; typedDocument.getValue() != null) {
     <bpmn2:sequenceFlow id="SequenceFlow_0o6gf8v" sourceRef="BoundaryEvent_0mcjys5" targetRef="UserTask_AccelerateDecision" />
     <bpmn2:sequenceFlow id="SequenceFlow_0k8dzsx" sourceRef="Task_0afvgp8" targetRef="BusinessRuleTask_CheckApplicationAutomatically" />
     <bpmn2:serviceTask id="Task_0afvgp8" name="Schufa-Score ermitteln" camunda:class="com.camunda.demo.customeronboarding.adapter.CalculateScore">
+      <bpmn2:extensionElements>
+        <camunda:properties>
+          <camunda:property name="simulateKeepImplementation" value="true" />
+        </camunda:properties>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_0k8dzsx</bpmn2:outgoing>
     </bpmn2:serviceTask>
