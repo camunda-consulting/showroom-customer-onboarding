@@ -14,6 +14,18 @@ $(document).ready(function() {
     }
   });
 
+
+  $.i18n().load({
+    'en': window.langEn['en'],
+    'de': window.langDe['de']
+  })
+
+  $.i18n({
+    locale: lang
+  });
+
+  $('body').i18n();
+
   // // set URL to reach UI
   // if ($('#uiUrl')) {
   // var url = window.location;
@@ -36,6 +48,14 @@ $(document).ready(function() {
   // + '${camunda.rest.password}'))))
   // };
 
+  $('.langlink').each(function(i, obj) {
+    $(this).click(function(event) {
+      event.preventDefault();
+      window.location.href = $(this).context.href + '?lang=' + lang;
+    });
+  });
+
+
 
   var pathArray = window.location.pathname.split('/');
   var baseUrl = window.location.protocol + "//" + window.location.host + "/" + pathArray[1] + "/api";
@@ -52,6 +72,7 @@ $(document).ready(function() {
       "employment": $('#employment').val(),
       "category": $('#category').val(),
       "priceIndicationInCent": getPrice() * 100,
+      "product": $("#category option:selected").text(),
       "corporation": "Camunbankia"
       // ,
       // "uiUrl": $('#uiUrl').val()
@@ -129,6 +150,18 @@ $(document).ready(function() {
 
   });
 
+  function addValue(id, categoryDe, categoryEn) {
+    var isGerman = lang.endsWith('de');
+    $('#' + id).val(isGerman ? categoryDe : categoryEn);
+  }
+
+  addValue('basic', 'Basispaket', 'Basic Package')
+  addValue('standard', 'Standard Paket', 'Standard Package')
+  addValue('premium', 'Premium Paket', 'Premium Package')
+
+  $('#serviceAreaAccount').css('margin-left', '' + (lang == 'de' ? 17 : 16) + 'em')
+
+
   function chooseCategory(categoryDe, categoryEn) {
     var isGerman = lang.endsWith('de');
     $('#category').val(isGerman ? categoryDe : categoryEn);
@@ -147,8 +180,6 @@ $(document).ready(function() {
         scrollTop: $('#standardButton').offset().top - 25
       }, 800, function() {
 
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
       });
     } // End if
   }

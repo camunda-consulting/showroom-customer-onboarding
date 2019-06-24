@@ -10,6 +10,8 @@
 @import url(css/credit-icon.css);
 /* :: 3.0 Base CSS */
 
+.langlink {}
+
 /*own css*/
 .accListElem {
 	margin-bottom:0.5em;

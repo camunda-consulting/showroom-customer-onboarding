@@ -24,6 +24,7 @@ public class ApplicationOnlineFacadeTests {
 		application.setEmployment(Employment.FREELANCER.displayName());
 		application.setPremium("34345");
 		application.setPremiumInCent(566464646);
+		application.setProduct("even cooler product");
 		
 		MultivaluedMap<String, String> requestHeaders = new MultivaluedHashMap<>();
 		HttpHeaders headers = new  org.jboss.resteasy.specimpl.ResteasyHttpHeaders(requestHeaders);

@@ -27,16 +27,16 @@
 
 	  <nav class="navbar navbar-expand-lg ftco-navbar-light w-100 rounded px-auto scrolled awake" style="background: #fff !important;top:0;" id="ftco-navbar">
 	    <div class="container rounded">
-	      <a class="navbar-brand" href="index.jsp?lang=${param.lang}" style="color:black !important;">Camuntelia</a>
+	      <a class="navbar-brand langlink" href="index.html" style="color:black !important;">Camuntelia</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> ${param.lang == 'de' ? 'Men&uuml;' : 'Menu'}
+	        <span class="oi oi-menu"></span> <span data-i18n="topbar-menu" ></span>
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold"  style="color:black !important;">Home</a></li>
-	          <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? '&Uuml;ber' : 'About'}</a></li>
-	          <li class="nav-item"><a href="documents.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
+	          <li class="nav-item active"><a href="index.html" class="nav-link font-weight-bold langlink"  style="color:black !important;">Home</a></li>
+	          <li class="nav-item"><a href="index.html" class="nav-link font-weight-bold langlink" style="color:black !important;" data-i18n="topbar-about"></a></li>
+	          <li class="nav-item"><a href="documents.html" class="nav-link font-weight-bold langlink" style="color:black !important;" data-i18n="topbar-contact"></a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -49,13 +49,13 @@
         <div class="row no-gutters slider-text js-fullheight align-items-start justify-content-start mt-5" data-scrollax-parent="true">
           <div class="col-xl-10 ftco-animate my-5 py-5" data-scrollax=" properties: { translateY: '30%' }">
           	<p class="my-5 pt-5"></p>
-            <h1 class="mb-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">${param.lang == 'de' ? 'Verbinde dich' : 'Stay Connected'}<br> ${param.lang == 'de' ? '&Uuml;berall' : 'Everywhere'}</h1>
+            <h1 class="mb-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" ><span data-i18n="index-form-title-top" class="font-weight-bold"></span><br><span data-i18n="index-form-title-bottom" class="font-weight-bold"></span></h1>
 
 						<div class="ftco-search">
 							<div class="row">
 		            <div class="col-md-12 nav-link-wrap">
 			            <div class="nav nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-			              <span class="bg-white text-dark rounded py-3 w-25 px-5 text-left mr-md-1 font-weight-bold" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">${param.lang == 'de' ? 'Verf&uuml;gbarkeit' : 'Check availabilty'}</span>
+			              <span class="bg-white text-dark rounded py-3 w-25 px-5 text-left mr-md-1 font-weight-bold" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true" data-i18n="index-form-availabilty"></span>
 			            </div>
 			          </div>
 			          <div class="col-md-12 tab-wrap">
@@ -63,14 +63,14 @@
 			            <div class="tab-content py-3 pl-3 pr-1" id="v-pills-tabContent">
 
 			              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-			              	<form action="services.jsp" method="get" class="search-job">
-                        		<input type="hidden" name="lang" value="${param.lang}" />
+			              	<form action="services.html" method="get" class="search-job">
+                        		<input id="indexFormLang" type="hidden" name="lang"/>
 			              		<div class="row" style="margin-right:-45px;">
 			              			<div class="col-md">
 			              				<div class="form-group">
 				              				<div class="form-field">
 				              					<div class="icon"><span class="icon-home"></span></div>
-								                <input required type="text" class="form-control" placeholder="eg. ${param.lang == 'de' ? 'M&uuml;llerstra&szlig;e 23a' : 'your street 23a'}">
+								                <input id="indexFormAddress" required type="text" class="form-control">
 								              </div>
 							              </div>
 			              			</div>
@@ -79,7 +79,7 @@
 			              					<div class="form-field">
 				              					<div class="select-wrap">
 						                      <div class="icon"><span class="icon-compass"></span></div>
-						                      <input required type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Postleitzahl' : 'zip-code'}">
+						                      <input id="indexFormZip" required type="text" class="form-control">
 						                    </div>
 								              </div>
 							              </div>
@@ -88,12 +88,12 @@
 			              				<div class="form-group">
 			              					<div class="form-field">
 				              					<div class="icon"><span class="icon-map-marker"></span></div>
-								                <input required type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Ort' : 'Location'}">
+								                <input id="indexFormLocation" required type="text" class="form-control">
 								              </div>
 							              </div>
 			              			</div>
 			              			<div class="col-md">
-                            <button value="Send Message" class="btn btn-primary py-2 px-4 align-text-top">${param.lang == 'de' ? 'Anschrift pr&uuml;fen' : 'Check Availabilty'}</button>
+                            <button value="Send Message" class="btn btn-primary py-2 px-4 align-text-top" data-i18n="index-form-check"></button>
 			              			</div>
 			              		</div>
 			              	</form>
@@ -114,7 +114,7 @@
             <div class="media block-6 services d-block">
               <div class="icon"><span class="flaticon-resume"></span></div>
               <div class="media-body">
-                <h3 class="heading mb-3">${param.lang == 'de' ? 'Schreiben Sie Millionen Emails' : 'Write Millions Of Emails'}</h3>
+                <h3 class="heading mb-3" data-i18n="index-ad-one"></h3>
                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.</p>
               </div>
             </div>
@@ -123,7 +123,7 @@
             <div class="media block-6 services d-block">
               <div class="icon"><span class="flaticon-collaboration"></span></div>
               <div class="media-body">
-                <h3 class="heading mb-3">${param.lang == 'de' ? 'Verbindungsmanagement' : 'Easy To Manage Connections'}</h3>
+                <h3 class="heading mb-3" data-i18n="index-ad-two"></h3>
                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.</p>
               </div>
             </div>
@@ -132,7 +132,7 @@
             <div class="media block-6 services d-block">
               <div class="icon"><span class="flaticon-promotions"></span></div>
               <div class="media-body">
-                <h3 class="heading mb-3">${param.lang == 'de' ? 'Top Karrierem&ouml;glichkeiten' : 'Top Careers'}</h3>
+                <h3 class="heading mb-3" data-i18n="index-ad-three"></h3>
                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.</p>
               </div>
             </div>
@@ -144,7 +144,7 @@
                 <div class="icon"><span class="flaticon-employee"></span></div>
               </div>
               <div class="media-body">
-                <h3 class="heading mb-3">${param.lang == 'de' ? 'Finden Sie neue Freunde' : 'Find Friends On Social Media'}</h3>
+                <h3 class="heading mb-3" data-i18n="index-ad-four"></h3>
                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.</p>
               </div>
             </div>
@@ -162,7 +162,7 @@
 		            <div class="block-18 text-center">
 		              <div class="text">
 		                <strong class="number" data-number="130850000">0</strong>
-		                <span>${param.lang == 'de' ? 'Parallele Verbindungen' : 'Parallel connections'}</span>
+		                <span data-i18n="index-ad-five"></span>
 		              </div>
 		            </div>
 		          </div>
@@ -170,7 +170,7 @@
 		            <div class="block-18 text-center">
 		              <div class="text">
 		                <strong class="number" data-number="4000000">0</strong>
-		                <span>${param.lang == 'de' ? 'Starke Nutzer' : 'Heavy users'}</span>
+		                <span data-i18n="index-ad-six"></span>
 		              </div>
 		            </div>
 		          </div>
@@ -178,7 +178,7 @@
 		            <div class="block-18 text-center">
 		              <div class="text">
 		                <strong class="number" data-number="30000">0</strong>
-		                <span>${param.lang == 'de' ? 'Mitarbeiter' : 'Employees'}</span>
+		                <span data-i18n="index-ad-seven"></span>
 		              </div>
 		            </div>
 		          </div>
@@ -186,7 +186,7 @@
 		            <div class="block-18 text-center">
 		              <div class="text">
 		                <strong class="number" data-number="10500">0</strong>
-		                <span>${param.lang == 'de' ? 'B2B Kunden' : 'B2B customers'}</span>
+		                <span data-i18n="index-ad-eight"></span>
 		              </div>
 		            </div>
 		          </div>
@@ -201,14 +201,14 @@
         <div class="container">
           <div class="row d-flex justify-content-center">
             <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-              <h2>${param.lang == 'de' ? 'Abbonieren Sie unseren Newsletter' : 'Subcribe to our Newsletter'}</h2>
+              <h2 data-i18n="newsletter-title"></h2>
               <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
               <div class="row d-flex justify-content-center mt-4 mb-4">
                 <div class="col-md-8">
                   <form action="#" class="subscribe-form">
                     <div class="form-group d-flex">
-                      <input type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Email-Adresse eingeben' : 'Enter email address'}">
-                      <input type="submit" value="${param.lang == 'de' ? 'Abbonieren' : 'Subscribe'}" class="submit px-3">
+                      <input id="newsletterInput" type="text" class="form-control">
+                      <input id="newsletterSubmit" type="submit" class="submit px-3" data-i18n="newsletter-button">
                     </div>
                   </form>
                 </div>
@@ -224,7 +224,7 @@
         <div class="row mb-5">
         	<div class="col-md">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">${param.lang == 'de' ? '&Uuml;ber Uns' : 'About'}</h2>
+              <h2 class="ftco-heading-2" data-i18n="topbar-about"></h2>
               <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
@@ -235,37 +235,37 @@
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">${param.lang == 'de' ? '' : 'Companys'}</h2>
+              <h2 class="ftco-heading-2" data-i18n="footer-customer-company"></h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Wie es funktioniert' : 'How it works'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Registrieren' : 'Register'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Individuelle Sets' : 'Buy individual set'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Fortgeschrittene Sets' : 'Advanced set components'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Spezielle Sets' : 'Special Service'}</a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-how"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-register"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-individual"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-advanced"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-special"></a></li>
                 <li><a href="#" class="py-2 d-block">Faq</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Customers</h2>
+              <h2 class="ftco-heading-2" data-i18n="footer-customer-customer"></h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Wie es funktioniert' : 'How it works'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Registrieren' : 'Register'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Kaufe dein Set' : 'Buy Your Set'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Internet Suchen' : 'Internet Search'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Internet-Paket Suche' : 'Intenet Bundle Search'}</a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-how"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-register"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-buy"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-search"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-package"></a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">${param.lang == 'de' ? 'Noch weitere Fragen?' : 'Have a Questions?'}</h2>
+            	<h2 class="ftco-heading-2" data-i18n="footer-questions"></h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">${param.lang == 'de' ? 'Zossener Str. 55, 10961 Berlin' : '3001 Brighton Blvd, Suite 450, Denver, CO 80216'}</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">${param.lang == 'de' ? '030 664040900' : '+1 415 513 0111'}</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">${param.lang == 'de' ? 'info@camunda.com' : 'contact@camunda.com'}</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text" data-i18n="footer-address"></span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text" data-i18n="footer-phone"></span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text" data-i18n="footer-email"></span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -289,6 +289,14 @@
 
 
   <script src="js/jquery.min.js"></script>
+  <script src="../js/jquery/jquery.i18n.js"></script>
+  <script src="../js/jquery/jquery.i18n.messagestore.js"></script>
+  <script src="../js/jquery/jquery.i18n.fallbacks.js"></script>
+  <script src="../js/jquery/jquery.i18n.parser.js"></script>
+  <script src="../js/jquery/jquery.i18n.emitter.js"></script>
+  <script src="../js/jquery/jquery.i18n.language.js"></script>
+  <script src="lang/de.js"></script>
+  <script src="lang/en.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
@@ -302,6 +310,8 @@
   <script src="js/bootstrap-datepicker.js"></script>
   <script src="js/jquery.timepicker.min.js"></script>
   <script src="js/scrollax.min.js"></script>
+  <script src="lang/de.js"></script>
+  <script src="lang/en.js"></script>
   <script src="js/main.js"></script>
   <script src="app.js"></script>
 

@@ -40,6 +40,24 @@ $(document).ready(function() {
   var pathArray = window.location.pathname.split('/');
   var baseUrl = window.location.protocol + "//" + window.location.host + "/" + pathArray[1] + "/api";
 
+  $.i18n().load({
+    'en': window.langEn['en'],
+    'de': window.langDe['de']
+  })
+
+  $.i18n({
+    locale: lang
+  });
+
+  $('body').i18n();
+
+  $('.langlink').each(function(i, obj) {
+    $(this).click(function(event) {
+      event.preventDefault();
+      window.location.href = $(this)[0].href + '?lang=' + lang;
+    });
+  });
+
   // Start single Process Instance
   $('#triggerStartApplication').click(function(evt) {
     var neuantrag = {
@@ -52,6 +70,7 @@ $(document).ready(function() {
       "employment": $('#employment').val(),
       "category": $('#category').val(),
       "priceIndicationInCent": getPrice() * 100,
+      "product": $("#category option:selected").text(),
       "corporation": "Camuntelia"
     };
 
@@ -99,6 +118,25 @@ $(document).ready(function() {
 
     evt.preventDefault();
   });
+
+  $('#newsletterSubmit').val(lang == 'de' ? 'Abbonieren' : 'Subscribe');
+  $('#newsletterInput').attr("placeholder", lang == 'de' ? 'Email-Adresse eingeben' : 'Enter email address');
+  $('#referenceId').attr("placeholder", lang == 'de' ? 'Ihre Referenznummer' : 'Your reference number');
+  $('#additionalInformation').attr("placeholder", lang == 'de' ? 'Weitere Informationen' : 'Additional information');
+  $('#indexFormLang').val(lang);
+  $('#indexFormLocation').attr("placeholder", lang == 'de' ? 'Ort' : 'Location');
+  $('#indexFormAddress').attr("placeholder", lang == 'de' ? 'Müllerstraße 23a' : 'eg. your street 23a');
+  $('#indexFormZip').attr("placeholder", lang == 'de' ? 'Postleitzahl' : 'zip-code');
+  $('#documentToUpload').attr("lang", lang);
+
+  function addValue(id, categoryDe, categoryEn) {
+    var isGerman = lang.endsWith('de');
+    $('#' + id).val(isGerman ? categoryDe : categoryEn);
+  }
+
+  addValue('basicCat', 'Basispaket', 'Basic Package')
+  addValue('standardCat', 'Standard Paket', 'Standard Package')
+  addValue('premiumCat', 'Premium Paket', 'Premium Package')
 
   // correlate message for Antrag
   $('#triggerUploadDocuments').click(function() {
@@ -169,11 +207,7 @@ $(document).ready(function() {
       // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
       $('html, body').animate({
         scrollTop: $('#fieldsetForm').offset().top - 85
-      }, arguments[0] !== undefined ? arguments[0] : 800, function() {
-
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
-      });
+      }, arguments[0] !== undefined ? arguments[0] : 800, function() {});
     } // End if
   }
 

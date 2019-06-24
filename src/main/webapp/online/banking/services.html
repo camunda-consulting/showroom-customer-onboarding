@@ -1,11 +1,10 @@
-<%@ page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
@@ -40,13 +39,13 @@
                     <div class="col-12 d-flex justify-content-between">
                         <!-- Logo Area -->
                         <div class="logo">
-                            <a href="index.jsp"><img src="img/core-img/logo.png" alt=""></a>
+                            <a href="index.html"><img src="img/core-img/logo.png" alt=""></a>
                         </div>
 
                         <!-- Top Contact Info -->
                         <div class="top-contact-info d-flex align-items-center">
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Zossener Str. 55, 10961 Berlin"><img src="img/core-img/placeholder.png" alt=""> <span>${param.lang == 'de' ? 'Zossener Str. 55, 10961 Berlin' :'3001 Brighton Blvd, Suite 450, Denver, CO 80216'}</span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="info@camunda.com"><img src="img/core-img/message.png" alt=""> <span>${param.lang == 'de' ? 'info@camunda.com' :'contact@camunda.com'}</span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Zossener Str. 55, 10961 Berlin"><img src="img/core-img/placeholder.png" alt=""> <span data-i18n="topbar-address"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="info@camunda.com"><img src="img/core-img/message.png" alt="info@camunda.com"> <span data-i18n="topbar-contact"></span></a>
                         </div>
                     </div>
                 </div>
@@ -76,14 +75,14 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="index.jsp?lang=${param.lang}">Home</a></li>
-                                    <li><a href="#">${param.lang == 'de' ? 'Seiten' :'Pages'}</a>
+                                    <li><a href="index.html" class="langlink">Home</a></li>
+                                    <li><a href="#" data-i18n="topbar-list"></a>
                                         <ul class="dropdown">
-                                            <li><a >${param.lang == 'de' ? '&Uuml;ber Uns' : 'About Us'}</a></li>
-                                            <li><a href="services.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Kredite' : 'Bank Accounts'}</a></li>
-                                            <li><a href="documents.jsp?lang=${param.lang}">${param.lang == 'de' ? 'Dokument einreichen' : 'Hand In Documents'}</a></li>
-                                            <li><a >${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
-                                            <li><a >${param.lang == 'de' ? 'Weitere Elemente' : 'Elements'}</a></li>
+                                            <li><a data-i18n="topbar-about"></a></li>
+                                            <li><a href="services.html" data-i18n="topbar-account" class="langlink"></a></li>
+                                            <li><a href="documents.html" data-i18n="topbar-document" class="langlink"></a></li>
+                                            <li><a data-i18n="topbar-contact"></a></li>
+                                            <li><a data-i18n="topbar-more"></a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -93,7 +92,7 @@
 
                         <!-- Contact -->
                         <div class="contact">
-                            <a href="#"><img src="img/core-img/call2.png" alt="">${param.lang == 'de' ? '030 664040900' :'+1 415 513 0111'}</a>
+                            <a href="#"><img src="img/core-img/call2.png" alt=""><span  data-i18n="topbar-phone"/></img></a>
                         </div>
                     </nav>
                 </div>
@@ -129,7 +128,7 @@
                 <div class="col-12">
                     <!-- Section Heading -->
                     <div class="section-heading text-center ">
-                        <p>${param.lang == 'de' ? 'Informieren Sie sich &uuml;ber unsere' : 'Take look at our'}</p>
+                        <p data-i18n="service-area-inform"></p>
                     </div>
                 </div>
             </div>
@@ -141,7 +140,7 @@
                         <i class="icon-coin" style="width=60px;"></i>
                     </div>
                     <div class="text" style="">
-                      <h3 style="color:black;margin-bottom:2em;margin-left:${param.lang == 'de' ? 17 : 16}em;float:left;" class="text" >${param.lang == 'de' ? 'Kontotypen' : 'Account Types'}</h3>
+                      <h3 id="serviceAreaAccount" style="color:black;margin-bottom:2em;float:left;" class="text" data-i18n="service-area-account"></h3>
                     </div>
                 </div>
             </div>
@@ -151,44 +150,44 @@
             <div class="container-fluid" style="clear: both;margin-bottom:3em;">
               <div class="row" style="text-align:center;">
                 <div class="col-sm-4 col-md-4 col-lg-4">
-                  <h4>${param.lang == 'de' ? 'Only online' : 'Only online'}</h4>
+                  <h4 data-i18n="category-onlyonline"></h4>
                   <img src="img/laptop_8.jpg" alt="" style="margin-bottom:2em;">
                   <ul style="text-align:left;">
-                    <li class="accListElem">❌<span> ${param.lang == 'de' ? 'Bargeldausgabe' : 'Cash Money'}</span></li>
-                    <li class="accListElem">❌<span > ${param.lang == 'de' ? 'Dispokredit' : 'Overdraft Facility'}</span></li>
-                    <li class="accListElem">✅<span style="font-weight:550;"> ${param.lang == 'de' ? 'Nur 3€/Monat' : 'Only 3$ monthly'}</span></li>
-                    <li class="accListElem">✅<span style="font-weight:550;"> ${param.lang == 'de' ? 'Einfacher Online-Zugang' : 'Easy Online-Acces'}</span></li>
+                    <li class="accListElem">❌<span data-i18n="category-any-cash"></span></li>
+                    <li class="accListElem">❌<span data-i18n="category-any-overdraft"></span></li>
+                    <li class="accListElem">✅<span style="font-weight:550;" data-i18n="category-onlyonline-monthly"></span></li>
+                    <li class="accListElem">✅<span style="font-weight:550;" data-i18n="category-onlyonline-access"></span></li>
 
                   </ul>
-                  <button id="basicButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">${param.lang == 'de' ? 'W&auml;hlen' : 'choose'}</button>
+                  <button id="basicButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;" data-i18n="any-button-choose"></button>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4">
-                  <h4>${param.lang == 'de' ? 'Aktivkonto' : 'Active Account'}</h4>
+                  <h4 data-i18n="category-active">${param.lang == 'de' ? 'Aktivkonto' : 'Active Account'}</h4>
                   <img src="img/bank_7.jpg" alt="" style="margin-bottom:2em;">
                   <ul style="text-align:left;">
-                    <li class="accListElem">✅<span> ${param.lang == 'de' ? 'Bargeldausgabe' : 'Cash Money'}</span></li>
-                    <li class="accListElem">✅<span> ${param.lang == 'de' ? 'Nur 5€/Monat' : 'Only 5$ monthly'}</span></li>
-                    <li class="accListElem">✅<span style="font-weight:550;"> ${param.lang == 'de' ? 'Dispokredit bis 1000 €' : 'Overdraft Facility up to 1000$'}</span></li>
-                    <li class="accListElem">✅<span style="font-weight:550;"> ${param.lang == 'de' ? 'Mastercard' : 'Mastercard'}</span></li>
+                    <li class="accListElem">✅<span data-i18n="category-any-cash"></span></li>
+                    <li class="accListElem">✅<span data-i18n="category-active-monthly"></span></li>
+                    <li class="accListElem">✅<span style="font-weight:550;"><span data-i18n="category-any-overdraft"></span><span  data-i18n="category-active-limit"></span></span></li>
+                    <li class="accListElem">✅<span style="font-weight:550;">Mastercard</span></li>
                   </ul>
-                  <button id="standardButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">${param.lang == 'de' ? 'W&auml;hlen' : 'choose'}</button>
+                  <button id="standardButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;" data-i18n="any-button-choose"></button>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4">
-                  <h4>${param.lang == 'de' ? 'Premium Konto' : 'Premium Account'}</h4>
+                  <h4 data-i18n="category-premium">${param.lang == 'de' ? 'Premium Konto' : 'Premium Account'}</h4>
                   <img src="img/skyscraper_6.jpg" alt="" style="margin-bottom:2em;">
                   <ul style="text-align:left;">
-                    <li class="accListElem">✅<span> ${param.lang == 'de' ? 'Bargeldausgabe' : 'Cash Money'}</span></li>
-                    <li class="accListElem">✅<span> ${param.lang == 'de' ? '15€/Monat' : 'Only 15$ monthly'}</span></li>
-                    <li class="accListElem">✅<span style="font-weight:1000;"> ${param.lang == 'de' ? 'Dispokredit bis 5000 €' : 'Overdraft Facility up to 5000$'}</span></li>
-                    <li class="accListElem">✅<span style="font-weight:1000;"> ${param.lang == 'de' ? 'Platin-Mastercard' : 'Platin-Mastercard'}</span></li>
+                    <li class="accListElem">✅<span data-i18n="category-any-cash"></span></li>
+                    <li class="accListElem">✅<span data-i18n="category-premium-monthly"></span></li>
+                    <li class="accListElem">✅<span style="font-weight:1000;"><span data-i18n="category-any-overdraft"></span> <span  data-i18n="category-premium-limit"></span></span></li>
+                    <li class="accListElem">✅<span style="font-weight:1000;">Platin-Mastercard</span></li>
                   </ul>
-                  <button id="premiumButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">${param.lang == 'de' ? 'W&auml;hlen' : 'choose'}</button>
+                  <button id="premiumButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;" data-i18n="any-button-choose"></button>
                 </div>
               </div>
             </div>
 
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12" id="contact-form" style="margin-bottom: 6em;margin-left: 15em;clear:both;">
-            <h3 class="title">${param.lang == 'de' ? 'Konto er&ouml;ffnen' : 'Open An Account'}</h3>
+            <h3 class="title" data-i18n="form-title"></h3>
             <div class="divider"></div>
             <div id="fieldsetForm">
                <form method="post" class="reply" id="contact">
@@ -201,13 +200,13 @@
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                          <label>${param.lang == 'de' ? 'Anstellungsverh&auml;ltnis' : 'Employment'}: <span>*</span></label>
+                          <label data-i18n="form-employment"></label><span>: *</span>
                           <select class="form-control" id="employment">
-                             <option value="${param.lang == 'de' ? 'Fest angestellt' : 'Salaried'}"  selected>${param.lang == 'de' ? 'Fest angestellt' : 'Salaried'}</option>
-                             <option value="${param.lang == 'de' ? 'Selbstst&auml;ndig' : 'Self-employed'}">${param.lang == 'de' ? 'Selbstst&auml;ndig' : 'Self-employed'}</option>
-                             <option value="${param.lang == 'de' ? 'Teilzeit' : 'Part-time'}">${param.lang == 'de' ? 'Teilzeit' : 'Part-time'}</option>
-                             <option value="Freelancer">${param.lang == 'de' ? 'Freelancer' : 'Freelancer'}</option>
-                             <option value="${param.lang == 'de' ? 'Nicht erwerbst&auml;tig' : 'Unemployed'}">${param.lang == 'de' ? 'Nicht erwerbst&auml;tig' : 'Unemployed'}</option>
+                             <option selected data-i18n="form-employment-salaried"></option>
+                             <option data-i18n="form-employment-self"></option>
+                             <option data-i18n="form-employment-part"></option>
+                             <option value="Freelancer" >Freelancer</option>
+                             <option data-i18n="form-employment-unemployed"></option>
                           </select>
                         </div>
                      </div>
@@ -215,7 +214,7 @@
                      <div class="row" style="margin-top:2em;">
 
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                          <label>${param.lang == 'de' ? 'Geburtsdatum' : 'Date of Birth'}: <span>*</span></label>
+                          <label data-i18n="form-birthday"></label><span>: *</span>
                           <input class="form-control" type="date" id="birthdate" name="birthdate" value="1990-01-01" required>
                         </div>
                      </div>
@@ -227,38 +226,38 @@
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                          <label>${param.lang == 'de' ? 'Typ' : 'Account Type'}: <span>*</span></label>
+                          <label data-i18n="any-account-title"></label><span>: *</span>
                           <select class="form-control" id="category" disabled style="background:white;-webkit-appearance:none;">
-                             <option value="${param.lang == 'de' ? 'Basispaket' : 'Basic Package'}">${param.lang == 'de' ? 'Only online' : 'Only online'}</option>
-                             <option value="${param.lang == 'de' ? 'Standard Paket' : 'Standard Package'}" selected>${param.lang == 'de' ? 'Aktivkonto' : 'Active Account'}</option>
-                             <option value="${param.lang == 'de' ? 'Premium Paket' : 'Premium Package'}">${param.lang == 'de' ? 'Premium Konto' : 'Premium Account'}</option>
+                             <option id="basic" data-i18n="category-onlyonline"></option>
+                             <option id="standard" selected data-i18n="category-active"></option>
+                             <option id="premium" data-i18n="category-premium"></option>
                           </select>
                         </div>
                      </div>
 
                      <div class="row" style="margin-top:2em;">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                           <label>${param.lang == 'de' ? 'Geschlecht' : 'Gender'}: <span>*</span></label>
+                           <label data-i18n="form-gender"></label><span>: *</span>
                            <select class="form-control" id="selectSex" name="selectSex">
-                             <option value="${param.lang == 'de' ? 'Frau' : 'female'}">${param.lang == 'de' ? 'weiblich' : 'female'}</option>
-               					     <option value="${param.lang == 'de' ? 'Mann' : 'male'}">${param.lang == 'de' ? 'm&auml;nnlich' : 'male'}</option>
+                             <option data-i18n="form-gender-female"></option>
+               					     <option data-i18n="form-gender-male"></option>
                            </select>
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                          <label>${param.lang == 'de' ? 'Unverbindliche Preisindikation' : 'Price Indication (non-binding)'}: </label>
-                           <input class="form-control" type="text" id="priceIndicationInCent" name="preisindikation" value="3,00 EUR;" readonly>
+                          <label data-i18n="form-price"></label>:
+                           <input class="form-control" type="text" id="priceIndicationInCent" name="preisindikation" value="3,00 EUR" readonly>
                         </div>
                      </div>
 
                   </fieldset>
-                  <button id="triggerStartApplication" class="btn btn-normal btn-color submit" style="background-color:#003679;color:white;margin-top:1.5em;" type="button">${param.lang == 'de' ? 'Versenden' : 'Send'}</button>
+                  <button id="triggerStartApplication" class="btn btn-normal btn-color submit" style="background-color:#003679;color:white;margin-top:1.5em;" type="button" data-i18n="form-send"></button>
                </form>
                   </div>
 
                   <div id="applicationReceived" class="success alert-success alert" style="display:none">
-                     <p>Application received - we get in touch with you shortly!</p>
-                     <p>Your application id is: <span id="applicationId"></span></p>
+                    <div><span data-i18n="form-sent"></span>!</div>
+                    <div><span data-i18n="form-sent-id"></span>: <span id="applicationId"></span></div>
                    </div>
                   <div class="clearfix">
                   </div>
@@ -274,10 +273,10 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-10 col-lg-8">
                     <div class="nl-content text-center">
-                        <h2>${param.lang == 'de' ? 'Abboniere unseren Newsletter' : 'Subscribe to our newsletter'}</h2>
+                        <h2 data-i18n="newsletter-title"></h2>
                         <form action="#" method="post">
                             <input type="email" name="nl-email" id="nlemail" placeholder="Your e-mail">
-                            <button type="submit">${param.lang == 'de' ? 'Abbonieren' : 'Subscribe'}</button>
+                            <button type="submit" data-i18n="newsletter-button"></button>
                         </form>
                         <p>Curabitur elit turpis, maximus quis ullamcorper sed, maximus eu neque. Cras ultrices erat nec auctor blandit.</p>
                     </div>
@@ -295,15 +294,15 @@
                 <!-- Single Footer Widget -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-footer-widget mb-100">
-                        <h5 class="widget-title">${param.lang == 'de' ? '&Uuml;ber uns' : 'About Us'}</h5>
+                        <h5 class="widget-title" data-i18n="footer-about"></h5>
                         <!-- Nav -->
                         <nav>
                             <ul>
                                 <li><a href="#">Homepage</a></li>
-                                <li><a href="#">${param.lang == 'de' ? '&Uuml;ber uns' : 'About Us'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'Service &amp' : 'Services &amp; Offers'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'Portfolio Pr&auml;sentation' : 'Portfolio Presentation'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'Neuigkeiten' : 'The News'}</a></li>
+                                <li><a href="#" data-i18n="footer-about-about"></a></li>
+                                <li><a href="#" data-i18n="footer-about-service"></a></li>
+                                <li><a href="#" data-i18n="footer-about-portfolio"></a></li>
+                                <li><a href="#" data-i18n="footer-about-news"></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -312,15 +311,15 @@
                 <!-- Single Footer Widget -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-footer-widget mb-100">
-                        <h5 class="widget-title">${param.lang == 'de' ? 'L&ouml;sungen' : 'Solutions'}</h5>
+                        <h5 class="widget-title" data-i18n="footer-solutions"></h5>
                         <!-- Nav -->
                         <nav>
                             <ul>
-                                <li><a href="#">${param.lang == 'de' ? 'Unsere Kredite' : 'Our Accounts'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'kommerzielles Handeln' : 'Trading &amp; Commerce'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'Banking &amp; Private Equity' : 'Banking &amp; Private Equity'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'Industrie &amp; Fabrik' : 'Industrial &amp; Factory'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'Finanzl&ouml;sungen' : 'Financial Solutions'}</a></li>
+                                <li><a href="#" data-i18n="footer-solutions-credit"></a></li>
+                                <li><a href="#" data-i18n="footer-solutions-trading"></a></li>
+                                <li><a href="#" data-i18n="footer-solutions-banking"></a></li>
+                                <li><a href="#" data-i18n="footer-solutions-industry"></a></li>
+                                <li><a href="#" data-i18n="footer-solutions-finance"></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -329,15 +328,15 @@
                 <!-- Single Footer Widget -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-footer-widget mb-100">
-                        <h5 class="widget-title">${param.lang == 'de' ? 'L&ouml;sungen' : 'Solutions'}</h5>
+                        <h5 class="widget-title" data-i18n="footer-solutions"></h5>
                         <!-- Nav -->
                         <nav>
                             <ul>
-                                <li><a href="#">${param.lang == 'de' ? 'Unsere Kredite' : 'Our Accounts'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'kommerzielles Handeln' : 'Trading &amp; Commerce'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'Banking &amp; Private Equity' : 'Banking &amp; Private Equity'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'Industrie &amp Fabrik;' : 'Industrial &amp; Factory'}</a></li>
-                                <li><a href="#">${param.lang == 'de' ? 'Finanzl&ouml;sungen' : 'Financial Solutions'}</a></li>
+                                <li><a href="#" data-i18n="footer-solutions-credit"></a></li>
+                                <li><a href="#" data-i18n="footer-solutions-trading"></a></li>
+                                <li><a href="#" data-i18n="footer-solutions-banking"></a></li>
+                                <li><a href="#" data-i18n="footer-solutions-industry"></a></li>
+                                <li><a href="#" data-i18n="footer-solutions-finance"></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -346,7 +345,7 @@
                 <!-- Single Footer Widget -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-footer-widget mb-100">
-                        <h5 class="widget-title">${param.lang == 'de' ? 'Das neuest vom Neuesten' : 'Latest News'}</h5>
+                        <h5 class="widget-title" data-i18n="footer-news"></h5>
 
                         <!-- Single News Area -->
                         <div class="single-latest-news-area d-flex align-items-center">
@@ -354,10 +353,10 @@
                                 <img src="img/bg-img/7.jpg" alt="">
                             </div>
                             <div class="news-content">
-                                <a href="#">${param.lang == 'de' ? 'Wie bekommt man den besten Kredit' : 'How to get the best Account'}?</a>
+                                <a href="#" data-i18n="footer-news-credit"></a>
                                 <div class="news-meta">
-                                    <a href="#" class="post-author"><img src="img/core-img/pencil.png" alt=""> Jane Smith</a>
-                                    <a href="#" class="post-date"><img src="img/core-img/calendar.png" alt=""> April 26</a>
+                                    <a href="#" class="post-author"><img src="img/core-img/pencil.png" alt="" > Jane Smith</a>
+                                    <a href="#" class="post-date"><img src="img/core-img/calendar.png" alt="" > April 26</a>
                                 </div>
                             </div>
                         </div>
@@ -368,10 +367,10 @@
                                 <img src="img/bg-img/8.jpg" alt="">
                             </div>
                             <div class="news-content">
-                                <a href="#">${param.lang == 'de' ? 'Neue Wege f&uuml;r neue Kredite' : 'A new way to get a Account'}</a>
+                                <a href="#" data-i18n="footer-news-new-credit"></a>
                                 <div class="news-meta">
-                                    <a href="#" class="post-author"><img src="img/core-img/pencil.png" alt=""> Jane Smith</a>
-                                    <a href="#" class="post-date"><img src="img/core-img/calendar.png" alt=""> April 26</a>
+                                    <a href="#" class="post-author"><img src="img/core-img/pencil.png" > Jane Smith</a>
+                                    <a href="#" class="post-date"><img src="img/core-img/calendar.png" > April 26</a>
                                 </div>
                             </div>
                         </div>
@@ -382,7 +381,7 @@
                                 <img src="img/bg-img/9.jpg" alt="">
                             </div>
                             <div class="news-content">
-                                <a href="#">${param.lang == 'de' ? 'Finanzier dir dein Eigenheim' : 'Finance you home'}</a>
+                                <a href="#" data-i18n="footer-news-realestate"></a>
                                 <div class="news-meta">
                                     <a href="#" class="post-author"><img src="img/core-img/pencil.png" alt=""> Jane Smith</a>
                                     <a href="#" class="post-date"><img src="img/core-img/calendar.png" alt=""> April 26</a>
@@ -402,12 +401,12 @@
                     <div class="col-12">
                         <div class="copywrite-content d-flex flex-wrap justify-content-between align-items-center">
                             <!-- Footer Logo -->
-                            <a href="index.jsp" class="footer-logo"><img src="img/core-img/logo.png" alt=""></a>
+                            <a href="index.html" class="footer-logo"><img src="img/core-img/logo.png" alt=""></a>
 
                             <!-- Copywrite Text -->
                             <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                         </div>
                     </div>
                 </div>
@@ -418,7 +417,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- il18n -->
+  	<script src="../js/jquery/jquery.i18n.js"></script>
+  	<script src="../js/jquery/jquery.i18n.messagestore.js"></script>
+  	<script src="../js/jquery/jquery.i18n.fallbacks.js"></script>
+  	<script src="../js/jquery/jquery.i18n.parser.js"></script>
+  	<script src="../js/jquery/jquery.i18n.emitter.js"></script>
+  	<script src="../js/jquery/jquery.i18n.language.js"></script>
     <!-- Popper js -->
     <script src="js/bootstrap/popper.min.js"></script>
     <!-- Bootstrap js -->
@@ -427,8 +433,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
-
-    <%@ include file="../js/scripts.inc" %>
+    <script src="lang/de.js"></script>
+    <script src="lang/en.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>

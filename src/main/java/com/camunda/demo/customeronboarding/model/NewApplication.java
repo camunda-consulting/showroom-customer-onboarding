@@ -12,6 +12,7 @@ public class NewApplication {
   private String employment;
 
   private String category;
+  private String product;
   private String corporation;
 
   private String contractNumber;
@@ -118,4 +119,14 @@ public class NewApplication {
   public String getApplicationNumber() {
     return applicationNumber;
   }
+
+  public String getProduct() {
+    return product;
+  }
+
+  public void setProduct(String product) {
+    this.product = product;
+  }
+  
+  
 }

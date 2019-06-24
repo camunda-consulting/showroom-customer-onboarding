@@ -1,0 +1,103 @@
+var langDe = {
+  'de': {
+    "@metadata": {
+      "authors": [
+        "Me"
+      ],
+      "last-updated": "2016-09-21",
+      "locale": "de",
+      "message-documentation": "qqq"
+    },
+    // top bar
+    "topbar-address": "Zossener Str. 55, 10961 Berlin",
+    "topbar-contact": "info@camunda.com",
+    "topbar-list": "Seiten",
+    "topbar-about": "Über Uns",
+    "topbar-account": "Konten",
+    "topbar-document": "Dokument einreichen",
+    "topbar-contact": "Kontakt",
+    "topbar-more": "Weitere Elemente",
+    "topbar-phone": " +030 664040900",
+
+    //bottom bars
+    "newsletter-title": "Abboniere unseren Newsletter",
+    "newsletter-button": "Abbonieren",
+
+    "footer-about": "Über Uns",
+    "footer-about-about": "Über Uns",
+    "footer-about-service": "Service",
+    "footer-about-portfolio": "Portfolio Präsentationen",
+    "footer-about-news": "Neuigkeiten",
+    "footer-solutions": "Lösungen",
+    "footer-solutions-credit": "Unsere Kredite",
+    "footer-solutions-trading": "Kommerzielles Handeln",
+    "footer-solutions-banking": "Banking & Private Equity",
+    "footer-solutions-industry": "Industrie & Fabrik",
+    "footer-solutions-finance": "Finanzlösungen",
+    "footer-news": "Das neueste vom Neuesten",
+    "footer-news-credit": "Wie bekommt man den besten Kredit",
+    "footer-news-new-credit": "Neue Wege für neue Kredite",
+    "footer-news-realestate": "Finanzier dir dein Eigenheim",
+
+    // index
+    "hero-welcome-direct": "Direkt - Einfach - Gut!",
+    "hero-welcome-now": "Hol dir",
+    "hero-welcome-account": "Dein persönliches Girokonto",
+    "hero-welcome-fit": "jetzt",
+    "hero-welcome-discover": "Entdecken",
+    "hero-welcome-interest": "0,23 effektiver Jahreszins",
+    "hero-welcome-mortgage": "Deine Immobilien-Finanzierung",
+    "hero-welcome-get": "Hol Dir jetzt",
+    "features-care": "Wir kümmern uns um Sie",
+    "features-docs": "Keine Dokumente benötigt",
+    "features-easy": "Schnelle und einfache Konten",
+    "cta-adone": "Viel Design und mehr",
+    "cta-adtwo": "Wir helfen ihrem Business!",
+    "cta-need": "Brauchen Sie etwas? Richten Sie sich an uns.",
+    "services-all": "Alle diese Konten",
+    "services-easy": "Einfache Antwort",
+    "services-add": "Keine Weiteren Dokumente",
+    "services-sec": "Sichere finanzielle Services",
+    "services-inv": "Gute Investments",
+    "services-accum": "Akkumulierte Ziele",
+
+    // services
+    "service-area-inform": "Informieren Sie sich Über unsere",
+    "service-area-account": "Kontotypen",
+    "category-onlyonline": "Only online",
+    "category-onlyonline-access": "Einfacher Online-Zugang",
+    "category-onlyonline-monthly": "Nur 3€/Monat",
+    "category-active": "Aktivkonto",
+    "category-active-monthly": "Nur 5€/Monat",
+    "category-active-limit": " bis zu 1000€",
+    "category-premium": "Premium Konto",
+    "category-premium-monthly": "Nur 15€/Monat",
+    "category-premium-limit": " bis zu 5000€",
+    "category-any-cash": "Bargeldausgabe",
+    "category-any-overdraft": "Dispokredit",
+    "form-title": "Konto eröffnen",
+    "form-employment": "Anstellungsverhältnis",
+    "form-employment-salaried": "Fest angestellt",
+    "form-employment-self": "Selbstständig",
+    "form-employment-part": "Teilzeit",
+    "form-employment-unemployed": "Nicht erwerbstätig",
+    "form-birthday": "Geburtsdatum",
+    "form-gender": "Geschlecht",
+    "form-gender-male": "Mann",
+    "form-gender-female": "Frau",
+    "form-price": "Unverbindliche Preisindikation",
+    "form-send": "Senden",
+    "form-sent": "Anfrage erhalten - wir kontaktieren Sie innerhalb kürzester Zeit!",
+    "form-sent-id": "Ihre Anfragfen-Id ist",
+
+    //documents
+    "breadcrumb-documents": "Dokumente",
+    "ad-one": "Einfache und schnelle Antworten",
+    "ad-two": "Kein weiterer Papierkram",
+    "form-ref": "Vorgangsnummer",
+    "any-readmore": "Mehr erfahren",
+    "any-account-title": "Typ",
+    "any-button-choose": "Wählen",
+    "any-currency": "€"
+  }
+}

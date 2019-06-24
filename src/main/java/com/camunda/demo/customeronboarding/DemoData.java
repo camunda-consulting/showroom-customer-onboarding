@@ -38,6 +38,7 @@ public class DemoData {
 
       a.setPriceIndicationInCent(100 * a.getPriceIndicationInCent());
       a.setPremiumInCent(a.getPriceIndicationInCent());
+      a.setProduct("serious product");
 
       return a;
     }
@@ -131,6 +132,7 @@ public class DemoData {
     newApplication.setEmployment(employment);
     newApplication.setPriceIndicationInCent(32000);
     newApplication.setCorporation("Camunbankia");
+    newApplication.setProduct("super cool product");
     return newApplication;
   }
 }

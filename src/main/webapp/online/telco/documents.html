@@ -28,77 +28,77 @@
   <body>
 
     <nav class="navbar navbar-expand-lg ftco-navbar-light w-100 rounded px-auto scrolled awake" style="background: #fff !important;top:0;" id="ftco-navbar">
-      <div class="container rounded">
-        <a class="navbar-brand" href="index.jsp?lang=${param.lang}" style="color:black !important;">Camuntelia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="oi oi-menu"></span> Menu
-        </button>
+	    <div class="container rounded">
+	      <a class="navbar-brand langlink" href="index.html" style="color:black !important;">Camuntelia</a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> <span data-i18n="topbar-menu" ></span>
+	      </button>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold"  style="color:black !important;">Home</a></li>
-	          <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? '&Uuml;ber' : 'About'}</a></li>
-	          <li class="nav-item active"><a href="documents.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="index.html" class="nav-link font-weight-bold langlink"  style="color:black !important;">Home</a></li>
+	          <li class="nav-item"><a href="index.html" class="nav-link font-weight-bold langlink" style="color:black !important;" data-i18n="topbar-about"></a></li>
+	          <li class="nav-item active"><a href="documents.html" class="nav-link font-weight-bold langlink" style="color:black !important;" data-i18n="topbar-contact"></a></li>
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
     <!-- END nav -->
 
     <div class="hero-wrap" style="background-image: url('images/bg_2.jpg');height:929px;background-position: 50% 0px;" data-stellar-background-ratio="0.5">
       <div class="overlay" style="opacity:.4;position:fixed;"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-start justify-content-start mt-5" data-scrollax-parent="true">
-          <div class="col-md-8 mt-5 pt-5 ftco-animate text-center text-md-left mb-2" data-scrollax=" properties: { translateY: '30%' }">${param.lang == 'de' ? '' : ''}
-            <h1 class="mb-3 bread font-weight-bold" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">${param.lang == 'de' ? 'Kontakt' : 'Contact Us'}</h1>
+          <div class="col-md-8 mt-5 pt-5 ftco-animate text-center text-md-left mb-2" data-scrollax=" properties: { translateY: '30%' }">
+            <h1 class="mb-3 bread font-weight-bold" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" data-i18n="topbar-contact"></h1>
           </div>
         <div class="row w-100  bg-white" style="border-radius:15px;">
           <div class="container rounded">
             <div class="row justify-content-between">
               <div class="p-5 rounded-left bg-white col-md-5 text-left bg-white text-dark">
                 <div class="mb-4">
-                  <h3>${param.lang == 'de' ? 'Kontaktinformationen' : 'Contact Information'}</h3>
+                  <h3 data-i18n="contact-title"></h3>
                 </div>
                 <div class="w-100"></div>
                 <div  class="mb-5">
-                  <span>${param.lang == 'de' ? 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et.' : 'A small river named Duden flows by their place and supplies.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in.'}</span>
+                  <span data-i18n="contact-information-text"></span>
                 </div>
                 <div class="col-md-12">
-                  <div class="bulletpoint-no-point">${param.lang == 'de' ? 'Adresse' : 'Address'}: <span >${param.lang == 'de' ? 'Zossener Str. 55, 10961 Berlin' : '3001 Brighton Blvd, Suite 450, Denver, CO 80216'}</span></div>
+                  <div class="bulletpoint-no-point" ><span data-i18n="footer-address-name"></span>: <span data-i18n="footer-address"></span></div>
                 </div>
                 <div class="col-md-12 bg-white"></div>
                 <div class="col-md-12">
-                  <div><span class="bulletpoint-no-point">${param.lang == 'de' ? 'Telefon' : 'Phone'}: <a href="tel://1234567920" >${param.lang == 'de' ? '030 664040900' : '+1 415 513 0111'}</a></span></div>
+                  <div><span class="bulletpoint-no-point" data-i18n="footer-phone-name"></span>:<a href="tel://1234567920" data-i18n="footer-phone"></a></div>
                 </div>
                 <div class="col-md-12">
-                  <div><span class="bulletpoint-no-point">Email:<a href="mailto:info@yoursite.com" > ${param.lang == 'de' ? 'info@camunda.com' : 'contact@camunda.com'}</a></span> </div>
+                  <div><span class="bulletpoint-no-point" >Email: <a href="mailto:info@yoursite.com" data-i18n="footer-email"></a></span> </div>
                 </div>
               </div>
               <div class="col-md-1 bg-white"><div style="height:12.5%;"></div> <div class="border-right h-75 align-text-top"></div> </div>
               <div class="col-md-6 bg-white rounded-right">
                 <form action="#" class="p-5 contact-form rounded">
                   <div class="form-group  text-dark">
-                    <label>${param.lang == 'de' ? 'Referenznummer' : 'Reference number'}</label>
-                    <input id="referenceId" type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Ihre Referenznummer' : 'Your reference number'}">
+                    <label data-i18n="form-ref"></label>
+                    <input id="referenceId" type="text" class="form-control">
                   </div>
                   <div class="form-group mt-4">
-                    <label class="text-dark">${param.lang == 'de' ? 'Dokument w&auml;hlen' : 'Choose your document'}</label>
-                    <textarea class="form-control" style="border-bottom-left-radius: 0;" placeholder="${param.lang == 'de' ? 'Weitere Informationen' : 'Additional information'}" cols="30" rows="7"></textarea>
+                    <label class="text-dark" data-i18n="documents-choose"></label>
+                    <textarea id="additionalInformation" class="form-control" style="border-bottom-left-radius: 0;" cols="30" rows="7"></textarea>
                     <div class="input-group">
                       <div class="row w-100 m-0">
                         <div class="custom-file col-md-6">
-                          <input type="file" class="custom-file-input" lang="${param.lang}" id="documentToUpload" name="Dokument hochladen" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                          <input type="file" class="custom-file-input" id="documentToUpload" name="Dokument hochladen" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                             aria-describedby="inputGroupFileAddon01">
-                          <label class="custom-file-label border-top-0" style="border-top-left-radius:0;border-top-right-radius:0;" for="documentToUpload">${param.lang == 'de' ? 'Dokument w&auml;hlen' : 'Choose file'}</label>
+                          <label class="custom-file-label border-top-0" style="border-top-left-radius:0;border-top-right-radius:0;" for="documentToUpload" data-i18n="documents-choose-file"></label>
                         </div>
                         <div class="col-md-6 mt-auto text-center">
-                          <span id="fileDesc" class="span-decoration-underlined w-75 text-secondary" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${param.lang == 'de' ? 'Ihr Dokument...' : 'Your document...'}</span>
+                          <span id="fileDesc" class="span-decoration-underlined w-75 text-secondary" data-i18n="documents-choose-chosen" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></span>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="form-group text-right">
-                    <button value="Send Message" class="btn btn-primary py-2 px-4">${param.lang == 'de' ? 'Versenden' : 'Send Message'}</button>
+                    <button value="Send Message" class="btn btn-primary py-2 px-4" data-i18n="form-send"></button>
                   </div>
                 </form>
 
@@ -115,14 +115,14 @@
         <div class="container">
           <div class="row d-flex justify-content-center">
             <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-              <h2>${param.lang == 'de' ? 'Abbonieren Sie unseren Newsletter' : 'Subcribe to our Newsletter'}</h2>
+              <h2 data-i18n="newsletter-title"></h2>
               <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
               <div class="row d-flex justify-content-center mt-4 mb-4">
                 <div class="col-md-8">
                   <form action="#" class="subscribe-form">
                     <div class="form-group d-flex">
-                      <input type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Email-Adresse eingeben' : 'Enter email address'}">
-                      <input type="submit" value="${param.lang == 'de' ? 'Abbonieren' : 'Subscribe'}" class="submit px-3">
+                      <input id="newsletterInput" type="text" class="form-control">
+                      <input id="newsletterSubmit" type="submit" class="submit px-3" data-i18n="newsletter-button">
                     </div>
                   </form>
                 </div>
@@ -138,7 +138,7 @@
         <div class="row mb-5">
         	<div class="col-md">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">${param.lang == 'de' ? '&Uuml;ber Uns' : 'About'}</h2>
+              <h2 class="ftco-heading-2" data-i18n="topbar-about"></h2>
               <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
@@ -149,37 +149,37 @@
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">${param.lang == 'de' ? '' : 'Companys'}</h2>
+              <h2 class="ftco-heading-2" data-i18n="footer-customer-company"></h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Wie es funktioniert' : 'How it works'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Registrieren' : 'Register'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Individuelle Sets' : 'Buy individual set'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Fortgeschrittene Sets' : 'Advanced set components'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Spezielle Sets' : 'Special Service'}</a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-how"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-register"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-individual"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-advanced"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-special"></a></li>
                 <li><a href="#" class="py-2 d-block">Faq</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Customers</h2>
+              <h2 class="ftco-heading-2" data-i18n="footer-customer-customer"></h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Wie es funktioniert' : 'How it works'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Registrieren' : 'Register'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Kaufe dein Set' : 'Buy Your Set'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Internet Suchen' : 'Internet Search'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Internet-Paket Suche' : 'Intenet Bundle Search'}</a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-how"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-register"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-buy"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-search"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-package"></a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">${param.lang == 'de' ? 'Noch weitere Fragen?' : 'Have a Questions?'}</h2>
+            	<h2 class="ftco-heading-2" data-i18n="footer-questions"></h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">${param.lang == 'de' ? 'Zossener Str. 55, 10961 Berlin' : '3001 Brighton Blvd, Suite 450, Denver, CO 80216'}</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">${param.lang == 'de' ? '030 664040900' : '+1 415 513 0111'}</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">${param.lang == 'de' ? 'info@camunda.com' : 'contact@camunda.com'}</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text" data-i18n="footer-address"></span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text" data-i18n="footer-phone"></span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text" data-i18n="footer-email"></span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -203,6 +203,14 @@
 
 
   <script src="js/jquery.min.js"></script>
+  <script src="../js/jquery/jquery.i18n.js"></script>
+  <script src="../js/jquery/jquery.i18n.messagestore.js"></script>
+  <script src="../js/jquery/jquery.i18n.fallbacks.js"></script>
+  <script src="../js/jquery/jquery.i18n.parser.js"></script>
+  <script src="../js/jquery/jquery.i18n.emitter.js"></script>
+  <script src="../js/jquery/jquery.i18n.language.js"></script>
+  <script src="lang/de.js"></script>
+  <script src="lang/en.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
@@ -217,6 +225,8 @@
   <script src="js/jquery.timepicker.min.js"></script>
   <script src="js/scrollax.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="lang/de.js"></script>
+  <script src="lang/en.js"></script>
   <script src="app.js"></script>
 
   </body>

@@ -24,4 +24,6 @@
       <!-- <script src="http://maps.google.com/maps/api/js?sensor=false"></script> -->
       <script src="../js/js/jquery.gmap.min.js"></script>
       <script src="../js/js/custom.js"></script>
-    <script src="app.js" ></script>
+      <script src="lang/de.js"></script>
+      <script src="lang/en.js"></script>
+      <script src="app.js" ></script>

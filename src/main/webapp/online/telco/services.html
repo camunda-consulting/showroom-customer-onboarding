@@ -30,16 +30,16 @@
 
     <nav class="navbar navbar-expand-lg ftco-navbar-light w-100 rounded px-auto scrolled awake" style="background: #fff !important;top:0;" id="ftco-navbar">
 	    <div class="container rounded">
-	      <a class="navbar-brand" href="index.jsp?lang=${param.lang}" style="color:black !important;">Camuntelia</a>
+	      <a class="navbar-brand langlink" href="index.html" style="color:black !important;">Camuntelia</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
+	        <span class="oi oi-menu"></span> <span data-i18n="topbar-menu" ></span>
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold"  style="color:black !important;">Home</a></li>
-	          <li class="nav-item"><a href="index.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? '&Uuml;ber' : 'About'}</a></li>
-	          <li class="nav-item"><a href="documents.jsp?lang=${param.lang}" class="nav-link font-weight-bold" style="color:black !important;">${param.lang == 'de' ? 'Kontakt' : 'Contact'}</a></li>
+	          <li class="nav-item"><a href="index.html" class="nav-link font-weight-bold langlink"  style="color:black !important;">Home</a></li>
+	          <li class="nav-item"><a href="index.html" class="nav-link font-weight-bold langlink" style="color:black !important;" data-i18n="topbar-about"></a></li>
+	          <li class="nav-item "><a href="documents.html" class="nav-link font-weight-bold langlink" style="color:black !important;" data-i18n="topbar-contact"></a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -50,8 +50,8 @@
       <div class="container">
         <div class="row no-gutters slider-text  align-items-center" data-scrollax-parent="true">
           <div class="col-xl-12 ftco-animate mb-5 pb-5" data-scrollax=" properties: { translateY: '30%' }">
-          	<p class="mb-4 mt-5 pt-5 justify-content-start" data-scrollax="properties: { translateY: '30%', opacity: 1.3 }">${param.lang == 'de' ? 'Es warten <span class="number" data-number="1000000">0</span> mega bytes darauf, Sie zu treffen!' : 'We have <span class="number" data-number="1000000">0</span> mega bytes who are waiting to meet you!'}</p>
-            <h1 class="mb-5 justify-content-start" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">${param.lang == 'de' ? 'Unsere Dienstleistungen' : 'Our services are available'}<br>${param.lang == 'de' ? ' sind verf&uuml;gbar!' : ' in your area!'}</h1>
+          	<p class="mb-4 mt-5 pt-5 justify-content-start" data-scrollax="properties: { translateY: '30%', opacity: 1.3 }"><span data-i18n="service-top-ad"></span><span class="number" data-number="1000000">0</span><span data-i18n="service-top-ad-bottom"/></p>
+            <h1 class="mb-5 justify-content-start" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="font-weight-bold" data-i18n="service-bottom-ad"></span><br><span class="font-weight-bold" data-i18n="service-bottom-ad-bottom"></span></h1>
 
 						<div class="ftco-search">
                 <!-- choose product category -->
@@ -62,12 +62,12 @@
                       <img src="images/products/onlyOnline_9.jpg" alt="" class="productimg">
                       <h4 class="font-weight-bold">Only online</h4>
                       <ul style="text-align:left;list-style: none;">
-                        <li class="accListElem"><img srcset="images/icons/cross-icon.svg" class="smallCross" /><span style="font-weight:550;">&nbsp;${param.lang == 'de' ? 'Kein mobiles Internet' : 'No Mobile Internet'}</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;50 mb/s</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span >&nbsp;${param.lang == 'de' ? 'Bis zu 1000 GB Volumen' : 'Up To 1000 GB Volume'}</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;">&nbsp;3 ${param.lang == 'de' ? 'Rufnummern' : 'Phone Numbers'}</span></li>
+                        <li class="accListElem"><img srcset="images/icons/cross-icon.svg" class="smallCross" />&nbsp;<span style="font-weight:550;" data-i18n="category-onlyonline-access"></span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" />&nbsp;<span>&nbsp;50 mb/s</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" />&nbsp;<span data-i18n="category-onlyonline-limit"></span></li>
+                        <li class="accListElem font-weight-bold"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" />&nbsp;3 <span data-i18n="category-any-phone"></span></span></li>
                       </ul>
-                      <button id="basicButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">&nbsp;${param.lang == 'de' ? 'Jetzt Bestellen' : 'Buy Now'}</button>
+                      <button id="basicButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;" data-i18n="category-any-buy"></button>
                     </div>
                   </div>
                   <div id="standard" class="col-sm-4 col-md-4 col-lg-4 tab-content px-0 productdiv">
@@ -75,12 +75,12 @@
                       <img src="images/products/onlineEverywhere_8_5.jpg" alt="" class="productimg">
                       <h4 class="font-weight-bold">Online everywhere</h4>
                       <ul style="text-align:left;list-style: none;">
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;${param.lang == 'de' ? '5 GB Mobile Daten' : 'Mobile Internet 5 GB'}</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" />&nbsp;<span data-i18n="category-online-everywhere-access"></span></li>
                         <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;100 mb/s</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;">&nbsp;Flatrate</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;">&nbsp;5 ${param.lang == 'de' ? 'Rufnummern' : 'Phone Numbers'}</span></li>
+                        <li class="accListElem font-weight-bold"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:550;">&nbsp;Flatrate</span></li>
+                        <li class="accListElem font-weight-bold"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" />&nbsp;5 <span style="font-weight:550;" data-i18n="category-any-phone"></span></li>
                       </ul>
-                      <button id="standardButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">&nbsp;${param.lang == 'de' ? 'Jetzt Bestellen' : 'Buy Now'}</button>
+                      <button id="standardButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;" data-i18n="category-any-buy"></button>
                     </div>
                   </div>
                   <div id="premium" class="productdiv px-0 col-sm-4 col-md-4 col-lg-4 tab-content">
@@ -88,12 +88,12 @@
                       <img src="images/products/highSpeed_6_5.jpg" alt="" class="productimg">
                       <h4 class="font-weight-bold">Super High Speed</h4>
                       <ul style="text-align:left;list-style: none;">
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;${param.lang == 'de' ? '10 GB Mobile Daten' : 'Mobile Internet 10 GB'}</span></li>
+                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" />&nbsp;<span data-i18n="category-super-high-speed-access"></span></li>
                         <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="smallCheckmark" /><span>&nbsp;250 mb/s</span></li>
-                        <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:1000;">&nbsp;Flatrate</span></li>
-                          <li class="accListElem"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span style="font-weight:1000;">&nbsp;10 ${param.lang == 'de' ? 'Rufnummern' : 'Phone Numbers'}</span></li>
+                        <li class="accListElem font-weight-bold"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" /><span>&nbsp;Flatrate</span></li>
+                        <li class="accListElem font-weight-bold"><img srcset="images/icons/check-icon.svg" class="bigCheckmark" />&nbsp;10 <span data-i18n="category-any-phone"></span></span></li>
                       </ul>
-                      <button id="premiumButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;">&nbsp;${param.lang == 'de' ? 'Jetzt Bestellen' : 'Buy Now'}</button>
+                      <button id="premiumButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;" data-i18n="category-any-buy"></button>
                     </div>
                   </div>
                 </div>
@@ -109,7 +109,7 @@
       <div id="fieldsetForm">
          <form class="reply justify-content-between" id="contact">
             <fieldset class="w-75 m-auto">
-               <h3 class="title">${param.lang == 'de' ? 'Anmelden' : 'Sign Up'}</h3>
+               <h3 class="title" data-i18n="form-title"></h3>
                <div class="w-75">
                <div class="row">
 
@@ -119,13 +119,13 @@
                   </div>
 
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>${param.lang == 'de' ? 'Anstellungsverh&auml;ltnis' : 'Employment'}: <span>*</span></label>
+                    <label data-i18n="form-employment"></label><span>: *</span>
                     <select class="form-control" id="employment">
-                       <option value="${param.lang == 'de' ? 'Fest angestellt' : 'Salaried'}"  selected>${param.lang == 'de' ? 'Fest angestellt' : 'Salaried'}</option>
-                       <option value="${param.lang == 'de' ? 'Selbstst&auml;ndig' : 'Self-employed'}">${param.lang == 'de' ? 'Selbstst&auml;ndig' : 'Self-employed'}</option>
-                       <option value="${param.lang == 'de' ? 'Teilzeit' : 'Part-time'}">${param.lang == 'de' ? 'Teilzeit' : 'Part-time'}</option>
-                       <option value="Freelancer">Freelancer</option>
-                       <option value="${param.lang == 'de' ? 'Nicht erwerbst&auml;tig' : 'Unemployed'}">${param.lang == 'de' ? 'Nicht erwerbst&auml;tig' : 'Unemployed'}</option>
+                      <option selected data-i18n="form-employment-salaried"></option>
+                      <option data-i18n="form-employment-self"></option>
+                      <option data-i18n="form-employment-part"></option>
+                      <option value="Freelancer" >Freelancer</option>
+                      <option data-i18n="form-employment-unemployed"></option>
                     </select>
                   </div>
                </div>
@@ -133,7 +133,7 @@
                <div class="row mt-4">
 
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>${param.lang == 'de' ? 'Geburtstag' : 'Date of Birth'}: <span>*</span></label>
+                    <label data-i18n="form-birthday"></label><span>: *</span>
                     <input class="form-control" type="date" id="birthdate" name="birthdate" value="1990-01-01" required>
                   </div>
                </div>
@@ -145,33 +145,33 @@
                   </div>
 
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>${param.lang == 'de' ? 'Paket' : 'Internet Package Type'}: <span>*</span></label>
+                    <label data-i18n="form-category"></label><span>: *</span>
                     <select class="form-control" id="category" disabled style="background:white;-webkit-appearance:none;">
-                       <option value="${param.lang == 'de' ? 'Basispaket' : 'Basic Package'}">Only online</option>
-                       <option value="${param.lang == 'de' ? 'Standard Paket' : 'Standard Package'}" selected>Online everywhere</option>
-                       <option value="${param.lang == 'de' ? 'Premium Paket' : 'Premium Package'}">Super High Speed</option>
+                       <option id="basicCat" >Only online</option>
+                       <option id="standardCat" selected>Online everywhere</option>
+                       <option id="premiumCat">Super High Speed</option>
                     </select>
                   </div>
                </div>
 
                <div class="row mt-4">
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                     <label>${param.lang == 'de' ? 'Geschlecht' : 'Gender'}: <span>*</span></label>
+                     <label data-i18n="form-gender"></label><span>: *</span>
                      <select class="form-control" id="selectSex" name="selectSex">
-                       <option value="${param.lang == 'de' ? 'Frau' : 'female'}">${param.lang == 'de' ? 'Frau' : 'female'}</option>
-                       <option value="${param.lang == 'de' ? 'Mann' : 'male'}">${param.lang == 'de' ? 'Mann' : 'male'}</option>
+                       <option data-i18n="form-gender-female"></option>
+                       <option data-i18n="form-gender-male"></option>
                      </select>
                   </div>
 
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>${param.lang == 'de' ? 'Preisindikation' : 'Price Indication'}: </label>
+                    <label data-i18n="form-price"></label>:
                     <input class="form-control" type="text" id="priceIndicationInCent" name="preisindikation" value="5,00 &euro;" readonly>
                   </div>
                </div>
                <div class="row text-right mt-4">
                  <div class="col-md-8"></div>
                  <div class="col-md-4 form-control border-0">
-                   <button type="button" id="triggerStartApplication" class="btn btn-primary py-2 w-50" type="button">${param.lang == 'de' ? 'Senden' : 'Send'}</button>
+                   <button type="button" id="triggerStartApplication" class="btn btn-primary py-2 w-50" type="button" data-i18n="form-send"></button>
                  </div>
                </div>
              </div>
@@ -181,8 +181,8 @@
          </div>
 
          <div id="applicationReceived" class="success alert-success alert" style="display:none;text-align:center;line-height:500%;font-size:1.8em;">
-               <div>${param.lang == 'de' ? 'Anfrage erhalten - wir kontaktieren Sie innerhalb k&uuml;rzester Zeit!' : 'Application received - we get in touch with you shortly'}!</div>
-               <div>${param.lang == 'de' ? 'Ihre Anfragfen-Id ist' : 'Your application id is'}: <span id="applicationId"></span></div>
+               <div><span data-i18n="form-sent"></span>!</div>
+               <div><span data-i18n="form-sent-id"></span>: <span id="applicationId"></span></div>
          </div>
 
          <div class="clearfix">
@@ -196,14 +196,14 @@
         <div class="container">
           <div class="row d-flex justify-content-center">
             <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-              <h2>${param.lang == 'de' ? 'Abbonieren Sie unseren Newsletter' : 'Subcribe to our Newsletter'}</h2>
+              <h2 data-i18n="newsletter-title"></h2>
               <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
               <div class="row d-flex justify-content-center mt-4 mb-4">
                 <div class="col-md-8">
                   <form action="#" class="subscribe-form">
                     <div class="form-group d-flex">
-                      <input type="text" class="form-control" placeholder="${param.lang == 'de' ? 'Email-Adresse eingeben' : 'Enter email address'}">
-                      <input type="submit" value="${param.lang == 'de' ? 'Abbonieren' : 'Subscribe'}" class="submit px-3">
+                      <input id="newsletterInput" type="text" class="form-control">
+                      <input id="newsletterSubmit" type="submit" class="submit px-3" data-i18n="newsletter-button">
                     </div>
                   </form>
                 </div>
@@ -219,7 +219,7 @@
         <div class="row mb-5">
         	<div class="col-md">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">${param.lang == 'de' ? '&Uuml;ber Uns' : 'About'}</h2>
+              <h2 class="ftco-heading-2" data-i18n="topbar-about"></h2>
               <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
@@ -230,37 +230,37 @@
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">${param.lang == 'de' ? '' : 'Companys'}</h2>
+              <h2 class="ftco-heading-2" data-i18n="footer-customer-company"></h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Wie es funktioniert' : 'How it works'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Registrieren' : 'Register'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Individuelle Sets' : 'Buy individual set'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Fortgeschrittene Sets' : 'Advanced set components'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Spezielle Sets' : 'Special Service'}</a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-how"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-register"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-individual"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-advanced"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-special"></a></li>
                 <li><a href="#" class="py-2 d-block">Faq</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Customers</h2>
+              <h2 class="ftco-heading-2" data-i18n="footer-customer-customer"></h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Wie es funktioniert' : 'How it works'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Registrieren' : 'Register'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Kaufe dein Set' : 'Buy Your Set'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Internet Suchen' : 'Internet Search'}</a></li>
-                <li><a href="#" class="py-2 d-block">${param.lang == 'de' ? 'Internet-Paket Suche' : 'Intenet Bundle Search'}</a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-how"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-register"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-buy"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-search"></a></li>
+                <li><a href="#" class="py-2 d-block" data-i18n="footer-customer-package"></a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">${param.lang == 'de' ? 'Noch weitere Fragen?' : 'Have a Questions?'}</h2>
+            	<h2 class="ftco-heading-2" data-i18n="footer-questions"></h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">${param.lang == 'de' ? 'Zossener Str. 55, 10961 Berlin' : '3001 Brighton Blvd, Suite 450, Denver, CO 80216'}</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">${param.lang == 'de' ? '030 664040900' : '+1 415 513 0111'}</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">${param.lang == 'de' ? 'info@camunda.com' : 'contact@camunda.com'}</span></a></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text" data-i18n="footer-address"></span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text" data-i18n="footer-phone"></span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text" data-i18n="footer-email"></span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -284,6 +284,14 @@
 
 
   <script src="js/jquery.min.js"></script>
+  <script src="../js/jquery/jquery.i18n.js"></script>
+  <script src="../js/jquery/jquery.i18n.messagestore.js"></script>
+  <script src="../js/jquery/jquery.i18n.fallbacks.js"></script>
+  <script src="../js/jquery/jquery.i18n.parser.js"></script>
+  <script src="../js/jquery/jquery.i18n.emitter.js"></script>
+  <script src="../js/jquery/jquery.i18n.language.js"></script>
+  <script src="lang/de.js"></script>
+  <script src="lang/en.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
@@ -297,6 +305,8 @@
   <script src="js/bootstrap-datepicker.js"></script>
   <script src="js/jquery.timepicker.min.js"></script>
   <script src="js/scrollax.min.js"></script>
+  <script src="lang/de.js"></script>
+  <script src="lang/en.js"></script>
   <script src="js/main.js"></script>
   <script src="app.js"></script>
 

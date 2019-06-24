@@ -40,6 +40,26 @@ $(document).ready(function() {
   var pathArray = window.location.pathname.split('/');
   var baseUrl = window.location.protocol + "//" + window.location.host + "/" + pathArray[1] + "/api";
 
+  $.i18n().load({
+    'en': window.langEn['en'],
+    'de': window.langDe['de']
+  })
+
+  $.i18n({
+    locale: lang
+  });
+
+  $('body').i18n();
+
+  $('#search').attr("placeholder", lang == 'de' ? 'Suchen...' : 'Search...');
+
+  $('.langlink').each(function(i, obj) {
+    $(this).click(function(event) {
+      event.preventDefault();
+      window.location.href = $(this).context.href + '?lang=' + lang;
+    });
+  });
+
   // Start single Process Instance
   $('#triggerStartApplication').click(function() {
     var neuantrag = {
@@ -52,6 +72,7 @@ $(document).ready(function() {
       "employment": $('#employment').val(),
       "category": $('#category').val(),
       "priceIndicationInCent": getPrice() * 100,
+      "product": $("#category option:selected").text(),
       "corporation": "Camundanzia"
       // ,
       // "uiUrl": $('#uiUrl').val()
