@@ -2,6 +2,7 @@ package com.camunda.demo.customeronboarding;
 
 import static org.camunda.spin.Spin.JSON;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Map;
@@ -9,37 +10,41 @@ import java.util.Map;
 import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.engine.variable.Variables.SerializationDataFormats;
 import org.camunda.bpm.engine.variable.value.FileValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-import com.camunda.demo.environment.simulation.DefaultContentGenerator;
+import com.camunda.consulting.simulator.PayloadGenerator;
+import com.camunda.consulting.simulator.SimulationExecutor;
 import com.camunda.demo.customeronboarding.model.NewApplication;
 import com.camunda.demo.customeronboarding.model.Person;
 
 public class DemoData {
 
-  static public class ContentGenerator extends DefaultContentGenerator {
+  static public class ContentGenerator extends PayloadGenerator {
+    
+    private final static Logger LOGGER = LoggerFactory.getLogger(ContentGenerator.class);
+    
+    public static long startedInstances = 0;
+    
     public NewApplication newApplication(boolean german) {
-      Person p = new Person();
-      p.setBirthday(uniformBirthdate(16, 99));
+      int birthYear = uniformBirthdate(16, 99).getYear();
+      String category = uniformFromArgs4(Categorys.BASISPAKET.displayName, Categorys.STANDARDPAKET.displayName, Categorys.PREMIUMPAKET.displayName, Categorys.BASISPAKET.displayName);
+      String employment = uniformFromArgs5(Employment.FEST_ANGESTELLT.displayName, Employment.FREELANCER.displayName, Employment.NICHT_ERWERBSTAETIG.displayName, Employment.SELBSTSTAENDIG.displayName, Employment.TEILZEIT.displayName);
       boolean male = uniformBoolean();
-      if (german) {
-        p.setGender(male ? "Mann" : "Frau");
-        p.setName((male ? firstnameMale() : firstnameFemale()) + " " + surnameGerman());
-      } else {
-        p.setGender(male ? "male" : "female");
-        p.setName((male ? firstnameMale() : firstnameFemale()) + " " + surnameEnglish());
-      }
-      p.setEmail(email(p.getName(), uniformFromArgs3("GoogleMail", "Hotmail", "Yahoo")));
-
-      NewApplication a = new NewApplication(businessKey());
-      a.setApplicant(p);
+      String gender = male ? (german ? "Mann" : "male") : (german ? "Frau" : "female");
+      String name = (male ? firstnameMale() : firstnameFemale()) + " " + (german ? surnameGerman() : surnameEnglish());
+      String email = email(name, uniformFromArgs3("GoogleMail", "Hotmail", "Yahoo"));
       
-      a.setPriceIndication("333");
-      a.setCategory(Categorys.BASISPAKET.displayName);//uniformFromArgs4(Categorys.BASISPAKET.displayName, Categorys.STANDARDPAKET.displayName, Categorys.PREMIUMPAKET, Categorys.BASISPAKET.displayName));
-
-      a.setPriceIndicationInCent(100 * a.getPriceIndicationInCent());
-      a.setPremiumInCent(a.getPriceIndicationInCent());
-      a.setProduct("serious product");
-
+      NewApplication a = (new DemoData()).createNeuantrag(birthYear, 
+                      category,
+                      employment, name, email, gender);
+ 
+      startedInstances++;
+      
+      if(startedInstances % 100 == 0)
+         LOGGER.info("Created " + new DecimalFormat("0000").format(startedInstances) + " Instances and progress: " + new DecimalFormat("000.##").format(SimulationExecutor.getProgress() * 100) + "!");
+      
       return a;
     }
   }
@@ -49,15 +54,15 @@ public class DemoData {
   public static final String EMAIL = "trashcan@camunda.org";
 
   public static NewApplication green() {
-    return createNeuantrag(getBirthYear(0), Categorys.STANDARDPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
+    return (new DemoData()).createNeuantrag(getBirthYear(0), Categorys.STANDARDPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
   }
 
   public static NewApplication yellow() {
-    return createNeuantrag(getBirthYear(3), Categorys.PREMIUMPAKET.displayName, Employment.FREELANCER.displayName);
+    return (new DemoData()).createNeuantrag(getBirthYear(3), Categorys.PREMIUMPAKET.displayName, Employment.FREELANCER.displayName);
   }
 
   public static NewApplication red() {
-    return createNeuantrag(getBirthYear(5), Categorys.PREMIUMPAKET.displayName , Employment.NICHT_ERWERBSTAETIG.displayName);
+    return (new DemoData()).createNeuantrag(getBirthYear(5), Categorys.PREMIUMPAKET.displayName , Employment.NICHT_ERWERBSTAETIG.displayName);
   }
   
   public static int getBirthYear(int endNumber) {
@@ -117,7 +122,8 @@ public class DemoData {
 	    public String displayName() { return displayName; }
   }
   
-  public static NewApplication createNeuantrag(int birthYear, String category, String employment) {
+
+  public NewApplication createNeuantrag(int birthYear, String category, String employment, String name, String email, String gender) {
     NewApplication newApplication = new NewApplication();
     newApplication.setApplicant(new Person());
 
@@ -125,14 +131,18 @@ public class DemoData {
     cal.set(Calendar.YEAR, birthYear);
 
     newApplication.getApplicant().setBirthday(cal.getTime());
-    newApplication.getApplicant().setName(NAME);
-    newApplication.getApplicant().setEmail(EMAIL);
-    newApplication.getApplicant().setGender(GENDER);
+    newApplication.getApplicant().setName(name);
+    newApplication.getApplicant().setEmail(email);
+    newApplication.getApplicant().setGender(gender);
     newApplication.setCategory(category);
     newApplication.setEmployment(employment);
     newApplication.setPriceIndicationInCent(32000);
     newApplication.setCorporation("Camunbankia");
     newApplication.setProduct("super cool product");
     return newApplication;
+  }
+  
+  public NewApplication createNeuantrag(int birthYear, String category, String employment) {
+    return createNeuantrag(birthYear, category, employment, NAME, EMAIL, GENDER);
   }
 }

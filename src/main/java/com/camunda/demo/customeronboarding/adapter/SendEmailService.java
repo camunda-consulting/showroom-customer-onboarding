@@ -10,7 +10,9 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SendEmailService {
   Logger LOG = LoggerFactory.getLogger(SendEmailService.class);
 

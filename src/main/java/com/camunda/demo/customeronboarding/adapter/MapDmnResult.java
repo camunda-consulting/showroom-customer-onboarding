@@ -10,7 +10,9 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.ExecutionListener;
 import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.engine.variable.Variables.SerializationDataFormats;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MapDmnResult implements ExecutionListener {
 
   @Override

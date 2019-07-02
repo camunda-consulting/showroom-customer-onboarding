@@ -3,87 +3,32 @@ package com.camunda.demo.customeronboarding;
 import static com.camunda.demo.customeronboarding.DemoData.createGreenInitVars;
 import static com.camunda.demo.customeronboarding.DemoData.createRedInitVars;
 import static com.camunda.demo.customeronboarding.DemoData.createYellowInitVars;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.init;
 import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.processEngine;
-import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareAssertions.assertThat;
+import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.assertThat;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.calledProcessInstance;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.complete;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.execute;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.job;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.runtimeService;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.task;
-import static org.camunda.bpm.engine.test.assertions.cmmn.CmmnAwareTests.withVariables;
+import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.withVariables;
 import static org.camunda.spin.Spin.JSON;
-import static org.mockito.Matchers.anyString;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.camunda.bpm.engine.runtime.ProcessInstance;
-import org.camunda.bpm.engine.test.Deployment;
-import org.camunda.bpm.engine.test.ProcessEngineRule;
-import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareOnlyThisForTest;
-import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.camunda.demo.customeronboarding.DemoData;
-import com.camunda.demo.customeronboarding.ProcessConstants;
-import com.camunda.demo.customeronboarding.adapter.SendEmailService;
 
 /**
  * Test case starting an in-memory database-backed Process Engine.
  */
-
-/*
- * we must use this PowerMock-restriction together with PowerMockRule instead of
- * PowerMockRunner until https://github.com/powermock/powermock/issues/687 is
- * fixed
- */
-@PowerMockIgnore("*")
-@PrepareOnlyThisForTest(fullyQualifiedNames = { "com.camunda.demo.customeronboarding.adapter.EmailAdapter" })
-@Deployment(resources = { "customer_onboarding_en.bpmn", "document_request_en.bpmn", "risk_check_en.dmn", "customer_onboarding_de.bpmn",
-    "document_request_de.bpmn", "risk_check_de.dmn" })
-public class VersicherungsneuantragProcessTest {
+public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
+  
   static final Logger logger = LoggerFactory.getLogger(VersicherungsneuantragProcessTest.class);
-
-  @Rule
-  public PowerMockRule powermock = new PowerMockRule();
-
-  @ClassRule
-  @Rule
-  public static ProcessEngineRule rule = TestCoverageProcessEngineRuleBuilder.create().build();
-
-  static {
-    // enable more detailed logging
-    // LogUtil.readJavaUtilLoggingConfigFromClasspath(); // process engine
-    // LogFactory.useJdkLogging(); // MyBatis
-  }
-
-  @Before
-  public void setup() throws Exception {
-    init(rule.getProcessEngine());
-    MockitoAnnotations.initMocks(this);
-    PowerMockito.whenNew(SendEmailService.class).withAnyArguments().thenReturn(sendEmailService);
-    Mockito.doAnswer(invocation -> {
-      logger.info("I'm mocking a mail to <" + invocation.getArguments()[0] + ">.");
-      logger.debug("  Mock mail subject: " + invocation.getArguments()[2]);
-      logger.debug("  Mock mail body: " + invocation.getArguments()[1]);
-      return null;
-    }).when(sendEmailService).sendEmail(anyString(), anyString(), anyString());
-  }
-
+  
   /**
    * Just tests if the process definition is deployable.
    */
@@ -93,9 +38,6 @@ public class VersicherungsneuantragProcessTest {
     // deployment
     processEngine();
   }
-
-  @Mock
-  private SendEmailService sendEmailService;
 
   @Test
   public void testAutomaticIssued() {
@@ -183,7 +125,6 @@ public class VersicherungsneuantragProcessTest {
     assertThat(documentRequest).hasVariables(ProcessConstants.VAR_NAME_application);
 
     assertThat(documentRequest).isWaitingAt("SendTask_RequestDocument");
-
     execute(job(documentRequest)); // send task in document request
     assertThat(documentRequest).isWaitingAt("ReceiveTask_WaitForDocument");
 
@@ -201,7 +142,7 @@ public class VersicherungsneuantragProcessTest {
     @SuppressWarnings("unchecked")
     Map<String, String> documents = (Map<String, String>) JSON(runtimeService().getVariable(processInstance.getId(), ProcessConstants.VAR_NAME_documents))
         .mapTo(HashMap.class);
-    assertThat(documents).hasSize(1).containsKey(reference);
+    org.assertj.core.api.Assertions.assertThat(documents).hasSize(1).containsKey(reference);
 
     complete(task(), withVariables("approved", Boolean.TRUE)); // accept
                                                                // application

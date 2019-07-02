@@ -38,12 +38,12 @@
   <div style="overflow:hidden;margin-top:5em;">
    <div style="float:left;padding-left:16em;">
       <span><h1>Insurance Showcase</h1></span><br>
-      <a id="insuranceHref" href="insurance/application.jsp?lang=en" ><img src="landing/imgs/insurance_showcase_preview_50.png" style="border:solid black 1px;"></a>
+      <a id="insuranceHref" href="insurance/application.html?lang=en" ><img src="landing/imgs/insurance_showcase_preview_50.png" style="border:solid black 1px;"></a>
    </div>
 
    <div style="overflow:hidden;padding-left:10em;">
      <span><h1>Banking Showcase</h1></span><br>
-     <a id="bankingHref" href="banking/index.jsp?lang=en" ><img src="landing/imgs/banking_showcase_preview_50.png" style="border:solid black 1px;"></a>
+     <a id="bankingHref" href="banking/index.html?lang=en" ><img src="landing/imgs/banking_showcase_preview_50.png" style="border:solid black 1px;"></a>
    </div>
   </div>
 
@@ -57,8 +57,8 @@
       $("#langbutton").click(function(){
         var lang = $(this).html() === "german" ? 'en' : 'de';
         $(this).html(lang === 'en' ? 'english' : 'german');
-        $("#insuranceHref").attr("href", "insurance/application.jsp?lang=" + lang);
-        $("#bankingHref").attr("href", "banking/index.jsp?lang=" + lang);
+        $("#insuranceHref").attr("href", "insurance/application.html?lang=" + lang);
+        $("#bankingHref").attr("href", "banking/index.html?lang=" + lang);
       });
   </script>
 

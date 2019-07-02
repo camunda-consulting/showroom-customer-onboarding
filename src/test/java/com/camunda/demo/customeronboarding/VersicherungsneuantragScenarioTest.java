@@ -3,10 +3,10 @@ package com.camunda.demo.customeronboarding;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.historyService;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.runtimeService;
-import static org.camunda.bpm.engine.test.assertions.cmmn.CmmnAwareTests.withVariables;
+import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.withVariables;
 import static org.camunda.spin.Spin.JSON;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,72 +17,31 @@ import java.util.Map;
 
 import org.apache.commons.mail.EmailException;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
-import org.camunda.bpm.engine.test.Deployment;
-import org.camunda.bpm.engine.test.ProcessEngineRule;
-import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
 import org.camunda.bpm.scenario.ProcessScenario;
 import org.camunda.bpm.scenario.Scenario;
 import org.camunda.bpm.scenario.delegate.TaskDelegate;
 import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareOnlyThisForTest;
-import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.camunda.demo.customeronboarding.DemoData;
-import com.camunda.demo.customeronboarding.ProcessConstants;
-import com.camunda.demo.customeronboarding.adapter.SendEmailService;
-
-/*
- * we must use this PowerMock-restriction together with PowerMockRule instead of
- * PowerMockRunner until https://github.com/powermock/powermock/issues/687 is
- * fixed
- */
-@PowerMockIgnore("*")
-@PrepareOnlyThisForTest(fullyQualifiedNames = { "com.camunda.demo.customeronboarding.adapter.EmailAdapter" })
-@Deployment(resources = { "customer_onboarding_en.bpmn", "document_request_en.bpmn", "risk_check_en.dmn", "customer_onboarding_de.bpmn",
-    "document_request_de.bpmn", "risk_check_de.dmn" })
-public class VersicherungsneuantragScenarioTest {
+public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
+  
   static final Logger logger = LoggerFactory.getLogger(VersicherungsneuantragScenarioTest.class);
-
-  @Rule
-  public PowerMockRule powermock = new PowerMockRule();
-
-  @ClassRule
-  @Rule
-  public static ProcessEngineRule rule = TestCoverageProcessEngineRuleBuilder.create().build();
 
   // Mock all wait states in main process and call activity with a scenario
   @Mock
   private ProcessScenario customerOnboarding;
   @Mock
   private ProcessScenario documentRequest;
-  @Mock
-  private SendEmailService sendEmailService;
 
   @Before
   public void setup() throws Exception {
-    MockitoAnnotations.initMocks(this);
-    PowerMockito.whenNew(SendEmailService.class).withAnyArguments().thenReturn(sendEmailService);
-    Mockito.doAnswer(invocation -> {
-      logger.info("I'm mocking a mail to <" + invocation.getArguments()[0] + ">.");
-      logger.debug("  Mock mail subject: " + invocation.getArguments()[2]);
-      logger.debug("  Mock mail body: " + invocation.getArguments()[1]);
-      return null;
-    }).when(sendEmailService).sendEmail(anyString(), anyString(), anyString());
-
     // standard behavior
     when(customerOnboarding.waitsAtUserTask("UserTask_AccelerateDecision")).thenReturn(TaskDelegate::complete);
     when(customerOnboarding.runsCallActivity("CallActivity_RequestDocument")).thenReturn(Scenario.use(documentRequest));
-    when(documentRequest.waitsAtUserTask("UserTask_CallCustomer")).thenReturn(TaskDelegate::complete);
+    when(documentRequest.waitsAtUserTask("UserTask_CallCustomer")).thenReturn(TaskDelegate::complete); 
   }
 
   @Test
@@ -197,8 +156,7 @@ public class VersicherungsneuantragScenarioTest {
 
     // immediately send driver's license
     when(documentRequest.waitsAtReceiveTask("ReceiveTask_WaitForDocument"))
-        .thenReturn(task -> runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentReceived, new HashMap<String, Object>(),
-            withVariables(ProcessConstants.VAR_NAME_document, DemoData.createDocument())));
+        .thenReturn(task -> task.receive(withVariables(ProcessConstants.VAR_NAME_document, DemoData.createDocument())));
 
     /*
      * Run and verify

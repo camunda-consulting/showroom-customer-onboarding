@@ -6,7 +6,7 @@
 	<groupId>com.camunda.consulting.showcase</groupId>
 	<artifactId>camunda-showcase-customer-onboarding</artifactId>
 	<version>7.8.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<parent>
 		<groupId>org.camunda</groupId>
@@ -16,8 +16,9 @@
 	</parent>
 
 	<properties>
-		<camunda.version>7.9.0</camunda.version>
-		<powermock.version>1.7.3</powermock.version>
+		<camunda.version>7.11.1-ee</camunda.version>
+		<camundaSpringBoot.version>3.3.2</camundaSpringBoot.version>
+		<springBoot.version>2.1.6.RELEASE</springBoot.version>
 
 		<version.java>1.8</version.java>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,7 +32,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<!-- Import dependency management from camunda -->
 				<groupId>org.camunda.bpm</groupId>
 				<artifactId>camunda-bom</artifactId>
 				<version>${camunda.version}</version>
@@ -39,104 +39,91 @@
 				<type>pom</type>
 			</dependency>
 			<dependency>
-				<groupId>org.camunda.bpm.webapp</groupId>
-				<artifactId>camunda-webapp-webjar</artifactId>
+				<groupId>org.camunda.bpm.dmn</groupId>
+				<artifactId>camunda-engine-dmn-bom</artifactId>
 				<version>${camunda.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.camunda.bpm.webapp</groupId>
-				<artifactId>camunda-webapp</artifactId>
-				<classifier>classes</classifier>
-				<version>${camunda.version}</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${springBoot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
-	<dependencies>
+	<dependencies>	
+	
 		<dependency>
-			<!-- process engine, needs to be provided -->
-			<groupId>org.camunda.bpm</groupId>
-			<artifactId>camunda-engine</artifactId>
-			<scope>provided</scope>
+			<groupId>org.camunda.bpm.springboot</groupId>
+			<artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
+			<version>${camundaSpringBoot.version}</version>
 		</dependency>
+<!--  
 		<dependency>
-			<groupId>org.camunda.bpm.dmn</groupId>
-			<artifactId>camunda-engine-dmn</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<!-- only needed for debugging -->
-			<groupId>org.camunda.bpm</groupId>
-			<artifactId>camunda-engine-rest</artifactId>
-			<classifier>classes</classifier>
-			<scope>provided</scope>
-		</dependency>
-
+			<groupId>org.camunda.bpm.springboot</groupId>
+			<artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+			<version>${camundaSpringBoot.version}</version>
+		</dependency>-->
+		
 		<dependency>
 			<groupId>com.camunda.consulting.util</groupId>
 			<artifactId>camunda-util-demo-support</artifactId>
 			<version>0.4.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.camunda.consulting.util</groupId>
-			<artifactId>camunda-util-demo-data-generator</artifactId>
-			<version>0.5.3</version>
+		  <groupId>com.camunda.consulting</groupId>
+		  <artifactId>camunda-bpm-simulator</artifactId>
+		  <version>1.1.2</version>
 		</dependency>
-
+		
 		<dependency>
-			<!-- Camunda BPM Assert -->
-			<groupId>org.camunda.bpm.extension</groupId>
-			<artifactId>camunda-bpm-assert</artifactId>
-			<version>2.0-alpha2</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.vaadin.external.google</groupId>
+					<artifactId>android-json</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
+		
 		<dependency>
-			<!-- Camunda BPM Assert Scenario -->
-			<groupId>org.camunda.bpm.extension</groupId>
-			<artifactId>camunda-bpm-assert-scenario</artifactId>
-			<version>0.2</version>
-			<scope>test</scope>
+		    <groupId>org.camunda.bpm.assert</groupId>
+		    <artifactId>camunda-bpm-assert</artifactId>
+		    <version>4.0.0</version>
+		    <scope>test</scope>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
+	      <groupId>org.camunda.bpm.extension</groupId>
+	      <artifactId>camunda-bpm-assert-scenario</artifactId>
+	      <version>0.2</version>
+	      <scope>test</scope>
+	    </dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
 		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4-rule</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>2.28.2</version>
+		    <scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-classloading-xstream</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
 
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- Required to use Spin dataformat support in unit tests -->
+		<!-- Required to use Spin dataformat support -->
 		<dependency>
 			<groupId>org.camunda.spin</groupId>
 			<artifactId>camunda-spin-dataformat-all</artifactId>
-			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.camunda.bpm</groupId>
 			<artifactId>camunda-engine-plugin-spin</artifactId>
-			<scope>provided</scope>
 		</dependency>
 
 
@@ -144,7 +131,6 @@
 		<dependency>
 			<groupId>org.camunda.template-engines</groupId>
 			<artifactId>camunda-template-engines-freemarker</artifactId>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -160,31 +146,22 @@
 			<version>2.1.0-2</version>
 		</dependency>
 
-
+		<dependency> 
+			<groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-starter-jdbc</artifactId> 
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
-		    <version>4.12</version>
 		    <scope>test</scope>
 		</dependency>
-
 
 		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 		<dependency>
 		    <groupId>com.h2database</groupId>
 		    <artifactId>h2</artifactId>
-		    <version>1.4.190</version>
-		    <scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-			<!-- Used to generate test coverage reports, see https://github.com/camunda/camunda-consulting/tree/master/snippets/camunda-bpm-process-test-coverage -->
-			<groupId>org.camunda.bpm.extension</groupId>
-			<artifactId>camunda-bpm-process-test-coverage</artifactId>
-			<version>0.3.1</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -192,83 +169,7 @@
 			<artifactId>commons-email</artifactId>
 			<version>1.3.3</version>
 		</dependency>
-
-		<!-- Add your own dependencies here, if in compile scope, they are added 
-			to the war -->
-			
-        <dependency> 
-        	<groupId>org.jboss.resteasy</groupId> 
-        	<artifactId>resteasy-servlet-initializer</artifactId> 
-			<version>3.0.19.Final</version> 		
-			<exclusions>
-				<exclusion>
-					<groupId>org.jboss.resteasy</groupId>
-					<artifactId>resteasy-jaxrs</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency> 
 		
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
-			<scope>provided</scope>
-			<version>3.0.19.Final</version> 
-		</dependency>
-		
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/javax.inject/javax.inject -->
-		<dependency>
-		    <groupId>javax.inject</groupId>
-		    <artifactId>javax.inject</artifactId>
-		    <version>1</version>
-		    <scope>provided</scope>
-		</dependency>
-		
-		
-		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/async-http-servlet-3.0 -->
-		<dependency>
-		    <groupId>org.jboss.resteasy</groupId>
-		    <artifactId>async-http-servlet-3.0</artifactId>
-		    <version>3.0.19.Final</version>
-		    <scope>provided</scope>
-		</dependency>
-		
-		<!-- Java EE 6 APIs - not use javax ones because of Arquillian problems 
-					(https://developer.jboss.org/wiki/WhatsTheCauseOfThisExceptionJavalangClassFormatErrorAbsentCode 
-					) <dependency> <groupId>org.jboss.spec</groupId> <artifactId>jboss-javaee-6.0</artifactId> 
-					<version>1.0.0.Final</version> <type>pom</type> </dependency> <dependency> 
-					<groupId>javax.ws.rs</groupId> <artifactId>javax.ws.rs-api</artifactId> <version>2.0</version> 
-					</dependency> -->
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.2.11</version>
-		    <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-            <version>2.2.11</version>
-		    <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.2.11</version>
-		    <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>1.1.1</version>
-		    <scope>provided</scope>
-        </dependency>
 	</dependencies>
 
 	<repositories>
@@ -286,6 +187,7 @@
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
+
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/webapp</directory>
@@ -300,91 +202,32 @@
 				</includes>
 			</resource>
 		</resources>
+
 		<plugins>
-			<plugin>
-				<!-- Usage: mvn jboss-as:deploy See also: https://docs.jboss.org/jbossas/7/plugins/maven/latest/examples/deployment-example.html -->
-				<groupId>org.jboss.as.plugins</groupId>
-				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>7.6.Final</version>
-			</plugin>
-			<plugin>
-				<!-- Usage: mvn wildfly:deploy See also: https://docs.jboss.org/wildfly/plugins/maven/latest/examples/deployment-example.html -->
-				<groupId>org.wildfly.plugins</groupId>
-				<artifactId>wildfly-maven-plugin</artifactId>
-				<version>2.0.1.Final</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
+			<plugin>	
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${springBoot.version}</version>
 				<configuration>
-					<webResources combine.children="append">
-						<resource>
-							<directory>src/main/webapp</directory>
-							<filtering>true</filtering>
-							<includes>
-								<include>**/*.js</include>
-								<!-- include any other file types you want to filter -->
-							</includes>
-						</resource>
-					</webResources>
+					<mainClass>com.camunda.demo.customeronboarding.CustomerOnboardingProcessApplication</mainClass>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
+
+<!--  
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>**/TestSuite.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-
+				<version>2.22.0</version>
+			</plugin>-->
+		</plugins>	
 	</build>
-
-	<profiles>
-		<profile>
-			<id>tomcat</id>
-			<!-- <activation> <activeByDefault>true</activeByDefault> </activation> -->
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.resteasy</groupId>
-					<artifactId>resteasy-jaxrs</artifactId>
-					<version>2.3.5.Final</version>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.resteasy</groupId>
-					<artifactId>resteasy-jackson-provider</artifactId>
-					<version>2.3.5.Final</version>
-				</dependency>
-				<!-- <dependency> <groupId>org.jboss.resteasy</groupId> <artifactId>resteasy-servlet-initializer</artifactId> 
-					<version>3.0.11.Final</version> </dependency> https://raw.githubusercontent.com/resteasy/Resteasy/master/jaxrs/resteasy-servlet-initializer/src/main/java/org/jboss/resteasy/plugins/servlet/ResteasyServletInitializer.java -->
-				<!-- Java EE 6 APIs - not use javax ones because of Arquillian problems 
-					(https://developer.jboss.org/wiki/WhatsTheCauseOfThisExceptionJavalangClassFormatErrorAbsentCode 
-					) <dependency> <groupId>org.jboss.spec</groupId> <artifactId>jboss-javaee-6.0</artifactId> 
-					<version>1.0.0.Final</version> <type>pom</type> </dependency> <dependency> 
-					<groupId>javax.ws.rs</groupId> <artifactId>javax.ws.rs-api</artifactId> <version>2.0</version> 
-					</dependency> -->
-			</dependencies>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.1.1</version>
-						<configuration>
-							<webResources>
-								<resource>
-									<directory>src/main/webapp-tomcat</directory>
-								</resource>
-							</webResources>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-
 
 	<licenses>
 		<license>

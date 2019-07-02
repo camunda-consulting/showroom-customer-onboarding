@@ -8,5 +8,3 @@ services:
                         TZ: Europe/Berlin
                 ports:
                         - 8080:8080
-                        - 8787:8787
-                        - 9990:9990

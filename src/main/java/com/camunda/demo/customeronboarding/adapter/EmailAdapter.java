@@ -1,20 +1,25 @@
 package com.camunda.demo.customeronboarding.adapter;
 
-import javax.inject.Named;
-
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.camunda.demo.customeronboarding.ProcessConstants;
 import com.camunda.demo.customeronboarding.model.NewApplication;
 
+@Component
 public class EmailAdapter implements JavaDelegate {
+  
+  @Autowired
+  public EmailAdapter (SendEmailService sendEmailService) {
+    this.sendEmailService = sendEmailService;
+  }
+  
+  private SendEmailService sendEmailService;
 
-  @Named("emailAdapter")
   @Override
   public void execute(DelegateExecution execution) throws Exception {
-    // get service reference
-    SendEmailService sendEmailService = new SendEmailService();
 
     // data input mapping
     String mailtext = (String) execution.getVariable("mailBody");

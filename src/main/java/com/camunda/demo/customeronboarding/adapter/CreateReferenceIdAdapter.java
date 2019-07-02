@@ -2,9 +2,11 @@ package com.camunda.demo.customeronboarding.adapter;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.springframework.stereotype.Component;
 
 import com.camunda.demo.customeronboarding.ProcessConstants;
 
+@Component
 public class CreateReferenceIdAdapter implements JavaDelegate {
 
   @Override

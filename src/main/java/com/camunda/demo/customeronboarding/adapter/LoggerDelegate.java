@@ -6,8 +6,9 @@ import javax.inject.Named;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.springframework.stereotype.Component;
 
-@Named("logger")
+@Component("logger")
 public class LoggerDelegate implements JavaDelegate {
  
   private final Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());

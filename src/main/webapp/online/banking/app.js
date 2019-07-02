@@ -58,7 +58,7 @@ $(document).ready(function() {
 
 
   var pathArray = window.location.pathname.split('/');
-  var baseUrl = window.location.protocol + "//" + window.location.host + "/" + pathArray[1] + "/api";
+  var baseUrl = window.location.protocol + "//" + window.location.host + "/" + pathArray[1] + "/API";
 
   // Start single Process Instance
   $('#triggerStartApplication').click(function() {

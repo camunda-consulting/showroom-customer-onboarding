@@ -5,11 +5,12 @@ import javax.inject.Named;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.bpm.engine.variable.value.ObjectValue;
+import org.springframework.stereotype.Component;
 
 import com.camunda.demo.customeronboarding.ProcessConstants;
 import com.camunda.demo.customeronboarding.model.NewApplication;
 
-@Named
+@Component
 public class IssuePolicyAdapter implements JavaDelegate {
 
   @Override
