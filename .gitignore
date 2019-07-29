@@ -17,3 +17,6 @@ target
 
 # Mac rubbish
 **/*.DS_Store
+
+*.iml
+.idea
