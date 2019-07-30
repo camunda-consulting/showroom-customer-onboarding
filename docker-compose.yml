@@ -7,6 +7,7 @@ services:
     TZ: Europe/Berlin
    ports:
      - 8084:8080
+
 networks:
   default:
     external:

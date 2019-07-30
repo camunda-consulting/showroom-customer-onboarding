@@ -27,19 +27,19 @@ Ihre ${application.corporation}.</camunda:script>
           <camunda:inputParameter name="mailSubject">Wir benötigen noch Unterlagen</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
-          <camunda:property name="simNextFire" value="${g.nowPlusHours(4)}" />
+          <camunda:property name="simNextFire" value="${g.now()}" />
         </camunda:properties>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0d7dzn0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_18a0pzl</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:endEvent id="EndEvent_TalkedToCustomer" name="Rückmeldung&#10;erhalten">
+    <bpmn:endEvent id="EndEvent_TalkedToCustomer" name="Rückmeldung&#10;erhalten" camunda:asyncAfter="true">
       <bpmn:incoming>SequenceFlow_3</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:endEvent id="EndEvent_ReminderSent" name="E-Mail verschickt">
       <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sendTask id="SendTask_SendReminderEmail" name="Erinnerungsmail schicken" camunda:type="external" camunda:topic="emailService">
+    <bpmn:sendTask id="SendTask_SendReminderEmail" name="Erinnerungsmail schicken" camunda:asyncBefore="true" camunda:type="external" camunda:topic="emailService">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
@@ -86,7 +86,7 @@ Ihre ${application.corporation}.</camunda:script>
       <bpmn:incoming>SequenceFlow_18a0pzl</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_6</bpmn:outgoing>
     </bpmn:receiveTask>
-    <bpmn:endEvent id="EndEvent_GotDocument" name="Dokument erhalten">
+    <bpmn:endEvent id="EndEvent_GotDocument" name="Dokument erhalten" camunda:asyncAfter="true">
       <bpmn:incoming>SequenceFlow_6</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:startEvent id="StartEvent_1" name="Dokument&#10;benötigt">
