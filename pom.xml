@@ -17,8 +17,8 @@
 
 	<properties>
 		<camunda.version>7.11.1-ee</camunda.version>
-		<camundaSpringBoot.version>3.3.2</camundaSpringBoot.version>
-		<springBoot.version>2.1.6.RELEASE</springBoot.version>
+		<camundaSpringBoot.version>3.3.1</camundaSpringBoot.version>
+		<springBoot.version>2.1.5.RELEASE</springBoot.version>
 
 		<version.java>1.8</version.java>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,12 +62,12 @@
 			<artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
 			<version>${camundaSpringBoot.version}</version>
 		</dependency>
-<!--  
+ 
 		<dependency>
 			<groupId>org.camunda.bpm.springboot</groupId>
 			<artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
 			<version>${camundaSpringBoot.version}</version>
-		</dependency>-->
+		</dependency>
 		
 		<dependency>
 			<groupId>com.camunda.consulting.util</groupId>

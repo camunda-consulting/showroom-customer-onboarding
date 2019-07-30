@@ -3,7 +3,6 @@ spring:
   url: 'jdbc:h2:~/testdb;DB_CLOSE_DELAY=-1;MVCC=TRUE'
   username: sa
   password: sa
-  driverClassName: 'org.h2.Driver'
  
 server:
   servlet:
