@@ -19,6 +19,7 @@ import org.apache.commons.mail.EmailException;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.scenario.ProcessScenario;
 import org.camunda.bpm.scenario.Scenario;
+import org.camunda.bpm.scenario.delegate.ExternalTaskDelegate;
 import org.camunda.bpm.scenario.delegate.TaskDelegate;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,10 +39,15 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
 
   @Before
   public void setup() throws Exception {
+    super.setup();
     // standard behavior
     when(customerOnboarding.waitsAtUserTask("UserTask_AccelerateDecision")).thenReturn(TaskDelegate::complete);
     when(customerOnboarding.runsCallActivity("CallActivity_RequestDocument")).thenReturn(Scenario.use(documentRequest));
     when(documentRequest.waitsAtUserTask("UserTask_CallCustomer")).thenReturn(TaskDelegate::complete); 
+    when(customerOnboarding.waitsAtSendTask("SendTask_SendPolicy")).thenReturn(ExternalTaskDelegate::complete);
+    when(customerOnboarding.waitsAtSendTask("SendTask_SendRejection")).thenReturn(ExternalTaskDelegate::complete);
+    when(documentRequest.waitsAtSendTask("SendTask_RequestDocument")).thenReturn(ExternalTaskDelegate::complete);
+    when(documentRequest.waitsAtSendTask("SendTask_SendReminderEmail")).thenReturn(ExternalTaskDelegate::complete);
   }
 
   @Test
@@ -61,8 +67,6 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
     verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
     verify(customerOnboarding).hasCompleted("EndEvent_ApplicationIssued");
-
-    verify(sendEmailService, times(1)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());
   }
 
   @Test
@@ -82,8 +86,6 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
     verify(customerOnboarding, never()).hasStarted("ServiceTask_DeliverPolicy");
     verify(customerOnboarding).hasCompleted("EndEvent_ApplicationRejected");
-
-    verify(sendEmailService, times(1)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());
   }
 
   @Test
@@ -105,8 +107,6 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
     verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
     verify(customerOnboarding).hasCompleted("EndEvent_ApplicationIssued");
-
-    verify(sendEmailService, times(1)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());
   }
 
   @Test
@@ -175,9 +175,6 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     Map<String, String> documents = (Map<String, String>) JSON(historyService().createHistoricVariableInstanceQuery().processInstanceId(processInstance.getId())
         .variableName(ProcessConstants.VAR_NAME_documents).singleResult().getValue()).mapTo(HashMap.class);
     assertThat(documents).hasSize(1).containsKey(firstRef);
-
-    // Driver's license request and delivered policy
-    verify(sendEmailService, times(2)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());
   }
 
   @Test
@@ -231,10 +228,6 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     Map<String, ?> documents = (Map<String, Object>) JSON(historyService().createHistoricVariableInstanceQuery().processInstanceId(processInstance.getId())
         .variableName(ProcessConstants.VAR_NAME_documents).singleResult().getValue()).mapTo(HashMap.class);
     assertThat(documents).hasSize(2).containsKey(firstRef).containsKey(secondRef);
-
-    // Driver's license request, good-conduct certificate certificate request
-    // and delivered policy
-    verify(sendEmailService, times(3)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());
   }
 
   @Test
@@ -276,9 +269,6 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     // we expect exactly one document
     assertThat((Map<?, ?>) JSON(historyService().createHistoricVariableInstanceQuery().processInstanceId(processInstance.getId())
         .variableName(ProcessConstants.VAR_NAME_documents).singleResult().getValue()).mapTo(HashMap.class)).hasSize(1);
-
-    // Driver's license request, 5 reminders and delivered policy
-    verify(sendEmailService, times(7)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());
   }
 
   @Test
@@ -317,8 +307,5 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     verify(documentRequest).hasCompleted("EndEvent_TalkedToCustomer");
     verify(customerOnboarding, never()).hasStarted("ServiceTask_DeliverPolicy");
     verify(customerOnboarding).hasCompleted("EndEvent_ApplicationRejected");
-
-    // Driver's license request, 6 reminders and rejection
-    verify(sendEmailService, times(8)).sendEmail(eq(DemoData.EMAIL), anyString(), anyString());
   }
 }

@@ -8,6 +8,7 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.assertT
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.calledProcessInstance;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.complete;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.execute;
+import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.externalTask;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.job;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.runtimeService;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.task;
@@ -50,7 +51,8 @@ public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
 
     assertThat(processInstance).job();
     execute(job()); // start event
-    execute(job()); // send task
+    execute(job()); // transaction border before external task
+    complete(externalTask());// send task
 
     assertThat(processInstance) //
         .isEnded() //
@@ -69,7 +71,8 @@ public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
 
     assertThat(processInstance).job();
     execute(job()); // start event
-    execute(job()); // send task
+    execute(job()); // transaction border before external task
+    complete(externalTask());// send task
 
     assertThat(processInstance) //
         .isEnded() //
@@ -94,7 +97,8 @@ public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
     execute(job());
 
     assertThat(processInstance).job();
-    execute(job());
+    execute(job()); // transaction border before external task
+    complete(externalTask());// send task
 
     assertThat(processInstance) //
         .isEnded() //
@@ -125,12 +129,14 @@ public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
     assertThat(documentRequest).hasVariables(ProcessConstants.VAR_NAME_application);
 
     assertThat(documentRequest).isWaitingAt("SendTask_RequestDocument");
-    execute(job(documentRequest)); // send task in document request
+    execute(job()); // transaction border before external task
+    complete(externalTask());// send task in document request
     assertThat(documentRequest).isWaitingAt("ReceiveTask_WaitForDocument");
 
     // send in some driver's license
     runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentReceived, new HashMap<String, Object>(),
         withVariables(ProcessConstants.VAR_NAME_document, DemoData.createDocument()));
+    execute(job());
 
     // this should finalize sub-process
     assertThat(documentRequest) //
@@ -150,7 +156,8 @@ public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
     execute(job());
 
     assertThat(processInstance).job(); // send task
-    execute(job());
+    execute(job()); // transaction border before external task
+    complete(externalTask());// send task
 
     assertThat(processInstance) //
         .isEnded() //

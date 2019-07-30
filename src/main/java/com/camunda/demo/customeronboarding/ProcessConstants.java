@@ -1,6 +1,20 @@
 package com.camunda.demo.customeronboarding;
 
 public class ProcessConstants {
+  
+  private static final String BASIC_FILEPATH_ = "static/bpmn/";
+  
+  public static final String FILEPATH_CUSTOMER_ONBOARDING_EN = BASIC_FILEPATH_ + "customer_onboarding_en.bpmn"; 
+  public static final String FILEPATH_CUSTOMER_ONBOARDING_DE = BASIC_FILEPATH_ + "customer_onboarding_de.bpmn"; 
+  
+  public static final String FILEPATH_CUSTOMER_ONBOARDING_EN_OLD = BASIC_FILEPATH_ + "customer_onboarding_en_old.bpmn"; 
+  public static final String FILEPATH_CUSTOMER_ONBOARDING_DE_OLD = BASIC_FILEPATH_ + "customer_onboarding_de_old.bpmn"; 
+  
+  public static final String FILEPATH_DOCUMENT_REQUEST_EN = BASIC_FILEPATH_ + "document_request_en.bpmn"; 
+  public static final String FILEPATH_DOCUMENT_REQUEST_DE = BASIC_FILEPATH_ + "document_request_de.bpmn"; 
+  
+  public static final String FILEPATH_RISK_CHECK_EN = BASIC_FILEPATH_ + "risk_check_en.dmn"; 
+  public static final String FILEPATH_RISK_CHECK_DE = BASIC_FILEPATH_ + "risk_check_de.dmn"; 
 
   public static final String PROCESS_KEY_customer_onboarding_en = "customer_onboarding_en";
   public static final String PROCESS_KEY_customer_onboarding_de = "customer_onboarding_de";
@@ -11,6 +25,8 @@ public class ProcessConstants {
   public static final String DECISION_KEY_checkRisk_en = "checkRisk_en";
   public static final String DECISION_KEY_checkRisk_de = "checkRisk_de";
 
+  public static final String DEPLOYMENT_NAME = "Most_Important_Deployment";
+  
   /*
    * Variables of main process.
    */

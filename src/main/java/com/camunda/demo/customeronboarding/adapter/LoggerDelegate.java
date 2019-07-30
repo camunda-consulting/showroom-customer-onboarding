@@ -2,13 +2,11 @@ package com.camunda.demo.customeronboarding.adapter;
 
 import java.util.logging.Logger;
 
-import javax.inject.Named;
-
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
-@Component("logger")
+@Component
 public class LoggerDelegate implements JavaDelegate {
  
   private final Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());
