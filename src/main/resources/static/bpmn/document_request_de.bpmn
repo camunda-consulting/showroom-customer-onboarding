@@ -17,7 +17,7 @@ ${requestedDocumentDescription}
 
 Sie können das Dokument unter folgendem Link hochladen:
 
-  ${uiBaseUrl}/documents.jsp?lang=de&amp;referenceId=${documentReferenceId}
+  ${uiBaseUrl}/documents.html?lang=de&amp;referenceId=${documentReferenceId}
 
 Sobald die Unterlagen bei uns eingegangen sind werden wir Ihren Antrag umgehend weiter bearbeiten.
 
@@ -51,7 +51,7 @@ ${requestedDocumentDescription}
 
 Sie können das Dokument unter folgendem Link hochladen:
 
-  ${uiBaseUrl}/documents.jsp?lang=de&amp;referenceId=${documentReferenceId}
+  ${uiBaseUrl}/documents.html?lang=de&amp;referenceId=${documentReferenceId}
 
 Sobald die Unterlagen bei uns eingegangen sind werden wir Ihren Antrag umgehend weiter bearbeiten.
 

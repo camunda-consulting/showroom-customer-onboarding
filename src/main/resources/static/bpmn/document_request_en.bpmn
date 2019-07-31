@@ -17,7 +17,7 @@ ${requestedDocumentDescription}
 
 You can upload the document following this link:
 
-  ${uiBaseUrl}/documents.jsp?lang=en&amp;referenceId=${documentReferenceId}
+  ${uiBaseUrl}/documents.html?lang=en&amp;referenceId=${documentReferenceId}
 
 As soon as we receive the document we will continue to process your request.
 
@@ -51,7 +51,7 @@ ${requestedDocumentDescription}
 
 You can upload the document following this link:
 
-  ${uiBaseUrl}/documents.jsp?lang=en&amp;referenceId=${documentReferenceId}
+  ${uiBaseUrl}/documents.html?lang=en&amp;referenceId=${documentReferenceId}
 
 As soon as we receive the document we will continue to process your request.
 
