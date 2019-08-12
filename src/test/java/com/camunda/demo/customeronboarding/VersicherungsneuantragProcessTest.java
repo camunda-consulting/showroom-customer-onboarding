@@ -47,7 +47,7 @@ public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
   }
 
   protected void testAutomaticIssued(String processKey) {
-    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(processKey, createGreenInitVars());
+    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(processKey, createGreenInitVars(isGerman(processKey)));
 
     assertThat(processInstance).job();
     execute(job()); // start event
@@ -66,8 +66,8 @@ public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
 
   }
 
-  protected void testAutomaticRejected(String whatever) {
-    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(whatever, createRedInitVars());
+  protected void testAutomaticRejected(String processKey) {
+    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(processKey, createRedInitVars(isGerman(processKey)));
 
     assertThat(processInstance).job();
     execute(job()); // start event
@@ -86,8 +86,8 @@ public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
     testManualImmediateApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualImmediateApprove(String whatever) {
-    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(whatever, createYellowInitVars());
+  protected void testManualImmediateApprove(String processKey) {
+    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(processKey, createYellowInitVars(isGerman(processKey)));
 
     assertThat(processInstance).job();
     execute(job()); // start event
@@ -111,8 +111,8 @@ public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
     testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualRequestDocumentThenApprove(String whatever) {
-    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(whatever, createYellowInitVars());
+  protected void testManualRequestDocumentThenApprove(String processKey) {
+    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(processKey, createYellowInitVars(isGerman(processKey)));
 
     assertThat(processInstance).job();
     execute(job()); // start event

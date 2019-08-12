@@ -29,6 +29,8 @@ public class SpringBootProcessTest {
 
   @MockBean
   private StartConfiguration sim;
+  @MockBean
+  private DemoData demoData;
   
   @Autowired
   private ProcessEngine processEngine;
@@ -40,6 +42,10 @@ public class SpringBootProcessTest {
     init(processEngine);
     MockitoAnnotations.initMocks(this);
     (new DeploymentService(processEngine, processApp)).deployAllCurrent();
+  }
+  
+  boolean isGerman(String processKey) {
+    return processKey.endsWith("de");
   }
   
 }

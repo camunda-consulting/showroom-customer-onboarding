@@ -12,7 +12,9 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Stream;
@@ -22,6 +24,7 @@ import org.camunda.bpm.engine.authorization.Permission;
 import org.camunda.bpm.engine.authorization.Permissions;
 import org.camunda.bpm.engine.authorization.Resources;
 import org.camunda.bpm.engine.filter.Filter;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.variable.Variables;
@@ -48,12 +51,12 @@ import com.camunda.demo.customeronboarding.model.Person;
 public class DemoData {
   
   private ProcessEngine processEngine;
-  private static DeploymentService deploymentService;
+  private DeploymentService deploymentService;
   
   @Autowired
   public DemoData (ProcessEngine processEngine, DeploymentService deploymentService) {
     this.processEngine = processEngine;
-    DemoData.deploymentService = deploymentService;
+    this.deploymentService = deploymentService;
   }
 
   private final static Logger LOGGER = LoggerFactory.getLogger(DemoData.class);
@@ -65,60 +68,156 @@ public class DemoData {
     public static long startedInstances = 0;
     
     public NewApplication newApplication(boolean german) {
-      int birthYear = uniformBirthdate(16, 99).getYear();
-      String category = uniformFromArgs4(Categorys.BASISPAKET.displayName, Categorys.STANDARDPAKET.displayName, Categorys.PREMIUMPAKET.displayName, Categorys.BASISPAKET.displayName);
-      String employment = uniformFromArgs5(Employment.FEST_ANGESTELLT.displayName, Employment.FREELANCER.displayName, Employment.NICHT_ERWERBSTAETIG.displayName, Employment.SELBSTSTAENDIG.displayName, Employment.TEILZEIT.displayName);
+      NewApplication application = null;
+      
+      int rand = (int) (Math.random() * 10);
+      
+      if(rand < 3) {
+        application = yellow(german);
+      } else if (rand > 7) {
+        application = red(german);
+      } else {
+        application = green(german);
+      }
+
       boolean male = uniformBoolean();
       String gender = male ? (german ? "Mann" : "male") : (german ? "Frau" : "female");
+      
       String name = (male ? firstnameMale() : firstnameFemale()) + " " + (german ? surnameGerman() : surnameEnglish());
       String email = email(name, uniformFromArgs3("GoogleMail", "Hotmail", "Yahoo"));
       
-      NewApplication a = createNeuantrag(birthYear, 
-                      category,
-                      employment, name, email, gender);
+      application.getApplicant().setGender(gender);
+      application.getApplicant().setName(name);
+      application.getApplicant().setEmail(email);
+      
  
       startedInstances++;
       
       if(startedInstances % 100 == 0)
          LOGGER.info("Created " + new DecimalFormat("0000").format(startedInstances) + " Instances and progress: " + new DecimalFormat("000.##").format(SimulationExecutor.getProgress() * 100) + "!");
       
-      return a;
+      return application;
     }
+    
   }
 
   public static final String GENDER = "Mann";
   public static final String NAME = "Gentle Driver";
   public static final String EMAIL = "trashcan@camunda.org";
 
-  public static NewApplication green() {
-    return createNeuantrag(getBirthYear(0), Categorys.STANDARDPAKET.displayName, Employment.FEST_ANGESTELLT.displayName);
+  public static NewApplication green(boolean german) {
+    String category = Categorys.values()[german ? getRandom(0, 2) :  getRandom(3, 5)].displayName;
+    String employment = Employment.values()[german ? getRandom(1, 4) : getRandom(6, 8)].displayName;
+
+    int addedDecades = 10 * getRandom(1, 4);     
+    int endYear = getRandom(0, 3) == 3 ? 4 : getRandom(0, 1) == 0 ? getRandom(0, 4) : getRandom(8, 9);
+    
+    int birthYear = getBirthYear(0) - addedDecades - endYear;
+   
+    return createNeuantrag(birthYear, category, employment);
   }
 
-  public static NewApplication yellow() {
-    return createNeuantrag(getBirthYear(3), Categorys.PREMIUMPAKET.displayName, Employment.FREELANCER.displayName);
-  }
-
-  public static NewApplication red() {
-    return createNeuantrag(getBirthYear(5), Categorys.PREMIUMPAKET.displayName , Employment.NICHT_ERWERBSTAETIG.displayName);
+  public static NewApplication yellow(boolean german) {
+    NewApplication application = null;
+    
+    int rule = getRandom(0, 3);
+    
+    if(rule == 0) {
+      application = ruleYellowFirst(german);      
+    } else if (rule == 1) {
+      application = ruleYellowSecond(german);
+    } else if (rule == 2) {
+      application = ruleYellowThird(german);
+    } else {
+      application = ruleYellowSecondAndThird(german);
+    }
+    
+    return application;
   }
   
-  public static int getBirthYear(int endNumber) {
+  static NewApplication ruleYellowFirst(boolean german) {
+    String employment = german ? Employment.FEST_ANGESTELLT.displayName : Employment.SALARIED.displayName;
+    String category = german ? Categorys.PREMIUMPAKET.displayName : Categorys.PREMIUM_PACKAGE.displayName;
+    int birthYear = getBirthYear(5) - (10 * getRandom(1, 2));
+    return createNeuantrag(birthYear, category, employment);
+  }
+  
+  static NewApplication ruleYellowSecond(boolean german) {
+    String employment = Employment.FREELANCER.displayName;
+    String category = Categorys.values()[german ? getRandom(0, 2) :  getRandom(3, 5)].displayName;
+    int birthYear = getBirthYear(3);
+    return createNeuantrag(birthYear, category, employment);
+  }
+  
+  
+  static NewApplication ruleYellowThird(boolean german) {
+    String employment = german ? Employment.SELBSTSTAENDIG.displayName : Employment.SELF_EMPLOYED.displayName;
+    String category = german ? Categorys.PREMIUMPAKET.displayName : Categorys.PREMIUM_PACKAGE.displayName;
+    int birthYear = getBirthYear(0);
+    return createNeuantrag(birthYear, category, employment);
+  }
+  
+  
+  static NewApplication ruleYellowSecondAndThird(boolean german) {
+    String employment = german ? Employment.SELBSTSTAENDIG.displayName : Employment.SELF_EMPLOYED.displayName;
+    String category = german ? Categorys.PREMIUMPAKET.displayName : Categorys.PREMIUM_PACKAGE.displayName;
+    int birthYear = getBirthYear(3);    
+    return createNeuantrag(birthYear, category, employment);
+  }
+  
+
+  public static NewApplication red(boolean german) {    
+    int rule = getRandom(0, 1);
+    
+    NewApplication application = null;
+    
+    if(rule == 0) {
+      application = ruleRedFirst(german);
+    } else {
+      application = ruleRedSecond(german);
+    }
+    
+    return application;
+  }
+  
+  static NewApplication ruleRedFirst(boolean german) {
+    int rand = getRandom(0, 1);
+    
+    Categorys category = null;
+    if(rand == 0) {
+      category = german? Categorys.STANDARDPAKET : Categorys.STANDARD_PACKAGE;
+    } else {
+      category = german? Categorys.PREMIUMPAKET : Categorys.PREMIUM_PACKAGE;
+    }
+    
+    Employment employment = german ? Employment.NICHT_ERWERBSTAETIG : Employment.UNEMPLOYED;
+    int birthYear = getBirthYear(rand == 1 ? 3 : 5) - (getRandom(1, 4) * 10);
+    return createNeuantrag(birthYear, category.displayName, employment.displayName);
+  }
+  
+  static NewApplication ruleRedSecond(boolean german) {
+    String category = Categorys.values()[german ? getRandom(0, 1) :  getRandom(3, 4)].displayName;
+    String employment = Employment.values()[german ? getRandom(3, 4) : getRandom(7, 8)].displayName;
+    return createNeuantrag(getBirthYear(5), category, employment);
+  }
+  
+  static int getBirthYear(int endNumber) {
 	  int thisYear = LocalDate.now().getYear();
 	  int numberForCorrectEnding = - (20 + 10 - endNumber);
 	  int numberForEvenDigits = thisYear % 10 >= 5 ? (thisYear % 10) - 10 : (thisYear % 10);
 	  return LocalDate.now().plusYears(numberForCorrectEnding - numberForEvenDigits).getYear();
   }
 
-  public static Map<String, Object> createGreenInitVars() {
-    return createInitVars(green());
+  public static Map<String, Object> createGreenInitVars(boolean german) {
+    return createInitVars(green(german));
   }
 
-  public static Map<String, Object> createYellowInitVars() {
-    return createInitVars(yellow());
+  public static Map<String, Object> createYellowInitVars(boolean german) {
+    return createInitVars(yellow(german));
   }
 
-  public static Map<String, Object> createRedInitVars() {
-    return createInitVars(red());
+  public static Map<String, Object> createRedInitVars(boolean german) {
+    return createInitVars(red(german));
   }
 
   public static FileValue createDocument() {
@@ -134,9 +233,14 @@ public class DemoData {
         .putValue(ProcessConstants.VAR_NAME_applicantName, application.getApplicant().getName())//
     ;
   }
+  
+  private static int getRandom(int from, int inclusiveTo) {
+    return ((int) (Math.random() * (inclusiveTo - from + 1))) + from;
+  }
 
   enum Categorys {
-	  BASISPAKET("Basispaket"), STANDARDPAKET("Standard Paket"), PREMIUMPAKET("Premium Paket");
+	  BASISPAKET("Basispaket"), STANDARDPAKET("Standard Paket"), PREMIUMPAKET("Premium Paket"),
+	  BASIC_PACKAGE("Basic Package"), STANDARD_PACKAGE("Standard Package"), PREMIUM_PACKAGE("Premium Package");
 	  
 	  private String displayName;
 
@@ -148,7 +252,8 @@ public class DemoData {
   }
   
   enum Employment {
-	  NICHT_ERWERBSTAETIG("Nicht erwerbstätig"), FREELANCER("Freelancer"), SELBSTSTAENDIG("Selbstständig"), FEST_ANGESTELLT("Fest angestellt"), TEILZEIT("Teilzeit");
+	  NICHT_ERWERBSTAETIG("Nicht erwerbstätig"), FREELANCER("Freelancer"), SELBSTSTAENDIG("Selbstständig"), FEST_ANGESTELLT("Fest angestellt"), TEILZEIT("Teilzeit"),
+	  UNEMPLOYED("Unemployed"), SELF_EMPLOYED("Self-employed"), SALARIED("Salaried"), PART_TIME("Part-time");
 	  
 	  private String displayName;
 
@@ -183,30 +288,28 @@ public class DemoData {
     return createNeuantrag(birthYear, category, employment, NAME, EMAIL, GENDER);
   }
   
-  private static void generateDataInOldModel(ProcessEngine processEngine) {
-    //((ProcessEngineConfigurationImpl) engine.getProcessEngineConfiguration()).getJobExecutor().shutdown();
-
+  private void generateDataInOldModel(ProcessEngine processEngine) {
     // push one instance to the first user task
     ProcessInstance pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_en, "A-123",
-        DemoData.createYellowInitVars());
+        DemoData.createYellowInitVars(false));
     processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
-    pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_de, DemoData.createYellowInitVars());
+    
+    pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_de, DemoData.createYellowInitVars(true));
     processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
 
     // and the other one to the second
-    pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_en, "A-456", DemoData.createYellowInitVars());
+    pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_en, "A-456", DemoData.createYellowInitVars(false));
     processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
     Task decideOnApplication = processEngine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).active().singleResult();
     processEngine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
-    pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_de, DemoData.createYellowInitVars());
+    
+    pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_de, DemoData.createYellowInitVars(true));
     processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
     decideOnApplication = processEngine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).active().singleResult();
     processEngine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
-
-    //((ProcessEngineConfigurationImpl) engine.getProcessEngineConfiguration()).getJobExecutor().start();
   }
 
-  private static void setupUsersForDemo(ProcessEngine processEngine) {
+  private void setupUsersForDemo(ProcessEngine processEngine) {
     String myDe = createFilter(processEngine, "Persönlich", -10, "Meine persönlichen Aufgaben", //
         processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").followUpBeforeOrNotExistentExpression("${now()}"));
     String myEn = createFilter(processEngine, "Personal", -10, "My personal tasks", //
@@ -329,19 +432,26 @@ public class DemoData {
   }
   
 
-  public static void setupEnvironmentForDemo(ProcessEngine processEngine) {
+  public void setupEnvironmentForDemo(ProcessEngine processEngine) {
     // this should be done by camunda-util-license-installer-war - if we have
     // both, DB exceptions may occur
     // LicenseHelper.setLicense(engine);
-    deploymentService.deployStandardProcesses();
-    UserGenerator.createDefaultUsers(processEngine);
-    setupUsersForDemo(processEngine);
-    //if(noOldDataExists()) {
-    generateDataInOldModel(processEngine);
-    //}
+    if(!oldDataExists()) {
+      if(!oldDeploymentExists()) {
+        deploymentService.deployStandardProcesses();
+        UserGenerator.createDefaultUsers(processEngine);
+        setupUsersForDemo(processEngine);
+      }
+      generateDataInOldModel(processEngine);
+    }
+    LOGGER.info("Data for old instances generated.");
     deploymentService.deployCustomerOnboardCurrent();
     
-
+    runSimulationAndStopAfterwards();
+    
+  }  
+  
+  private void runSimulationAndStopAfterwards() {
     new Timer().schedule(new TimerTask() {
 
       @Override
@@ -372,11 +482,26 @@ public class DemoData {
         LOGGER.info("Redeployment finished");
       }
     }, 10_000);
-  }  
+  }
+  
+  private boolean oldDeploymentExists() {
+    return !processEngine.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("customer_onboarding_en").list().isEmpty();
+  }
+  
+  private boolean oldDataExists() {
+    boolean exists = false;
+    List<ProcessDefinition> processDefList = processEngine.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("customer_onboarding_en").list();
+    for(ProcessDefinition processDefiniton : processDefList) {
+      if(processDefiniton.getVersion() == 1) {
+        exists = !processEngine.getRuntimeService().createProcessInstanceQuery().processDefinitionKey(processDefiniton.getKey()).list().isEmpty();
+      }
+    }
+    return exists; 
+  }
   
   @EventListener
   public void notify(final ProcessApplicationStartedEvent processApplicationStartedEvent) {
-    DemoData.setupEnvironmentForDemo(processEngine);
+    setupEnvironmentForDemo(processEngine);
   }
   
 }
