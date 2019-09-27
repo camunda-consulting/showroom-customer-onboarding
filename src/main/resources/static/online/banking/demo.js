@@ -1,6 +1,20 @@
 $(document).ready(function() {
   var hidden = true;
   var stickyHelperContainerActive = false;
+  var lang = "en";
+
+  // fill fields from URL and remember language
+  (new URL(window.location.href)).searchParams.forEach((x, y) => {
+    if (y == "lang") {
+      lang = x;
+    }
+    var field = document.getElementById(y);
+    if (field) {
+      document.getElementById(y).value = x;
+    }
+  });
+
+  var isGerman = lang == 'de';
 
   var hide = (id) => {
     $('#' + id).attr('hidden', true);
@@ -86,21 +100,21 @@ $(document).ready(function() {
 
     var greenButtonClick = () => {
       $('#birthdate').val('1988-03-22');
-      $('#employment option[value=Freelancer]').attr('selected','selected');
+      $('#employment').val('Freelancer').change();
       $('#premiumButton').click();
       removeHelperButtons();
     }
 
     var yellowButtonClick = () => {
       $('#birthdate').val('1993-05-03');
-      $("#employment").val("Self-employed").change();
+      $("#employment").val(isGerman ? 'Selbstständig' : "Self-employed").change();
       $('#premiumButton').click();
       removeHelperButtons();
     }
 
     var redButtonClick = () => {
       $('#birthdate').val('1995-02-28');
-      $('#employment option[value=Unemployed]').attr('selected','selected');
+      $('#employment').val(isGerman ? 'Nicht erwerbstätig' : 'Unemployed').change();
       $('#standardButton').click();
       removeHelperButtons();
     }
