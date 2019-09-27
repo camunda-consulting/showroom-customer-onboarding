@@ -294,7 +294,7 @@
 	       	    "deletions" : []
 	       };
 
-		   $.ajax('/camunda/api/engine/engine/default/message/', {
+		   $.ajax('/camunda/rest/message', {
 		         data: JSON.stringify(data),
 		         contentType : 'application/json',
 		         type : 'POST',
