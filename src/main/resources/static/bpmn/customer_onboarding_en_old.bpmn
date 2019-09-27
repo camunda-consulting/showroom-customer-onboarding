@@ -186,7 +186,7 @@ Ihre Camundanzia.</camunda:script>
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{not approved}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_16" name="red&#10;(severe risk)" sourceRef="ExclusiveGatewayPruefung" targetRef="ServiceTask_RejectPolicy">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{riskLevel.contains('red')}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{riskLevel == 'red'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_13" name="" sourceRef="SendTask_SendRejection" targetRef="EndEvent_ApplicationRejected" />
     <bpmn2:sequenceFlow id="SequenceFlow_01vh1zw" sourceRef="ServiceTask_RejectPolicy" targetRef="SendTask_SendRejection" />

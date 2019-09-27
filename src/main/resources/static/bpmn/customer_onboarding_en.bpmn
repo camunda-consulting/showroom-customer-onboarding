@@ -228,7 +228,7 @@ if (typedDocument != null &amp;&amp; typedDocument.getValue() != null) {
     <bpmn2:sequenceFlow id="SequenceFlow_13" name="" sourceRef="SendTask_SendRejection" targetRef="EndEvent_ApplicationRejected" />
     <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="UserTask_AccelerateDecision" targetRef="EndEvent_DecisionAccelerated" />
     <bpmn2:sequenceFlow id="SequenceFlow_16" name="red &#10;(severe risk)" sourceRef="ExclusiveGatewayPruefung" targetRef="ServiceTask_RejectPolicy">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{riskLevel.contains('red')}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{riskLevel == 'red'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_3" name="yellow&#10;(moderate risk)&#10;" sourceRef="ExclusiveGatewayPruefung" targetRef="UserTask_DecideOnApplication">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">#{riskLevel == 'yellow'}</bpmn2:conditionExpression>
