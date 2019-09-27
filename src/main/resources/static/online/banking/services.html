@@ -16,6 +16,7 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="demo.css">
 
 </head>
 
@@ -50,6 +51,15 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div hidden id="stickyHelperButtonContainer" class="stickyHelper text-center w-100">
+          <div id="demoTextWrapper" class="h-100">
+            &nbsp;&nbsp;DEMO&nbsp;&nbsp;
+          </div>
+        </div>
+
+        <div hidden id="stickyHelperContainer" class="stickyHelper text-center w-100">
         </div>
 
         <!-- Navbar Area -->
@@ -140,7 +150,7 @@
                         <i class="icon-coin" style="width=60px;"></i>
                     </div>
                     <div class="text" style="">
-                      <h3 id="serviceAreaAccount" style="color:black;margin-bottom:2em;float:left;" class="text" data-i18n="service-area-account"></h3>
+                      <h3 id="serviceAreaAccount" style="color:black;margin-bottom:1.2em;float:left;" class="text" data-i18n="service-area-account"></h3>
                     </div>
                 </div>
             </div>
@@ -150,7 +160,7 @@
             <div class="container-fluid" style="clear: both;margin-bottom:3em;">
               <div class="row" style="text-align:center;">
                 <div class="col-sm-4 col-md-4 col-lg-4">
-                  <h4 data-i18n="category-onlyonline"></h4>
+                  <h4 data-i18n="category-onlyonline" style="margin-bottom:0em;"></h4>
                   <img src="img/laptop_8.jpg" alt="" style="margin-bottom:2em;">
                   <ul style="text-align:left;">
                     <li class="accListElem">❌<span data-i18n="category-any-cash"></span></li>
@@ -162,7 +172,7 @@
                   <button id="basicButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;" data-i18n="any-button-choose"></button>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4">
-                  <h4 data-i18n="category-active">${param.lang == 'de' ? 'Aktivkonto' : 'Active Account'}</h4>
+                  <h4 data-i18n="category-active"  style="margin-bottom:0em;"></h4>
                   <img src="img/bank_7.jpg" alt="" style="margin-bottom:2em;">
                   <ul style="text-align:left;">
                     <li class="accListElem">✅<span data-i18n="category-any-cash"></span></li>
@@ -173,7 +183,7 @@
                   <button id="standardButton" type="button" class="btn btn-primary" style="margin-top:1em;background:#003679;" data-i18n="any-button-choose"></button>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4">
-                  <h4 data-i18n="category-premium">${param.lang == 'de' ? 'Premium Konto' : 'Premium Account'}</h4>
+                  <h4 data-i18n="category-premium"  style="margin-bottom:0em;"></h4>
                   <img src="img/skyscraper_6.jpg" alt="" style="margin-bottom:2em;">
                   <ul style="text-align:left;">
                     <li class="accListElem">✅<span data-i18n="category-any-cash"></span></li>
@@ -436,6 +446,7 @@
     <script src="lang/de.js"></script>
     <script src="lang/en.js"></script>
     <script src="app.js"></script>
+    <script src="demo.js"></script>
 </body>
 
 </html>
