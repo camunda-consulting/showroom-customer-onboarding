@@ -363,7 +363,10 @@ public class DemoData {
       HashMap<String, String> prop2 = new HashMap<String, String>();
       prop2.put("name", "applicantName");
       prop2.put("label", "Name");
-      properties.put("variables", Arrays.asList(prop1, prop2));
+      HashMap<String, String> prop3 = new HashMap<String, String>();
+      prop3.put("name", "corporation");
+      prop3.put("label", "Firma");
+      properties.put("variables", Arrays.asList(prop1, prop2, prop3));
       filter.setProperties(properties);
       processEngine.getFilterService().saveFilter(filter);
     });
@@ -376,7 +379,10 @@ public class DemoData {
       HashMap<String, String> prop2 = new HashMap<String, String>();
       prop2.put("name", "applicantName");
       prop2.put("label", "Name");
-      properties.put("variables", Arrays.asList(prop1, prop2));
+      HashMap<String, String> prop3 = new HashMap<String, String>();
+      prop3.put("name", "corporation");
+      prop3.put("label", "Company");
+      properties.put("variables", Arrays.asList(prop1, prop2, prop3));
       filter.setProperties(properties);
       processEngine.getFilterService().saveFilter(filter);
     });

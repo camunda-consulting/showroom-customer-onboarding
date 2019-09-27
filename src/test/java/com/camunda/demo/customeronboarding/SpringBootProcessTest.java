@@ -18,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.camunda.consulting.simulator.SimulatorPlugin;
+
 @Deployment(resources = { "static/bpmn/customer_onboarding_en.bpmn", "static/bpmn/document_request_en.bpmn", "static/bpmn/risk_check_en.dmn", "static/bpmn/customer_onboarding_de.bpmn",
     "static/bpmn/document_request_de.bpmn", "static/bpmn/risk_check_de.dmn" })
 @SpringBootTest(webEnvironment=WebEnvironment.NONE)
@@ -28,7 +30,7 @@ public class SpringBootProcessTest {
   static final Logger logger = LoggerFactory.getLogger(SpringBootProcessTest.class);
 
   @MockBean
-  private StartConfiguration sim;
+  private SimulatorPlugin sim;
   @MockBean
   private DemoData demoData;
   
