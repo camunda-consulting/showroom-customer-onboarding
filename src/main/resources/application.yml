@@ -3,6 +3,14 @@ spring:
   url: 'jdbc:h2:~/testdb;DB_CLOSE_DELAY=-1;MVCC=TRUE'
   username: sa
   password: sa
+  
+cawemo:
+  enabled: 'false'
+  url: '${CAWEMO_URL}' 
+  apiKey: '${CAWEMO_API_KEY}'
+  orgId: '${CAWEMO_ORG_ID}'
+  authMode: 'BASIC'
+  projectName: 'Customer Onboarding'
  
 server:
   servlet:
