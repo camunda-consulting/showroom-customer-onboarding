@@ -468,7 +468,7 @@ public class DemoData {
         LOGGER.info("----                                                             ----");
         LOGGER.info("----                                                             ----");
         long begin = System.currentTimeMillis();
-        //SimulationExecutor.execute(DateTime.now().minusMonths(12).toDate(), DateTime.now().toDate());
+        SimulationExecutor.execute(DateTime.now().minusMonths(12).toDate(), DateTime.now().toDate());
         long end = System.currentTimeMillis();
         LOGGER.info("----                                                     ----");
         LOGGER.info("----                                                     ----");
@@ -483,7 +483,7 @@ public class DemoData {
         LOGGER.info("---- It took " + String.format("%02.1f", (end - begin) / 60_000d) + " minutes to start " + String.format("%05d", ContentGenerator.startedInstances)
             + " instances.       ----");
 //        SimulationExecutor.stopSimulation();
-        SimulatorPlugin.resetProcessEngineElements();
+        //SimulatorPlugin.resetProcessEngineElements();
         deploymentService.deployAllCurrent();
         LOGGER.info("Redeployment finished");
       }
