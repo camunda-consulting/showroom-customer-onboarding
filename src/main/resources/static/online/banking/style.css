@@ -2,12 +2,12 @@
 /* :: 1.0 Import Fonts */
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Open+Sans:300,400,600,700");
 /* :: 2.0 Import All CSS */
-@import url(css/bootstrap.min.css);
-@import url(css/classy-nav.css);
-@import url(css/owl.carousel.min.css);
-@import url(css/animate.css);
-@import url(css/font-awesome.min.css);
-@import url(css/credit-icon.css);
+@import url(../css/bootstrap/bootstrap.min.css);
+@import url(../css/stuff/classy-nav.css);
+@import url(../css/stuff/owl.carousel.min.css);
+@import url(../css/stuff/animate.css);
+@import url(../css/stuff/font-awesome.min.css);
+@import url(../css/stuff/credit-icon.css);
 /* :: 3.0 Base CSS */
 
 .langlink {}

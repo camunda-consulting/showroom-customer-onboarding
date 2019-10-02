@@ -1,3 +1,11 @@
+#stickyHelperButtonContainer {
+  width: inherit;
+}
+
+#stickyHelper {
+  width: inherit;
+}
+
 body {
     color: #767676;
 	background:#F1F2F7;
@@ -689,7 +697,7 @@ ol.commentlist, ol.commentlist li {
 }
 
 #horizontal-tabs ul.tabs li {
-    
+
     cursor: pointer;
     float: left;
     font-size: 15px;
@@ -789,7 +797,7 @@ ol.commentlist, ol.commentlist li {
 .author-content .avatar {
     float: left;
     margin: 0 20px 0 0;
-	
+
 }
 
 .avatar {
@@ -1072,7 +1080,7 @@ div.content-box.big div.content-box-info p {
 	border-width: 1px 1px 3px;
 	background: #fff;
 	border-color:transparent;
-	
+
 }
 
 
@@ -1302,9 +1310,9 @@ ul#filters {
 }
 
 .cn-content {
-    
+
 	overflow:hidden;
-	
+
 }
 
 .cn-content p {
@@ -1388,7 +1396,7 @@ a.prev.disabled,a.next.disabled {
 .our-clients .testimonial p, .our-clients .testimonials-arrow {
 	border: none;
 }
-	
+
 
 .testimonials-arrow {
     display: block;
@@ -1657,7 +1665,7 @@ footer .contact-us a {
 }
 
 blockquote {
-	
+
     border-left: 4px solid #E0E1E7;
 }
 
@@ -1672,7 +1680,7 @@ blockquote {
 
 /* Services */
 ul.why {
-	
+
 	list-style:none;
 	padding:0;
 	margin:0;
@@ -1732,7 +1740,7 @@ ul.why li:before {
 }
 
 .services-big img {
-	
+
 	width:100%;
 }
 
@@ -1772,7 +1780,7 @@ ul.why li:before {
 
 /* Form */
 
-input.form-control, textarea.form-control { 
+input.form-control, textarea.form-control {
 	border: solid 1px #CCC;
 	background: #fff !important;
 	box-shadow: none !important;
@@ -1784,8 +1792,8 @@ input.form-control, textarea.form-control {
 
 
 input:hover, textarea:hover,
-input:focus, textarea:focus { 
-	border-color: #C9C9C9; 
+input:focus, textarea:focus {
+	border-color: #C9C9C9;
 }
 
 
@@ -2268,7 +2276,7 @@ a.portfolio-item-link {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    
+
     top: 10px;
     left: 10px;
 }
@@ -2293,7 +2301,7 @@ a.portfolio-item-link {
 	height: 100%;
 	border-radius: 50%;
 	background-position: center center;
-	
+
 	-webkit-backface-visibility: hidden; /*Just for webkit to have a smooth font*/
 }
 
@@ -2314,7 +2322,7 @@ a.portfolio-item-link {
 	box-shadow: inset 0 0 3px rgba(0,0, 0, 0.2);
 	-moz-box-shadow: inset 0 0 3px rgba(0,0, 0, 0.2);
 	-webkit-box-shadow: inset 0 0 3px rgba(0,0, 0, 0.2);
-	
+
 	-webkit-transition: all 0.4s ease-in-out 0.2s;
 	-moz-transition: all 0.4s ease-in-out 0.2s;
 	-o-transition: all 0.4s ease-in-out 0.2s;
@@ -2329,7 +2337,7 @@ a.portfolio-item-link {
 	-o-transform: scale(0);
 	-ms-transform: scale(0);
 	transform: scale(0);
-} 
+}
 
 .ch-item:hover .ch-info-back {
 	-webkit-transform: scale(1);
@@ -2337,7 +2345,7 @@ a.portfolio-item-link {
 	-o-transform: scale(1);
 	-ms-transform: scale(1);
 	transform: scale(1);
-	
+
 	opacity: 1;
 	pointer-events: auto;
 }

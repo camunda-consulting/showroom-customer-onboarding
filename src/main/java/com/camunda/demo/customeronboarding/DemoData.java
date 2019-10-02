@@ -468,7 +468,7 @@ public class DemoData {
         LOGGER.info("----                                                             ----");
         LOGGER.info("----                                                             ----");
         long begin = System.currentTimeMillis();
-        SimulationExecutor.execute(DateTime.now().minusMonths(12).toDate(), DateTime.now().toDate());
+        //SimulationExecutor.execute(DateTime.now().minusMonths(12).toDate(), DateTime.now().toDate());
         long end = System.currentTimeMillis();
         LOGGER.info("----                                                     ----");
         LOGGER.info("----                                                     ----");
