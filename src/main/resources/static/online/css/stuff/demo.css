@@ -1,5 +1,18 @@
 #stickyHelperButtonContainer {
 	height: 6%;
+	width: 100%;
+}
+
+#stickyHelperContainer {
+	width: inherit;
+}
+
+#stickyHelper {
+	width: 100%;
+}
+
+#stickyHelperRow {
+	margin: auto;
 }
 
 .greenDiv {

@@ -1,20 +1,36 @@
+var hidden = true;
+var stickyHelperContainerActive = false;
+var lang = "en";
+
+// fill fields from URL and remember language
+(new URL(window.location.href)).searchParams.forEach((x, y) => {
+  if (y == "lang") {
+    lang = x;
+  }
+  var field = document.getElementById(y);
+  if (field) {
+    document.getElementById(y).value = x;
+  }
+});
+
+var isGerman = lang == 'de';
+
+
 $(document).ready(function() {
-  var hidden = true;
-  var stickyHelperContainerActive = false;
-  var lang = "en";
+  var addRootContainers = () => {
+    var demoButtonContainer = `<div hidden id="stickyHelperButtonContainer" class="stickyHelper text-center">
+                                <div id="demoTextWrapper" class="h-100">
+                                &nbsp;&nbsp;DEMO&nbsp;&nbsp;
+                                </div>
+                              </div>`;
 
-  // fill fields from URL and remember language
-  (new URL(window.location.href)).searchParams.forEach((x, y) => {
-    if (y == "lang") {
-      lang = x;
-    }
-    var field = document.getElementById(y);
-    if (field) {
-      document.getElementById(y).value = x;
-    }
-  });
+    var helperButtonsContainer = `<div hidden id="stickyHelperContainer" class="stickyHelper text-center w-100"></div>`;
 
-  var isGerman = lang == 'de';
+    $('body').append(demoButtonContainer);
+    $('body').append(helperButtonsContainer);
+  }
+
+  addRootContainers();
 
   var hide = (id) => {
     $('#' + id).attr('hidden', true);
@@ -43,8 +59,10 @@ $(document).ready(function() {
   }
 
   $(window).scroll(() => {
+    var serviceAreaHeight = $('#serviceArea').position();
     var height = $(window).scrollTop();
-    if(height > 235 && height < 730){
+    var bottom = $('#serviceArea').offset().top + $('#serviceArea').outerHeight(true) - window.innerHeight;
+    if((height >= serviceAreaHeight.top * 0.9 && height < bottom) || bottom < 0){
       showEnabledHelpers();
     } else {
       hideDisabledHelpers();
@@ -58,10 +76,10 @@ $(document).ready(function() {
   }
 
   var getStickyHelperContainerDiv = () => {
-    return `<div id="stickyHelper" class="stickyHelper w-100">
-      <div id="stickyHelperRow" class="row h-100 container-fluid text-center" style="display: inline-block;">
-      </div>
-    </div>`;
+    return `<div id="stickyHelper" class="stickyHelper">
+              <div id="stickyHelperRow" class="row h-100 container-fluid text-center justify-content-center">
+              </div>
+            </div>`;
   }
 
   var addStickyHelperContainer = () => {
@@ -92,7 +110,7 @@ $(document).ready(function() {
       addStickyHelperContainer();
 
       $('#stickyHelperButtonContainer').animate({bottom: '+=7%'}, 'slow');
-      $('.buttonContainer').animate({bottom: '+=110%'}, 'slow');
+      $('.buttonContainer').animate({bottom: '+=100%'}, 'slow');
     }
   });
 
@@ -122,7 +140,7 @@ $(document).ready(function() {
   var removeHelperButtons = () => {
     var div = $('#stickyHelperButtonContainer');
     div.animate({bottom: '-=7%'}, 'fast');
-    $('.buttonContainer').animate({bottom: '-=110%'}, 'fast', () => {
+    $('.buttonContainer').animate({bottom: '-=100%'}, 'fast', () => {
       $('#stickyHelper').remove();
       hide('stickyHelperContainer');
     });

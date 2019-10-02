@@ -13,20 +13,25 @@
 <!--       <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'> -->
 <!--       <link href='http://fonts.googleapis.com/css?family=Lato:400,300,400italic,700,300italic' rel='stylesheet' type='text/css'> -->
       <!-- Library CSS -->
-      <link rel="stylesheet" href="css/bootstrap.css">
-      <link rel="stylesheet" href="css/bootstrap-theme.css">
-      <link rel="stylesheet" href="css/fonts/font-awesome/css/font-awesome.css">
-      <link rel="stylesheet" href="css/animations.css" media="screen">
-      <link rel="stylesheet" href="css/superfish.css" media="screen">
-      <link rel="stylesheet" href="css/revolution-slider/css/settings.css" media="screen">
-      <link rel="stylesheet" href="css/prettyPhoto.css" media="screen">
+      <!-- Library CSS -->
+      <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+      <link rel="stylesheet" href="../css/bootstrap/bootstrap.css">
+      <link rel="stylesheet" href="../css/bootstrap/bootstrap-theme.css">
+      <link rel="stylesheet" href="../css/fonts/font-awesome/css/font-awesome.css">
+      <link rel="stylesheet" href="../css/stuff/animations.css" media="screen">
+      <link rel="stylesheet" href="../css/stuff/superfish.css" media="screen">
+      <link rel="stylesheet" href="../css/revolution-slider/css/settings.css" media="screen">
+      <link rel="stylesheet" href="../css/stuff/prettyPhoto.css" media="screen">
+
+
+
       <!-- Theme CSS -->
-      <link rel="stylesheet" href="css/style.css">
-      <link rel="stylesheet" href="css/global.css">
+      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="../css/stuff/global.css">
       <!-- Skin -->
-      <link rel="stylesheet" href="css/colors/blue.css" class="colors">
+      <link rel="stylesheet" href="../css/colors/blue.css" class="colors">
       <!-- Responsive CSS -->
-      <link rel="stylesheet" href="css/theme-responsive.css">
+      <link rel="stylesheet" href="../css/stuff/theme-responsive.css">
 
     <script src="camunda-bpm-sdk.js" ></script>
 <!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
@@ -103,7 +108,7 @@
                    <!-- Mobile Menu End -->
                    <!-- Menu Start -->
                    <nav class="collapse navbar-collapse menu">
-                      <ul class="nav navbar-nav sf-menu">
+                      <ul class="nav navbar-nav sf-menu" style="flex-direction: row;">
                          <li>
                             <a class="langlink" href="index.html">
                             Home
@@ -222,43 +227,41 @@
          </footer>
          <!-- Scroll To Top -->
          <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
-   </div>
-   <!-- Wrap End -->
+         </div>
+         <!-- Wrap End -->
+         <script src="../js/jquery/jquery-2.2.4.min.js"></script>
+         <!-- il18n -->
+       	<script src="../js/jquery/jquery.i18n.js"></script>
+       	<script src="../js/jquery/jquery.i18n.messagestore.js"></script>
+       	<script src="../js/jquery/jquery.i18n.fallbacks.js"></script>
+       	<script src="../js/jquery/jquery.i18n.parser.js"></script>
+       	<script src="../js/jquery/jquery.i18n.emitter.js"></script>
+       	<script src="../js/jquery/jquery.i18n.language.js"></script>
+         <script src="../js/jquery/jquery-migrate-1.2.1.min.js"></script>
+         <script src="../js/jquery/jquery.parallax.js"></script>
+         <script src="../js/jquery/jquery.wait.js"></script>
+         <script src="../js/jquery/jquery-ui.js"></script>
+         <script src="../js/jquery/jquery.nivo.slider.pack.js"></script>
+         <script src="../js/jquery/jquery.prettyPhoto.js"></script>
+         <script src="../js/jquery/jquery.gmap.min.js"></script>
+         <script src="../js/jquery/jquery.sticky.js"></script>
 
-      <script src="js/js/jquery.min.js"></script>
-      <!-- il18n -->
-      <script src="../js/jquery/jquery.i18n.js"></script>
-    	<script src="../js/jquery/jquery.i18n.messagestore.js"></script>
-    	<script src="../js/jquery/jquery.i18n.fallbacks.js"></script>
-    	<script src="../js/jquery/jquery.i18n.parser.js"></script>
-    	<script src="../js/jquery/jquery.i18n.emitter.js"></script>
-    	<script src="../js/jquery/jquery.i18n.language.js"></script>
 
-      <script src="js/js/jquery-migrate-1.2.1.min.js"></script>
-      <script src="js/js/jquery-ui.js"></script>
-      <script src="js/js/bootstrap.js"></script>
-      <script src="js/js/jquery.parallax.js"></script>
-      <script src="js/js/jquery.wait.js"></script>
-      <script src="js/js/modernizr-2.6.2.min.js"></script>
-      <script src="js/js/modernizr.custom.js"></script>
-      <script src="js/js/revolution-slider/js/jquery.themepunch.tools.min.js"></script>
-      <script src="js/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
-      <script src="js/js/jquery.nivo.slider.pack.js"></script>
-      <script src="js/js/jquery.prettyPhoto.js"></script>
-      <script src="js/js/superfish.js"></script>
-      <script src="js/js/tweetMachine.js"></script>
-      <script src="js/js/tytabs.js"></script>
-      <script src="js/js/jquery.gmap.min.js"></script>
-      <script src="js/js/circularnav.js"></script>
-      <script src="js/js/jquery.sticky.js"></script>
-      <script src="js/js/jflickrfeed.js"></script>
-      <script src="js/js/imagesloaded.pkgd.min.js"></script>
-      <script src="js/js/waypoints.min.js"></script>
-      <!-- <script src="http://maps.google.com/maps/api/js?sensor=false"></script> -->
-      <script src="js/js/jquery.gmap.min.js"></script>
-      <script src="js/js/custom.js"></script>
-      <script src="lang/de.js"></script>
-      <script src="lang/en.js"></script>
-      <script src="app.js" ></script>
+         <script src="../js/bootstrap/bootstrap.js"></script>
+         <script src="../js/modernizr-2.6.2.min.js"></script>
+         <script src="../js/modernizr.custom.js"></script>
+         <script src="../js/revolution-slider/js/jquery.themepunch.tools.min.js"></script>
+         <script src="../js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
+         <script src="../js/superfish.js"></script>
+         <script src="../js/tweetMachine.js"></script>
+         <script src="../js/tytabs.js"></script>
+         <script src="../js/circularnav.js"></script>
+         <script src="../js/jflickrfeed.js"></script>
+         <script src="../js/imagesloaded.pkgd.min.js"></script>
+         <script src="../js/waypoints.min.js"></script>
+         <script src="../js/custom.js"></script>
+         <script src="lang/de.js"></script>
+         <script src="lang/en.js"></script>
+         <script src="app.js" ></script>
    </body>
 </html>
