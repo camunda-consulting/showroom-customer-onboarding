@@ -1,0 +1,16 @@
+{
+  "name": "camunda_node_worker",
+  "version": "1.0.0",
+  "description": "Node.js external task worker on Docker",
+  "author": "Felix Anhalt <felix.anhalt@camunda.com>",
+  "main": "external-worker.js",
+  "scripts": {
+    "start": "node external-worker.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1",
+    "camunda-external-task-client-js": "1.1.1",
+    "@microsoft/microsoft-graph-client": "1.7.0",
+    "request": "2.88.0"
+  }
+}
