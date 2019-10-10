@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Stream;
@@ -272,6 +273,7 @@ public class DemoData {
     Calendar cal = Calendar.getInstance();
     cal.set(Calendar.YEAR, birthYear);
 
+    String corporation = getRandom(0, 2) == 1 ? "Camunbankia" : (getRandom(0, 1) == 0 ? "Camuntelia" : "Camundanzia");
     newApplication.getApplicant().setBirthday(cal.getTime());
     newApplication.getApplicant().setName(name);
     newApplication.getApplicant().setEmail(email);
