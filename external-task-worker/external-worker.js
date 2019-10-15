@@ -79,4 +79,4 @@ var emailServicehandler = async (task, taskService) => {
 setTimeout(() => {
   client.start();
   client.subscribe("emailService", async ({task, taskService}) => emailServicehandler(task, taskService));
-}, 1 * second);
+}, 300 * second);
