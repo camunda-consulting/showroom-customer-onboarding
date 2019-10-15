@@ -281,7 +281,7 @@ public class DemoData {
     newApplication.setCategory(category);
     newApplication.setEmployment(employment);
     newApplication.setPriceIndicationInCent(32000);
-    newApplication.setCorporation("Camunbankia");
+    newApplication.setCorporation(corporation);
     newApplication.setProduct("super cool product");
     return newApplication;
   }
