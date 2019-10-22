@@ -10,10 +10,7 @@ import org.springframework.context.ApplicationContext;
 @SpringBootApplication
 @EnableProcessApplication("customer-onboarding")
 public class CustomerOnboardingProcessApplication {
-  
-  @Autowired
-  ApplicationContext ctx;
-  
+
   public static void main(String[] args) {
     SpringApplication.run(CustomerOnboardingProcessApplication.class, args);
   }

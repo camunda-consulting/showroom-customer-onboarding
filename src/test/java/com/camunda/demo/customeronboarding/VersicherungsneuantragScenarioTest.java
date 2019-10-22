@@ -5,8 +5,6 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.history
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.runtimeService;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.withVariables;
 import static org.camunda.spin.Spin.JSON;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -15,7 +13,6 @@ import static org.mockito.Mockito.when;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.mail.EmailException;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.scenario.ProcessScenario;
 import org.camunda.bpm.scenario.Scenario;
@@ -60,7 +57,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testAutomaticNoRisk(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testAutomaticNoRisk(String whatever) throws EmailException {
+  protected void testAutomaticNoRisk(String whatever) {
     Scenario.run(customerOnboarding) //
         .startByKey(whatever, DemoData.createGreenInitVars(isGerman(whatever))).execute();
 
@@ -79,7 +76,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testAutomaticHighRisk(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testAutomaticHighRisk(String sldkfhsdf) throws EmailException {
+  protected void testAutomaticHighRisk(String sldkfhsdf) {
     Scenario.run(customerOnboarding) //
         .startByKey(sldkfhsdf, DemoData.createRedInitVars(isGerman(sldkfhsdf))).execute();
 
@@ -98,7 +95,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualImmediateApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualImmediateApprove(String lskdfhdksf) throws EmailException {
+  protected void testManualImmediateApprove(String lskdfhdksf) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication")).thenReturn(task -> task.complete(withVariables("approved", true)));
 
     Scenario.run(customerOnboarding) //
@@ -143,7 +140,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualRequestDocumentThenApprove(String sadkjfh) throws EmailException {
+  protected void testManualRequestDocumentThenApprove(String sadkjfh) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> {
@@ -187,7 +184,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualRequestTwoDocumentsThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualRequestTwoDocumentsThenApprove(String askdjfhdsf) throws EmailException {
+  protected void testManualRequestTwoDocumentsThenApprove(String askdjfhdsf) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> {
@@ -240,7 +237,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualRequestDocumentLittleLateCustomerThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualRequestDocumentLittleLateCustomerThenApprove(String askdjfhdaskjfh) throws EmailException {
+  protected void testManualRequestDocumentLittleLateCustomerThenApprove(String askdjfhdaskjfh) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentRequested, new HashMap<>(),
@@ -281,7 +278,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualRequestDocumentVeryLateCustomerThenReject(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualRequestDocumentVeryLateCustomerThenReject(String ajsdfhdaskfhdasf) throws EmailException {
+  protected void testManualRequestDocumentVeryLateCustomerThenReject(String ajsdfhdaskfhdasf) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentRequested, new HashMap<>(),

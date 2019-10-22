@@ -5,8 +5,8 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.ini
 import org.camunda.bpm.application.AbstractProcessApplication;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.test.Deployment;
+import org.camunda.bpm.spring.boot.starter.rest.CamundaBpmRestInitializer;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -33,6 +33,8 @@ public class SpringBootProcessTest {
   private SimulatorPlugin sim;
   @MockBean
   private DemoData demoData;
+  @MockBean
+  CamundaBpmRestInitializer restInitlzr;
   
   @Autowired
   private ProcessEngine processEngine;
