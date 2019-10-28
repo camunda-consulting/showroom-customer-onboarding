@@ -485,7 +485,7 @@ public class DemoData {
         LOGGER.info("---- It took " + String.format("%02.1f", (end - begin) / 60_000d) + " minutes to start " + String.format("%05d", ContentGenerator.startedInstances)
             + " instances.       ----");
 //        SimulationExecutor.stopSimulation();
-        //SimulatorPlugin.resetProcessEngineElements();
+        SimulatorPlugin.resetProcessEngine();
         deploymentService.deployAllCurrent();
         LOGGER.info("Redeployment finished");
       }
