@@ -1,18 +1,20 @@
-FROM docker.consulting.camunda.com/customized-wildfly
-
-# remove default example
-RUN rm -rf /camunda/standalone/deployments/camunda-example-invoice-*.war
-#ADD ~/.camunda/ /root/
-
-# add showcase
-ADD target/camunda-showcase-insurance-application.war /camunda/standalone/deployments/
-
-# increase default session timeout to 8h and deployment timeout to 15min
-RUN /camunda/bin/jboss-cli.sh --commands="embed-server, \
-	/subsystem=undertow/servlet-container=default:write-attribute(name=default-session-timeout, value=480), \
-	/system-property=jboss.as.management.blocking.timeout:add(value=900), \
-	/subsystem=deployment-scanner/scanner=default:write-attribute(name=deployment-timeout,value=900)"
-
-EXPOSE 8787
-
-CMD ["/camunda/bin/standalone.sh","-b","0.0.0.0","-bmanagement","0.0.0.0","--debug"]
+#base java 8
+FROM openjdk:8-jdk-alpine
+#timezone
+RUN apk add tzdata
+RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+ENV TZ="Europe/Berlin"
+#define vol
+VOLUME /tmp
+#copy to new jar
+COPY target/camunda-showcase-customer-onboarding.jar camunda-showcase-customer-onboarding.jar
+ENV JAVA_OPTS="" \
+DOCKER_JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0" \
+LANG=en_US.utf8
+#Entry with exec
+ENTRYPOINT exec java ${JAVA_OPTS} ${DOCKER_JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /camunda-showcase-customer-onboarding.jar
+#define usergroup with just few to none permissions and add this
+RUN addgroup -S app && \
+   adduser -S -g app app && \
+   chown app:app /${DEPLOYMENT_ARTIFACT}
+USER app

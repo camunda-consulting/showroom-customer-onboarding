@@ -1,0 +1,13 @@
+camunda.bpm:
+ job-execution.enabled: false
+ 
+spring:
+ datasource:
+  url: 'jdbc:h2:mem:camunda-db;DB_CLOSE_DELAY=-1;MVCC=TRUE'
+  username: sa
+  password: sa
+  driverClassName: 'org.h2.Driver'
+  
+server:
+  servlet:
+    context-path: /camunda

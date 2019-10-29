@@ -1,0 +1,67 @@
+<html>
+<head>
+
+</head>
+<body bgcolor="#fffffc">
+
+  <!-- ##### Header Area Start ##### -->
+  <header  >
+      <!-- Top Header Area -->
+      <div  >
+          <div >
+              <div class="row h-100 align-items-center">
+                  <div class="col-12 d-flex justify-content-between">
+                      <!-- Logo Area -->
+                      <div class="logo" >
+                        <img src="landing/imgs/camunda-logo_25.png" alt="">
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Navbar Area -->
+      <div class="credit-main-menu" id="sticker">
+          <div class="classy-nav-container breakpoint-off">
+              <div class="container">
+                  <!-- Menu -->
+                  <nav class="classy-navbar justify-content-between" id="creditNav">
+
+
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+  <!-- ##### Header Area End ##### -->
+  <div style="overflow:hidden;margin-top:5em;">
+   <div style="float:left;padding-left:16em;">
+      <span><h1>Insurance Showcase</h1></span><br>
+      <a id="insuranceHref" href="insurance/application.html?lang=en" ><img src="landing/imgs/insurance_showcase_preview_50.png" style="border:solid black 1px;"></a>
+   </div>
+
+   <div style="overflow:hidden;padding-left:10em;">
+     <span><h1>Banking Showcase</h1></span><br>
+     <a id="bankingHref" href="banking/index.html?lang=en" ><img src="landing/imgs/banking_showcase_preview_50.png" style="border:solid black 1px;"></a>
+   </div>
+  </div>
+
+  <div style="margin-top:5em;">
+    Current language:<button id="langbutton" >english</button>
+  </div>
+
+  <script src="js/js/jquery.min.js"></script>
+
+  <script>
+      $("#langbutton").click(function(){
+        var lang = $(this).html() === "german" ? 'en' : 'de';
+        $(this).html(lang === 'en' ? 'english' : 'german');
+        $("#insuranceHref").attr("href", "insurance/application.html?lang=" + lang);
+        $("#bankingHref").attr("href", "banking/index.html?lang=" + lang);
+      });
+  </script>
+
+</body>
+
+</html>

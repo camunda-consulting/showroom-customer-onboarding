@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.camunda.consulting.showcase</groupId>
-	<artifactId>camunda-showcase-insurance-application</artifactId>
+	<artifactId>camunda-showcase-customer-onboarding</artifactId>
 	<version>7.8.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<parent>
 		<groupId>org.camunda</groupId>
@@ -16,26 +16,22 @@
 	</parent>
 
 	<properties>
-		<camunda.version>7.8.0</camunda.version>
-		<powermock.version>1.7.3</powermock.version>
+		<camunda.version>7.11.1-ee</camunda.version>
+		<camundaSpringBoot.version>3.3.5</camundaSpringBoot.version>
+		<springBoot.version>2.1.9.RELEASE</springBoot.version>
 
 		<version.java>1.8</version.java>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 
-		<spring-boot.version>1.3.7.RELEASE</spring-boot.version>
-		<camunda.spring.starter.version>1.3.0</camunda.spring.starter.version>
-
 		<!-- camunda and spring use different properties ... -->
 		<java.version>${version.java}</java.version>
 
-		<start-class>com.camunda.demo.insuranceapplication.springboot.SpringBootStarterApplication</start-class>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<!-- Import dependency management from camunda -->
 				<groupId>org.camunda.bpm</groupId>
 				<artifactId>camunda-bom</artifactId>
 				<version>${camunda.version}</version>
@@ -43,125 +39,80 @@
 				<type>pom</type>
 			</dependency>
 			<dependency>
-				<!-- Import dependency management from Spring Boot -->
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
+				<groupId>org.camunda.bpm.dmn</groupId>
+				<artifactId>camunda-engine-dmn-bom</artifactId>
+				<version>${camunda.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.camunda.bpm.webapp</groupId>
-				<artifactId>camunda-webapp-webjar</artifactId>
-				<version>${camunda.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.camunda.bpm.webapp</groupId>
-				<artifactId>camunda-webapp</artifactId>
-				<classifier>classes</classifier>
-				<version>${camunda.version}</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${springBoot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
-	<dependencies>
+	<dependencies>	
+	
 		<dependency>
-			<!-- process engine, needs to be provided -->
-			<groupId>org.camunda.bpm</groupId>
-			<artifactId>camunda-engine</artifactId>
-			<scope>provided</scope>
+			<groupId>org.camunda.bpm.springboot</groupId>
+			<artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
+			<version>${camundaSpringBoot.version}</version>
 		</dependency>
+ 
 		<dependency>
-			<groupId>org.camunda.bpm.dmn</groupId>
-			<artifactId>camunda-engine-dmn</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<!-- only needed for debugging -->
-			<groupId>org.camunda.bpm</groupId>
-			<artifactId>camunda-engine-rest</artifactId>
-			<classifier>classes</classifier>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.camunda.bpm.extension</groupId>
-			<artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
-			<version>${camunda.spring.starter.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.camunda.bpm.extension</groupId>
+			<groupId>org.camunda.bpm.springboot</groupId>
 			<artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
-			<version>${camunda.spring.starter.version}</version>
-			<scope>provided</scope>
+			<version>${camundaSpringBoot.version}</version>
 		</dependency>
-
+		
+		<dependency>
+		    <groupId>org.camunda.bpm.springboot</groupId>
+		    <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
+		    <version>${camundaSpringBoot.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		
 		<dependency>
 			<groupId>com.camunda.consulting.util</groupId>
 			<artifactId>camunda-util-demo-support</artifactId>
 			<version>0.4.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.camunda.consulting.util</groupId>
-			<artifactId>camunda-util-demo-data-generator</artifactId>
-			<version>0.5.3</version>
+		  <groupId>com.camunda.consulting</groupId>
+		  <artifactId>camunda-bpm-simulator</artifactId>
+		  <version>1.3.0</version>
 		</dependency>
-
+		
 		<dependency>
-			<!-- Camunda BPM Assert -->
-			<groupId>org.camunda.bpm.extension</groupId>
-			<artifactId>camunda-bpm-assert</artifactId>
-			<version>2.0-alpha2</version>
-			<scope>test</scope>
-		</dependency>
+	      <groupId>org.camunda.bpm.extension</groupId>
+	      <artifactId>camunda-bpm-assert-scenario</artifactId>
+	      <version>0.2</version>
+	      <scope>test</scope>
+	    </dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
 		<dependency>
-			<!-- Camunda BPM Assert Scenario -->
-			<groupId>org.camunda.bpm.extension</groupId>
-			<artifactId>camunda-bpm-assert-scenario</artifactId>
-			<version>0.2</version>
-			<scope>test</scope>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>2.28.2</version>
+		    <scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
 
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4-rule</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-classloading-xstream</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- Required to use Spin dataformat support in unit tests -->
+		<!-- Required to use Spin dataformat support -->
 		<dependency>
 			<groupId>org.camunda.spin</groupId>
 			<artifactId>camunda-spin-dataformat-all</artifactId>
-			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.camunda.bpm</groupId>
 			<artifactId>camunda-engine-plugin-spin</artifactId>
-			<scope>provided</scope>
 		</dependency>
 
 
@@ -169,7 +120,6 @@
 		<dependency>
 			<groupId>org.camunda.template-engines</groupId>
 			<artifactId>camunda-template-engines-freemarker</artifactId>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -185,37 +135,23 @@
 			<version>2.1.0-2</version>
 		</dependency>
 
-
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+		<dependency> 
+			<groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-starter-jdbc</artifactId> 
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 		<dependency>
-			<!-- Needed for InMemoryH2Test -->
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>provided</scope>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
 		</dependency>
-
+		
 		<dependency>
-			<!-- Used to generate test coverage reports, see https://github.com/camunda/camunda-consulting/tree/master/snippets/camunda-bpm-process-test-coverage -->
-			<groupId>org.camunda.bpm.extension</groupId>
-			<artifactId>camunda-bpm-process-test-coverage</artifactId>
-			<version>0.3.1</version>
-			<scope>test</scope>
+		  <groupId>org.camunda.bpm</groupId>
+		  <artifactId>cawemo-engine-plugin</artifactId>
+		  <version>1.0.0</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-email</artifactId>
-			<version>1.3.3</version>
-		</dependency>
-
-		<!-- Add your own dependencies here, if in compile scope, they are added 
-			to the war -->
+		
 	</dependencies>
 
 	<repositories>
@@ -233,6 +169,7 @@
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
+
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/webapp</directory>
@@ -247,110 +184,32 @@
 				</includes>
 			</resource>
 		</resources>
+
 		<plugins>
-			<plugin>
+			<plugin>	
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${springBoot.version}</version>
 				<configuration>
-					<mainClass>${start-class}</mainClass>
-					<layout>ZIP</layout>
+					<mainClass>com.camunda.demo.customeronboarding.CustomerOnboardingProcessApplication</mainClass>
 				</configuration>
 				<executions>
 					<execution>
 						<goals>
 							<goal>repackage</goal>
 						</goals>
-						<configuration>
-							<classifier>exec</classifier>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<!-- Usage: mvn jboss-as:deploy See also: https://docs.jboss.org/jbossas/7/plugins/maven/latest/examples/deployment-example.html -->
-				<groupId>org.jboss.as.plugins</groupId>
-				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>7.6.Final</version>
-			</plugin>
-			<plugin>
-				<!-- Usage: mvn wildfly:deploy See also: https://docs.jboss.org/wildfly/plugins/maven/latest/examples/deployment-example.html -->
-				<groupId>org.wildfly.plugins</groupId>
-				<artifactId>wildfly-maven-plugin</artifactId>
-				<version>1.0.2.Final</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<webResources combine.children="append">
-						<resource>
-							<directory>src/main/webapp</directory>
-							<filtering>true</filtering>
-							<includes>
-								<include>**/*.js</include>
-								<!-- include any other file types you want to filter -->
-							</includes>
-						</resource>
-					</webResources>
-				</configuration>
-			</plugin>
+
+<!--  
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.20.1</version>
-				<configuration>
-					<excludes>
-						<exclude>**/TestSuite.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-
+				<version>2.22.0</version>
+			</plugin>-->
+		</plugins>	
 	</build>
-
-	<profiles>
-		<profile>
-			<id>tomcat</id>
-			<!-- <activation> <activeByDefault>true</activeByDefault> </activation> -->
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.resteasy</groupId>
-					<artifactId>resteasy-jaxrs</artifactId>
-					<version>2.3.5.Final</version>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.resteasy</groupId>
-					<artifactId>resteasy-jackson-provider</artifactId>
-					<version>2.3.5.Final</version>
-				</dependency>
-				<!-- <dependency> <groupId>org.jboss.resteasy</groupId> <artifactId>resteasy-servlet-initializer</artifactId> 
-					<version>3.0.11.Final</version> </dependency> https://raw.githubusercontent.com/resteasy/Resteasy/master/jaxrs/resteasy-servlet-initializer/src/main/java/org/jboss/resteasy/plugins/servlet/ResteasyServletInitializer.java -->
-				<!-- Java EE 6 APIs - not use javax ones because of Arquillian problems 
-					(https://developer.jboss.org/wiki/WhatsTheCauseOfThisExceptionJavalangClassFormatErrorAbsentCode 
-					) <dependency> <groupId>org.jboss.spec</groupId> <artifactId>jboss-javaee-6.0</artifactId> 
-					<version>1.0.0.Final</version> <type>pom</type> </dependency> <dependency> 
-					<groupId>javax.ws.rs</groupId> <artifactId>javax.ws.rs-api</artifactId> <version>2.0</version> 
-					</dependency> -->
-			</dependencies>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.1.1</version>
-						<configuration>
-							<webResources>
-								<resource>
-									<directory>src/main/webapp-tomcat</directory>
-								</resource>
-							</webResources>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-
 
 	<licenses>
 		<license>
@@ -358,11 +217,11 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-
+<!--
 	<scm>
-		<url>https://github.com/camunda-consulting/camunda-showcase-insurance-application</url>
-		<connection>scm:git:git@github.com:camunda-consulting/camunda-showcase-insurance-application.git</connection>
-		<developerConnection>scm:git:git@github.com:camunda-consulting/camunda-showcase-insurance-application.git</developerConnection>
+		<url>https://github.com/camunda-consulting/camunda-showcase-customer-onboarding</url>
+		<connection>scm:git:git@github.com:camunda-consulting/camunda-showcase-customer-onboarding.git</connection>
+		<developerConnection>scm:git:git@github.com:camunda-consulting/camunda-showcase-customer-onboarding.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -375,6 +234,7 @@
 			<id>camunda-nexus</id>
 			<url>https://app.camunda.com/nexus/content/repositories/camunda-consulting/</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement>-->
+	
 
 </project>
