@@ -1,41 +1,57 @@
 # Camunda showcase "Insurance Application" / "Versicherungsneuantrag"
 
 # What it does
+This demo showcases a simplified insurance or bank account application process using the Camunda platform for workflow and decision automation.
 
-This demo showcases a simplified insurance application using the Camunda platform for workflow and decision automation. There is an English and a German version available.
+The project includes a simple self-contained, custom-made web frontend, which can be used to submit applications.
+After deploymnet the web pages are available under:
 
-To simulate customers there is a very simple self-contained, custom-made HTML page to hand in applications available after deployment:
+* English: http://localhost:8080/camunda/online/index.html?lang=en
+* German: http://localhost:8080/camunda/online/index.html?lang=de
 
-* In English: http://localhost:8080/camunda-showcase-customer-onboarding/online/index.html?lang=en
-* In German: http://localhost:8080/camunda-showcase-customer-onboarding/online/index.html?lang=de
+On the landing page an insurance or banking frontend and the language can be selected.
 
 ![Insurance homepage](docs/application.png)
+Insurance application
 
-This homepage calls a simple REST API, which kicks of a new workflow instance (in BPMN):
+![Banking homepage](docs/application_banking.png)
+Bank account application
+
+The frontends start instances of the follwoing (BPMN) process via a simple REST API:
 
 ![Workflow model](docs/workflow.png)
+(src/main/resources/static/bpmn/customer_onboarding_en.bpmn)
 
-The workflow first executed an automated decision (in DMN) if the application needs manual assesment or can be applied or rejected completly manually:
+The workflow first executes an automated decision (in DMN), determining if the application requires a manual assessment or can be process automatically:
 
 ![Decision model](docs/decision.png)
+(src/main/resources/static/bpmn/risk_check_en.dmn)
 
+
+The camunda web applications will be accessible under http://localhost:8080/camunda
+
+The user/password demo/demo can be used to login.
+ 
 
 # Architecture
+The showcase uses Spring Boot and the Camunda Spring boot starters. 
+https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration
 
-The showcase uses the [container-managed engine](https://docs.camunda.org/manual/latest/introduction/architecture/#shared-container-managed-process-engine). It cannot run on Tomcat in this case but needs a Java EE container because of the [custom REST API developed using JAX-RS](src/main/java/com/camunda/demo/customeronboarding/facade/AntragOnlineFacade.java). We tested on WildFly. 
-
-In order to deploy the workflow and decision model you can simply create a normal Java project creating a web application (WAR). Just include the workflow and decision models into that WAR and the container-managed engine will pick it up automatically.
-
-![Insurance homepage](docs/war-layout.png)
+Spring web is used for the REST services defined in *ApplicationOnlineFacade*
 
 
+![Insurance homepage](docs/projectLayout.png)
 
-# How to deploy and run this showcase
 
-4. Download sources (or use git clone) and build yourself via Maven. Deploy it on the Java EE container of your choice, we tested on WildFly. Note that Tomcat will not be sufficient as we used JAX-RS. 
+# How to build and run
+1. clone project or download sources
+2. build via Maven (*mvn clean package*)
+3. run via Spring boot (*mvn spring-boot:run*) 
 
-1. Play online in the [Showroom](http://showroom.camunda.com/) without installing anything yourself. The showroom is password protected and only accessible for Camunda partners.
+During startup the showcase **will generate test data**. This can take a few minutes.
+You can already use the application during this time.
+To start with a fresh database delete /camunda-db.mv.db and /camunda-db.trace.db.
 
-2. Download WAR file to deploy on a standard Camunda distribution: [WildFly](https://app.camunda.com/nexus/content/groups/public/com/camunda/consulting/showcase/camunda-showcase-customer-onboarding/7.7.0-SNAPSHOT/)
+Alternatively you can play online in the [Showroom](http://showroom.camunda.com/) without installing anything locally. The showroom is password protected and only accessible for camunda partners.
 
 
