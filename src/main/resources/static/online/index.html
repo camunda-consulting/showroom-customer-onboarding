@@ -1,6 +1,6 @@
 <html>
 <head>
-
+<link rel="stylesheet" href="css/bootstrap/bootstrap.css">
 </head>
 <body bgcolor="#fffffc">
 
@@ -34,24 +34,30 @@
           </div>
       </div>
   </header>
-  <!-- ##### Header Area End ##### -->
-  <div style="overflow:hidden;margin-top:5em;">
-   <div style="float:left;padding-left:16em;">
-      <span><h1>Insurance Showcase</h1></span><br>
-      <a id="insuranceHref" href="insurance/application.html?lang=en" ><img src="landing/imgs/insurance_showcase_preview_50.png" style="border:solid black 1px;"></a>
-   </div>
+  <div class="mx-1">
+    <div class="row w-100">
+     <div class="col-4 col-sm-4 col-lg-4 col-md-4" >
+        <span><h1>Insurance Showcase</h1></span><br>
+        <a id="insuranceHref" href="insurance/application.html?lang=en" ><img src="landing/imgs/insurance_showcase_preview_50.png" style="border:solid black 1px;"></a>
+     </div>
 
-   <div style="overflow:hidden;padding-left:10em;">
-     <span><h1>Banking Showcase</h1></span><br>
-     <a id="bankingHref" href="banking/index.html?lang=en" ><img src="landing/imgs/banking_showcase_preview_50.png" style="border:solid black 1px;"></a>
-   </div>
+     <div class="col-4 col-sm-4 col-lg-4 col-md-4" >
+       <span><h1>Banking Showcase</h1></span><br>
+       <a id="bankingHref" href="banking/index.html?lang=en" ><img src="landing/imgs/banking_showcase_preview_50.png" style="border:solid black 1px;"></a>
+     </div>
+
+     <div class="col-4 col-sm-4 col-lg-4 col-md-4" >
+       <span><h1>Telco Showcase</h1></span><br>
+       <a id="telcoHref" href="telco/index.html?lang=en" ><img src="landing/imgs/telco-50.jpg" style="border:solid black 1px;"></a>
+     </div>
+    </div>
   </div>
 
   <div style="margin-top:5em;">
     Current language:<button id="langbutton" >english</button>
   </div>
 
-  <script src="js/js/jquery.min.js"></script>
+  <script src="js/jquery/jquery.min.js"></script>
 
   <script>
       $("#langbutton").click(function(){
@@ -59,9 +65,11 @@
         $(this).html(lang === 'en' ? 'english' : 'german');
         $("#insuranceHref").attr("href", "insurance/application.html?lang=" + lang);
         $("#bankingHref").attr("href", "banking/index.html?lang=" + lang);
+        $("#telcoHref").attr("href", "telco/index.html?lang=" + lang);
       });
   </script>
 
+<script src="js/bootstrap/bootstrap.min.js"></script>
 </body>
 
 </html>
