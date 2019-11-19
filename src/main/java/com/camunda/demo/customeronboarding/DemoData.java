@@ -14,8 +14,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Stream;
@@ -36,6 +34,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -44,12 +43,14 @@ import com.camunda.consulting.simulator.SimulationExecutor;
 import com.camunda.consulting.simulator.SimulatorPlugin;
 import com.camunda.consulting.util.FilterGenerator;
 import com.camunda.consulting.util.UserGenerator;
-import com.camunda.demo.customeronboarding.DemoData.ContentGenerator;
 import com.camunda.demo.customeronboarding.model.NewApplication;
 import com.camunda.demo.customeronboarding.model.Person;
 
 @Component
 public class DemoData {
+  
+  @Value("${englishonly}") 
+  private boolean englishOnly;
   
   private ProcessEngine processEngine;
   private DeploymentService deploymentService;
@@ -310,68 +311,33 @@ public class DemoData {
     decideOnApplication = processEngine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).active().singleResult();
     processEngine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
   }
-
-  private void setupUsersForDemo(ProcessEngine processEngine) {
-    String myDe = createFilter(processEngine, "Persönlich", -10, "Meine persönlichen Aufgaben", //
-        processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").followUpBeforeOrNotExistentExpression("${now()}"));
-    String myEn = createFilter(processEngine, "Personal", -10, "My personal tasks", //
-        processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").followUpBeforeOrNotExistentExpression("${now()}"));
-    FilterGenerator.filterIds.put("myDe", myDe);
-    FilterGenerator.filterIds.put("myEn", myEn);
-
-    String groupDe = createFilter(processEngine, "Meine Gruppen", -20, "Aufgaben in allen meinen Gruppen", //
-        processEngine.getTaskService().createTaskQuery().taskCandidateGroupInExpression("${currentUserGroups()}").taskUnassigned());
+  
+  private void createEnglishFiltersAndUsers(ProcessEngine processEngine) {
     String groupEn = createFilter(processEngine, "My groups", -20, "My group tasks", //
         processEngine.getTaskService().createTaskQuery().taskCandidateGroupInExpression("${currentUserGroups()}").taskUnassigned());
-    FilterGenerator.filterIds.put("groupDe", groupDe);
     FilterGenerator.filterIds.put("groupEn", groupEn);
-
-    String overdueDe = createFilter(processEngine, "Überfällig", 10, "Überfällige Aufgaben", //
-        processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").dueBeforeExpression("${now()}"), //
-        "color", "#f2dede");
+    String myEn = createFilter(processEngine, "Personal", -10, "My personal tasks", //
+        processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").followUpBeforeOrNotExistentExpression("${now()}"));
+    
+    FilterGenerator.filterIds.put("myEn", myEn);
+    
     String overdueEn = createFilter(processEngine, "Overdue", 10, "Overdue tasks", //
         processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").dueBeforeExpression("${now()}"), //
         "color", "#f2dede");
-    FilterGenerator.filterIds.put("overdueDe", overdueDe);
     FilterGenerator.filterIds.put("overdueEn", overdueEn);
-
-    String followUpDe = createFilter(processEngine, "Wiedervorlage", 5, "Auf Wiedervorlage gelegte Aufgaben", //
-        processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").followUpAfterExpression("${now()}"));
+    
     String followUpEn = createFilter(processEngine, "Follow-up", 5, "Follow-up tasks", //
         processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").followUpAfterExpression("${now()}"));
-    FilterGenerator.filterIds.put("followUpDe", followUpDe);
     FilterGenerator.filterIds.put("followUpEn", followUpEn);
-
-    String managementDe = createFilter(processEngine, "Geschäftsführung", 0, "Aufgaben für 'Geschäftsführung'", //
-        processEngine.getTaskService().createTaskQuery().taskCandidateGroupIn(Arrays.asList("geschaeftsfuehrung")).taskUnassigned());
+    
     String managementEn = createFilter(processEngine, "Management", 0, "Tasks for 'Management'", //
         processEngine.getTaskService().createTaskQuery().taskCandidateGroupIn(Arrays.asList("management")).taskUnassigned());
-    FilterGenerator.filterIds.put("managementDe", managementDe);
     FilterGenerator.filterIds.put("managementEn", managementEn);
-
-    String allDe = createFilter(processEngine, "Alle Aufgaben", 20, "Alle Aufgaben", //
-        processEngine.getTaskService().createTaskQuery());
+    
     String allEn = createFilter(processEngine, "All tasks", 20, "All tasks", //
         processEngine.getTaskService().createTaskQuery());
-    FilterGenerator.filterIds.put("allDe", allDe);
     FilterGenerator.filterIds.put("allEn", allEn);
-
-    Stream.of(myDe, groupDe, overdueDe, followUpDe, managementDe, allDe).forEach(fId -> {
-      Filter filter = processEngine.getFilterService().getFilter(fId);
-      Map<String, Object> properties = filter.getProperties();
-      HashMap<String, String> prop1 = new HashMap<String, String>();
-      prop1.put("name", "applicationNumber");
-      prop1.put("label", "Antrag-Nr.");
-      HashMap<String, String> prop2 = new HashMap<String, String>();
-      prop2.put("name", "applicantName");
-      prop2.put("label", "Name");
-      HashMap<String, String> prop3 = new HashMap<String, String>();
-      prop3.put("name", "corporation");
-      prop3.put("label", "Firma");
-      properties.put("variables", Arrays.asList(prop1, prop2, prop3));
-      filter.setProperties(properties);
-      processEngine.getFilterService().saveFilter(filter);
-    });
+    
     Stream.of(myEn, groupEn, overdueEn, followUpEn, managementEn, allEn).forEach(fId -> {
       Filter filter = processEngine.getFilterService().getFilter(fId);
       Map<String, Object> properties = filter.getProperties();
@@ -388,55 +354,114 @@ public class DemoData {
       filter.setProperties(properties);
       processEngine.getFilterService().saveFilter(filter);
     });
-
-    addUser(processEngine, "marc", "marc", "Marc", "Mustermann");
-    addGroup(processEngine, "sachbearbeiter", "Sachbearbeiter", "marc");
-    addFilterGroupAuthorization(processEngine, "sachbearbeiter", "myDe", "groupDe", "overdueDe", "followUpDe");
-
+    
     addUser(processEngine, "ben", "ben", "Ben", "McKenzie");
     addGroup(processEngine, "clerk", "Clerk", "ben");
     addFilterGroupAuthorization(processEngine, "clerk", "myEn", "groupEn", "overdueEn", "followUpEn");
-
-    addUser(processEngine, "hugo", "hugo", "Hugo", "Halbmann");
-    addGroup(processEngine, "gruppenleiter", "Gruppenleiter", "hugo");
-    addFilterGroupAuthorization(processEngine, "gruppenleiter", "myDe", "groupDe", "overdueDe", "followUpDe");
 
     addUser(processEngine, "lisa", "lisa", "Lisa", "Lacroix");
     addGroup(processEngine, "teamlead", "Team Lead", "lisa");
     addFilterGroupAuthorization(processEngine, "teamlead", "myEn", "groupEn", "overdueEn", "followUpEn");
 
-    addUser(processEngine, "paul", "paul", "Paul", "Pohl");
-    addGroup(processEngine, "geschaeftsfuehrung", "Geschäftsführung", "paul");
-    addFilterGroupAuthorization(processEngine, "geschaeftsfuehrung", "myDe", "groupDe", "overdueDe", "followUpDe", "managementDe", "allDe");
-
     addUser(processEngine, "paula", "paula", "Paula", "Pepperman");
     addGroup(processEngine, "management", "Management", "paula");
     addFilterGroupAuthorization(processEngine, "management", "myEn", "groupEn", "overdueEn", "followUpEn", "managementEn", "allEn");
-
-    createGrantGroupAuthorization(processEngine, new String[] { "sachbearbeiter", "gruppenleiter" },
-        new Permission[] { Permissions.READ, Permissions.READ_HISTORY, Permissions.READ_INSTANCE, Permissions.UPDATE_INSTANCE }, Resources.PROCESS_DEFINITION,
-        new String[] { "customer_onboarding_de" });
-
+    
     createGrantGroupAuthorization(processEngine, new String[] { "clerk", "teamlead" },
         new Permission[] { Permissions.READ, Permissions.READ_HISTORY, Permissions.READ_INSTANCE, Permissions.UPDATE_INSTANCE }, Resources.PROCESS_DEFINITION,
         new String[] { "customer_onboarding_en" });
 
+    
+    Permission[] allPermissions = new Permissions[] {Permissions.ALL};
+    
+    createGrantGroupAuthorization(processEngine, new String[] { "management" }, allPermissions, Resources.PROCESS_DEFINITION,
+        new String[] { "customer_onboarding_en", "requestDocument_en" });
+
+    createGrantGroupAuthorization(processEngine, new String[] { "management" }, allPermissions, Resources.DECISION_DEFINITION, new String[] { "checkRisk_en" });
+    createGrantGroupAuthorization(processEngine, new String[] { "management" }, allPermissions, Resources.TASK, new String[] { "*" });
+    createGrantGroupAuthorization(processEngine, new String[] { "management" }, allPermissions, Resources.DEPLOYMENT,
+        new String[] { "*" });
+    createGrantGroupAuthorization(processEngine, new String[] { "management" }, allPermissions, Resources.APPLICATION,
+        new String[] { "cockpit" });
+  }
+  
+  private void createGermanFiltersAndUsers(ProcessEngine processEngine) {
+    String myDe = createFilter(processEngine, "Persönlich", -10, "Meine persönlichen Aufgaben", //
+        processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").followUpBeforeOrNotExistentExpression("${now()}"));
+    FilterGenerator.filterIds.put("myDe", myDe);
+    
+    String groupDe = createFilter(processEngine, "Meine Gruppen", -20, "Aufgaben in allen meinen Gruppen", //
+        processEngine.getTaskService().createTaskQuery().taskCandidateGroupInExpression("${currentUserGroups()}").taskUnassigned());
+    FilterGenerator.filterIds.put("groupDe", groupDe);
+    
+    String overdueDe = createFilter(processEngine, "Überfällig", 10, "Überfällige Aufgaben", //
+        processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").dueBeforeExpression("${now()}"), //
+        "color", "#f2dede");
+    FilterGenerator.filterIds.put("overdueDe", overdueDe);
+
+    String followUpDe = createFilter(processEngine, "Wiedervorlage", 5, "Auf Wiedervorlage gelegte Aufgaben", //
+        processEngine.getTaskService().createTaskQuery().taskAssigneeExpression("${currentUser()}").followUpAfterExpression("${now()}"));
+    FilterGenerator.filterIds.put("followUpDe", followUpDe);
+
+    String managementDe = createFilter(processEngine, "Geschäftsführung", 0, "Aufgaben für 'Geschäftsführung'", //
+        processEngine.getTaskService().createTaskQuery().taskCandidateGroupIn(Arrays.asList("geschaeftsfuehrung")).taskUnassigned());
+    FilterGenerator.filterIds.put("managementDe", managementDe);
+
+    String allDe = createFilter(processEngine, "Alle Aufgaben", 20, "Alle Aufgaben", //
+        processEngine.getTaskService().createTaskQuery());
+    FilterGenerator.filterIds.put("allDe", allDe);
+    
+    Stream.of(myDe, groupDe, overdueDe, followUpDe, managementDe, allDe).forEach(fId -> {
+      Filter filter = processEngine.getFilterService().getFilter(fId);
+      Map<String, Object> properties = filter.getProperties();
+      HashMap<String, String> prop1 = new HashMap<String, String>();
+      prop1.put("name", "applicationNumber");
+      prop1.put("label", "Antrag-Nr.");
+      HashMap<String, String> prop2 = new HashMap<String, String>();
+      prop2.put("name", "applicantName");
+      prop2.put("label", "Name");
+      HashMap<String, String> prop3 = new HashMap<String, String>();
+      prop3.put("name", "corporation");
+      prop3.put("label", "Firma");
+      properties.put("variables", Arrays.asList(prop1, prop2, prop3));
+      filter.setProperties(properties);
+      processEngine.getFilterService().saveFilter(filter);
+    });
+    
+    addUser(processEngine, "marc", "marc", "Marc", "Mustermann");
+    addGroup(processEngine, "sachbearbeiter", "Sachbearbeiter", "marc");
+    addFilterGroupAuthorization(processEngine, "sachbearbeiter", "myDe", "groupDe", "overdueDe", "followUpDe");
+
+    addUser(processEngine, "hugo", "hugo", "Hugo", "Halbmann");
+    addGroup(processEngine, "gruppenleiter", "Gruppenleiter", "hugo");
+    addFilterGroupAuthorization(processEngine, "gruppenleiter", "myDe", "groupDe", "overdueDe", "followUpDe");
+    
+    addUser(processEngine, "paul", "paul", "Paul", "Pohl");
+    addGroup(processEngine, "geschaeftsfuehrung", "Geschäftsführung", "paul");
+    addFilterGroupAuthorization(processEngine, "geschaeftsfuehrung", "myDe", "groupDe", "overdueDe", "followUpDe", "managementDe", "allDe");
+    
+    createGrantGroupAuthorization(processEngine, new String[] { "sachbearbeiter", "gruppenleiter" },
+        new Permission[] { Permissions.READ, Permissions.READ_HISTORY, Permissions.READ_INSTANCE, Permissions.UPDATE_INSTANCE }, Resources.PROCESS_DEFINITION,
+        new String[] { "customer_onboarding_de" });
+    
     Permission[] allPermissions = new Permissions[] {Permissions.ALL};
     
     createGrantGroupAuthorization(processEngine, new String[] { "geschaeftsfuehrung" }, allPermissions, Resources.PROCESS_DEFINITION,
         new String[] { "customer_onboarding_de", "requestDocument_de" });
-
-    createGrantGroupAuthorization(processEngine, new String[] { "management" }, allPermissions, Resources.PROCESS_DEFINITION,
-        new String[] { "customer_onboarding_en", "requestDocument_en" });
-
     createGrantGroupAuthorization(processEngine, new String[] { "geschaeftsfuehrung" }, allPermissions, Resources.DECISION_DEFINITION,
         new String[] { "checkRisk_de" });
-    createGrantGroupAuthorization(processEngine, new String[] { "management" }, allPermissions, Resources.DECISION_DEFINITION, new String[] { "checkRisk_en" });
-    createGrantGroupAuthorization(processEngine, new String[] { "geschaeftsfuehrung", "management" }, allPermissions, Resources.TASK, new String[] { "*" });
-    createGrantGroupAuthorization(processEngine, new String[] { "geschaeftsfuehrung", "management" }, allPermissions, Resources.DEPLOYMENT,
+    createGrantGroupAuthorization(processEngine, new String[] { "geschaeftsfuehrung"}, allPermissions, Resources.TASK, new String[] { "*" });
+    createGrantGroupAuthorization(processEngine, new String[] { "geschaeftsfuehrung"}, allPermissions, Resources.DEPLOYMENT,
         new String[] { "*" });
-    createGrantGroupAuthorization(processEngine, new String[] { "geschaeftsfuehrung", "management" }, allPermissions, Resources.APPLICATION,
+    createGrantGroupAuthorization(processEngine, new String[] { "geschaeftsfuehrung"}, allPermissions, Resources.APPLICATION,
         new String[] { "cockpit" });
+  }
+
+  private void setupUsersForDemo(ProcessEngine processEngine) {
+    createEnglishFiltersAndUsers(processEngine);
+    if(!englishOnly) {
+      createGermanFiltersAndUsers(processEngine);       
+    }
   }
   
 

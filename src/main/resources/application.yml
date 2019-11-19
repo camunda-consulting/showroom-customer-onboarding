@@ -4,6 +4,8 @@ spring:
   username: sa
   password: sa
   
+englishonly: false
+  
 cawemo:
   enabled: 'false'
   url: '${CAWEMO_URL}' 
