@@ -7,6 +7,12 @@ services:
     TZ: Europe/Berlin
    ports:
      - 8084:8080
+  showcase-worker:
+   build: ./external-task-worker/
+   environment:
+     TZ: Europe/Berlin
+   ports:
+     - 8085:8080
 
 networks:
   default:
