@@ -18,5 +18,10 @@ target
 # Mac rubbish
 **/*.DS_Store
 
+# IDEA
 *.iml
 .idea
+
+#database
+/camunda-db.mv.db
+/camunda-db.trace.db
