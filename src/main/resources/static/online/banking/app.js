@@ -1,3 +1,13 @@
+if(window.location.pathname.match(/\/\/+/g)){
+  console.log(window);
+  var toReplace = "/"
+  var toBeReplaced = window.location.pathname.match(/\/\/+/g)
+  var correctPathname = window.location.pathname.replace(toBeReplaced, toReplace);
+  console.log(window.href);
+  window.location.href = window.location.origin + correctPathname;
+}
+
+
 $(document).ready(function() {
   autofillWorkaround();
 
