@@ -19,7 +19,11 @@ const sendMail = async (subject, mailtext, toEmail) => {
     subject: subject,
     text: mailtext
   }).catch((err) => {
-    throw new Error(err);
+    if(!toEmail.includes('@')){
+      throw new Error(`The recipient's address '${toEmail}' does not contain a valid domain component (missing @).`);
+    }else {
+      throw new Error(err);
+    }
   });
 
   console.log(`Message sent: ${info.messageId}`);
