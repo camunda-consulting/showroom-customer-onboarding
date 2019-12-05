@@ -9,6 +9,7 @@ require('dotenv').config();
 const mailService = require('./mail.js');
 
 let second = 1000;
+let minute = 60 * second;
 
 const config = {
   baseUrl: "customer-onboarding/camunda/rest",
@@ -75,9 +76,9 @@ var emailServicehandler = async (task, taskService) => {
 
 }
 
-// do this because data generation in showcase lasts about 3 minutes
+// do this because data generation in showcase lasts about 10 minutes
 
 setTimeout(() => {
   client.start();
   client.subscribe("emailService", async ({task, taskService}) => emailServicehandler(task, taskService));
-}, 300 * second);
+}, 10 * minute);
