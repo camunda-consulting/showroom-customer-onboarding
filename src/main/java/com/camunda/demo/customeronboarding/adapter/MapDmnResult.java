@@ -17,6 +17,12 @@ public class MapDmnResult implements ExecutionListener {
 
   @Override
   public void notify(DelegateExecution execution) throws Exception {
+    
+    if(execution.hasVariable("risks")) {
+      execution.removeVariable("risks");
+      execution.removeVariable("riskLevel");
+    }
+    
     List<String> risks = new ArrayList<String>();
     Set<String> riskLevels = new HashSet<String>();
 
@@ -41,6 +47,7 @@ public class MapDmnResult implements ExecutionListener {
     } else if (riskLevels.contains("gelb") || riskLevels.contains("yellow")) {
       accumulatedRiskLevel = "yellow";
     }
+    
     execution.setVariable("risks", Variables.objectValue(risks).serializationDataFormat(SerializationDataFormats.JSON).create());
     execution.setVariable("riskLevel", accumulatedRiskLevel);
   }

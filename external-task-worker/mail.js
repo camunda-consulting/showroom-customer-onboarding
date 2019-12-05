@@ -2,9 +2,7 @@ var mail = require('nodemailer');
 
 const sendMail = async (subject, mailtext, toEmail) => {
   let transporter = mail.createTransport({
-    host: "mail.camunda.com",
-    port: 25,
-    secure: false, // true for 465, false for other ports
+    service: "gmail", // true for 465, false for other ports
     auth: {
       user: process.env.APP_USER,
       pass: process.env.APP_PW
