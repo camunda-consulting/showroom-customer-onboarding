@@ -18,7 +18,7 @@ var isGerman = lang == 'de';
 
 $(document).ready(function() {
   var addRootContainers = () => {
-    var demoButtonContainer = `<div hidden id="stickyHelperButtonContainer" class="stickyHelper text-center">
+    var demoButtonContainer = `<div id="stickyHelperButtonContainer" class="stickyHelper text-center">
                                 <div id="demoTextWrapper" class="h-100">
                                 &nbsp;&nbsp;DEMO&nbsp;&nbsp;
                                 </div>
@@ -57,17 +57,6 @@ $(document).ready(function() {
     }
     hidden = true;
   }
-
-  $(window).scroll(() => {
-    var serviceAreaHeight = $('#serviceArea').position();
-    var height = $(window).scrollTop();
-    var bottom = $('#serviceArea').offset().top + $('#serviceArea').outerHeight(true) - window.innerHeight;
-    if((height >= serviceAreaHeight.top * 0.9 && height < bottom) || bottom < 0){
-      showEnabledHelpers();
-    } else {
-      hideDisabledHelpers();
-    }
-  });
 
   var getButtonDiv = (id, text, divClass) => {
     return `<div class="buttonContainer col-lg-1 col-md-1 col-sm-1 col-xs-12 h-100 ${divClass}" style="padding-top:1em;bottom: -100%;display: inline-block;background: black;">
