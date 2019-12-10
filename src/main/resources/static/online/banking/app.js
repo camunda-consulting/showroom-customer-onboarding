@@ -144,11 +144,15 @@ $(document).ready(function() {
         type: 'POST',
         url: url,
         data: data,
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
+        contentType: 'application/json',
+        dataType: 'text',
         success: function(result) {
           $('#documentsReceived').toggle();
           $('#fieldsetForm').toggle();
+        },
+        error: (result) => {
+          console.log(result);
+          console.log(result.getAllResponseHeaders());
         },
         crossDomain: true,
       });

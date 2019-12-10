@@ -97,6 +97,7 @@ var langEn = {
     "any-readmore": "Read More",
     "any-account-title": "Account Type",
     "any-button-choose": "Choose",
-    "any-currency": "$"
+    "any-currency": "$",
+     "documents-received": "Documents received - we reach out to you shortly!"
   }
 }

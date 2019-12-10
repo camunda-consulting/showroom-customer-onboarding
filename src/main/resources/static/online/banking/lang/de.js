@@ -98,6 +98,7 @@ var langDe = {
     "any-readmore": "Mehr erfahren",
     "any-account-title": "Typ",
     "any-button-choose": "Wählen",
-    "any-currency": "€"
+    "any-currency": "€",
+    "documents-received" : "Dokumente erhalten - wir kontaktieren Sie in kürzester Zeit!"
   }
 }
