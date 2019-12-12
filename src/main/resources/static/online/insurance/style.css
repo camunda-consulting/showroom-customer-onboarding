@@ -1,3 +1,5 @@
+.row:before, .row:after {display: none !important;}
+
 #stickyHelperButtonContainer {
   width: inherit;
 }

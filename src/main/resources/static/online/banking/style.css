@@ -10,6 +10,8 @@
 @import url(../css/stuff/credit-icon.css);
 /* :: 3.0 Base CSS */
 
+.row:before, .row:after {display: none !important;}
+
 .langlink {}
 
 /*own css*/
