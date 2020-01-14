@@ -51,6 +51,9 @@ public class DemoData {
   
   @Value("${englishonly}") 
   private boolean englishOnly;
+  @Value("${shouldsimulate:false}") 
+  private boolean shouldSimulate;
+  private boolean simulationFinished = false;
   
   private ProcessEngine processEngine;
   private DeploymentService deploymentService;
@@ -465,7 +468,7 @@ public class DemoData {
   }
   
 
-  public void setupEnvironmentForDemo(ProcessEngine processEngine) {
+  public void setupEnvironmentForDemo() {
     // this should be done by camunda-util-license-installer-war - if we have
     // both, DB exceptions may occur
     // LicenseHelper.setLicense(engine);
@@ -480,7 +483,13 @@ public class DemoData {
     LOGGER.info("Data for old instances generated.");
     deploymentService.deployCustomerOnboardCurrent();
     
-    runSimulationAndStopAfterwards();
+    if(shouldSimulate) {
+      runSimulationAndStopAfterwards();      
+    } else {
+      SimulatorPlugin.resetProcessEngine();
+      deploymentService.deployAllCurrent();
+      simulationFinished = true;
+    }
     
   }  
   
@@ -509,10 +518,10 @@ public class DemoData {
         LOGGER.info("----                                                     ----");
         LOGGER.info("---- It took " + String.format("%02.1f", (end - begin) / 60_000d) + " minutes to start " + String.format("%05d", ContentGenerator.startedInstances)
             + " instances.       ----");
-//        SimulationExecutor.stopSimulation();
         SimulatorPlugin.resetProcessEngine();
         deploymentService.deployAllCurrent();
         LOGGER.info("Redeployment finished");
+        simulationFinished = true;
       }
     }, 10_000);
   }
@@ -531,10 +540,14 @@ public class DemoData {
     }
     return exists; 
   }
+
+  public boolean isSimulationFinished() {
+    return simulationFinished;
+  }
+  
   
   @EventListener
   public void notify(final ProcessApplicationStartedEvent processApplicationStartedEvent) {
-    setupEnvironmentForDemo(processEngine);
+    setupEnvironmentForDemo();
   }
-  
 }
