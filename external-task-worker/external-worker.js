@@ -75,9 +75,5 @@ var emailServicehandler = async (task, taskService) => {
 
 }
 
-// do this because data generation in showcase lasts about 10 minutes
-
-setTimeout(() => {
-  client.start();
-  client.subscribe("emailService", async ({task, taskService}) => emailServicehandler(task, taskService));
-}, 10 * minute);
+client.start();
+client.subscribe("emailService", async ({task, taskService}) => emailServicehandler(task, taskService));
