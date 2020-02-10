@@ -128,7 +128,7 @@ $(document).ready(function() {
     evt.preventDefault();
   });
 
-  $('#newsletterSubmit').val(lang == 'de' ? 'Abbonieren' : 'Subscribe');
+  $('#newsletterSubmit').val(lang == 'de' ? 'Abonnieren' : 'Subscribe');
   $('#newsletterInput').attr("placeholder", lang == 'de' ? 'Email-Adresse eingeben' : 'Enter email address');
   $('#referenceId').attr("placeholder", lang == 'de' ? 'Ihre Referenznummer' : 'Your reference number');
   $('#additionalInformation').attr("placeholder", lang == 'de' ? 'Weitere Informationen' : 'Additional information');
