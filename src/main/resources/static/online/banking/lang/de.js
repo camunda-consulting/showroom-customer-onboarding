@@ -20,8 +20,8 @@ var langDe = {
     "topbar-phone": " +030 664040900",
 
     //bottom bars
-    "newsletter-title": "Abboniere unseren Newsletter",
-    "newsletter-button": "Abbonieren",
+    "newsletter-title": "Abonniere unseren Newsletter",
+    "newsletter-button": "Abonnieren",
 
     "footer-about": "Über Uns",
     "footer-about-about": "Über Uns",

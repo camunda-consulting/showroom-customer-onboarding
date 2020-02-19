@@ -17,8 +17,8 @@ var langDe = {
 
 
     //bottom bars
-    "newsletter-title": "Abboniere unseren Newsletter",
-    "newsletter-button": "Abbonieren",
+    "newsletter-title": "Abonniere unseren Newsletter",
+    "newsletter-button": "Abonnieren",
 
 
     "footer-phone": " +030 664040900",
@@ -99,7 +99,7 @@ var langDe = {
     "documents-choose-file": "Datei wählen",
     "documents-choose-chosen": "Ihr Dokument...'",
     "contact-title": "Kontaktinformationen",
-    "contact-information-text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et.",
+    "contact-information-text": "Seien Sie immer auf dem neuesten Stand bezüglich unserer Auswahl an Produkten und Dienstleistungen. Wir können es kaum erwarten Ihnen diese unerwarteten Chancen zu vermitteln und Ihr Leben zu bereichern.",
     "form-ref": "Vorgangsnummer",
     "any-readmore": "Mehr erfahren",
     "any-account-title": "Typ",
