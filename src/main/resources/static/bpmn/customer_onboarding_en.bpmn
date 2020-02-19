@@ -41,7 +41,7 @@
       <bpmn2:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker">Dear &lt;#if application.applicant.gender = "male"&gt;Mr.&lt;#else&gt;Mrs.&lt;/#if&gt; ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker">Dear ${application.applicant.name}.
 
 We happily inform you that your request was accepted.
 
@@ -119,7 +119,7 @@ ${application.corporation}.</camunda:script>
       <bpmn2:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker">Dear &lt;#if application.applicant.gender = "male"&gt;Mr.&lt;#else&gt;Mrs.&lt;/#if&gt; ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker">Dear ${application.applicant.name}.
 
 Unfortunately we have to inform you that we cannot issue the desired request.
 
