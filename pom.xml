@@ -57,6 +57,12 @@
 
 	<dependencies>	
 	
+	<dependency>
+		<groupId>com.camunda.consulting.webapp.plugin</groupId>
+		<artifactId>camunda-webapp-plugin-sso-autologin</artifactId>
+		<version>7.6.0</version>
+	</dependency>
+	
 		<dependency>
 			<groupId>org.camunda.bpm.springboot</groupId>
 			<artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
@@ -74,8 +80,7 @@
 		    <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
 		    <version>${camundaSpringBoot.version}</version>
 		    <scope>test</scope>
-		</dependency>
-		
+		</dependency>		
 		
 		<dependency>
 			<groupId>com.camunda.consulting.util</groupId>
