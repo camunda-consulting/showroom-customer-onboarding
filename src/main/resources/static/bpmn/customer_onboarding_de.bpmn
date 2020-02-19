@@ -180,6 +180,7 @@ if (typedDocument != null &amp;&amp; typedDocument.getValue() != null) {
           <camunda:property name="simulateKeepLogic" value="true" />
           <camunda:property name="simKeepListeners" value="true" />
         </camunda:properties>
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_0lwkj1f</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_1te4zir</bpmn2:outgoing>
