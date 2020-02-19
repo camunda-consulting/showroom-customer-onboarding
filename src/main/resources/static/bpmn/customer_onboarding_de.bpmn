@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <bpmn2:collaboration id="Collaboration_1u35ano">
     <bpmn2:participant id="Participant_0477s11" name="Neuantrag" processRef="customer_onboarding_de" />
   </bpmn2:collaboration>
@@ -13,6 +13,7 @@
           <camunda:property name="simGeneratePayload" value="applicantName=${application.getApplicant().getName()}" />
           <camunda:property name="simInitBusinessKey" value="A-${g.format1(&#39;%05d&#39;, g.uniqueNumber())}" />
           <camunda:property name="simGeneratePayload" value="category=${application.getCategory()}" />
+          <camunda:property name="simKeepListeners" value="true" />
         </camunda:properties>
         <camunda:executionListener delegateExpression="${corporationMapper}" event="start" />
       </bpmn2:extensionElements>
@@ -179,6 +180,7 @@ if (typedDocument != null &amp;&amp; typedDocument.getValue() != null) {
           <camunda:property name="simulateKeepLogic" value="true" />
           <camunda:property name="simKeepListeners" value="true" />
         </camunda:properties>
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_0lwkj1f</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_1te4zir</bpmn2:outgoing>

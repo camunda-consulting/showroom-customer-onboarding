@@ -9,7 +9,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker">Dear &lt;#if application.applicant.gender = "male"&gt;Mr.&lt;#else&gt;Mrs.&lt;/#if&gt; ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker">Dear ${application.applicant.name}.
 
 To process your request we need some additional documents:
 
@@ -17,7 +17,7 @@ ${requestedDocumentDescription}
 
 You can upload the document following this link:
 
-  ${uiBaseUrl}/documents.html?lang=en&amp;referenceId=${documentReferenceId}
+  ${uiBaseUrl}documents.html?lang=de&amp;referenceId=${documentReferenceId}
 
 As soon as we receive the document we will continue to process your request.
 
@@ -43,7 +43,7 @@ ${application.corporation}.</camunda:script>
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="mailBody">
-            <camunda:script scriptFormat="freemarker">Dear &lt;#if application.applicant.gender = "male"&gt;Mr.&lt;#else&gt;Mrs.&lt;/#if&gt; ${application.applicant.name}.
+            <camunda:script scriptFormat="freemarker">Dear ${application.applicant.name}.
 
 To process your request we need some additional documents:
 
@@ -51,7 +51,7 @@ ${requestedDocumentDescription}
 
 You can upload the document following this link:
 
-  ${uiBaseUrl}/documents.html?lang=en&amp;referenceId=${documentReferenceId}
+  ${uiBaseUrl}documents.html?lang=de&amp;referenceId=${documentReferenceId}
 
 As soon as we receive the document we will continue to process your request.
 

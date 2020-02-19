@@ -15,6 +15,7 @@ const config = {
   baseUrl: "customer-onboarding/camunda/rest",
   asyncResponseTimeout: 5 * second,
   interval: 1 * second,
+  lockDuration: 3 * second,
   use: logger,
   port: 8080,
   autoPoll: false
