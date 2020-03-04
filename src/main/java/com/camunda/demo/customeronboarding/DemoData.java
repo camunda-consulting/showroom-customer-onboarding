@@ -35,6 +35,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -53,15 +55,19 @@ public class DemoData {
   private boolean englishOnly;
   @Value("${shouldsimulate:false}") 
   private boolean shouldSimulate;
+  @Value("${stayActiveAfterSim:true}") 
+  private boolean stayActiveAfterSimulation;
   private boolean simulationFinished = false;
   
   private ProcessEngine processEngine;
   private DeploymentService deploymentService;
+  private ApplicationContext applicationContext;
   
   @Autowired
-  public DemoData (ProcessEngine processEngine, DeploymentService deploymentService) {
+  public DemoData (ProcessEngine processEngine, DeploymentService deploymentService, ApplicationContext context) {
     this.processEngine = processEngine;
     this.deploymentService = deploymentService;
+    this.applicationContext = context;
   }
 
   private final static Logger LOGGER = LoggerFactory.getLogger(DemoData.class);
@@ -504,7 +510,7 @@ public class DemoData {
         LOGGER.info("----                                                             ----");
         LOGGER.info("----                                                             ----");
         long begin = System.currentTimeMillis();
-        SimulationExecutor.execute(DateTime.now().minusMonths(12).toDate(), DateTime.now().toDate());
+        SimulationExecutor.execute(DateTime.now().minusMonths(1).toDate(), DateTime.now().toDate());
         long end = System.currentTimeMillis();
         LOGGER.info("----                                                     ----");
         LOGGER.info("----                                                     ----");
@@ -522,6 +528,9 @@ public class DemoData {
         deploymentService.deployAllCurrent();
         LOGGER.info("Redeployment finished");
         simulationFinished = true;
+        if(!stayActiveAfterSimulation) {
+        	SpringApplication.exit(applicationContext, () -> 0);
+        }
       }
     }, 10_000);
   }
