@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.camunda.bpm.engine.ProcessEngine;
@@ -23,7 +24,16 @@ import org.camunda.bpm.engine.authorization.Permission;
 import org.camunda.bpm.engine.authorization.Permissions;
 import org.camunda.bpm.engine.authorization.Resources;
 import org.camunda.bpm.engine.filter.Filter;
+import org.camunda.bpm.engine.impl.Page;
+import org.camunda.bpm.engine.impl.ProcessEngineImpl;
+import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.camunda.bpm.engine.impl.interceptor.Command;
+import org.camunda.bpm.engine.impl.interceptor.CommandContext;
+import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
+import org.camunda.bpm.engine.impl.jobexecutor.AcquiredJobs;
+import org.camunda.bpm.engine.impl.persistence.entity.JobEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
+import org.camunda.bpm.engine.runtime.Job;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.variable.Variables;
@@ -53,7 +63,7 @@ public class DemoData {
   
   @Value("${englishonly}") 
   private boolean englishOnly;
-  @Value("${shouldsimulate:false}") 
+  @Value("${shouldsimulate:true}") 
   private boolean shouldSimulate;
   @Value("${stayActiveAfterSim:true}") 
   private boolean stayActiveAfterSimulation;
@@ -478,22 +488,25 @@ public class DemoData {
     // this should be done by camunda-util-license-installer-war - if we have
     // both, DB exceptions may occur
     // LicenseHelper.setLicense(engine);
-    if(!oldDataExists()) {
-      if(!oldDeploymentExists()) {
-        deploymentService.deployStandardProcesses();
-        UserGenerator.createDefaultUsers(processEngine);
-        setupUsersForDemo(processEngine);
-      }
-      generateDataInOldModel(processEngine);
-    }
-    LOGGER.info("Data for old instances generated.");
-    deploymentService.deployCustomerOnboardCurrent();
+    
     
     if(shouldSimulate) {
-      runSimulationAndStopAfterwards();      
+    	if(!oldDataExists()) {
+    		if(!oldDeploymentExists()) {
+    			deploymentService.deployStandardProcesses();
+    	        UserGenerator.createDefaultUsers(processEngine);
+    	        setupUsersForDemo(processEngine);
+    	      }
+    	      generateDataInOldModel(processEngine);
+    	    }
+    	   LOGGER.info("Data for old instances generated.");
+    	    deploymentService.deployCustomerOnboardCurrent();
+    	    runSimulationAndStopAfterwards();      
     } else {
+      SimulationExecutor.execute(DateTime.now().toDate(), DateTime.now().toDate());
       SimulatorPlugin.resetProcessEngine();
       deploymentService.deployAllCurrent();
+      LOGGER.info("Redeployment finished");
       simulationFinished = true;
     }
     
@@ -510,7 +523,7 @@ public class DemoData {
         LOGGER.info("----                                                             ----");
         LOGGER.info("----                                                             ----");
         long begin = System.currentTimeMillis();
-        SimulationExecutor.execute(DateTime.now().minusMonths(1).toDate(), DateTime.now().toDate());
+        SimulationExecutor.execute(DateTime.now().minusMonths(12).toDate(), DateTime.now().toDate());
         long end = System.currentTimeMillis();
         LOGGER.info("----                                                     ----");
         LOGGER.info("----                                                     ----");
@@ -524,15 +537,36 @@ public class DemoData {
         LOGGER.info("----                                                     ----");
         LOGGER.info("---- It took " + String.format("%02.1f", (end - begin) / 60_000d) + " minutes to start " + String.format("%05d", ContentGenerator.startedInstances)
             + " instances.       ----");
-        SimulatorPlugin.resetProcessEngine();
-        deploymentService.deployAllCurrent();
-        LOGGER.info("Redeployment finished");
+        
         simulationFinished = true;
         if(!stayActiveAfterSimulation) {
-        	SpringApplication.exit(applicationContext, () -> 0);
+        	shutdown();
+        } else {
+        	SimulatorPlugin.resetProcessEngine();
+            deploymentService.deployAllCurrent();
+            LOGGER.info("Redeployment finished");
         }
       }
     }, 10_000);
+  }
+  
+  public void shutdown() {
+	  ProcessEngineConfigurationImpl procEngConf = (ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration();
+	  CommandExecutor commandExecutor = procEngConf.getCommandExecutorTxRequired();
+	  
+	  List<JobEntity> jobs = commandExecutor.execute(new Command<List<JobEntity>>() {
+          @Override
+          public List<JobEntity> execute(CommandContext commandContext) {
+            return commandContext.getJobManager().findNextJobsToExecute(new Page(0, 1));
+          }
+        });
+      List<String> jobIds = jobs.stream()
+        							.map(jobEntity -> (Job) jobEntity).map(job -> job.getId())
+        							.collect(Collectors.toList());
+	 
+	  procEngConf.getJobExecutor().executeJobs(jobIds, (ProcessEngineImpl) processEngine);
+	  procEngConf.getJobExecutor().shutdown();
+	  SpringApplication.exit(applicationContext, () -> 0);
   }
   
   private boolean oldDeploymentExists() {
