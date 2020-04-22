@@ -1,6 +1,6 @@
 spring:
  datasource:
-  url: 'jdbc:h2:file:~/testdb;DB_CLOSE_DELAY=-1;MVCC=TRUE'
+  url: 'jdbc:h2:file:~/testdb;DB_CLOSE_DELAY=-1'
   username: sa
   password: sa
 

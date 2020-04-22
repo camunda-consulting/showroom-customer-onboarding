@@ -135,7 +135,7 @@ ${application.corporation}.</camunda:script>
       <bpmn2:incoming>SequenceFlow_01vh1zw</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
     </bpmn2:sendTask>
-    <bpmn2:userTask id="UserTask_DecideOnApplication" name="Decide on application" camunda:asyncAfter="true" camunda:formKey="embedded:app:camunda/forms/decide_en.html" camunda:candidateGroups="clerk" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
+    <bpmn2:userTask id="UserTask_DecideOnApplication" name="Decide on application" camunda:asyncAfter="true" camunda:formKey="embedded:app:forms/decide_en.html" camunda:candidateGroups="clerk" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property name="simGeneratePayload" value="approved=${g.randBool(0.75)}" />

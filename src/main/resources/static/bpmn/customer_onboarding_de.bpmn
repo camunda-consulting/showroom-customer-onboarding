@@ -130,7 +130,7 @@ Ihre ${application.corporation}.</camunda:script>
       <bpmn2:incoming>SequenceFlow_01vh1zw</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
     </bpmn2:sendTask>
-    <bpmn2:userTask id="UserTask_DecideOnApplication" name="Antrag entscheiden" camunda:asyncAfter="true" camunda:formKey="embedded:app:camunda/forms/decide_de.html" camunda:candidateGroups="sachbearbeiter" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
+    <bpmn2:userTask id="UserTask_DecideOnApplication" name="Antrag entscheiden" camunda:asyncAfter="true" camunda:formKey="embedded:app:forms/decide_de.html" camunda:candidateGroups="sachbearbeiter" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
       <bpmn2:extensionElements>
         <camunda:taskListener event="create">
           <camunda:script scriptFormat="JavaScript">task.setVariable('documentReferenceId', String(Date.now()));

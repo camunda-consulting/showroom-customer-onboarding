@@ -31,6 +31,7 @@ import org.camunda.bpm.engine.impl.interceptor.Command;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
 import org.camunda.bpm.engine.impl.jobexecutor.AcquiredJobs;
+import org.camunda.bpm.engine.impl.persistence.entity.AcquirableJobEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.JobEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.Job;
@@ -489,7 +490,6 @@ public class DemoData {
     // both, DB exceptions may occur
     // LicenseHelper.setLicense(engine);
     
-    
     if(shouldSimulate) {
     	if(!oldDataExists()) {
     		if(!oldDeploymentExists()) {
@@ -554,14 +554,14 @@ public class DemoData {
 	  ProcessEngineConfigurationImpl procEngConf = (ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration();
 	  CommandExecutor commandExecutor = procEngConf.getCommandExecutorTxRequired();
 	  
-	  List<JobEntity> jobs = commandExecutor.execute(new Command<List<JobEntity>>() {
+	  List<AcquirableJobEntity> jobs = commandExecutor.execute(new Command<List<AcquirableJobEntity>>() {
           @Override
-          public List<JobEntity> execute(CommandContext commandContext) {
+          public List<AcquirableJobEntity> execute(CommandContext commandContext) {
             return commandContext.getJobManager().findNextJobsToExecute(new Page(0, 1));
           }
         });
       List<String> jobIds = jobs.stream()
-        							.map(jobEntity -> (Job) jobEntity).map(job -> job.getId())
+        							.map(jobEntity -> (AcquirableJobEntity) jobEntity).map(job -> job.getId())
         							.collect(Collectors.toList());
 	 
 	  procEngConf.getJobExecutor().executeJobs(jobIds, (ProcessEngineImpl) processEngine);

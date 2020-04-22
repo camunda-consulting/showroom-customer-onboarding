@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.camunda.consulting.showcase</groupId>
@@ -16,9 +15,10 @@
 	</parent>
 
 	<properties>
-		<camunda.version>7.11.1-ee</camunda.version>
-		<camundaSpringBoot.version>3.3.5</camundaSpringBoot.version>
-		<springBoot.version>2.1.9.RELEASE</springBoot.version>
+		<camunda.version>7.12.4-ee</camunda.version>
+		<camundaSpringBoot.version>3.4.2</camundaSpringBoot.version>
+		<springBoot.version>2.2.6.RELEASE</springBoot.version>
+		<simulator.version>1.4.0</simulator.version>
 
 		<version.java>1.8</version.java>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -90,7 +90,7 @@
 		<dependency>
 		  <groupId>com.camunda.consulting</groupId>
 		  <artifactId>camunda-bpm-simulator</artifactId>
-		  <version>1.3.0</version>
+		  <version>${simulator.version}</version>
 		</dependency>
 		
 		<dependency>
