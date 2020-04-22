@@ -77,4 +77,7 @@ var emailServicehandler = async (task, taskService) => {
 }
 
 client.start();
-client.subscribe("emailService", async ({task, taskService}) => emailServicehandler(task, taskService));
+client.subscribe("emailService", async ({task, taskService}) => {
+  emailServicehandler(task, taskService);
+  await taskService.extendLock(task, 20 * second);
+});
