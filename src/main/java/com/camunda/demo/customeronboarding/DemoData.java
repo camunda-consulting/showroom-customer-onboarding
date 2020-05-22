@@ -552,6 +552,9 @@ public class DemoData {
   
   public void shutdown() {
 	  ProcessEngineConfigurationImpl procEngConf = (ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration();
+	  SimulatorPlugin.resetProcessEngine();
+	  procEngConf.getCustomJobHandlers().clear();
+	  procEngConf.getCustomPostCommandInterceptorsTxRequired().clear();
 	  CommandExecutor commandExecutor = procEngConf.getCommandExecutorTxRequired();
 	  
 	  List<AcquirableJobEntity> jobs = commandExecutor.execute(new Command<List<AcquirableJobEntity>>() {
