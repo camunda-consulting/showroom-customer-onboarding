@@ -550,25 +550,9 @@ public class DemoData {
     }, 10_000);
   }
   
+  // should only be called if jobExecutor is disabled
   public void shutdown() {
-	  ProcessEngineConfigurationImpl procEngConf = (ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration();
 	  SimulatorPlugin.resetProcessEngine();
-	  procEngConf.getCustomJobHandlers().clear();
-	  procEngConf.getCustomPostCommandInterceptorsTxRequired().clear();
-	  CommandExecutor commandExecutor = procEngConf.getCommandExecutorTxRequired();
-	  
-	  List<AcquirableJobEntity> jobs = commandExecutor.execute(new Command<List<AcquirableJobEntity>>() {
-          @Override
-          public List<AcquirableJobEntity> execute(CommandContext commandContext) {
-            return commandContext.getJobManager().findNextJobsToExecute(new Page(0, 1));
-          }
-        });
-      List<String> jobIds = jobs.stream()
-        							.map(jobEntity -> (AcquirableJobEntity) jobEntity).map(job -> job.getId())
-        							.collect(Collectors.toList());
-	 
-	  procEngConf.getJobExecutor().executeJobs(jobIds, (ProcessEngineImpl) processEngine);
-	  procEngConf.getJobExecutor().shutdown();
 	  SpringApplication.exit(applicationContext, () -> 0);
   }
   
