@@ -6,6 +6,8 @@ spring:
 
 englishonly: false
 
+camunda.bpm.webapp.application-path: /
+
 cawemo:
   enabled: 'false'
   url: '${CAWEMO_URL}'

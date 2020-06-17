@@ -10,15 +10,15 @@
 	<parent>
 		<groupId>org.camunda</groupId>
 		<artifactId>camunda-release-parent</artifactId>
-		<version>2.5</version>
+		<version>3.7</version>
 		<relativePath />
 	</parent>
 
 	<properties>
-		<camunda.version>7.12.4-ee</camunda.version>
-		<camundaSpringBoot.version>3.4.2</camundaSpringBoot.version>
-		<springBoot.version>2.2.6.RELEASE</springBoot.version>
-		<simulator.version>1.4.0</simulator.version>
+		<camunda.version>7.13.0-ee</camunda.version>
+    	<camundaSpringBoot.version>7.13.0-ee</camundaSpringBoot.version>
+    	<springBoot.version>2.2.7.RELEASE</springBoot.version>
+		<simulator.version>1.6.0</simulator.version>
 
 		<version.java>1.8</version.java>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

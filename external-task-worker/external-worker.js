@@ -12,7 +12,7 @@ let second = 1000;
 let minute = 60 * second;
 
 const config = {
-  baseUrl: "customer-onboarding/camunda/rest",
+  baseUrl: "customer-onboarding/camunda/engine-rest",
   asyncResponseTimeout: 5 * second,
   interval: 1 * second,
   lockDuration: 3 * second,
