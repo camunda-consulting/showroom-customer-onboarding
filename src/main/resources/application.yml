@@ -6,7 +6,9 @@ spring:
 
 englishonly: false
 
-camunda.bpm.webapp.application-path: /
+camunda.bpm:
+  webapp.application-path: /
+  authorization.enabled: true
 
 cawemo:
   enabled: 'false'
