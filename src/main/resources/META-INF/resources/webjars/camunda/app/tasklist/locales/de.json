@@ -45,7 +45,7 @@
     "AUTH_DAY_CONTEXT_WEEKEND": "Wochenausklang",
     "AUTH_FAILED_TO_DISPLAY_RESOURCE": "Fehler beim Anzeigen der Ressource",
     "AUTH_AUTHENTICATION_FAILED": "Authentifizierung fehlgeschlagen. Die Session ist abgelaufen, bitte erneut Anmelden.",
-    "PAGE_LOGIN_ERROR_MSG": "Falsche Zugangsdaten oder fehlende Zugriffsberechtigungen für die Anwendung",
+    "PAGE_LOGIN_ERROR_MSG": "Falsche Zugangsdaten, gesperrter Nutzer oder fehlende Zugriffsberechtigungen für die Anwendung",
     "PAGE_LOGIN_USERNAME": "Benutzername",
     "PAGE_LOGIN_PASSWORD": "Passwort",
     "PAGE_LOGIN_PLEASE_SIGN_IN": "Bitte anmelden",
@@ -395,7 +395,9 @@
     "TOGGLE": "Umschalten",
     "SERIALIZED": "Serialisiert",
     "DESERIALIZED": "Deserialisiert",
-    "DESERIALIZATION_ERROR": "Deserialisierungsfehler"
+    "DESERIALIZATION_ERROR": "Deserialisierungsfehler",
+    "FIRST_LOGIN_INFO": "Es scheint als verwenden Sie die Webapps zum ersten mal. Besuchen Sie die <a href=\"/camunda-welcome\">Camunda Welcome Seite</a> für einen schnellen Überblick.",
+    "FIRST_LOGIN_HEADING": "Wilkommen bei Camunda"
   },
   "dateLocales": {
     "months": [
