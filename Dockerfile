@@ -12,7 +12,7 @@ ENV JAVA_OPTS="" \
 DOCKER_JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0" \
 LANG=en_US.utf8
 #Entry with exec
-ENTRYPOINT exec java ${JAVA_OPTS} ${DOCKER_JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /camunda-showcase-customer-onboarding.jar
+ENTRYPOINT exec java ${JAVA_OPTS} -Xmx2048m ${DOCKER_JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /camunda-showcase-customer-onboarding.jar
 #define usergroup with just few to none permissions and add this
 RUN addgroup -S app && \
    adduser -S -g app app && \
