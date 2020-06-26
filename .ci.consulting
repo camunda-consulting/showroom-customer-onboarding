@@ -1,0 +1,10 @@
+@Library(["camunda-ci", "camunda-consulting"]) _
+
+def settings = [
+  isMvn: true,
+  buildMavenProject: "clean source:jar deploy -DargLine='-Xmx512m -XX:MaxPermSize=128m'",
+  dockerImage: 'showroom-customer-onboarding',
+  snapshotName: "1.1.0-SNAPSHOT"
+]
+
+buildAndDeployDockerImage(settings)
