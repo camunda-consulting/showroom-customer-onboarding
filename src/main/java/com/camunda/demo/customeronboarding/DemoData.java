@@ -12,11 +12,11 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.camunda.bpm.engine.ProcessEngine;
@@ -24,17 +24,7 @@ import org.camunda.bpm.engine.authorization.Permission;
 import org.camunda.bpm.engine.authorization.Permissions;
 import org.camunda.bpm.engine.authorization.Resources;
 import org.camunda.bpm.engine.filter.Filter;
-import org.camunda.bpm.engine.impl.Page;
-import org.camunda.bpm.engine.impl.ProcessEngineImpl;
-import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.camunda.bpm.engine.impl.interceptor.Command;
-import org.camunda.bpm.engine.impl.interceptor.CommandContext;
-import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
-import org.camunda.bpm.engine.impl.jobexecutor.AcquiredJobs;
-import org.camunda.bpm.engine.impl.persistence.entity.AcquirableJobEntity;
-import org.camunda.bpm.engine.impl.persistence.entity.JobEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
-import org.camunda.bpm.engine.runtime.Job;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.variable.Variables;
@@ -311,25 +301,32 @@ public class DemoData {
     return createNeuantrag(birthYear, category, employment, NAME, EMAIL, GENDER);
   }
   
-  private void generateDataInOldModel(ProcessEngine processEngine) {
-    // push one instance to the first user task
-    ProcessInstance pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_en, "A-123",
-        DemoData.createYellowInitVars(false));
-    processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
-    
-    pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_de, DemoData.createYellowInitVars(true));
-    processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
-
-    // and the other one to the second
-    pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_en, "A-456", DemoData.createYellowInitVars(false));
-    processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
-    Task decideOnApplication = processEngine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).active().singleResult();
-    processEngine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
-    
-    pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_de, DemoData.createYellowInitVars(true));
-    processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
-    decideOnApplication = processEngine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).active().singleResult();
-    processEngine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
+  private void createProcessInstanceFirstUserTask(String businessKey) {
+	  ProcessInstance pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_en, businessKey,
+		        DemoData.createYellowInitVars(false));
+		    processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
+		    
+		    pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_de, DemoData.createYellowInitVars(true));
+		    processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
+  }
+  
+  private void createProcessInstanceSecondUserTask(String businessKey) {
+	  ProcessInstance pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_en, businessKey, DemoData.createYellowInitVars(false));
+	  processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
+	  Task decideOnApplication = processEngine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).active().singleResult();
+	  processEngine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
+	    
+	  pi = processEngine.getRuntimeService().startProcessInstanceByKey(ProcessConstants.PROCESS_KEY_customer_onboarding_de, DemoData.createYellowInitVars(true));
+	  processEngine.getManagementService().executeJob(processEngine.getManagementService().createJobQuery().processInstanceId(pi.getId()).active().singleResult().getId());
+	  decideOnApplication = processEngine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).active().singleResult();
+	  processEngine.getTaskService().complete(decideOnApplication.getId(), Variables.putValue(ProcessConstants.VAR_NAME_approved, true));
+  }
+  
+  private void generateDataInOldModel() {
+	  List<String> businessKeysFirstUserTask = Arrays.asList("A-123", "A-124", "A-125", "A-126", "A-127", "A-128", "A-129", "A-133", "A-134");
+	  List<String> businessKeysSecondUserTask = Arrays.asList("A-456", "A-457", "A-458", "A-459", "A-460", "A-461", "A-462", "A-463", "A-464");
+	  businessKeysFirstUserTask.forEach(businessKey -> createProcessInstanceFirstUserTask(businessKey));
+	  businessKeysSecondUserTask.forEach(businessKey -> createProcessInstanceSecondUserTask(businessKey));
   }
   
   private void createEnglishFiltersAndUsers(ProcessEngine processEngine) {
@@ -497,7 +494,7 @@ public class DemoData {
     	        UserGenerator.createDefaultUsers(processEngine);
     	        setupUsersForDemo(processEngine);
     	      }
-    	      generateDataInOldModel(processEngine);
+    	      generateDataInOldModel();
     	    }
     	   LOGGER.info("Data for old instances generated.");
     	    deploymentService.deployCustomerOnboardCurrent();
