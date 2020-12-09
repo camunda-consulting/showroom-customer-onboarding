@@ -2,19 +2,19 @@ var mail = require('nodemailer');
 
 const sendMail = async (subject, mailtext, toEmail) => {
   let transporter = mail.createTransport({
-    host: "mail.camunda.com",	    
-   port: 25,
-   secure: false, // true for 465, false for other ports
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false, // true for 465, false for other ports
     auth: {
-      user: process.env.APP_USER,
-      pass: process.env.APP_PW
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD
     }
   });
 
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
   let info = await transporter.sendMail({
-    from: process.env.APP_FROM,
+    from: process.env.MAIL_FROM,
     to: toEmail,
     subject: subject,
     text: mailtext

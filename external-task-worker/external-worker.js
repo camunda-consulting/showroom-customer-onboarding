@@ -12,12 +12,12 @@ let second = 1000;
 let minute = 60 * second;
 
 const config = {
-  baseUrl: "customer-onboarding/camunda/engine-rest",
+  baseUrl: process.env.CAMUNDA_REST_BASE_URL,
   asyncResponseTimeout: 5 * second,
   interval: 1 * second,
   lockDuration: 3 * second,
   use: logger,
-  port: 8080,
+  port: process.env.CAMUNDA_REST_PORT,
   autoPoll: false
 };
 
@@ -27,7 +27,7 @@ const request = async (method, path, options) => {
   const url = `${config.baseUrl}${path}`;
 
   options.protocol = 'http:';
-  options.port = 8080;
+  options.port = process.env.CAMUNDA_REST_PORT;
 
   const newOptions = {
     method,
