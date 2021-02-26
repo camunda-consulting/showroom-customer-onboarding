@@ -80,6 +80,7 @@ $(document).ready(function() {
       "category": $('#category').val(),
       "priceIndicationInCent": getPrice() * 100,
       "product": $("#category option:selected").text(),
+	  "rpa":$('#rpa').val(),
       "corporation": "Camuntelia"
     };
 

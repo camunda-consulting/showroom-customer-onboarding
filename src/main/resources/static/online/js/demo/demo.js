@@ -78,7 +78,8 @@ $(document).ready(function() {
       var row = $('#stickyHelperRow');
       row.append(getButtonDiv('greenButton', 'Green path', 'greenDiv'));
       row.append(getButtonDiv('yellowButton', 'Yellow path', 'yelDiv'));
-      row.append(getButtonDiv('redButton', 'Red path', 'redDiv'));
+      row.append(getButtonDiv('redButton', 'Red path', 'yelDiv'));
+	  row.append(getButtonDiv('blueButton', 'Toggle RPA', 'redDiv'));
 
       $('#greenButton').css('border', '2px solid #32CD32');
       $('#greenButton').click(greenButtonClick);
@@ -86,6 +87,8 @@ $(document).ready(function() {
       $('#yellowButton').click(yellowButtonClick);
       $('#redButton').css('border', '2px solid red');
       $('#redButton').click(redButtonClick);
+	  $('#blueButton').css('border', '2px solid blue');
+      $('#blueButton').click(blueButtonClick);
 
       stickyHelperContainerActive = true;
   }
@@ -124,6 +127,17 @@ $(document).ready(function() {
       $('#employment').val(isGerman ? 'Nicht erwerbstätig' : 'Unemployed').change();
       $('#standardButton').click();
       removeHelperButtons();
+    }
+	
+	var blueButtonClick = () => {
+      var toggle = $('#rpa').val();
+	  if(toggle == 'true') {
+		$('#rpa').val(false);
+		$("#triggerStartApplication").html("Send");
+	  } else {
+		  $('#rpa').val(true);
+		  $("#triggerStartApplication").html("Send, invoke RPA bot");
+	  };
     }
 
   var removeHelperButtons = () => {
