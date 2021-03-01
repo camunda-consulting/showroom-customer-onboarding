@@ -44,6 +44,7 @@ public class ProcessConstants {
   public static final String VAR_NAME_PREFIX_documentFile = "document_";
   /** Contains a JSON map "reference id"->"description" */
   public static final String VAR_NAME_documents = "documents";
+  public static final String VAR_NAME_rpa = "rpa";
 
   /*
    * Variables of document request sub-process.

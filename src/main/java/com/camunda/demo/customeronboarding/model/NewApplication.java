@@ -18,6 +18,8 @@ public class NewApplication {
   private String contractNumber;
   private long priceIndicationInCent;
   private long premiumInCent;
+  
+  private Boolean rpa;
 
   public static int counter = 0;
 
@@ -126,6 +128,14 @@ public class NewApplication {
 
   public void setProduct(String product) {
     this.product = product;
+  }
+  
+  public Boolean getRpa() {
+    return rpa;
+  }
+
+  public void setRpa(Boolean rpa) {
+    this.rpa = rpa;
   }
   
   
