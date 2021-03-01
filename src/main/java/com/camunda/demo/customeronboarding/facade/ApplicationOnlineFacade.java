@@ -50,6 +50,7 @@ public class ApplicationOnlineFacade {
             .putValue(ProcessConstants.VAR_NAME_uiBaseUrl, uiBaseUrl)//
             .putValue(ProcessConstants.VAR_NAME_applicationNumber, application.getApplicationNumber())//
             .putValue(ProcessConstants.VAR_NAME_applicantName, application.getApplicant().getName())//
+			.putValue(ProcessConstants.VAR_NAME_rpa, application.getRpa())
             );
     
     return processInstance.getBusinessKey();
