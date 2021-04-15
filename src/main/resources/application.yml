@@ -9,6 +9,10 @@ englishonly: false
 camunda.bpm:
   webapp.application-path: /
   authorization.enabled: true
+  generic-properties:
+   properties:
+    initializeTelemetry: false
+    telemetryReporterActivate: false
 
 cawemo:
   enabled: 'false'
