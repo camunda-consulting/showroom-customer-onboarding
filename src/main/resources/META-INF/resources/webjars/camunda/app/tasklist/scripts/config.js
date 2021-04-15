@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-window.camTasklistConf = {
+export default {
   // change the app name and vendor
   // app: {
   //   name: 'Todos',
