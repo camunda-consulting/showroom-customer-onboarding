@@ -19,7 +19,7 @@ public class NewApplication {
   private long priceIndicationInCent;
   private long premiumInCent;
   
-  private Boolean rpa;
+  private boolean rpa;
 
   public static int counter = 0;
 
@@ -130,11 +130,11 @@ public class NewApplication {
     this.product = product;
   }
   
-  public Boolean getRpa() {
+  public boolean getRpa() {
     return rpa;
   }
 
-  public void setRpa(Boolean rpa) {
+  public void setRpa(boolean rpa) {
     this.rpa = rpa;
   }
   

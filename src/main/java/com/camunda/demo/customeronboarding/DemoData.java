@@ -91,6 +91,7 @@ public class DemoData {
       } else {
         application = green(german);
       }
+      application.setRpa(false);
 
       boolean male = uniformBoolean();
       String gender = male ? (german ? "Mann" : "male") : (german ? "Frau" : "female");

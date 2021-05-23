@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <bpmn2:collaboration id="Collaboration_1u35ano">
     <bpmn2:participant id="Participant_0477s11" name="Customer Onboarding" processRef="customer_onboarding_en" />
   </bpmn2:collaboration>
@@ -56,12 +56,17 @@
       <bpmn2:outgoing>SequenceFlow_1gd6p37</bpmn2:outgoing>
     </bpmn2:serviceTask>
     <bpmn2:exclusiveGateway id="Gateway_1387hbi" name="Use RPA?">
+      <bpmn2:extensionElements>
+        <camunda:properties>
+          <camunda:property name="simulateKeepImplementation" value="true" />
+        </camunda:properties>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0t1eurk</bpmn2:outgoing>
       <bpmn2:outgoing>Flow_0sd1l5i</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="Flow_0t1eurk" name="no" sourceRef="Gateway_1387hbi" targetRef="ServiceTask_0tixwo5">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not rpa}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${!application.rpa}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_0sd1l5i" name="yes" sourceRef="Gateway_1387hbi" targetRef="Activity_1b8jgpo">
       <bpmn2:extensionElements>
@@ -70,7 +75,7 @@
 execution.setVariable('rpaDob', ""+app.applicant.birthday.getTime()); </camunda:script>
         </camunda:executionListener>
       </bpmn2:extensionElements>
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${rpa}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${application.rpa}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:serviceTask id="Activity_1b8jgpo" name="Get credit score via green screen" camunda:modelerTemplate="34f87055-97c0-4f18-bd84-c38ab609748c" camunda:asyncAfter="true" camunda:type="external" camunda:topic="uipath">
       <bpmn2:extensionElements>
