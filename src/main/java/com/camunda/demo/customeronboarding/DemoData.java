@@ -212,12 +212,23 @@ public class DemoData {
     String employment = Employment.values()[german ? getRandom(3, 4) : getRandom(7, 8)].displayName;
     return createNeuantrag(getBirthYear(5), category, employment);
   }
-  
-  static int getBirthYear(int endNumber) {
-	  int thisYear = LocalDate.now().getYear();
-	  int numberForCorrectEnding = - (20 + 10 - endNumber);
-	  int numberForEvenDigits = thisYear % 10 >= 5 ? (thisYear % 10) - 10 : (thisYear % 10);
-	  return LocalDate.now().plusYears(numberForCorrectEnding - numberForEvenDigits).getYear();
+
+  /**
+   * Returns a year that is 21-30 years in the past from today and has 'lastDigit' as last digit.
+   *
+   * @param lastDigit desired last digit of the year
+   * @return
+   */
+  static int getBirthYear(int lastDigit) {
+    if (lastDigit < 0 || lastDigit > 9) throw new IllegalArgumentException("lastDigit must be in [0;9]");
+    int currentLastDigit = (LocalDate.now().getYear() % 10);
+    int yearsToAdd;
+    if (currentLastDigit <= lastDigit) {
+      yearsToAdd = lastDigit - currentLastDigit; // min=0, max=9
+    } else {
+      yearsToAdd = lastDigit + 10 - currentLastDigit; // min=1, max=9
+    }
+    return LocalDate.now().plusYears(-30 + yearsToAdd).getYear();
   }
 
   public static Map<String, Object> createGreenInitVars(boolean german) {

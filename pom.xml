@@ -15,9 +15,8 @@
 	</parent>
 
 	<properties>
-		<camunda.version>7.14.0-ee</camunda.version>
-    	<camundaSpringBoot.version>7.14.0-ee</camundaSpringBoot.version>
-    	<springBoot.version>2.3.1.RELEASE</springBoot.version>
+		<camunda.version>7.15.0-ee</camunda.version>
+    	<springBoot.version>2.4.4</springBoot.version>
 		<simulator.version>1.6.0</simulator.version>
 
 		<version.java>1.8</version.java>
@@ -66,19 +65,19 @@
 		<dependency>
 			<groupId>org.camunda.bpm.springboot</groupId>
 			<artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
-			<version>${camundaSpringBoot.version}</version>
+			<version>${camunda.version}</version>
 		</dependency>
  
 		<dependency>
 			<groupId>org.camunda.bpm.springboot</groupId>
 			<artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
-			<version>${camundaSpringBoot.version}</version>
+			<version>${camunda.version}</version>
 		</dependency>
 		
 		<dependency>
 		    <groupId>org.camunda.bpm.springboot</groupId>
 		    <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
-		    <version>${camundaSpringBoot.version}</version>
+		    <version>${camunda.version}</version>
 		    <scope>test</scope>
 		</dependency>		
 		
@@ -96,18 +95,9 @@
 		<dependency>
 	      <groupId>org.camunda.bpm.extension</groupId>
 	      <artifactId>camunda-bpm-assert-scenario</artifactId>
-	      <version>0.2</version>
+	      <version>1.0.0</version>
 	      <scope>test</scope>
 	    </dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-		<dependency>
-		    <groupId>org.mockito</groupId>
-		    <artifactId>mockito-core</artifactId>
-		    <version>2.28.2</version>
-		    <scope>test</scope>
-		</dependency>
-
 
 		<!-- Required to use Spin dataformat support -->
 		<dependency>
