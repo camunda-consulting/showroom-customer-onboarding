@@ -25,3 +25,6 @@ target
 #database
 /camunda-db.mv.db
 /camunda-db.trace.db
+
+# Visual Studio Code
+.vscode
