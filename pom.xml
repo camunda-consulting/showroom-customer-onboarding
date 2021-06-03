@@ -8,43 +8,20 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<parent>
-		<groupId>org.camunda</groupId>
-		<artifactId>camunda-release-parent</artifactId>
-		<version>3.7</version>
-		<relativePath />
-	</parent>
-
 	<properties>
-		<camunda.version>7.15.0-ee</camunda.version>
+		<springZeebe.version>1.0.0</springZeebe.version>
 		<springBoot.version>2.4.4</springBoot.version>
-		<simulator.version>1.6.0</simulator.version>
 
 		<version.java>1.8</version.java>
+		<maven.compiler.source>${version.java}</maven.compiler.source>
+		<maven.compiler.target>${version.java}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
-
-		<!-- camunda and spring use different properties ... -->
-		<java.version>${version.java}</java.version>
 
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>org.camunda.bpm</groupId>
-				<artifactId>camunda-bom</artifactId>
-				<version>${camunda.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>org.camunda.bpm.dmn</groupId>
-				<artifactId>camunda-engine-dmn-bom</artifactId>
-				<version>${camunda.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
@@ -57,65 +34,10 @@
 
 	<dependencies>
 
-	<dependency>
-		<groupId>com.camunda.consulting.webapp.plugin</groupId>
-		<artifactId>camunda-webapp-plugin-sso-autologin</artifactId>
-		<version>7.6.0</version>
-	</dependency>
-	
 		<dependency>
-			<groupId>org.camunda.bpm.springboot</groupId>
-			<artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
-			<version>${camunda.version}</version>
-		</dependency>
- 
-		<dependency>
-			<groupId>org.camunda.bpm.springboot</groupId>
-			<artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
-			<version>${camunda.version}</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.camunda.bpm.springboot</groupId>
-		    <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
-		    <version>${camunda.version}</version>
-		    <scope>test</scope>
-		</dependency>		
-		
-		<dependency>
-			<groupId>com.camunda.consulting.util</groupId>
-			<artifactId>camunda-util-demo-support</artifactId>
-			<version>0.4.0</version>
-		</dependency>
-		<dependency>
-		  <groupId>com.camunda.consulting</groupId>
-		  <artifactId>camunda-bpm-simulator</artifactId>
-		  <version>${simulator.version}</version>
-		</dependency>
-		
-		<dependency>
-	      <groupId>org.camunda.bpm.extension</groupId>
-	      <artifactId>camunda-bpm-assert-scenario</artifactId>
-	      <version>1.0.0</version>
-	      <scope>test</scope>
-	    </dependency>
-
-		<!-- Required to use Spin dataformat support -->
-		<dependency>
-			<groupId>org.camunda.spin</groupId>
-			<artifactId>camunda-spin-dataformat-all</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.camunda.bpm</groupId>
-			<artifactId>camunda-engine-plugin-spin</artifactId>
-		</dependency>
-
-
-		<!-- required to use freemarker as ioMapping in test -->
-		<dependency>
-			<groupId>org.camunda.template-engines</groupId>
-			<artifactId>camunda-template-engines-freemarker</artifactId>
+			<groupId>io.camunda</groupId>
+			<artifactId>spring-zeebe-starter</artifactId>
+			<version>${springZeebe.version}</version>
 		</dependency>
 
 		<dependency>
@@ -131,37 +53,7 @@
 			<version>2.1.0-2</version>
 		</dependency>
 
-		<dependency> 
-			<groupId>org.springframework.boot</groupId> 
-			<artifactId>spring-boot-starter-jdbc</artifactId> 
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-		<dependency>
-		    <groupId>com.h2database</groupId>
-		    <artifactId>h2</artifactId>
-		</dependency>
-		
-		<dependency>
-		  <groupId>org.camunda.bpm</groupId>
-		  <artifactId>cawemo-engine-plugin</artifactId>
-		  <version>1.0.0</version>
-		</dependency>
-		
 	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>camunda-bpm-nexus</id>
-			<name>Camunda BPM Maven Repository</name>
-			<url>https://app.camunda.com/nexus/content/groups/public</url>
-		</repository>
-		<repository>
-			<id>jboss-public-repository</id>
-			<name>JBoss Repository</name>
-			<url>http://repository.jboss.org/nexus/content/groups/public</url>
-		</repository>
-	</repositories>
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
