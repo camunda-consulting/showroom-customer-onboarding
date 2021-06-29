@@ -4,7 +4,8 @@ def settings = [
   isMvn: true,
   buildMavenProject: "clean source:jar deploy -DargLine='-Xmx512m -XX:MaxPermSize=128m'",
   dockerImage: 'showroom-customer-onboarding',
-  snapshotName: "1.1.0-SNAPSHOT"
+  snapshotName: "1.1.0-SNAPSHOT",
+  activateNotification: true
 ]
 
 buildAndDeployDockerImage(settings)
