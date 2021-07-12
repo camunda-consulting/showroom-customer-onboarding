@@ -1,0 +1,13 @@
+{
+  "name": "camunda_node_worker",
+  "version": "1.0.0",
+  "description": "Node.js external task worker on Docker",
+  "author": "Felix Anhalt <felix.anhalt@camunda.com>",
+  "main": "external-worker.js",
+  "scripts": {
+    "start": "node external-worker.js"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^4.5.0"
+  }
+}

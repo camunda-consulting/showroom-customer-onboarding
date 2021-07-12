@@ -1,11 +1,18 @@
 #base java 8
 FROM openjdk:8-jdk-alpine
+# necessary for apk installation
+USER root
+# node
+RUN apk add --update nodejs nodejs-npm
 #timezone
 RUN apk add tzdata
 RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 ENV TZ="Europe/Berlin"
 #define vol
 VOLUME /tmp
+COPY package.json .
+RUN npm install @google-cloud/storage --save
+COPY . .
 #copy to new jar
 COPY target/camunda-showcase-customer-onboarding.jar camunda-showcase-customer-onboarding.jar
 ENV JAVA_OPTS="" \
@@ -18,3 +25,4 @@ RUN addgroup -S app && \
    adduser -S -g app app && \
    chown app:app /${DEPLOYMENT_ARTIFACT}
 USER app
+ENTRYPOINT ["sh", "datatransfer.sh"]
