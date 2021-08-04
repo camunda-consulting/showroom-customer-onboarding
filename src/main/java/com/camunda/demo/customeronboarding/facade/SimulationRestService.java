@@ -16,9 +16,9 @@ public class SimulationRestService {
     this.demoData = demoData;
   }
   
-  @GetMapping("/simulation/status")
+  @GetMapping("/setup/status")
   public boolean returnSimulationStatus() {
-    return demoData.isSimulationFinished();
+    return demoData.isSetupFinished();
   }
   
 }

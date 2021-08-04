@@ -1,5 +1,6 @@
 const {Storage} = require('@google-cloud/storage');
-const shouldUpload = process.env.transfertype == "upload";
+const shouldUpload = process.env.mode == "demo";
+const shouldDownload = process.env.mode == "run";
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS = "auth/bucketAuth.json"
 
@@ -63,7 +64,7 @@ async function downloadFromDatabase() {
 if(shouldUpload){
   //uploadToDatabase();
 	console.log("-------------UPLOAD TO DATABASE-------------");
-} else {
+} else if (shouldDownload) {
   //downloadFromDatabase();
 	console.log("-------------DOWNLOAD FROM DATABASE-------------");
 }

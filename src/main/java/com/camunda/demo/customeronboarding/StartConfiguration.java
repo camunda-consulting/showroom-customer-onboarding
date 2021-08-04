@@ -3,7 +3,7 @@ package com.camunda.demo.customeronboarding;
 import org.camunda.bpm.engine.delegate.ExecutionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,20 +28,14 @@ public class StartConfiguration {
   }
   
   @Bean
-  @ConditionalOnProperty(
-	  value="shouldsimulate",
-	  havingValue = "true",
-	  matchIfMissing = false)
+  @ConditionalOnExpression("'${mode}'=='demo' || '${mode}'=='test'")
   public SimulatorPlugin simulatorPlugin() {
 	  LOGGER.info("------LOAD SIMULATOR PLUGIN------");
         return new SimulatorPlugin();
   }
 
   @Bean
-  @ConditionalOnProperty(
-	  value="shouldsimulate",
-	  havingValue = "true",
-	  matchIfMissing = false)
+  @ConditionalOnExpression("'${mode}'=='demo' || '${mode}'=='test'")
   public PayloadGenerator generator() {
 	  LOGGER.info("------LOAD PAYLOAD GENERATOR------");
         return new ContentGenerator();

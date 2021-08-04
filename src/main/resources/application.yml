@@ -4,8 +4,6 @@ spring:
   username: sa
   password: sa
 
-englishonly: false
-
 camunda.bpm:
   webapp.application-path: /
   authorization.enabled: true

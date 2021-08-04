@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -52,13 +51,9 @@ import com.camunda.demo.customeronboarding.model.Person;
 @Component
 public class DemoData {
   
-  @Value("${englishonly}") 
-  private boolean englishOnly;
-  @Value("${shouldsimulate:true}") 
-  private boolean shouldSimulate;
-  @Value("${stayActiveAfterSim:true}") 
-  private boolean stayActiveAfterSimulation;
-  private boolean simulationFinished = false;
+  @Value("${mode}") 
+  private String mode;
+  private boolean setupFinished = false;
   
   private ProcessEngine processEngine;
   private DeploymentService deploymentService;
@@ -487,9 +482,7 @@ public class DemoData {
 
   private void setupUsersForDemo(ProcessEngine processEngine) {
     createEnglishFiltersAndUsers(processEngine);
-    if(!englishOnly) {
-      createGermanFiltersAndUsers(processEngine);       
-    }
+    createGermanFiltersAndUsers(processEngine);
   }
   
 
@@ -497,8 +490,8 @@ public class DemoData {
     // this should be done by camunda-util-license-installer-war - if we have
     // both, DB exceptions may occur
     // LicenseHelper.setLicense(engine);
-    
-    if(shouldSimulate) {
+	  
+    if(mode.toLowerCase().equals("demo") || mode.toLowerCase().equals("test")) {
     	if(!oldDataExists()) {
     		if(!oldDeploymentExists()) {
     			deploymentService.deployStandardProcesses();
@@ -506,25 +499,22 @@ public class DemoData {
     	        setupUsersForDemo(processEngine);
     	      }
     	      generateDataInOldModel();
+    	      LOGGER.info("Data for old instances generated.");
     	    }
-    	   LOGGER.info("Data for old instances generated.");
     	    deploymentService.deployCustomerOnboardCurrent();
-    	    runSimulationAndStopAfterwards();      
-    } else {
-      SimulationExecutor.execute(DateTime.now().toDate(), DateTime.now().toDate());
-      SimulatorPlugin.resetProcessEngine();
-      deploymentService.deployAllCurrent();
-      LOGGER.info("Redeployment finished");
-      simulationFinished = true;
+    	    runSimulation();
     }
-    
+    if(mode.toLowerCase().equals("demo")) {
+    	shutdown();
+    }
+    else {
+        deploymentService.deployAllCurrent();
+        LOGGER.info("Redeployment finished");
+        setupFinished = true;
+    }    
   }  
   
-  private void runSimulationAndStopAfterwards() {
-    new Timer().schedule(new TimerTask() {
-
-      @Override
-      public void run() {
+  private void runSimulation() {
         DemoData.LOGGER.info("----                                                             ----");
         LOGGER.info("----                                                             ----");
         LOGGER.info("---- Starting demo data generation. PLEASE WAIT UNTIL IT'S DONE. ----");
@@ -545,24 +535,19 @@ public class DemoData {
         LOGGER.info("----                                                     ----");
         LOGGER.info("---- It took " + String.format("%02.1f", (end - begin) / 60_000d) + " minutes to start " + String.format("%05d", ContentGenerator.startedInstances)
             + " instances.       ----");
-        
-        simulationFinished = true;
-        if(!stayActiveAfterSimulation) {
-        	shutdown();
-        } else {
-        	SimulatorPlugin.resetProcessEngine();
-            deploymentService.deployAllCurrent();
-            LOGGER.info("Redeployment finished");
-        }
-      }
-    }, 10_000);
   }
   
-  // should only be called if jobExecutor is disabled
-  public void shutdown() {
-	  SimulatorPlugin.resetProcessEngine();
-	  SpringApplication.exit(applicationContext, () -> 0);
-  }
+	// should only be called if jobExecutor is disabled
+	public void shutdown() {
+		new Timer().schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				SimulatorPlugin.resetProcessEngine();
+				SpringApplication.exit(applicationContext, () -> 0);
+			}
+		}, 10_000);
+	}
   
   private boolean oldDeploymentExists() {
     return !processEngine.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("customer_onboarding_en").list().isEmpty();
@@ -579,8 +564,8 @@ public class DemoData {
     return exists; 
   }
 
-  public boolean isSimulationFinished() {
-    return simulationFinished;
+  public boolean isSetupFinished() {
+    return setupFinished;
   }
   
   
