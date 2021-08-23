@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-
 @SpringBootApplication
 @EnableZeebeClient
 @ZeebeDeployment(classPathResources = {"static/bpmn/customer_onboarding_en.bpmn", "static/bpmn/document_request_en.bpmn"})
