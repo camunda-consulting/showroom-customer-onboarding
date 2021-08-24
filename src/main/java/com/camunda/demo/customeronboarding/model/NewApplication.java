@@ -19,6 +19,8 @@ public class NewApplication {
   private long priceIndicationInCent;
   private long premiumInCent;
 
+  private Number score;
+
   public static int counter = 0;
 
   public static String generateUUID() {

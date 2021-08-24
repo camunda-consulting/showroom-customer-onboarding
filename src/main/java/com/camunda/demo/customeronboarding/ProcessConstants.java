@@ -34,6 +34,7 @@ public class ProcessConstants {
   public static final String VAR_NAME_uiBaseUrl = "uiBaseUrl";
   public static final String VAR_NAME_application = "application";
   public static final String VAR_NAME_risks = "risks";
+  public static final String VAR_NAME_score = "score";
   public static final String VAR_NAME_approved = "approved";
   public static final String VAR_NAME_riskLevel = "riskLevel";
   public static final String VAR_NAME_applicationNumber = "applicationNumber";
