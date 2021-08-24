@@ -153,8 +153,14 @@
 	<repositories>
 		<repository>
 			<id>camunda-bpm-nexus</id>
-			<name>Camunda BPM Maven Repository</name>
+			<name>Camunda Maven Repository</name>
 			<url>https://app.camunda.com/nexus/content/groups/public</url>
+		</repository>
+		<!-- repository for EE dependencies (requires credentials in ~/.m2/settings.xml) -->
+		<repository>
+			<id>camunda-bpm-nexus-ee</id>
+			<name>Camunda Enterprise Maven Repository</name>
+			<url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-ee</url>
 		</repository>
 		<repository>
 			<id>jboss-public-repository</id>
