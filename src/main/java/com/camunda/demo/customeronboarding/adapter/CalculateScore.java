@@ -1,30 +1,39 @@
 package com.camunda.demo.customeronboarding.adapter;
 
 import java.time.ZoneId;
+import java.util.Map;
 
-import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
+import io.camunda.zeebe.client.api.response.ActivatedJob;
+import io.camunda.zeebe.client.api.worker.JobClient;
+import io.camunda.zeebe.spring.client.EnableZeebeClient;
+import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+
+import com.camunda.demo.customeronboarding.ProcessConstants;
 import com.camunda.demo.customeronboarding.model.NewApplication;
 
 @Component
-public class CalculateScore implements JavaDelegate {
+@EnableZeebeClient
+public class CalculateScore {
 
-	@Override
-	public void execute(DelegateExecution execution) throws Exception {
-		NewApplication application = (NewApplication) execution.getVariable("application");
-		int yearLastDigit = application.getApplicant().getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() % 10;
+	@ZeebeWorker(type = "calculateScore")
+	public void calculateScore(final JobClient client, final ActivatedJob job) {
+
+		NewApplication newApplication = (NewApplication) job.getVariablesAsMap().get(ProcessConstants.VAR_NAME_application);
+		int yearLastDigit = newApplication.getApplicant().getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() % 10;
 
 		int score = 97;
-		
+
 		if(yearLastDigit == 3) {
 			score = 93;
 		} else if (yearLastDigit == 5) {
 			score = 82;
 		} 
 		
-		execution.setVariable("score", score);
+		client.newCompleteCommand(job.getKey())
+		.variables(Map.of(ProcessConstants.VAR_NAME_score, score))
+		.send()
+		.join();
 	}
-
 }

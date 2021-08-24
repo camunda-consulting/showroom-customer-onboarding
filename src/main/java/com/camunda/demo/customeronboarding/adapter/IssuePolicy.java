@@ -15,6 +15,7 @@ import com.camunda.demo.customeronboarding.model.NewApplication;
 @Component
 @EnableZeebeClient
 public class IssuePolicy {
+
   @ZeebeWorker(type = "issuePolicy")
   public void issuePolicy(final JobClient client, final ActivatedJob job) {
 
