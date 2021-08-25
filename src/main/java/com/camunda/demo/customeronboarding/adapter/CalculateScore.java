@@ -12,6 +12,7 @@ import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
 
 import com.camunda.demo.customeronboarding.ProcessConstants;
 import com.camunda.demo.customeronboarding.model.NewApplication;
+import com.camunda.demo.customeronboarding.model.NewApplicationVariable;
 
 @Component
 @EnableZeebeClient
@@ -20,7 +21,8 @@ public class CalculateScore {
 	@ZeebeWorker(type = "calculateScore")
 	public void calculateScore(final JobClient client, final ActivatedJob job) {
 
-		NewApplication newApplication = (NewApplication) job.getVariablesAsMap().get(ProcessConstants.VAR_NAME_application);
+		//NewApplication newApplication = (NewApplication) job.getVariablesAsMap().get(ProcessConstants.VAR_NAME_application);
+		NewApplication newApplication = job.getVariablesAsType(NewApplicationVariable.class).getApplication();
 		int yearLastDigit = newApplication.getApplicant().getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() % 10;
 
 		int score = 97;
