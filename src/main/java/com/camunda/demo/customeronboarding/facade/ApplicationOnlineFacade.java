@@ -66,6 +66,7 @@ public class ApplicationOnlineFacade {
 
   @PostMapping(path="/document/{number}")
   public void submitDocument(@PathVariable("number") String number, @RequestBody VariableValueDto documentVariable) throws UnsupportedEncodingException {
+    // TODO createPublishMessageCommand
 /*
     FileValue document = Variables.fileValue((String) documentVariable.getValueInfo().get("filename"))
         .file(Base64.decodeBase64((String) documentVariable.getValue())) // see
