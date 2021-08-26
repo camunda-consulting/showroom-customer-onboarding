@@ -8,6 +8,8 @@ require('dotenv').config();
 
 const mailService = require('./mail.js');
 
+const { ZBCLIENT } = require('zeebe-node');
+
 let second = 1000;
 let minute = 60 * second;
 
