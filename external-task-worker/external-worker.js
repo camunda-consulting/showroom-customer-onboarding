@@ -56,7 +56,6 @@ client.engineService.request = request.bind(client.engineService);
 client.on('poll:error', (err) => console.log(`The error is:  ${err}`));
 
 var emailServicehandler = async (task, taskService) => {
-  // get the process variable 'score'
   let application = JSON.parse(task.variables.get("application"));
   let mailtext = task.variables.get("mailBody");
   let subject = task.variables.get("mailSubject");
