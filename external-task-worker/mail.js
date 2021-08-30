@@ -1,5 +1,7 @@
 var mail = require('nodemailer');
 
+require('dotenv').config();
+
 const sendMail = async (subject, mailtext, toEmail) => {
   let transporter = mail.createTransport({
     host: process.env.SMTP_HOST,

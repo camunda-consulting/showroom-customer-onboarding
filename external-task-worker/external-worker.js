@@ -1,16 +1,10 @@
+const { ZBClient } = require('zeebe-node');
+
 const mailService = require('./mail.js');
 
-const { ZBCLIENT } = require('zeebe-node');
+const client = new ZBClient ();
 
-const zbc = new ZBClient({
-	camundaCloud: {
-		clusterId: 'CAMUNDA CLUSTER ID',
-		clientId: 'CAMUNDA CLIENT ID',
-		clientSecret: 'CAMUNDA CLIENT SECRET',
-	},
-});
-
-zbc.createWorker({
+client.createWorker({
 	taskType: 'emailService',
 	taskHandler: (job, _, worker) => {
 		let { application, mailBody, mailSubject } = job.variables;
@@ -20,6 +14,7 @@ zbc.createWorker({
 			.then(async () => await job.complete())
 			.catch(async (err) => {
 				console.log(err);
+				await job.fail(err.message, 0)
 			})
 
 
