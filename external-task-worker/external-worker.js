@@ -2,7 +2,7 @@ const { ZBClient } = require('zeebe-node');
 
 const mailService = require('./mail.js');
 
-const client = new ZBClient ();
+const client = new ZBClient();
 
 client.createWorker({
 	taskType: 'emailService',
