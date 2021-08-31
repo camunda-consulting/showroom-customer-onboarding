@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.camunda.demo.customeronboarding.ProcessConstants;
 import com.camunda.demo.customeronboarding.model.NewApplication;
+import com.camunda.demo.customeronboarding.model.NewApplicationVariable;
 
 @Component
 @EnableZeebeClient
@@ -19,7 +20,7 @@ public class IssuePolicy {
   @ZeebeWorker(type = "issuePolicy")
   public void issuePolicy(final JobClient client, final ActivatedJob job) {
 
-    NewApplication newApplication = (NewApplication) job.getVariablesAsMap().get(ProcessConstants.VAR_NAME_application);
+    NewApplication newApplication = job.getVariablesAsType(NewApplicationVariable.class).getApplication();
     newApplication.setContractNumber(String.valueOf(System.currentTimeMillis()));
 
     client.newCompleteCommand(job.getKey())
