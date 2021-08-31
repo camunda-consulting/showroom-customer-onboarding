@@ -4,7 +4,15 @@
     <bpmn2:participant id="Participant_0477s11" name="Customer Onboarding" processRef="customer_onboarding_en" />
   </bpmn2:collaboration>
   <bpmn2:process id="customer_onboarding_en" name="Customer Onboarding" isExecutable="true">
+    <bpmn2:extensionElements>
+      <zeebe:userTaskForm id="userTaskForm_07e99np">{   "type": "default",   "components": [     {       "key": "applicationNumber",       "label": "Application Number",       "type": "textfield"     }   ] }</zeebe:userTaskForm>
+    </bpmn2:extensionElements>
     <bpmn2:startEvent id="StartEvent_1" name="Application received" camunda:asyncAfter="true" camunda:formKey="app:camunda/online/index.html">
+      <bpmn2:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="= string(now())" target="documentReferenceId" />
+        </zeebe:ioMapping>
+      </bpmn2:extensionElements>
       <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:exclusiveGateway id="ExclusiveGateway_2" name="Decision?">
@@ -38,7 +46,7 @@
       <bpmn2:extensionElements>
         <zeebe:taskDefinition type="logger" />
         <zeebe:ioMapping>
-          <zeebe:output source="= &#34;green&#34;" target="riskLevel" />
+          <zeebe:output source="= &#34;yellow&#34;" target="riskLevel" />
         </zeebe:ioMapping>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1gd6p37</bpmn2:incoming>
@@ -72,6 +80,9 @@
       <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:userTask id="UserTask_DecideOnApplication" name="Decide on application" camunda:asyncAfter="true" camunda:formKey="embedded:app:forms/decide_en.html" camunda:candidateGroups="clerk" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
+      <bpmn2:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_07e99np" />
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1te4zir</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_1h4oxvl</bpmn2:outgoing>

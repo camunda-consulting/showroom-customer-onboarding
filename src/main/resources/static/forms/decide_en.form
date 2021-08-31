@@ -1,0 +1,10 @@
+{
+  "type": "default",
+  "components": [
+    {
+      "key": "applicationNumber",
+      "label": "Application Number",
+      "type": "textfield"
+    }
+  ]
+}
