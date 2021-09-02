@@ -8,7 +8,7 @@ process.env.GOOGLE_APPLICATION_CREDENTIALS = "auth/bucketAuth.json"
   async function downloadFile(
     bucketName = 'showroom-database',
     srcFilename = 'testdb.h2.db',
-    destFilename = '/root/testdb.h2.db'
+    destFilename = require('os').homedir() + '/testdb.h2.db'
   ) {
     const storage = new Storage();
 
@@ -62,9 +62,9 @@ async function downloadFromDatabase() {
 }
 
 if(shouldUpload){
-  //uploadToDatabase();
 	console.log("-------------UPLOAD TO DATABASE-------------");
+  uploadToDatabase();
 } else if (shouldDownload) {
-  //downloadFromDatabase();
 	console.log("-------------DOWNLOAD FROM DATABASE-------------");
+  downloadFromDatabase();
 }
