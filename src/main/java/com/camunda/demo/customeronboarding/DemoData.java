@@ -505,6 +505,7 @@ public class DemoData {
     	    runSimulation();
     }
     if(mode.toLowerCase().equals("demo")) {
+      SimulatorPlugin.resetProcessEngine();
     	shutdown();
     }
     else {
@@ -543,7 +544,6 @@ public class DemoData {
 
 			@Override
 			public void run() {
-				SimulatorPlugin.resetProcessEngine();
 				SpringApplication.exit(applicationContext, () -> 0);
 			}
 		}, 10_000);
