@@ -1,10 +1,43 @@
 {
-  "type": "default",
+  "schemaVersion": 2,
   "components": [
     {
       "key": "applicationNumber",
       "label": "Application Number",
-      "type": "textfield"
+      "type": "textfield",
+      "id": "Field_1djmro0"
+    },
+    {
+      "key": "applicantName",
+      "label": "Applicant",
+      "type": "textfield",
+      "id": "Field_1ex9187"
+    },
+    {
+      "key": "age",
+      "label": "Current Age",
+      "type": "number",
+      "id": "Field_17vnd80"
+    },
+    {
+      "key": "employment",
+      "label": "Employment",
+      "type": "textfield",
+      "id": "Field_08mj5fv"
+    },
+    {
+      "key": "category",
+      "label": "Category",
+      "type": "textfield",
+      "id": "Field_1k7e84u"
+    },
+    {
+      "key": "priceIndication",
+      "label": "Price indication",
+      "type": "textfield",
+      "id": "Field_1d6bhc2"
     }
-  ]
+  ],
+  "type": "default",
+  "id": "Form_0840o2b"
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.0.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0-nightly.20210831" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.0.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <bpmn2:collaboration id="Collaboration_1u35ano">
     <bpmn2:participant id="Participant_0477s11" name="Customer Onboarding" processRef="customer_onboarding_en" />
   </bpmn2:collaboration>
   <bpmn2:process id="customer_onboarding_en" name="Customer Onboarding" isExecutable="true">
     <bpmn2:extensionElements>
-      <zeebe:userTaskForm id="userTaskForm_07e99np">{   "type": "default",   "components": [     {       "key": "applicationNumber",       "label": "Application Number",       "type": "textfield"     }   ] }</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="userTaskForm_29hob5n">{   "schemaVersion": 2,   "components": [     {       "key": "applicationNumber",       "label": "Application Number",       "type": "textfield",       "id": "Field_1djmro0"     },     {       "key": "applicantName",       "label": "Applicant",       "type": "textfield",       "id": "Field_1ex9187"     },     {       "key": "age",       "label": "Current Age",       "type": "number",       "id": "Field_17vnd80"     },     {       "key": "employment",       "label": "Employment",       "type": "textfield",       "id": "Field_08mj5fv"     },     {       "key": "category",       "label": "Category",       "type": "textfield",       "id": "Field_1k7e84u"     },     {       "key": "priceIndication",       "label": "Price indication",       "type": "textfield",       "id": "Field_1d6bhc2"     }   ],   "type": "default",   "id": "Form_0840o2b",   "executionPlatform": "Camunda Cloud",   "executionPlatformVersion": "1.1" }</zeebe:userTaskForm>
     </bpmn2:extensionElements>
     <bpmn2:startEvent id="StartEvent_1" name="Application received" camunda:asyncAfter="true" camunda:formKey="app:camunda/online/index.html">
       <bpmn2:extensionElements>
@@ -81,7 +81,7 @@
     </bpmn2:sendTask>
     <bpmn2:userTask id="UserTask_DecideOnApplication" name="Decide on application" camunda:asyncAfter="true" camunda:formKey="embedded:app:forms/decide_en.html" camunda:candidateGroups="clerk" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
       <bpmn2:extensionElements>
-        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_07e99np" />
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_29hob5n" />
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1te4zir</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
