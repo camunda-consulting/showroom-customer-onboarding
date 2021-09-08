@@ -14,8 +14,8 @@ VOLUME /tmp
 
 #copy artifacts
 COPY package.json .
-COPY datatransfer.sh .
-COPY dataupload-app.js .
+COPY start-application.sh .
+COPY datatransfer.js .
 COPY target/camunda-showcase-customer-onboarding.jar camunda-showcase-customer-onboarding.jar
 
 #install node dependencies
@@ -23,4 +23,4 @@ RUN npm install @google-cloud/storage --save
 
 ENV LANG=en_US.utf8
 
-ENTRYPOINT ["sh", "datatransfer.sh"]
+ENTRYPOINT ["sh", "start-application.sh"]
