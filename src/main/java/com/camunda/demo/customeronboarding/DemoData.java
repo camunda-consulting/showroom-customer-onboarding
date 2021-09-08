@@ -77,7 +77,7 @@ public class DemoData {
     public NewApplication newApplication(boolean german) {
       NewApplication application = null;
       
-      int rand = (int) (Math.random() * 10);
+      int rand = getRandom(0, 9);
       
       if(rand < 3) {
         application = yellow(german);
@@ -136,13 +136,13 @@ public class DemoData {
     } else if (rule == 2) {
       application = ruleYellowThird(german);
     } else {
-      application = ruleYellowSecondAndThird(german);
+      application = ruleYellowFirstAndSecond(german);
     }
     
     return application;
   }
   
-  static NewApplication ruleYellowFirst(boolean german) {
+  static NewApplication ruleYellowThird(boolean german) {
     String employment = german ? Employment.FEST_ANGESTELLT.displayName : Employment.SALARIED.displayName;
     String category = german ? Categorys.PREMIUMPAKET.displayName : Categorys.PREMIUM_PACKAGE.displayName;
     int birthYear = getBirthYear(5) - (10 * getRandom(1, 2));
@@ -157,7 +157,7 @@ public class DemoData {
   }
   
   
-  static NewApplication ruleYellowThird(boolean german) {
+  static NewApplication ruleYellowFirst(boolean german) {
     String employment = german ? Employment.SELBSTSTAENDIG.displayName : Employment.SELF_EMPLOYED.displayName;
     String category = german ? Categorys.PREMIUMPAKET.displayName : Categorys.PREMIUM_PACKAGE.displayName;
     int birthYear = getBirthYear(0);
@@ -165,7 +165,7 @@ public class DemoData {
   }
   
   
-  static NewApplication ruleYellowSecondAndThird(boolean german) {
+  static NewApplication ruleYellowFirstAndSecond(boolean german) {
     String employment = german ? Employment.SELBSTSTAENDIG.displayName : Employment.SELF_EMPLOYED.displayName;
     String category = german ? Categorys.PREMIUMPAKET.displayName : Categorys.PREMIUM_PACKAGE.displayName;
     int birthYear = getBirthYear(3);    
@@ -187,7 +187,7 @@ public class DemoData {
     return application;
   }
   
-  static NewApplication ruleRedFirst(boolean german) {
+  static NewApplication ruleRedSecond(boolean german) {
     int rand = getRandom(0, 1);
     
     Categorys category = null;
@@ -202,7 +202,7 @@ public class DemoData {
     return createNeuantrag(birthYear, category.displayName, employment.displayName);
   }
   
-  static NewApplication ruleRedSecond(boolean german) {
+  static NewApplication ruleRedFirst(boolean german) {
     String category = Categorys.values()[german ? getRandom(0, 1) :  getRandom(3, 4)].displayName;
     String employment = Employment.values()[german ? getRandom(3, 4) : getRandom(7, 8)].displayName;
     return createNeuantrag(getBirthYear(5), category, employment);
@@ -252,8 +252,8 @@ public class DemoData {
     ;
   }
   
-  private static int getRandom(int from, int inclusiveTo) {
-    return ((int) (Math.random() * (inclusiveTo - from + 1))) + from;
+  private static int getRandom(int inclusiveFrom, int inclusiveTo) {
+    return ((int) (Math.random() * (inclusiveTo - inclusiveFrom + 1))) + inclusiveFrom;
   }
 
   enum Categorys {
