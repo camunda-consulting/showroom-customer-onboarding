@@ -5,7 +5,8 @@ def settings = [
   buildMavenProject: "clean source:jar deploy -DargLine='-Xmx512m -XX:MaxPermSize=128m'",
   dockerImage: 'showroom-customer-onboarding',
   snapshotName: "1.1.0-SNAPSHOT",
-  activateNotification: true
+  activateNotification: true,
+  credentials: [file(variable: 'GOOGLE_APPLICATION_CREDENTIALS', credentialsId: 'showroom-bucket-auth')]
 ]
 
 buildAndDeployDockerImage(settings)
