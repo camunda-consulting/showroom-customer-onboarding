@@ -40,6 +40,9 @@ public class ProcessConstants {
   public static final String VAR_NAME_applicationNumber = "applicationNumber";
   public static final String VAR_NAME_applicantName = "applicantName";
   public static final String VAR_NAME_applicantAge = "age";
+  public static final String VAR_NAME_employment = "employment";
+  public static final String VAR_NAME_category = "category";
+  public static final String VAR_NAME_priceIndication = "priceIndication";
   /** Id for the next requested document **/
   public static final String VAR_NAME_documentReferenceId = "documentReferenceId";
   public static final String VAR_NAME_requestedDocumentDescription = "requestedDocumentDescription";
