@@ -39,6 +39,7 @@ public class ProcessConstants {
   public static final String VAR_NAME_riskLevel = "riskLevel";
   public static final String VAR_NAME_applicationNumber = "applicationNumber";
   public static final String VAR_NAME_applicantName = "applicantName";
+  public static final String VAR_NAME_applicantAge = "age";
   /** Id for the next requested document **/
   public static final String VAR_NAME_documentReferenceId = "documentReferenceId";
   public static final String VAR_NAME_requestedDocumentDescription = "requestedDocumentDescription";

@@ -12,18 +12,6 @@ import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.spring.client.EnableZeebeClient;
 import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
 
-
-
-// @Component
-// public class CreateReferenceIdAdapter implements JavaDelegate {
-
-//   @Override
-//   public void execute(DelegateExecution execution) throws Exception {
-//     execution.setVariable(ProcessConstants.VAR_NAME_documentReferenceId, String.valueOf(System.currentTimeMillis()));
-//   }
-
-// }
-
 @Component
 @EnableZeebeClient
 public class CreateReferenceIdAdapter {

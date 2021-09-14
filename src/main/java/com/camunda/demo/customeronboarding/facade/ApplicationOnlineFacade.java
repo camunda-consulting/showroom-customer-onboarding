@@ -44,6 +44,7 @@ public class ApplicationOnlineFacade {
     variables.put(ProcessConstants.VAR_NAME_uiBaseUrl, uiBaseUrl);
     variables.put(ProcessConstants.VAR_NAME_applicationNumber, application.getApplicationNumber());
     variables.put(ProcessConstants.VAR_NAME_applicantName, application.getApplicant().getName());
+    variables.put(ProcessConstants.VAR_NAME_applicantAge, application.getApplicant().getAge());
     variables.put(ProcessConstants.VAR_NAME_application, application);
     variables.put(ProcessConstants.VAR_NAME_documents, "{}");
 
