@@ -6,7 +6,8 @@ def settings = [
   dockerImage: 'showroom-customer-onboarding',
   snapshotName: "1.1.0-SNAPSHOT",
   activateNotification: true,
-  credentials: [file(variable: 'GOOGLE_APPLICATION_CREDENTIALS', credentialsId: 'showroom-bucket-auth')]
+  dockerSettings: "--build-arg GOOGLE_APPLICATION_CREDENTIALS",
+  credentials: [file(credentialsId: 'showroom-bucket-auth', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]
 ]
 
 buildAndDeployDockerImage(settings)
