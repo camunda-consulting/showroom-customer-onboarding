@@ -62,9 +62,7 @@ async function downloadFromDatabase() {
 }
 
 if(shouldUpload){
-	console.log("-------------UPLOAD TO DATABASE-------------");
   uploadToDatabase();
 } else if (shouldDownload) {
-	console.log("-------------DOWNLOAD FROM DATABASE-------------");
   downloadFromDatabase();
 }

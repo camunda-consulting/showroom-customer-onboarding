@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Start the first process
-echo "starting applications"
 JAVA_OPTS=""
 DOCKER_JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 
