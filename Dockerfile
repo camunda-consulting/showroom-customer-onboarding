@@ -14,6 +14,7 @@ VOLUME /tmp
 
 #copy 'auth' folder with content
 COPY auth auth/
+echo $GOOGLE_APPLICATION_CREDENTIALS
 #copy env variable value (path to a file) to file
 COPY $GOOGLE_APPLICATION_CREDENTIALS ./auth/bucketAuth.json
 
