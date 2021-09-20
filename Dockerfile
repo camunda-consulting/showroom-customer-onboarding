@@ -12,6 +12,11 @@ ENV TZ="Europe/Berlin"
 #define vol
 VOLUME /tmp
 
+#copy 'auth' folder with content
+COPY auth auth/
+#copy env variable value (path to a file) to file
+COPY $GOOGLE_APPLICATION_CREDENTIALS ./auth/bucketAuth.json
+
 #copy artifacts
 COPY package.json .
 COPY start-application.sh .
