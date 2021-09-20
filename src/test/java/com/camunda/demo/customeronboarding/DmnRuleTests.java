@@ -120,7 +120,7 @@ public class DmnRuleTests extends SpringBootProcessTest {
   private void testYellowRuleSecondAndThird(String dmnDecisionKey) {
     boolean german = isGerman(dmnDecisionKey);
 
-    NewApplication application = DemoData.ruleYellowSecondAndThird(german);
+    NewApplication application = DemoData.ruleYellowFirstAndSecond(german);
     DmnDecisionResult result = getDmnResult(dmnDecisionKey, application);
 
     String firstExpectedRisk = german ? "Unregelmäßiges und ggf. zu geringes Einkommen"

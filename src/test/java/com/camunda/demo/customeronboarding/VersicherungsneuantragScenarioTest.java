@@ -57,9 +57,9 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testAutomaticNoRisk(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testAutomaticNoRisk(String whatever) {
+  protected void testAutomaticNoRisk(String processKey) {
     Scenario.run(customerOnboarding) //
-        .startByKey(whatever, DemoData.createGreenInitVars(isGerman(whatever))).execute();
+        .startByKey(processKey, DemoData.createGreenInitVars(isGerman(processKey))).execute();
 
     verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
     verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
@@ -76,9 +76,9 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testAutomaticHighRisk(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testAutomaticHighRisk(String sldkfhsdf) {
+  protected void testAutomaticHighRisk(String processKey) {
     Scenario.run(customerOnboarding) //
-        .startByKey(sldkfhsdf, DemoData.createRedInitVars(isGerman(sldkfhsdf))).execute();
+        .startByKey(processKey, DemoData.createRedInitVars(isGerman(processKey))).execute();
 
     verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
     verify(customerOnboarding, never()).hasStarted("ServiceTask_DeliverPolicy");
@@ -95,11 +95,11 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualImmediateApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualImmediateApprove(String lskdfhdksf) {
+  protected void testManualImmediateApprove(String processKey) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication")).thenReturn(task -> task.complete(withVariables("approved", true)));
 
     Scenario.run(customerOnboarding) //
-        .startByKey(lskdfhdksf, DemoData.createYellowInitVars(isGerman(lskdfhdksf))).execute();
+        .startByKey(processKey, DemoData.createYellowInitVars(isGerman(processKey))).execute();
 
     verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
     verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
@@ -116,12 +116,12 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualDelayedApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualDelayedApprove(String skdfhdsjhf) {
+  protected void testManualDelayedApprove(String processKey) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         .thenReturn(task -> task.defer("P5D", () -> task.complete(withVariables("approved", true))));
 
     Scenario.run(customerOnboarding) //
-        .startByKey(skdfhdsjhf, DemoData.createYellowInitVars(isGerman(skdfhdsjhf))).execute();
+        .startByKey(processKey, DemoData.createYellowInitVars(isGerman(processKey))).execute();
 
     // we snub our employees only once (not every 2 days)
     verify(customerOnboarding, times(1)).hasCompleted("EndEvent_DecisionAccelerated");
@@ -140,7 +140,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualRequestDocumentThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualRequestDocumentThenApprove(String sadkjfh) {
+  protected void testManualRequestDocumentThenApprove(String processKey) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> {
@@ -159,7 +159,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
      * Run and verify
      */
     ProcessInstance processInstance = Scenario.run(customerOnboarding) //
-        .startByKey(sadkjfh, DemoData.createYellowInitVars(isGerman(sadkjfh))).execute().instance(customerOnboarding);
+        .startByKey(processKey, DemoData.createYellowInitVars(isGerman(processKey))).execute().instance(customerOnboarding);
 
     verify(documentRequest, never()).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, never()).hasStarted("SendTask_SendReminderEmail");
@@ -184,7 +184,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualRequestTwoDocumentsThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualRequestTwoDocumentsThenApprove(String askdjfhdsf) {
+  protected void testManualRequestTwoDocumentsThenApprove(String processKey) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> {
@@ -212,7 +212,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
      * Run and verify
      */
     ProcessInstance processInstance = Scenario.run(customerOnboarding) //
-        .startByKey(askdjfhdsf, DemoData.createYellowInitVars(isGerman(askdjfhdsf))).execute().instance(customerOnboarding);
+        .startByKey(processKey, DemoData.createYellowInitVars(isGerman(processKey))).execute().instance(customerOnboarding);
 
     verify(documentRequest, never()).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, never()).hasStarted("SendTask_SendReminderEmail");
@@ -237,7 +237,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualRequestDocumentLittleLateCustomerThenApprove(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualRequestDocumentLittleLateCustomerThenApprove(String askdjfhdaskjfh) {
+  protected void testManualRequestDocumentLittleLateCustomerThenApprove(String processKey) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentRequested, new HashMap<>(),
@@ -254,7 +254,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
      * Run and verify
      */
     ProcessInstance processInstance = Scenario.run(customerOnboarding) //
-        .startByKey(askdjfhdaskjfh, DemoData.createYellowInitVars(isGerman(askdjfhdaskjfh))).execute().instance(customerOnboarding);
+        .startByKey(processKey, DemoData.createYellowInitVars(isGerman(processKey))).execute().instance(customerOnboarding);
 
     verify(documentRequest, never()).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, times(5)).hasStarted("SendTask_SendReminderEmail");
@@ -278,7 +278,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     testManualRequestDocumentVeryLateCustomerThenReject(ProcessConstants.PROCESS_KEY_customer_onboarding_de);
   }
 
-  protected void testManualRequestDocumentVeryLateCustomerThenReject(String ajsdfhdaskfhdasf) {
+  protected void testManualRequestDocumentVeryLateCustomerThenReject(String processKey) {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication"))
         // first time send message
         .thenReturn(task -> runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentRequested, new HashMap<>(),
@@ -295,7 +295,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
      * Run and verify
      */
     Scenario.run(customerOnboarding) //
-        .startByKey(ajsdfhdaskfhdasf, DemoData.createYellowInitVars(isGerman(ajsdfhdaskfhdasf))).execute();
+        .startByKey(processKey, DemoData.createYellowInitVars(isGerman(processKey))).execute();
 
     verify(documentRequest).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, times(6)).hasStarted("SendTask_SendReminderEmail");

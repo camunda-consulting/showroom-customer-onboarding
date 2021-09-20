@@ -1,20 +1,31 @@
 #base java 8
 FROM openjdk:8-jdk-alpine
-#timezone
+# necessary for apk installation
+USER root
+#install node
+RUN apk add --update nodejs nodejs-npm
+
+#configure timezone
 RUN apk add tzdata
 RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 ENV TZ="Europe/Berlin"
 #define vol
 VOLUME /tmp
-#copy to new jar
+
+#copy 'auth' folder with content
+COPY auth auth/
+#copy env variable value (path to a file) to file
+COPY $GOOGLE_APPLICATION_CREDENTIALS ./auth/bucketAuth.json
+
+#copy artifacts
+COPY package.json .
+COPY start-application.sh .
+COPY datatransfer.js .
 COPY target/camunda-showcase-customer-onboarding.jar camunda-showcase-customer-onboarding.jar
-ENV JAVA_OPTS="" \
-DOCKER_JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0" \
-LANG=en_US.utf8
-#Entry with exec
-ENTRYPOINT exec java ${JAVA_OPTS} -Xmx2048m ${DOCKER_JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /camunda-showcase-customer-onboarding.jar
-#define usergroup with just few to none permissions and add this
-RUN addgroup -S app && \
-   adduser -S -g app app && \
-   chown app:app /${DEPLOYMENT_ARTIFACT}
-USER app
+
+#install node dependencies
+RUN npm install @google-cloud/storage --save
+
+ENV LANG=en_US.utf8
+
+ENTRYPOINT ["sh", "start-application.sh"]
