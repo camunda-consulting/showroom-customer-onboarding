@@ -16,7 +16,6 @@ ARG GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS:-""}
 #copy 'auth' folder with content
 #COPY auth auth/
 #copy env variable value (path to a file) to file
-RUN echo $GOOGLE_APPLICATION_CREDENTIALS
 COPY $GOOGLE_APPLICATION_CREDENTIALS ./auth/bucketAuth.json
 
 #copy artifacts
