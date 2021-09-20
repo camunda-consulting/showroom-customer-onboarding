@@ -12,7 +12,7 @@ ENV TZ="Europe/Berlin"
 #define vol
 VOLUME /tmp
 
-ARG GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS:""}
+ARG GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS:-""}
 #copy 'auth' folder with content
 #COPY auth auth/
 #copy env variable value (path to a file) to file
