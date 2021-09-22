@@ -12,10 +12,8 @@ ENV TZ="Europe/Berlin"
 #define vol
 VOLUME /tmp
 
-#copy env variable value (path to a file) to file
-COPY ./auth/bucketAuth.json ./auth/bucketAuth.json
-
 #copy artifacts
+COPY ./auth/bucketAuth.json ./auth/bucketAuth.json
 COPY package.json .
 COPY start-application.sh .
 COPY datatransfer.js .
