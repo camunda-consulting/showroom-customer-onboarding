@@ -13,7 +13,7 @@ def settings = [
   snapshotName: "1.1.0-SNAPSHOT",
   activateNotification: true,
   customStageDef: customStageStep,
-  emailNotification: "showroom-ci-notifications@camunda.com"
+  notificationEmail: "showroom-ci-notifications@camunda.com"
 ]
 
 buildAndDeployDockerImage(settings)
