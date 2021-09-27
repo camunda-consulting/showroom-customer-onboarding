@@ -12,7 +12,8 @@ def settings = [
   dockerImage: 'showroom-customer-onboarding',
   snapshotName: "1.1.0-SNAPSHOT",
   activateNotification: true,
-  customStageDef: customStageStep
+  customStageDef: customStageStep,
+  emailNotification: "showroom-ci-notifications@camunda.com"
 ]
 
 buildAndDeployDockerImage(settings)
