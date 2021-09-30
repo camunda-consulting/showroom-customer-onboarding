@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 
-@Suite.SuiteClasses({ VersicherungsneuantragProcessTest.class, VersicherungsneuantragScenarioTest.class })
+@Suite.SuiteClasses({ VersicherungsneuantragProcessTest.class, VersicherungsneuantragScenarioTest.class,
+	DmnRuleTests.class, ApplicationOnlineFacadeTests.class })
 public class TestSuite {
 }
