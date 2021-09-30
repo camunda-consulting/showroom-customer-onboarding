@@ -1645,6 +1645,11 @@ img {
         color: #ffffff;
         font-weight: 600; }
 
+.hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+
 /* :: 14.0 Elements Area CSS */
 .elements-title {
   position: relative;

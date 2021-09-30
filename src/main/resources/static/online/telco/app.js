@@ -74,7 +74,8 @@ $(document).ready(function() {
         "name": $('#applicant').val(),
         "gender": $('#selectSex').val(),
         "birthday": $('#birthdate').val() + "T00:00:00",
-        "email": $('#email').val()
+        "email": $('#email').val(),
+        "score": $('#scorehint').val()
       },
       "employment": $('#employment').val(),
       "category": $('#category').val(),

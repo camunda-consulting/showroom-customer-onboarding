@@ -120,8 +120,10 @@ public class DemoData {
     int endYear = getRandom(0, 3) == 3 ? 4 : getRandom(0, 1) == 0 ? getRandom(0, 4) : getRandom(8, 9);
     
     int birthYear = getBirthYear(0) - addedDecades - endYear;
-   
-    return createNeuantrag(birthYear, category, employment);
+
+    int score = 97;
+
+    return createNeuantrag(score, birthYear, category, employment);
   }
 
   public static NewApplication yellow(boolean german) {
@@ -146,14 +148,16 @@ public class DemoData {
     String employment = german ? Employment.FEST_ANGESTELLT.displayName : Employment.SALARIED.displayName;
     String category = german ? Categorys.PREMIUMPAKET.displayName : Categorys.PREMIUM_PACKAGE.displayName;
     int birthYear = getBirthYear(5) - (10 * getRandom(1, 2));
-    return createNeuantrag(birthYear, category, employment);
+    int score = 82;
+    return createNeuantrag(score, birthYear, category, employment);
   }
   
   static NewApplication ruleYellowSecond(boolean german) {
     String employment = Employment.FREELANCER.displayName;
     String category = Categorys.values()[german ? getRandom(0, 2) :  getRandom(3, 5)].displayName;
     int birthYear = getBirthYear(3);
-    return createNeuantrag(birthYear, category, employment);
+    int score = 93;
+    return createNeuantrag(score, birthYear, category, employment);
   }
   
   
@@ -161,15 +165,17 @@ public class DemoData {
     String employment = german ? Employment.SELBSTSTAENDIG.displayName : Employment.SELF_EMPLOYED.displayName;
     String category = german ? Categorys.PREMIUMPAKET.displayName : Categorys.PREMIUM_PACKAGE.displayName;
     int birthYear = getBirthYear(0);
-    return createNeuantrag(birthYear, category, employment);
+    int score = 95;
+    return createNeuantrag(score, birthYear, category, employment);
   }
   
   
   static NewApplication ruleYellowFirstAndSecond(boolean german) {
     String employment = german ? Employment.SELBSTSTAENDIG.displayName : Employment.SELF_EMPLOYED.displayName;
     String category = german ? Categorys.PREMIUMPAKET.displayName : Categorys.PREMIUM_PACKAGE.displayName;
-    int birthYear = getBirthYear(3);    
-    return createNeuantrag(birthYear, category, employment);
+    int birthYear = getBirthYear(3);
+    int score = 93;
+    return createNeuantrag(score, birthYear, category, employment);
   }
   
 
@@ -199,13 +205,15 @@ public class DemoData {
     
     Employment employment = german ? Employment.NICHT_ERWERBSTAETIG : Employment.UNEMPLOYED;
     int birthYear = getBirthYear(rand == 1 ? 3 : 5) - (getRandom(1, 4) * 10);
-    return createNeuantrag(birthYear, category.displayName, employment.displayName);
+    int score = 93;
+    return createNeuantrag(score, birthYear, category.displayName, employment.displayName);
   }
   
   static NewApplication ruleRedFirst(boolean german) {
     String category = Categorys.values()[german ? getRandom(0, 1) :  getRandom(3, 4)].displayName;
     String employment = Employment.values()[german ? getRandom(3, 4) : getRandom(7, 8)].displayName;
-    return createNeuantrag(getBirthYear(5), category, employment);
+    int score = 82;
+    return createNeuantrag(score, getBirthYear(5), category, employment);
   }
 
   /**
@@ -283,7 +291,7 @@ public class DemoData {
   }
   
 
-  public static NewApplication createNeuantrag(int birthYear, String category, String employment, String name, String email, String gender) {
+  public static NewApplication createNeuantrag(int score, int birthYear, String category, String employment, String name, String email, String gender) {
     NewApplication newApplication = new NewApplication();
     newApplication.setApplicant(new Person());
 
@@ -295,6 +303,7 @@ public class DemoData {
     newApplication.getApplicant().setName(name);
     newApplication.getApplicant().setEmail(email);
     newApplication.getApplicant().setGender(gender);
+    newApplication.getApplicant().setScore(score);
     newApplication.setCategory(category);
     newApplication.setEmployment(employment);
     newApplication.setPriceIndicationInCent(32000);
@@ -303,8 +312,8 @@ public class DemoData {
     return newApplication;
   }
   
-  public static NewApplication createNeuantrag(int birthYear, String category, String employment) {
-    return createNeuantrag(birthYear, category, employment, NAME, EMAIL, GENDER);
+  public static NewApplication createNeuantrag(int score, int birthYear, String category, String employment) {
+    return createNeuantrag(score, birthYear, category, employment, NAME, EMAIL, GENDER);
   }
   
   private void createProcessInstanceFirstUserTask(String businessKey) {

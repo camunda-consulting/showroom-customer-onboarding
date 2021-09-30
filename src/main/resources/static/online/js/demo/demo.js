@@ -109,6 +109,7 @@ $(document).ready(function() {
       $('#birthdate').val('1988-03-22');
       $('#employment').val('Freelancer').change();
       $('#premiumButton').click();
+      $('#scorehint').val('97');
       removeHelperButtons();
     }
 
@@ -116,6 +117,7 @@ $(document).ready(function() {
       $('#birthdate').val('1993-05-03');
       $("#employment").val(isGerman ? 'Selbstständig' : "Self-employed").change();
       $('#premiumButton').click();
+      $('#scorehint').val('93');
       removeHelperButtons();
     }
 
@@ -123,6 +125,7 @@ $(document).ready(function() {
       $('#birthdate').val('1995-02-28');
       $('#employment').val(isGerman ? 'Nicht erwerbstätig' : 'Unemployed').change();
       $('#standardButton').click();
+      $('#scorehint').val('82');
       removeHelperButtons();
     }
 

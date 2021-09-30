@@ -11,6 +11,7 @@ public class Person {
   // TODO: EN/DE switch
   private String gender = "Frau";
   private int age;
+  private int score;
   
   public int calculateAlter(Date atDate) {
     Calendar dob = Calendar.getInstance();  
@@ -67,5 +68,13 @@ public class Person {
 
   public void setAge(int age) {
     this.age = age;
+  }
+
+  public int getScore() {
+	return score;
+  }
+
+  public void setScore(int score) {
+	this.score = score;
   }
 }
