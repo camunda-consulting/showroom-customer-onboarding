@@ -43,6 +43,7 @@ public class ApplicationOnlineFacade {
     Map<String, Object> variables = new HashMap<>();
     variables.put(ProcessConstants.VAR_NAME_uiBaseUrl, uiBaseUrl);
     variables.put(ProcessConstants.VAR_NAME_applicationNumber, application.getApplicationNumber());
+    variables.put(ProcessConstants.VAR_NAME_approved, false);
     variables.put(ProcessConstants.VAR_NAME_employment, application.getEmployment());
     variables.put(ProcessConstants.VAR_NAME_category, application.getCategory());
     variables.put(ProcessConstants.VAR_NAME_priceIndication, application.getPriceIndication());
