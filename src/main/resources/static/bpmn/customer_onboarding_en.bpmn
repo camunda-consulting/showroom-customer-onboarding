@@ -46,7 +46,7 @@
       <bpmn2:extensionElements>
         <zeebe:taskDefinition type="DMN" />
         <zeebe:ioMapping>
-          <zeebe:output source="= &#34;yellow&#34;" target="riskLevel" />
+          <zeebe:output source="= if (count(result) = 0) then &#34;green&#34; else if (count(result[riskLevel = &#34;red&#34;]) &#62; 0) then &#34;red&#34; else &#34;yellow&#34;" target="riskLevel" />
           <zeebe:output source="= result" target="decisionResult" />
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
