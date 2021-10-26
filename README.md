@@ -45,13 +45,10 @@ Spring web is used for the REST services defined in *ApplicationOnlineFacade*
 
 # How to build and run
 1. clone project or download sources
-2. build via Maven (*mvn clean package*)
-3. run via Spring boot (*mvn spring-boot:run*) 
+2. create Camunda Cloud cluster and client credentials
+3. update clusterId, clientId, and clientSecret in [application.yml](/src/main/resources/application.yml) 
+4. build via Maven (*mvn clean package*)
+5. run via Spring boot (*mvn spring-boot:run*) 
 
-During startup the showcase **will generate test data**. This can take a few minutes.
-You can already use the application during this time.
-To start with a fresh database delete /camunda-db.mv.db and /camunda-db.trace.db.
-
-Alternatively you can play online in the [Showroom](http://showroom.camunda.com/) without installing anything locally. The showroom is password protected and only accessible for camunda partners.
-
-
+During startup the showcase will automatically deploy the process model
+including the form to the configured cluster. 
