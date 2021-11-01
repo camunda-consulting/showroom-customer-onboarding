@@ -44,10 +44,14 @@
     </bpmn2:serviceTask>
     <bpmn2:businessRuleTask id="BusinessRuleTask_CheckApplicationAutomatically" name="Check application automatically" camunda:resultVariable="riskDMNresult" camunda:decisionRef="checkRisk_en">
       <bpmn2:extensionElements>
-        <zeebe:taskDefinition type="logger" />
+        <zeebe:taskDefinition type="DMN" />
         <zeebe:ioMapping>
-          <zeebe:output source="= &#34;yellow&#34;" target="riskLevel" />
+          <zeebe:output source="= if (count(result) = 0) then &#34;green&#34; else if (count(result[riskLevel = &#34;red&#34;]) &#62; 0) then &#34;red&#34; else &#34;yellow&#34;" target="riskLevel" />
+          <zeebe:output source="= result" target="decisionResult" />
         </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="decisionRef" value="checkRisk_en" />
+        </zeebe:taskHeaders>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1gd6p37</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
@@ -135,7 +139,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="ServiceTask_DeliverPolicy" targetRef="SendTask_SendPolicy" />
     <bpmn2:sequenceFlow id="SequenceFlow_11" name="" sourceRef="SendTask_SendPolicy" targetRef="EndEvent_ApplicationIssued" />
     <bpmn2:sequenceFlow id="SequenceFlow_8" name="application accepted" sourceRef="ExclusiveGateway_2" targetRef="ServiceTask_DeliverPolicy" camunda:modelerTemplate="com.camunda.demo.environment.probability">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= approved</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= approved </bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_12" name="application declined" sourceRef="ExclusiveGateway_2" targetRef="ServiceTask_RejectPolicy">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= not(approved)</bpmn2:conditionExpression>
