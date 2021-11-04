@@ -27,7 +27,7 @@
       <bpmn2:extensionElements>
         <zeebe:taskDefinition type="emailService" />
         <zeebe:ioMapping>
-          <zeebe:input source="= &#34;Dear &#34; + application.applicant.name + &#34;, &#60;br&#62;&#60;p&#62;We happily inform you that your request was accepted. Please check the key facts &#60;br&#62;&#60;ul&#62;&#60;li&#62;Application Number: &#34; + application.applicationNumber + &#34;&#60;/li&#62;&#60;li&#62;Product: &#34; + application.product + &#34;&#60;/li&#62;&#60;/ul&#62;&#60;/p&#62;&#60;p&#62;Kind regards&#60;br&#62;&#60;br&#62;&#34; + application.corporation + &#34;&#60;/p&#62;&#34;" target="mailBody" />
+          <zeebe:input source="= &#34;Dear &#34; + application.applicant.name + &#34;, &#60;br&#62;&#60;p&#62;We happily inform you that your request was accepted.&#60;br&#62;&#60;ul&#62;&#60;li&#62;Application Number: &#34; + application.applicationNumber + &#34;&#60;/li&#62;&#60;li&#62;Product: &#34; + application.product + &#34;&#60;/li&#62;&#60;/ul&#62;&#60;/p&#62;&#60;p&#62;Kind regards&#60;br&#62;&#60;br&#62;&#34; + application.corporation + &#34;&#60;/p&#62;&#34;" target="mailBody" />
           <zeebe:input source="= &#34;Your request was issued&#34;" target="mailSubject" />
         </zeebe:ioMapping>
       </bpmn2:extensionElements>
@@ -80,7 +80,7 @@
       <bpmn2:extensionElements>
         <zeebe:taskDefinition type="emailService" />
         <zeebe:ioMapping>
-          <zeebe:input source="= &#34;Dear &#34; + application.applicant.name + &#34;, &#60;br&#62;&#60;p&#62;We are sorry to inform you that your request was rejected. Please check the key facts &#60;br&#62;&#60;ul&#62;&#60;li&#62;Application Number: &#34; + application.applicationNumber + &#34;&#60;/li&#62;&#60;li&#62;Product: &#34; + application.product + &#34;&#60;/li&#62;&#60;/ul&#62;&#60;/p&#62;&#60;p&#62;Kind regards&#60;br&#62;&#60;br&#62;&#34; + application.corporation + &#34;&#60;/p&#62;&#34;" target="mailBody" />
+          <zeebe:input source="= &#34;Dear &#34; + application.applicant.name + &#34;, &#60;br&#62;&#60;p&#62;We are sorry to inform you that your request was rejected.&#60;br&#62;&#60;ul&#62;&#60;li&#62;Application Number: &#34; + application.applicationNumber + &#34;&#60;/li&#62;&#60;li&#62;Product: &#34; + application.product + &#34;&#60;/li&#62;&#60;/ul&#62;&#60;/p&#62;&#60;p&#62;Kind regards&#60;br&#62;&#60;br&#62;&#34; + application.corporation + &#34;&#60;/p&#62;&#34;" target="mailBody" />
           <zeebe:input source="= &#34;Your request was rejected&#34;" target="mailSubject" />
         </zeebe:ioMapping>
       </bpmn2:extensionElements>
