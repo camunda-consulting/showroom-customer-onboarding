@@ -12,7 +12,7 @@
 		<springZeebe.version>1.1.0</springZeebe.version>
 		<springBoot.version>2.4.4</springBoot.version>
 
-		<version.java>1.8</version.java>
+		<version.java>11</version.java>
 		<maven.compiler.source>${version.java}</maven.compiler.source>
 		<maven.compiler.target>${version.java}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

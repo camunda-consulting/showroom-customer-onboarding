@@ -85,3 +85,5 @@ You can find the dmn worker repository and its setup instructions HERE. Once you
 
 
 
+During startup the showcase will automatically deploy the process model
+including the form to the configured cluster. 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0-nightly.20210831" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.0.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.0.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <bpmn2:collaboration id="Collaboration_1u35ano">
     <bpmn2:participant id="Participant_0477s11" name="Customer Onboarding" processRef="customer_onboarding_en" />
   </bpmn2:collaboration>
@@ -27,7 +27,7 @@
       <bpmn2:extensionElements>
         <zeebe:taskDefinition type="emailService" />
         <zeebe:ioMapping>
-          <zeebe:input source="= &#34;Dear &#34; + application.applicant.name + &#34;, \n\nWe happily inform you that your request was accepted.\nPlease check the key facts\n- Application Number: &#34; + application.applicationNumber + &#34;\n- Premium per anno: &#34; + application.premium + &#34;\n- Product: &#34; + application.product + &#34;\n\nKind regards,\n&#34; + application.corporation" target="mailBody" />
+          <zeebe:input source="= &#34;Dear &#34; + application.applicant.name + &#34;, &#60;br&#62;&#60;p&#62;We happily inform you that your request was accepted.&#60;br&#62;&#60;ul&#62;&#60;li&#62;Application Number: &#34; + application.applicationNumber + &#34;&#60;/li&#62;&#60;li&#62;Product: &#34; + application.product + &#34;&#60;/li&#62;&#60;/ul&#62;&#60;/p&#62;&#60;p&#62;Kind regards&#60;br&#62;&#60;br&#62;&#34; + application.corporation + &#34;&#60;/p&#62;&#34;" target="mailBody" />
           <zeebe:input source="= &#34;Your request was issued&#34;" target="mailSubject" />
         </zeebe:ioMapping>
       </bpmn2:extensionElements>
@@ -44,10 +44,14 @@
     </bpmn2:serviceTask>
     <bpmn2:businessRuleTask id="BusinessRuleTask_CheckApplicationAutomatically" name="Check application automatically" camunda:resultVariable="riskDMNresult" camunda:decisionRef="checkRisk_en">
       <bpmn2:extensionElements>
-        <zeebe:taskDefinition type="logger" />
+        <zeebe:taskDefinition type="DMN" />
         <zeebe:ioMapping>
-          <zeebe:output source="= &#34;yellow&#34;" target="riskLevel" />
+          <zeebe:output source="= if (count(result) = 0) then &#34;green&#34; else if (count(result[riskLevel = &#34;red&#34;]) &#62; 0) then &#34;red&#34; else &#34;yellow&#34;" target="riskLevel" />
+          <zeebe:output source="= result" target="decisionResult" />
         </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="decisionRef" value="checkRisk_en" />
+        </zeebe:taskHeaders>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1gd6p37</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
@@ -75,6 +79,10 @@
     <bpmn2:sendTask id="SendTask_SendRejection" name="Send rejection" camunda:async="true" camunda:type="external" camunda:topic="emailService">
       <bpmn2:extensionElements>
         <zeebe:taskDefinition type="emailService" />
+        <zeebe:ioMapping>
+          <zeebe:input source="= &#34;Dear &#34; + application.applicant.name + &#34;, &#60;br&#62;&#60;p&#62;We are sorry to inform you that your request was rejected.&#60;br&#62;&#60;ul&#62;&#60;li&#62;Application Number: &#34; + application.applicationNumber + &#34;&#60;/li&#62;&#60;li&#62;Product: &#34; + application.product + &#34;&#60;/li&#62;&#60;/ul&#62;&#60;/p&#62;&#60;p&#62;Kind regards&#60;br&#62;&#60;br&#62;&#34; + application.corporation + &#34;&#60;/p&#62;&#34;" target="mailBody" />
+          <zeebe:input source="= &#34;Your request was rejected&#34;" target="mailSubject" />
+        </zeebe:ioMapping>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_01vh1zw</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
@@ -135,7 +143,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="ServiceTask_DeliverPolicy" targetRef="SendTask_SendPolicy" />
     <bpmn2:sequenceFlow id="SequenceFlow_11" name="" sourceRef="SendTask_SendPolicy" targetRef="EndEvent_ApplicationIssued" />
     <bpmn2:sequenceFlow id="SequenceFlow_8" name="application accepted" sourceRef="ExclusiveGateway_2" targetRef="ServiceTask_DeliverPolicy" camunda:modelerTemplate="com.camunda.demo.environment.probability">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= approved</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= approved </bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_12" name="application declined" sourceRef="ExclusiveGateway_2" targetRef="ServiceTask_RejectPolicy">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= not(approved)</bpmn2:conditionExpression>
