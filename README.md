@@ -56,11 +56,7 @@ Alternatively you can play online in the [Showroom](http://showroom.camunda.com/
 
 # Camunda Cloud Showcase
 
-The 'camunda-cloud' branch of this repository contains a version of the showcase project that works with Camunda Cloud.
-
-Note: You will need to download the zeebe-dmn-worker community extension and configure it with your Camunda Cloud credentials in order to get the DMN evaluation portion of your deployed process working. 
-
-You can find the dmn worker repository and its setup instructions HERE. Once you have set up the zeebe-dmn-worker, you can follow the instructions below to get the showcase up and running.
+The 'camunda-cloud' branch of this repository contains a version of the showcase project that works with Camunda Cloud. Any instructions or documentation you read below this point are exclusively related to Camunda Cloud.
 # Instructions
 
 1) If you do not have your own Camunda Cloud account and cluster, you will need to create both. Reference the [Camunda Cloud Getting Started Guide](https://camunda.com/blog/2019/09/getting-started-camunda-cloud/) for further instructions.
@@ -75,7 +71,11 @@ You can find the dmn worker repository and its setup instructions HERE. Once you
 
 5) Find the 'application.yaml' file located in src/main/resources and update the clusterId, clientId, and clientSecret values to reflect your recently created API credentials. Do not commit these changes to a public repository unless you are comfortable with other users potentially accessing your Camunda Cloud cluster.
 
-6)
+6) Clone the ['zeebe-dmn-worker' community extension repository](https://github.com/camunda-community-hub/zeebe-dmn-worker) and configure it with the same Camunda Cloud API credentials you used for the Showroom repository. Please reference the linked repository for detailed setup instructions.
+
+7) In two separate terminals (one for 'showroom-customer-onboarding' and the other for 'zeebe-dmn-worker'), enter the following command: ***mvn spring-boot:run  -Dmaven.test.skip=true -DskipTests***. During startup, the Showcase will automatically deploy your process model to the configured cluster. 
+
+8) Should you have no errors in your terminals, navigate to [http://localhost:8080/camunda/online/banking/index.html?lang=en](http://localhost:8080/camunda/online/banking/index.html?lang=en) from any browser. You should see the frontend for Camunbankia. Congratulations! Submit an application or two and check out your live processes by launching Operate from your Camunda Cloud SaaS cluster.
 
 
 
@@ -87,5 +87,4 @@ You can find the dmn worker repository and its setup instructions HERE. Once you
 
 
 
-During startup the showcase will automatically deploy the process model
-including the form to the configured cluster. 
+
