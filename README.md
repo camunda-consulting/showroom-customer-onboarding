@@ -54,4 +54,34 @@ To start with a fresh database delete /camunda-db.mv.db and /camunda-db.trace.db
 
 Alternatively you can play online in the [Showroom](http://showroom.camunda.com/) without installing anything locally. The showroom is password protected and only accessible for camunda partners.
 
+# Camunda Cloud Showcase
+
+The 'camunda-cloud' branch of this repository contains a version of the showcase project that works with Camunda Cloud.
+
+Note: You will need to download the zeebe-dmn-worker community extension and configure it with your Camunda Cloud credentials in order to get the DMN evaluation portion of your deployed process working. 
+
+You can find the dmn worker repository and its setup instructions HERE. Once you have set up the zeebe-dmn-worker, you can follow the instructions below to get the showcase up and running.
+# Instructions
+
+1) If you do not have your own Camunda Cloud account and cluster, you will need to create both. Reference the [Camunda Cloud Getting Started Guide](https://camunda.com/blog/2019/09/getting-started-camunda-cloud/) for further instructions.
+
+2) Once you have an account and have created a cluster, click on your cluster within Cloud Console. You should see an image similar to the one below. 
+
+![Cloud Console](docs/cloud_console_screenshot.png)
+
+3) You now need to create API credentials so that your client code is able to connect to your cluster. Click on 'API' then the blue 'Create' button. Name your client, and ensure the checkboxes labelled 'Zeebe' and 'Tasklist' are both checked. Click 'Create' again and either download or note your credentials somewhere safe for later use.
+
+4) Clone the 'camunda-cloud' branch of this repository to your local computer.
+
+5) Find the 'application.yaml' file located in src/main/resources and update the clusterId, clientId, and clientSecret values to reflect your recently created API credentials. Do not commit these changes to a public repository unless you are comfortable with other users accessing your Camunda Cloud cluster.
+
+
+
+
+
+
+
+
+
+
 
