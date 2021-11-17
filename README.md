@@ -61,7 +61,7 @@ The 'camunda-cloud' branch of this repository contains a version of the showcase
 
 1) If you do not have your own Camunda Cloud account and cluster, you will need to create both. Reference the [Camunda Cloud Getting Started Guide](https://camunda.com/blog/2019/09/getting-started-camunda-cloud/) for further instructions.
 
-2) Once you have an account and have created a cluster, click on your cluster within Cloud Console. You should see an image similar to the one below. 
+2) Once you have an account and have created a cluster, click on your cluster within Cloud Console. You should see something similar to the image below. 
 
 ![Cloud Console](docs/cloud_console_screenshot.png)
 
