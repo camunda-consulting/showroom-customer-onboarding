@@ -73,7 +73,9 @@ You can find the dmn worker repository and its setup instructions HERE. Once you
 
 4) Clone the 'camunda-cloud' branch of this repository to your local computer.
 
-5) Find the 'application.yaml' file located in src/main/resources and update the clusterId, clientId, and clientSecret values to reflect your recently created API credentials. Do not commit these changes to a public repository unless you are comfortable with other users accessing your Camunda Cloud cluster.
+5) Find the 'application.yaml' file located in src/main/resources and update the clusterId, clientId, and clientSecret values to reflect your recently created API credentials. Do not commit these changes to a public repository unless you are comfortable with other users potentially accessing your Camunda Cloud cluster.
+
+6)
 
 
 
