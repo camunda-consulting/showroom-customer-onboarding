@@ -3,11 +3,10 @@ version: "3.4"
 services:
   showcase-worker:
    build: .
+   env_file:
+     - .env
    environment:
      TZ: Europe/Berlin
    ports:
      - 8085:8080
-networks:
-  default:
-    external:
-      name: showroom
+

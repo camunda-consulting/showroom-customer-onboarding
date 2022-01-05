@@ -1,9 +1,9 @@
 englishonly: false
 
 zeebe.client.cloud:
-  clusterId: YOUR_CLUSTER_ID
-  clientId: YOUR_CLIENT_ID
-  clientSecret: YOUR_CLIENT_SECRET
+  clusterId: ${ZEEBE_CLUSTER_ID}
+  clientId: ${ZEEBE_CLIENT_ID}
+  clientSecret: ${ZEEBE_CLIENT_SECRET}
 
 server:
   servlet:

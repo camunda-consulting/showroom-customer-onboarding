@@ -28,3 +28,5 @@ target
 
 # Visual Studio Code
 .vscode
+
+cloud-client-credentials.env

@@ -1,0 +1,22 @@
+zeebe:
+  client:
+    cloud:
+      clusterId: ${ZEEBE_CLUSTER_ID}
+      clientId: ${ZEEBE_CLIENT_ID}
+      clientSecret: ${ZEEBE_CLIENT_SECRET}
+    worker:
+      defaultName: camunda-dmn-worker
+      defaultType: DMN
+      threads: 3
+
+      dmn.repository: dmn-repo
+
+    job.timeout: 10000
+
+logging:
+  level:
+    root: ERROR
+    io.zeebe: INFO
+    io.zeebe.dmn: DEBUG
+
+server.port: 8081

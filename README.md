@@ -57,7 +57,7 @@ Alternatively you can play online in the [Showroom](http://showroom.camunda.com/
 # Camunda Cloud Showcase
 
 The 'camunda-cloud' branch of this repository contains a version of the showcase project that works with Camunda Cloud. Any instructions or documentation you read below this point are exclusively related to Camunda Cloud.
-# Instructions
+## Instructions
 
 1) If you do not have your own Camunda Cloud account and cluster, you will need to create both. Reference the [Camunda Cloud Getting Started Guide](https://camunda.com/blog/2019/09/getting-started-camunda-cloud/) for further instructions.
 
@@ -69,7 +69,7 @@ The 'camunda-cloud' branch of this repository contains a version of the showcase
 
 4) Clone the 'camunda-cloud' branch of this repository to your local computer.
 
-5) Find the 'application.yaml' file located in src/main/resources and update the clusterId, clientId, and clientSecret values to reflect your recently created API credentials. Do not commit these changes to a public repository unless you are comfortable with other users potentially accessing your Camunda Cloud cluster.
+5) (You can skip this part if you set up with docker, see below) Find the 'application.yaml' file located in src/main/resources and update the clusterId, clientId, and clientSecret values to reflect your recently created API credentials. Do not commit these changes to a public repository unless you are comfortable with other users potentially accessing your Camunda Cloud cluster.
 
 6) Clone the ['zeebe-dmn-worker' community extension repository](https://github.com/camunda-community-hub/zeebe-dmn-worker) and configure it with the same Camunda Cloud API credentials you used for the Showroom repository. Please reference the linked repository for detailed setup instructions.
 
@@ -77,9 +77,18 @@ The 'camunda-cloud' branch of this repository contains a version of the showcase
 
 8) Should you have no errors in your terminals, navigate to [http://localhost:8080/camunda/online/banking/index.html?lang=en](http://localhost:8080/camunda/online/banking/index.html?lang=en) from any browser. You should see the frontend for Camunbankia. Congratulations! Submit an application or two and check out your live processes by launching Operate from your Camunda Cloud SaaS cluster.
 
+## Starting Required Services with Docker
 
+This guide only works for CC SaaS and is also not intended for public deployment.
 
+1) Create a copy of the `./external-task-worker/email-service.env.template` file and remove the `.template` ending. Now, add the credentials to your email service.
+2) Create a copy of the `cloud-client-credentials.env.template` file and remove the `.template` ending. Now, add the credentials to your CC cluster.
+3) Run `docker-compose up` and wait for the services to build. This might take a while the first time.
+4) Once all services are up, you can access the showcase under [localhost:8080/camunda](http://localhost:8080/camunda). You can use `docker-compose up --scale email-worker=4` to scale the email service, if you want to.
+5) Once done, run `docker-compose down` to shut down all services.
 
+### Differences to manual guid
+* The dmn files are read from [`/src/main/resources/static/bpmn`](./src/main/resources/static/bpmn). In the manual set-up the dmn-worker brings its own dmn file.
 
 
 

@@ -1,20 +1,27 @@
-version: "2.0"
+version: "3.8"
 
 services:
-  customer-onboarding:
-   build: .
-   environment:
-    TZ: Europe/Berlin
-   ports:
-     - 8084:8080
-  showcase-worker:
-   build: ./external-task-worker/
-   environment:
-     TZ: Europe/Berlin
-   ports:
-     - 8085:8080
+  onboarding-website:
+    build: .
+    environment:
+      TZ: Europe/Berlin
+    env_file:
+      - ./cloud-client-credentials.env
+    ports:
+      - "8080:8080"
+  email-worker:
+    build: ./external-task-worker/
+    env_file:
+      - ./external-task-worker/email-service.env
+      - ./cloud-client-credentials.env
+    environment:
+      TZ: Europe/Berlin
+  dmn-worker:
+    build: ./external-dmn-docker
+    environment:
+      TZ: Europe/Berlin
+    env_file:
+      - ./cloud-client-credentials.env
+    volumes:
+      - ./src/main/resources/static/bpmn:/dmn-repo/:ro
 
-networks:
-  default:
-    external:
-      name: showroom
