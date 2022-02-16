@@ -16,9 +16,9 @@
 	</parent>
 
 	<properties>
-		<camunda.version>7.16.0-ee</camunda.version>
+		<camunda.version>7.16.5-ee</camunda.version>
 		<springBoot.version>2.5.4</springBoot.version>
-		<simulator.version>1.7.1</simulator.version>
+		<simulator.version>1.7.3</simulator.version>
 
 		<version.java>1.8</version.java>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
