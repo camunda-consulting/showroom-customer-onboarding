@@ -59,23 +59,61 @@ Alternatively you can play online in the [Showroom](http://showroom.camunda.com/
 The 'camunda-cloud' branch of this repository contains a version of the showcase project that works with Camunda Cloud. Any instructions or documentation you read below this point are exclusively related to Camunda Cloud.
 # Instructions
 
-1) If you do not have your own Camunda Cloud account and cluster, you will need to create both. Reference the [Camunda Cloud Getting Started Guide](https://camunda.com/blog/2019/09/getting-started-camunda-cloud/) for further instructions.
+1. If you do not have your own Camunda Cloud account and cluster, you will need to create both. Reference the [Camunda Cloud Getting Started Guide](https://camunda.com/blog/2019/09/getting-started-camunda-cloud/) for further instructions.
 
-2) Once you have an account and have created a cluster, click on your cluster within Cloud Console. You should see something similar to the image below. 
-
+1. Once you have an account and have created a cluster, click on your cluster within Cloud Console. You should see something similar to the image below. 
 ![Cloud Console](docs/cloud_console_screenshot.png)
 
-3) You now need to create API credentials so that your client code is able to connect to your cluster. Click on 'API' then the blue 'Create' button. Name your client, and ensure the checkboxes labelled 'Zeebe' and 'Tasklist' are both checked. Click 'Create' again and either download or note your credentials somewhere safe for later use.
+1. You now need to create API credentials so that your client code is able to connect to your cluster. Click on 'API' then the blue 'Create' button. Name your client, and ensure the checkboxes labelled 'Zeebe' and 'Tasklist' are both checked. Click 'Create' again and download the credentials for the next steps.
 
-4) Clone the 'camunda-cloud' branch of this repository to your local computer.
+1. Clone and start process application:
+   
+   1. Clone the 'camunda-cloud' branch of this repository into a local folder `<process-app-dir>`.
+   
+   1. Create a copy `setup-secrets.sh` of `setup-secrets-template.sh`
+   
+          cp setup-secrets-template.sh setup-secrets.sh
+      
+      and fill it with mail server password and the credentials you just downloaded.
 
-5) Find the 'application.yaml' file located in src/main/resources and update the clusterId, clientId, and clientSecret values to reflect your recently created API credentials. Do not commit these changes to a public repository unless you are comfortable with other users potentially accessing your Camunda Cloud cluster.
+   1. Use your OS's mechanism to load the contents of this file as environmental variables. In Linux/mac os this works with
 
-6) Clone the ['zeebe-dmn-worker' community extension repository](https://github.com/camunda-community-hub/zeebe-dmn-worker) and configure it with the same Camunda Cloud API credentials you used for the Showroom repository. Please reference the linked repository for detailed setup instructions.
+          source setup-secrets.sh
+   
+   1. Start the application:
 
-7) In two separate terminals (one for 'showroom-customer-onboarding' and the other for 'zeebe-dmn-worker'), enter the following command: ***mvn spring-boot:run  -Dmaven.test.skip=true -DskipTests***. During startup, the Showcase will automatically deploy your process model to the configured cluster. 
+          mvn spring-boot:run  -Dmaven.test.skip=true
+      
+      This will deploy the process to zeebe and start some job workers, also it published the UI.
+      
+      Hint: Make sure that you did not modify the credential part in application.yml in the project, this might overwrite the settings from `setup-secrets.sh` and connection can fail.
 
-8) Should you have no errors in your terminals, navigate to [http://localhost:8080/camunda/online/banking/index.html?lang=en](http://localhost:8080/camunda/online/banking/index.html?lang=en) from any browser. You should see the frontend for Camunbankia. Congratulations! Submit an application or two and check out your live processes by launching Operate from your Camunda Cloud SaaS cluster.
+1. Start mail job worker:
+
+   1. In a new terminal, navigate to `<process-app-dir>/external-task-worker`.
+
+   1. Load credentials as env variables and start the worker via node
+
+          source /<process-app-dir>/setup-secrets.sh
+          node external-worker.js
+
+1. Clone and start DMN worker:
+
+   1. In a new terminal, clone the ['zeebe-dmn-worker' community extension repository](https://github.com/camunda-community-hub/zeebe-dmn-worker) and navigate into the folder.
+
+   1. Load credentials as env variables and start the worker
+
+          source /<process-app-dir>/setup-secrets.sh
+          mvn spring-boot:run  -Dmaven.test.skip=true
+
+      Hint: Make sure that you did not modify the credential part in application.yml in the project, this might overwrite the settings from `setup-secrets.sh` and connection can fail.
+
+1. Navigate to
+   * [http://localhost:8080/camunda/online/banking/index.html?lang=en](http://localhost:8080/camunda/online/banking/index.html?lang=en) for Banking UI, or 
+   * [http://localhost:8080/camunda/online/insurance/index.html?lang=en](http://localhost:8080/camunda/online/insurance/index.html?lang=en) for Insurance UI, or
+   * [http://localhost:8080/camunda/online/telco/index.html?lang=en](http://localhost:8080/camunda/online/telco/index.html?lang=en) for Telco UI.
+   
+   Congratulations! Submit an application or two and check out your live processes by launching Operate from your Camunda Cloud SaaS cluster.
 
 
 
