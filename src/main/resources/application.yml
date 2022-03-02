@@ -4,6 +4,9 @@ zeebe.client.cloud:
   clusterId: YOUR_CLUSTER_ID
   clientId: YOUR_CLIENT_ID
   clientSecret: YOUR_CLIENT_SECRET
+  # if you want to connect to dev stage uncomment: 
+  # base-url: zeebe.dev.ultrawombat.com
+  # auth-url: https://login.cloud.dev.ultrawombat.com/oauth/token
 
 server:
   servlet:
