@@ -1,0 +1,56 @@
+{
+    "schemaVersion": 2,
+    "components": [
+        {
+            "text": "<img src=\"http://localhost:8080/camunda/online/banking/img/core-img/logo.png\"><h2>Instructions:</h2><p>Based on internal protocal and the given information below, tick the checkbox for 'Approved' if this application should be approved.</p><p> Otherwise, leave this checkbox blank.</p>",
+            "type": "text",
+            "id": "Field_0e9521u"
+        },
+        {
+            "key": "applicationNumber",
+            "label": "Application Number",
+            "type": "textfield",
+            "id": "Field_1djmro0"
+        },
+        {
+            "key": "applicantName",
+            "label": "Applicant",
+            "type": "textfield",
+            "id": "Field_1ex9187"
+        },
+        {
+            "key": "age",
+            "label": "Current Age",
+            "type": "number",
+            "id": "Field_17vnd80"
+        },
+        {
+            "key": "employment",
+            "label": "Employment",
+            "type": "textfield",
+            "id": "Field_08mj5fv"
+        },
+        {
+            "key": "category",
+            "label": "Category",
+            "type": "textfield",
+            "id": "Field_1k7e84u"
+        },
+        {
+            "key": "priceIndication",
+            "label": "Price indication",
+            "type": "textfield",
+            "id": "Field_1d6bhc2"
+        },
+        {
+            "key": "approved",
+            "label": "Approved",
+            "type": "checkbox",
+            "id": "Field_0hwfap9"
+        }
+    ],
+    "type": "default",
+    "id": "Form_0840o2b",
+    "executionPlatform": "Camunda Cloud",
+    "executionPlatformVersion": "1.1"
+}
