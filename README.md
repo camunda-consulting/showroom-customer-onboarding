@@ -94,7 +94,8 @@ The 'camunda-cloud' branch of this repository contains a version of the showcase
 
    1. Load credentials as env variables and start the worker via node
 
-          source /<process-app-dir>/setup-secrets.sh
+          source ../setup-secrets.sh
+          npm install
           node external-worker.js
 
 1. Clone and start DMN worker:
