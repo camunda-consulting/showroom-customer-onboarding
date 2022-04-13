@@ -513,9 +513,11 @@ public class DemoData {
     	    deploymentService.deployCustomerOnboardCurrent();
     	    runSimulation();
     }
+
     if(mode.toLowerCase().equals("demo")) {
+	  SimulatorPlugin.deleteAllExternalTasks();
       SimulatorPlugin.resetProcessEngine();
-    	shutdown();
+      shutdown();
     }
     else {
         deploymentService.deployAllCurrent();
