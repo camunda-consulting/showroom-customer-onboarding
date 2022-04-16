@@ -24,6 +24,7 @@ import org.camunda.bpm.engine.authorization.Permissions;
 import org.camunda.bpm.engine.authorization.Resources;
 import org.camunda.bpm.engine.filter.Filter;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
+import org.camunda.bpm.engine.runtime.Job;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.variable.Variables;
@@ -493,7 +494,7 @@ public class DemoData {
     createEnglishFiltersAndUsers(processEngine);
     createGermanFiltersAndUsers(processEngine);
   }
-  
+
 
   public void setupEnvironmentForDemo() {
     // this should be done by camunda-util-license-installer-war - if we have
@@ -515,7 +516,14 @@ public class DemoData {
     }
 
     if(mode.toLowerCase().equals("demo")) {
-	  SimulatorPlugin.deleteAllExternalTasks();
+      // delete timer jobs of the BoundaryEvent in the process Document Request
+      // to prevent constant creation of external task in the Showroom which sends emails
+      List<Job> timerJobList = processEngine.getManagementService().createJobQuery().activityId("BoundaryEvent_1").list();
+      for (Job job : timerJobList) {
+    	processEngine.getManagementService().deleteJob(job.getId());
+      }
+
+      SimulatorPlugin.deleteAllExternalTasks();
       SimulatorPlugin.resetProcessEngine();
       shutdown();
     }
