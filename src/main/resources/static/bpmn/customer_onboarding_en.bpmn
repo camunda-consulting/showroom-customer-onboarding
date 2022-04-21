@@ -1,11 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.0.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="_5SVkEIXnEeSmwfgVk-ryvQ" targetNamespace="http://camunda.org/schema/1.0/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.0.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <bpmn2:collaboration id="Collaboration_1u35ano">
     <bpmn2:participant id="Participant_0477s11" name="Customer Onboarding" processRef="customer_onboarding_en" />
   </bpmn2:collaboration>
   <bpmn2:process id="customer_onboarding_en" name="Customer Onboarding" isExecutable="true">
     <bpmn2:extensionElements>
-      <zeebe:userTaskForm id="userTaskForm_0khiqpl">{   "schemaVersion": 2,   "components": [     {       "text": "&lt;img src=\"http://localhost:8080/camunda/online/banking/img/core-img/logo.png\"&gt;&lt;h2&gt;Instructions:&lt;/h2&gt;&lt;p&gt;Based on internal protocal and the given information below, tick the checkbox for 'Approved' if this application should be approved.&lt;/p&gt;&lt;p&gt; Otherwise, leave this checkbox blank.&lt;/p&gt;",       "type": "text",       "id": "Field_0e9521u"     },     {       "key": "applicationNumber",       "label": "Application Number",       "type": "textfield",       "id": "Field_1djmro0"     },     {       "key": "applicantName",       "label": "Applicant",       "type": "textfield",       "id": "Field_1ex9187"     },     {       "key": "age",       "label": "Current Age",       "type": "number",       "id": "Field_17vnd80"     },     {       "key": "employment",       "label": "Employment",       "type": "textfield",       "id": "Field_08mj5fv"     },     {       "key": "category",       "label": "Category",       "type": "textfield",       "id": "Field_1k7e84u"     },     {       "key": "priceIndication",       "label": "Price indication",       "type": "textfield",       "id": "Field_1d6bhc2"     },     {       "key": "approved",       "label": "Approved",       "type": "checkbox",       "id": "Field_0hwfap9"     }   ],   "type": "default",   "id": "Form_0840o2b",   "executionPlatform": "Camunda Cloud",   "executionPlatformVersion": "1.1" }</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="userTaskForm_0khiqpl">{
+  "components": [
+    {
+      "text": "&lt;img src=\"http://localhost:8080/camunda/online/banking/img/core-img/logo.png\"&gt;&lt;h2&gt;Instructions:&lt;/h2&gt;&lt;p&gt;Based on internal protocal and the given information below, tick the checkbox for 'Approved' if this application should be approved.&lt;/p&gt;&lt;p&gt; Otherwise, leave this checkbox blank.&lt;/p&gt;",
+      "type": "text",
+      "id": "Field_0e9521u"
+    },
+    {
+      "key": "applicationNumber",
+      "label": "Application Number",
+      "type": "textfield",
+      "id": "Field_1djmro0"
+    },
+    {
+      "key": "applicantName",
+      "label": "Applicant",
+      "type": "textfield",
+      "id": "Field_1ex9187"
+    },
+    {
+      "key": "age",
+      "label": "Current Age",
+      "type": "number",
+      "id": "Field_17vnd80"
+    },
+    {
+      "key": "employment",
+      "label": "Employment",
+      "type": "textfield",
+      "id": "Field_08mj5fv"
+    },
+    {
+      "key": "category",
+      "label": "Category",
+      "type": "textfield",
+      "id": "Field_1k7e84u"
+    },
+    {
+      "key": "priceIndication",
+      "label": "Price indication",
+      "type": "textfield",
+      "id": "Field_1d6bhc2"
+    },
+    {
+      "label": "Risks",
+      "type": "textfield",
+      "id": "Field_0qvctdt",
+      "key": "risksText",
+      "disabled": true
+    },
+    {
+      "key": "approved",
+      "label": "Approved",
+      "type": "checkbox",
+      "id": "Field_0hwfap9"
+    }
+  ],
+  "schemaVersion": 4,
+  "type": "default",
+  "id": "Form_0840o2b",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "1.1",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  }
+}</zeebe:userTaskForm>
     </bpmn2:extensionElements>
     <bpmn2:startEvent id="StartEvent_1" name="Application received">
       <bpmn2:extensionElements>
@@ -44,19 +110,16 @@
     </bpmn2:serviceTask>
     <bpmn2:businessRuleTask id="BusinessRuleTask_CheckApplicationAutomatically" name="Check application automatically">
       <bpmn2:extensionElements>
-        <zeebe:taskDefinition type="DMN" />
         <zeebe:ioMapping>
-          <zeebe:output source="= if (count(result) = 0) then &#34;green&#34; else if (count(result[riskLevel = &#34;red&#34;]) &#62; 0) then &#34;red&#34; else &#34;yellow&#34;" target="riskLevel" />
-          <zeebe:output source="= result" target="decisionResult" />
+          <zeebe:output source="= if result != null then result.riskLevel else [&#34;green&#34;]" target="riskLevels" />
+          <zeebe:output source="= if result != null then result.risk else []" target="risks" />
         </zeebe:ioMapping>
-        <zeebe:taskHeaders>
-          <zeebe:header key="decisionRef" value="checkRisk_en" />
-        </zeebe:taskHeaders>
+        <zeebe:calledDecision decisionId="risk_check" resultVariable="result" />
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1gd6p37</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:businessRuleTask>
-    <bpmn2:exclusiveGateway id="ExclusiveGatewayPruefung" name="Risk?">
+    <bpmn2:exclusiveGateway id="ExclusiveGatewayPruefung" name="Risk?" default="SequenceFlow_7">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_16</bpmn2:outgoing>
@@ -90,6 +153,9 @@
     <bpmn2:userTask id="UserTask_DecideOnApplication" name="Decide on application">
       <bpmn2:extensionElements>
         <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_0khiqpl" />
+        <zeebe:ioMapping>
+          <zeebe:input source="= string join(risks, &#34;, &#34;)" target="risksText" />
+        </zeebe:ioMapping>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1te4zir</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
@@ -131,15 +197,13 @@
     <bpmn2:sequenceFlow id="SequenceFlow_13" name="" sourceRef="SendTask_SendRejection" targetRef="EndEvent_ApplicationRejected" />
     <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="UserTask_AccelerateDecision" targetRef="EndEvent_DecisionAccelerated" />
     <bpmn2:sequenceFlow id="SequenceFlow_16" name="red &#10;(severe risk)" sourceRef="ExclusiveGatewayPruefung" targetRef="ServiceTask_RejectPolicy">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= riskLevel = "red"</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= some risk in riskLevels satisfies risk = "red"</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_3" name="yellow&#10;(moderate risk)&#10;" sourceRef="ExclusiveGatewayPruefung" targetRef="UserTask_DecideOnApplication">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= riskLevel = "yellow"</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= every risk in riskLevels satisfies risk = "yellow"</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="BusinessRuleTask_CheckApplicationAutomatically" targetRef="ExclusiveGatewayPruefung" />
-    <bpmn2:sequenceFlow id="SequenceFlow_7" name="green&#10;(no risk)" sourceRef="ExclusiveGatewayPruefung" targetRef="ServiceTask_DeliverPolicy">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">= riskLevel = "green"</bpmn2:conditionExpression>
-    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" name="green&#10;(no risk)" sourceRef="ExclusiveGatewayPruefung" targetRef="ServiceTask_DeliverPolicy" />
     <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="ServiceTask_DeliverPolicy" targetRef="SendTask_SendPolicy" />
     <bpmn2:sequenceFlow id="SequenceFlow_11" name="" sourceRef="SendTask_SendPolicy" targetRef="EndEvent_ApplicationIssued" />
     <bpmn2:sequenceFlow id="SequenceFlow_8" name="application accepted" sourceRef="ExclusiveGateway_2" targetRef="ServiceTask_DeliverPolicy">
@@ -209,7 +273,7 @@
         <di:waypoint x="606" y="131" />
         <di:waypoint x="1139" y="131" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="604" y="136" width="41" height="27" />
+          <dc:Bounds x="605" y="136" width="40" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_BusinessRuleTask_2" targetElement="_BPMNShape_ExclusiveGateway_2">
@@ -224,7 +288,7 @@
         <di:waypoint x="581" y="313" />
         <di:waypoint x="717" y="313" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="593" y="280" width="75" height="40" />
+          <dc:Bounds x="594" y="280" width="74" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_16" bpmnElement="SequenceFlow_16" sourceElement="_BPMNShape_ExclusiveGateway_2">
