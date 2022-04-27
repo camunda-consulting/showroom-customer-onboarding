@@ -3,7 +3,6 @@ package com.camunda.demo.customeronboarding;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.ZoneId;
-import java.util.List;
 import java.util.Map;
 
 import org.camunda.bpm.dmn.engine.DmnDecisionResult;

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions" name="definitions" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="checkRisk_de" name="Risikoprüfung">
     <decisionTable id="decisionTable" hitPolicy="COLLECT">
       <input id="input1" label="Alter" camunda:inputVariable="">
         <inputExpression id="inputExpression1" typeRef="integer">
-          <text>application.applicant.age</text>
+          <text>applicant.age</text>
         </inputExpression>
       </input>
       <input id="InputClause_0o54if9" label="Anstellungsverhältnis">
         <inputExpression id="LiteralExpression_1erk5p1" typeRef="string">
-          <text>application.employment</text>
+          <text>employment</text>
         </inputExpression>
       </input>
       <input id="InputClause_0ohc5m6" label="Kategorie" camunda:inputVariable="">
         <inputExpression id="LiteralExpression_0o7difo" typeRef="string">
-          <text>application.category</text>
+          <text>category</text>
         </inputExpression>
       </input>
       <input id="InputClause_0k891qn" label="Schufa-Score">
