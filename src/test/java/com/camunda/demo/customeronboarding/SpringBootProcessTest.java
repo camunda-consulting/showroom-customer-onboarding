@@ -32,7 +32,7 @@ public class SpringBootProcessTest {
   @MockBean
   private SimulatorPlugin sim;
   @MockBean
-  private DemoData demoData;
+  private TestDataUtil demoData;
   @MockBean
   CamundaBpmRestInitializer restInitlzr;
   

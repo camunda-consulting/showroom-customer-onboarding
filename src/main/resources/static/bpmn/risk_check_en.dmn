@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_4bfaf452-dcca-4e41-9e94-1b7f07f0c3f3" name="Risk Check" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0" camunda:diagramRelationId="cfa82864-7493-4396-bf5a-838eb8e76fdd" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.3.0">
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_4bfaf452-dcca-4e41-9e94-1b7f07f0c3f3" name="Risk Check" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0" camunda:diagramRelationId="cfa82864-7493-4396-bf5a-838eb8e76fdd" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.3.0">
   <decision id="risk_check" name="Risk Check">
     <decisionTable id="DecisionTable_0azx1hv" hitPolicy="COLLECT">
       <input id="Input_1" label="Age">
@@ -22,10 +21,10 @@
           <text>score</text>
         </inputExpression>
       </input>
-      <output id="Output_1" label="Risk" name="risk" typeRef="string" />
-      <output id="OutputClause_17x7bkq" label="Risk Level" name="riskLevel" typeRef="string" />
+      <output id="Output_1" label="Risk" name="risk" typeRef="string"/>
+      <output id="OutputClause_17x7bkq" label="Risk Level" name="riskLevel" typeRef="string"/>
       <rule id="DecisionRule_09dgf3c">
-        <description></description>
+        <description/>
         <inputEntry id="UnaryTests_0ual6ir">
           <text>&lt;= 30</text>
         </inputEntry>
@@ -33,7 +32,7 @@
           <text>-</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0c3lrnz">
-          <text></text>
+          <text/>
         </inputEntry>
         <inputEntry id="UnaryTests_1l0btob">
           <text>&lt;=85</text>
@@ -46,9 +45,9 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0s72fjf">
-        <description></description>
+        <description/>
         <inputEntry id="UnaryTests_1dkokb9">
-          <text></text>
+          <text/>
         </inputEntry>
         <inputEntry id="UnaryTests_0d5r6v3">
           <text>"Unemployed"</text>
@@ -67,7 +66,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0c99hq3">
-        <description></description>
+        <description/>
         <inputEntry id="UnaryTests_16q1ghi">
           <text>&lt;= 30</text>
         </inputEntry>
@@ -78,7 +77,7 @@
           <text>"Premium Package"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1qkgqif">
-          <text></text>
+          <text/>
         </inputEntry>
         <outputEntry id="LiteralExpression_0jlpe55">
           <text>"Irregular And Possibly Lack Of Income"</text>
@@ -88,9 +87,9 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1euaw2y">
-        <description></description>
+        <description/>
         <inputEntry id="UnaryTests_0bctfm4">
-          <text></text>
+          <text/>
         </inputEntry>
         <inputEntry id="UnaryTests_12o8otd">
           <text>"Freelancer", "Self-employed"</text>
@@ -109,9 +108,9 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_08nz8pq">
-        <description></description>
+        <description/>
         <inputEntry id="UnaryTests_0adgp9c">
-          <text></text>
+          <text/>
         </inputEntry>
         <inputEntry id="UnaryTests_1jzpweh">
           <text>"Salaried"</text>
@@ -134,7 +133,7 @@
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
       <dmndi:DMNShape dmnElementRef="risk_check">
-        <dc:Bounds height="80" width="180" x="160" y="100" />
+        <dc:Bounds height="80" width="180" x="160" y="100"/>
       </dmndi:DMNShape>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>

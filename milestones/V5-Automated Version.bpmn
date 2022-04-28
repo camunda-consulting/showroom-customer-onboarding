@@ -18,13 +18,13 @@
       "id": "Field_1djmro0"
     },
     {
-      "key": "applicantName",
+      "key": "applicant.name",
       "label": "Applicant",
       "type": "textfield",
       "id": "Field_1ex9187"
     },
     {
-      "key": "age",
+      "key": "applicant.age",
       "label": "Current Age",
       "type": "number",
       "id": "Field_17vnd80"
@@ -48,13 +48,6 @@
       "id": "Field_1d6bhc2"
     },
     {
-      "label": "Risks",
-      "type": "textfield",
-      "id": "Field_0qvctdt",
-      "key": "risksText",
-      "disabled": true
-    },
-    {
       "key": "approved",
       "label": "Approved",
       "type": "checkbox",
@@ -67,8 +60,8 @@
   "executionPlatform": "Camunda Cloud",
   "executionPlatformVersion": "1.1",
   "exporter": {
-    "name": "Camunda Modeler",
-    "version": "5.0.0"
+    "name": "Camunda Web Modeler",
+    "version": "b72d66c"
   }
 }</zeebe:userTaskForm>
     </bpmn2:extensionElements>
@@ -93,12 +86,12 @@
         <zeebe:taskDefinition type="io.camunda:sendgrid:1"/>
         <zeebe:ioMapping>
           <zeebe:input source="demo@camunda.com" target="from.email"/>
-          <zeebe:input source="= application.applicant.name" target="to.name"/>
-          <zeebe:input source="= application.applicant.email" target="to.email"/>
           <zeebe:input source="d-0d0120b0c7f148ef8a1c262f2cf07092" target="template.id"/>
-          <zeebe:input source="= {&#10;    &quot;name&quot;: application.applicant.name,&#10;    &quot;applicationNumber&quot;: application.applicationNumber,&#10;    &quot;product&quot;: application.product&#10;}" target="template.data"/>
           <zeebe:input source="secrets.SENDGRID_DEMO" target="apiKey"/>
-          <zeebe:input source="= application.corporation" target="from.name"/>
+          <zeebe:input source="= corporation" target="from.name"/>
+          <zeebe:input source="= applicant.name" target="to.name"/>
+          <zeebe:input source="= applicant.email" target="to.email"/>
+          <zeebe:input source="= {&#10;    &quot;name&quot;: applicant.name,&#10;    &quot;applicationNumber&quot;: applicationNumber,&#10;    &quot;product&quot;: product&#10;}" target="template.data"/>
         </zeebe:ioMapping>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
@@ -211,12 +204,12 @@
       <bpmn2:extensionElements>
         <zeebe:ioMapping>
           <zeebe:input source="secrets.SENDGRID_DEMO" target="apiKey"/>
-          <zeebe:input source="= application.corporation" target="from.name"/>
           <zeebe:input source="demo@camunda.com" target="from.email"/>
-          <zeebe:input source="= application.applicant.name" target="to.name"/>
-          <zeebe:input source="= application.applicant.email" target="to.email"/>
           <zeebe:input source="d-aa6a58aaded54a83884518433ac2dd56" target="template.id"/>
-          <zeebe:input source="= {&#10;    &quot;name&quot;: application.applicant.name&#10;}" target="template.data"/>
+          <zeebe:input source="= {&#10;    &quot;name&quot;: applicant.name&#10;}" target="template.data"/>
+          <zeebe:input source="= applicant.email" target="to.email"/>
+          <zeebe:input source="= applicant.name" target="to.name"/>
+          <zeebe:input source="= corporation" target="from.name"/>
         </zeebe:ioMapping>
         <zeebe:taskDefinition type="io.camunda:sendgrid:1"/>
       </bpmn2:extensionElements>

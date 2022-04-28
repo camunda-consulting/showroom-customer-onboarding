@@ -59,7 +59,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
 
   protected void testAutomaticNoRisk(String whatever) {
     Scenario.run(customerOnboarding) //
-        .startByKey(whatever, DemoData.createGreenInitVars(isGerman(whatever))).execute();
+        .startByKey(whatever, TestDataUtil.createGreenInitVars(isGerman(whatever))).execute();
 
     verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
     verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
@@ -78,7 +78,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
 
   protected void testAutomaticHighRisk(String sldkfhsdf) {
     Scenario.run(customerOnboarding) //
-        .startByKey(sldkfhsdf, DemoData.createRedInitVars(isGerman(sldkfhsdf))).execute();
+        .startByKey(sldkfhsdf, TestDataUtil.createRedInitVars(isGerman(sldkfhsdf))).execute();
 
     verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
     verify(customerOnboarding, never()).hasStarted("ServiceTask_DeliverPolicy");
@@ -99,7 +99,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     when(customerOnboarding.waitsAtUserTask("UserTask_DecideOnApplication")).thenReturn(task -> task.complete(withVariables("approved", true)));
 
     Scenario.run(customerOnboarding) //
-        .startByKey(lskdfhdksf, DemoData.createYellowInitVars(isGerman(lskdfhdksf))).execute();
+        .startByKey(lskdfhdksf, TestDataUtil.createYellowInitVars(isGerman(lskdfhdksf))).execute();
 
     verify(customerOnboarding, never()).hasStarted("SubProcess_ManualCheck");
     verify(customerOnboarding, never()).hasStarted("ServiceTask_RejectPolicy");
@@ -121,7 +121,7 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
         .thenReturn(task -> task.defer("P5D", () -> task.complete(withVariables("approved", true))));
 
     Scenario.run(customerOnboarding) //
-        .startByKey(skdfhdsjhf, DemoData.createYellowInitVars(isGerman(skdfhdsjhf))).execute();
+        .startByKey(skdfhdsjhf, TestDataUtil.createYellowInitVars(isGerman(skdfhdsjhf))).execute();
 
     // we snub our employees only once (not every 2 days)
     verify(customerOnboarding, times(1)).hasCompleted("EndEvent_DecisionAccelerated");
@@ -153,13 +153,13 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
 
     // immediately send driver's license
     when(documentRequest.waitsAtReceiveTask("ReceiveTask_WaitForDocument"))
-        .thenReturn(task -> task.receive(withVariables(ProcessConstants.VAR_NAME_document, DemoData.createDocument())));
+        .thenReturn(task -> task.receive(withVariables(ProcessConstants.VAR_NAME_document, TestDataUtil.createDocument())));
 
     /*
      * Run and verify
      */
     ProcessInstance processInstance = Scenario.run(customerOnboarding) //
-        .startByKey(sadkjfh, DemoData.createYellowInitVars(isGerman(sadkjfh))).execute().instance(customerOnboarding);
+        .startByKey(sadkjfh, TestDataUtil.createYellowInitVars(isGerman(sadkjfh))).execute().instance(customerOnboarding);
 
     verify(documentRequest, never()).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, never()).hasStarted("SendTask_SendReminderEmail");
@@ -204,15 +204,15 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     // immediately send both documents
     when(documentRequest.waitsAtReceiveTask("ReceiveTask_WaitForDocument"))
         .thenReturn(task -> runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentReceived, new HashMap<String, Object>(),
-            withVariables(ProcessConstants.VAR_NAME_document, DemoData.createDocument()))) //
+            withVariables(ProcessConstants.VAR_NAME_document, TestDataUtil.createDocument()))) //
         .thenReturn(task -> runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentReceived, new HashMap<String, Object>(),
-            withVariables(ProcessConstants.VAR_NAME_document, DemoData.createDocument())));
+            withVariables(ProcessConstants.VAR_NAME_document, TestDataUtil.createDocument())));
 
     /*
      * Run and verify
      */
     ProcessInstance processInstance = Scenario.run(customerOnboarding) //
-        .startByKey(askdjfhdsf, DemoData.createYellowInitVars(isGerman(askdjfhdsf))).execute().instance(customerOnboarding);
+        .startByKey(askdjfhdsf, TestDataUtil.createYellowInitVars(isGerman(askdjfhdsf))).execute().instance(customerOnboarding);
 
     verify(documentRequest, never()).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, never()).hasStarted("SendTask_SendReminderEmail");
@@ -248,13 +248,13 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     // wait 5 days and a little before sending driver's license
     when(documentRequest.waitsAtReceiveTask("ReceiveTask_WaitForDocument")).thenReturn(task -> task.defer("P5DT1M", //
         () -> runtimeService().correlateMessage("MESSAGE_documentReceived", new HashMap<String, Object>(),
-            withVariables(ProcessConstants.VAR_NAME_document, DemoData.createDocument()))));
+            withVariables(ProcessConstants.VAR_NAME_document, TestDataUtil.createDocument()))));
 
     /*
      * Run and verify
      */
     ProcessInstance processInstance = Scenario.run(customerOnboarding) //
-        .startByKey(askdjfhdaskjfh, DemoData.createYellowInitVars(isGerman(askdjfhdaskjfh))).execute().instance(customerOnboarding);
+        .startByKey(askdjfhdaskjfh, TestDataUtil.createYellowInitVars(isGerman(askdjfhdaskjfh))).execute().instance(customerOnboarding);
 
     verify(documentRequest, never()).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, times(5)).hasStarted("SendTask_SendReminderEmail");
@@ -289,13 +289,13 @@ public class VersicherungsneuantragScenarioTest extends SpringBootProcessTest {
     // wait 8 days
     when(documentRequest.waitsAtReceiveTask("ReceiveTask_WaitForDocument")).thenReturn(task -> task.defer("P8D", //
         () -> runtimeService().correlateMessage("MESSAGE_documentReceived", new HashMap<String, Object>(),
-            withVariables(ProcessConstants.VAR_NAME_document, DemoData.createDocument()))));
+            withVariables(ProcessConstants.VAR_NAME_document, TestDataUtil.createDocument()))));
 
     /*
      * Run and verify
      */
     Scenario.run(customerOnboarding) //
-        .startByKey(ajsdfhdaskfhdasf, DemoData.createYellowInitVars(isGerman(ajsdfhdaskfhdasf))).execute();
+        .startByKey(ajsdfhdaskfhdasf, TestDataUtil.createYellowInitVars(isGerman(ajsdfhdaskfhdasf))).execute();
 
     verify(documentRequest).hasStarted("UserTask_CallCustomer");
     verify(documentRequest, times(6)).hasStarted("SendTask_SendReminderEmail");

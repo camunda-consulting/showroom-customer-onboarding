@@ -1,5 +1,4 @@
 {
-  "schemaVersion": 2,
   "components": [
     {
       "text": "<img src=\"http://localhost:8080/camunda/online/banking/img/core-img/logo.png\"><h2>Instructions:</h2><p>Based on internal protocal and the given information below, tick the checkbox for 'Approved' if this application should be approved.</p><p> Otherwise, leave this checkbox blank.</p>",
@@ -13,13 +12,13 @@
       "id": "Field_1djmro0"
     },
     {
-      "key": "applicantName",
+      "key": "applicant.name",
       "label": "Applicant",
       "type": "textfield",
       "id": "Field_1ex9187"
     },
     {
-      "key": "age",
+      "key": "applicant.age",
       "label": "Current Age",
       "type": "number",
       "id": "Field_17vnd80"
@@ -49,8 +48,13 @@
       "id": "Field_0hwfap9"
     }
   ],
+  "schemaVersion": 4,
   "type": "default",
   "id": "Form_0840o2b",
   "executionPlatform": "Camunda Cloud",
-  "executionPlatformVersion": "1.1"
+  "executionPlatformVersion": "1.1",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "b72d66c"
+  }
 }

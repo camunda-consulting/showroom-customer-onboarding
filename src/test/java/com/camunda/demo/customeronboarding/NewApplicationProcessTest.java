@@ -1,48 +1,55 @@
 package com.camunda.demo.customeronboarding;
 
 import static io.camunda.zeebe.process.test.assertions.BpmnAssert.assertThat;
-import static io.camunda.zeebe.spring.test.ZeebeTestThreadSupport.waitForProcessInstanceHasPassedElement;
+import static io.camunda.zeebe.spring.test.ZeebeTestThreadSupport.*;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.camunda.demo.customeronboarding.facade.ApplicationOnlineFacade;
+import com.camunda.demo.customeronboarding.TestDataUtil.Categorys;
+import com.camunda.demo.customeronboarding.TestDataUtil.Employment;
 import com.camunda.demo.customeronboarding.model.NewApplication;
 import com.camunda.demo.customeronboarding.model.Person;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import io.camunda.zeebe.process.test.api.ZeebeTestEngine;
+import io.camunda.zeebe.process.test.filters.StreamFilter;
+import io.camunda.zeebe.protocol.record.Record;
+import io.camunda.zeebe.protocol.record.RejectionType;
+import io.camunda.zeebe.protocol.record.value.VariableRecordValue;
 import io.camunda.zeebe.spring.test.ZeebeSpringTest;
 
 @SpringBootTest
 @ZeebeSpringTest
 public class NewApplicationProcessTest {
+
     @Autowired
     private ZeebeClient client;
 
     @Autowired
     private ZeebeTestEngine engine;
 
-    private Date getDate(int year, int month, int day) {
-        return Date.from(LocalDate.of(year, month, day).atStartOfDay(ZoneId.systemDefault()).toInstant());
-    }
-
     @Test
-    public void testHappyPath() throws Exception {
-        NewApplication application = greenApplication();
+    public void testGreenPath() throws Exception {
+        NewApplication application = TestDataUtil.greenApplication();
 
         ProcessInstanceEvent processInstance = client.newCreateInstanceCommand()
                 .bpmnProcessId(ProcessConstants.PROCESS_KEY_customer_onboarding_en).latestVersion()
                 .variables(application).send().join();
 
-        engine.waitForIdleState(Duration.ofSeconds(1));
+        engine.waitForIdleState(Duration.ofSeconds(5));
 
         assertThat(processInstance).isStarted();
 
@@ -52,24 +59,52 @@ public class NewApplicationProcessTest {
 
         waitForProcessInstanceHasPassedElement(processInstance, "BusinessRuleTask_CheckApplicationAutomatically");
 
-        assertThat(processInstance).hasVariableWithValue("riskLevels", new String[]{"green"});
+        waitForProcessInstanceHasPassedElement(processInstance, "ServiceTask_DeliverPolicy");
+    }
+    
+    @Test
+    public void testYellowPath() throws Exception {
+        NewApplication application = TestDataUtil.yellowApplication();
+
+        ProcessInstanceEvent processInstance = client.newCreateInstanceCommand()
+                .bpmnProcessId(ProcessConstants.PROCESS_KEY_customer_onboarding_en).latestVersion()
+                .variables(application).send().join();
+
+        engine.waitForIdleState(Duration.ofSeconds(5));
+
+        assertThat(processInstance).isStarted();
+
+        waitForProcessInstanceHasPassedElement(processInstance, "ServiceTask_0tixwo5");
+
+        assertThat(processInstance).hasVariableWithValue("score", 93);
+
+        waitForProcessInstanceHasPassedElement(processInstance, "BusinessRuleTask_CheckApplicationAutomatically");
+        
+        assertThat(processInstance).hasVariableWithValue("riskLevels", new String[] {"yellow", "yellow"});
 
     }
+    
 
-    public NewApplication greenApplication() {
-        NewApplication application = new NewApplication();
-        application.setApplicant(new Person());
-        application.getApplicant().setAge(35);
-        application.getApplicant().setBirthday(getDate(1994, 9, 11));
-        application.getApplicant().setName("John Doe");
-        application.setUiBaseUrl("http://localhost:8080/camunda/online/banking/");
-        application.setCorporation("Camunbankia");
-        application.setCategory("Standard Package");
-        application.setContractNumber("A-11731");
-        application.setEmployment("Salaried");
-        application.setPremiumInCent(500);
-        application.setProduct("Active account");
+    
+    @Test
+    public void testRedPath() throws Exception {
+        NewApplication application = TestDataUtil.redApplication();
 
-        return application;
+        ProcessInstanceEvent processInstance = client.newCreateInstanceCommand()
+                .bpmnProcessId(ProcessConstants.PROCESS_KEY_customer_onboarding_en).latestVersion()
+                .variables(application).send().join();
+
+        engine.waitForIdleState(Duration.ofSeconds(5));
+
+        assertThat(processInstance).isStarted();
+
+        waitForProcessInstanceHasPassedElement(processInstance, "ServiceTask_0tixwo5");
+
+        assertThat(processInstance).hasVariableWithValue("score", 82);
+
+        waitForProcessInstanceHasPassedElement(processInstance, "BusinessRuleTask_CheckApplicationAutomatically");
+
+        waitForProcessInstanceHasPassedElement(processInstance, "ServiceTask_RejectPolicy");
     }
+
 }

@@ -1,8 +1,8 @@
 package com.camunda.demo.customeronboarding;
 
-import static com.camunda.demo.customeronboarding.DemoData.createGreenInitVars;
-import static com.camunda.demo.customeronboarding.DemoData.createRedInitVars;
-import static com.camunda.demo.customeronboarding.DemoData.createYellowInitVars;
+import static com.camunda.demo.customeronboarding.TestDataUtil.createGreenInitVars;
+import static com.camunda.demo.customeronboarding.TestDataUtil.createRedInitVars;
+import static com.camunda.demo.customeronboarding.TestDataUtil.createYellowInitVars;
 import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.processEngine;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.assertThat;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.calledProcessInstance;
@@ -135,7 +135,7 @@ public class VersicherungsneuantragProcessTest extends SpringBootProcessTest {
 
     // send in some driver's license
     runtimeService().correlateMessage(ProcessConstants.MESSAGE_documentReceived, new HashMap<String, Object>(),
-        withVariables(ProcessConstants.VAR_NAME_document, DemoData.createDocument()));
+        withVariables(ProcessConstants.VAR_NAME_document, TestDataUtil.createDocument()));
     execute(job());
 
     // this should finalize sub-process
