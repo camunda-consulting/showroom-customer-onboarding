@@ -18,13 +18,13 @@
       "id": "Field_1djmro0"
     },
     {
-      "key": "applicant.name",
+      "key": "applicantName",
       "label": "Applicant",
       "type": "textfield",
       "id": "Field_1ex9187"
     },
     {
-      "key": "applicant.age",
+      "key": "age",
       "label": "Current Age",
       "type": "number",
       "id": "Field_17vnd80"
@@ -48,6 +48,13 @@
       "id": "Field_1d6bhc2"
     },
     {
+      "label": "Risks",
+      "type": "textfield",
+      "id": "Field_0qvctdt",
+      "key": "risksText",
+      "disabled": true
+    },
+    {
       "key": "approved",
       "label": "Approved",
       "type": "checkbox",
@@ -60,8 +67,8 @@
   "executionPlatform": "Camunda Cloud",
   "executionPlatformVersion": "1.1",
   "exporter": {
-    "name": "Camunda Web Modeler",
-    "version": "b72d66c"
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
   }
 }</zeebe:userTaskForm>
     </bpmn2:extensionElements>
@@ -141,6 +148,8 @@
         <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_0khiqpl"/>
         <zeebe:ioMapping>
           <zeebe:input source="= string join(risks, &quot;, &quot;)" target="risksText"/>
+          <zeebe:input source="= applicant.age" target="age"/>
+          <zeebe:input source="= applicant.name" target="applicantName"/>
         </zeebe:ioMapping>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1te4zir</bpmn2:incoming>
