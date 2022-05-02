@@ -4,17 +4,17 @@
     <decisionTable id="decisionTable" hitPolicy="COLLECT">
       <input id="input1" label="Alter" camunda:inputVariable="">
         <inputExpression id="inputExpression1" typeRef="integer">
-          <text>application.applicant.age</text>
+          <text>applicant.age</text>
         </inputExpression>
       </input>
       <input id="InputClause_0o54if9" label="Anstellungsverhältnis">
         <inputExpression id="LiteralExpression_1erk5p1" typeRef="string">
-          <text>application.employment</text>
+          <text>employment</text>
         </inputExpression>
       </input>
       <input id="InputClause_0ohc5m6" label="Kategorie" camunda:inputVariable="">
         <inputExpression id="LiteralExpression_0o7difo" typeRef="string">
-          <text>application.category</text>
+          <text>category</text>
         </inputExpression>
       </input>
       <input id="InputClause_0k891qn" label="Schufa-Score">

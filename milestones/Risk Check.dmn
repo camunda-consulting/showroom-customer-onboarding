@@ -3,17 +3,17 @@
     <decisionTable id="DecisionTable_0azx1hv" hitPolicy="COLLECT">
       <input id="Input_1" label="Age">
         <inputExpression id="InputExpression_1" typeRef="number">
-          <text>application.applicant.age</text>
+          <text>applicant.age</text>
         </inputExpression>
       </input>
       <input id="InputClause_1v4h4y5" label="Employment">
         <inputExpression id="LiteralExpression_11ifx6i" typeRef="string">
-          <text>application.employment</text>
+          <text>employment</text>
         </inputExpression>
       </input>
       <input id="InputClause_11k6qrh" label="Category">
         <inputExpression id="LiteralExpression_0rvlty7" typeRef="string">
-          <text>application.category</text>
+          <text>category</text>
         </inputExpression>
       </input>
       <input id="InputClause_0mkgm97" label="Credit Score">

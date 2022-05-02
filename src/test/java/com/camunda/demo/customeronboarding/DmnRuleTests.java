@@ -3,7 +3,6 @@ package com.camunda.demo.customeronboarding;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.ZoneId;
-import java.util.List;
 import java.util.Map;
 
 import org.camunda.bpm.dmn.engine.DmnDecisionResult;
@@ -44,7 +43,7 @@ public class DmnRuleTests extends SpringBootProcessTest {
 
   private void testRedRuleFirst(String dmnDecisionKey) {
     boolean german = isGerman(dmnDecisionKey);
-    NewApplication application = DemoData.ruleRedFirst(german);
+    NewApplication application = TestDataUtil.ruleRedFirst(german);
     DmnDecisionResult result = getDmnResult(dmnDecisionKey, application);
 
     String expectedRisk = german ? "Fehlendes Einkommen" : "Lack Of Income";
@@ -57,7 +56,7 @@ public class DmnRuleTests extends SpringBootProcessTest {
 
   private void testRedRuleSecond(String dmnDecisionKey) {
     boolean german = isGerman(dmnDecisionKey);
-    NewApplication application = DemoData.ruleRedSecond(german);
+    NewApplication application = TestDataUtil.ruleRedSecond(german);
     DmnDecisionResult result = getDmnResult(dmnDecisionKey, application);
 
     String expectedRisk = german ? "Zahlung unwahrscheinlich" : "Won't Pay In Time";
@@ -77,7 +76,7 @@ public class DmnRuleTests extends SpringBootProcessTest {
 
   private void testYellowRuleFirst(String dmnDecisionKey) {
     boolean german = isGerman(dmnDecisionKey);
-    NewApplication application = DemoData.ruleYellowFirst(german);
+    NewApplication application = TestDataUtil.ruleYellowFirst(german);
     DmnDecisionResult result = getDmnResult(dmnDecisionKey, application);
 
     String expectedRisk = german ? "Ggf. zu geringes Einkommen" : "Too Low Income";
@@ -91,7 +90,7 @@ public class DmnRuleTests extends SpringBootProcessTest {
   private void testYellowRuleSecond(String dmnDecisionKey) {
     boolean german = isGerman(dmnDecisionKey);
 
-    NewApplication application = DemoData.ruleYellowSecond(german);
+    NewApplication application = TestDataUtil.ruleYellowSecond(german);
     DmnDecisionResult result = getDmnResult(dmnDecisionKey, application);
 
     String expectedRisk = german ? "Nicht vertrauenswürdig" : "Not Trustworthy";
@@ -105,7 +104,7 @@ public class DmnRuleTests extends SpringBootProcessTest {
   private void testYellowRuleThird(String dmnDecisionKey) {
     boolean german = isGerman(dmnDecisionKey);
 
-    NewApplication application = DemoData.ruleYellowThird(german);
+    NewApplication application = TestDataUtil.ruleYellowThird(german);
     DmnDecisionResult result = getDmnResult(dmnDecisionKey, application);
 
     String expectedRisk = german ? "Unregelmäßiges und ggf. zu geringes Einkommen"
@@ -120,7 +119,7 @@ public class DmnRuleTests extends SpringBootProcessTest {
   private void testYellowRuleSecondAndThird(String dmnDecisionKey) {
     boolean german = isGerman(dmnDecisionKey);
 
-    NewApplication application = DemoData.ruleYellowSecondAndThird(german);
+    NewApplication application = TestDataUtil.ruleYellowSecondAndThird(german);
     DmnDecisionResult result = getDmnResult(dmnDecisionKey, application);
 
     String firstExpectedRisk = german ? "Unregelmäßiges und ggf. zu geringes Einkommen"
@@ -136,7 +135,7 @@ public class DmnRuleTests extends SpringBootProcessTest {
   }
 
   private void testGreenRule(String dmnDecisionKey) {
-    NewApplication application = DemoData.green(isGerman(dmnDecisionKey));
+    NewApplication application = TestDataUtil.green(isGerman(dmnDecisionKey));
     DmnDecisionResult result = getDmnResult(dmnDecisionKey, application);
 
     assertThat(result).isEmpty();
