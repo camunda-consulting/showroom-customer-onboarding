@@ -4,31 +4,16 @@ import static io.camunda.zeebe.process.test.assertions.BpmnAssert.assertThat;
 import static io.camunda.zeebe.spring.test.ZeebeTestThreadSupport.*;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.camunda.demo.customeronboarding.TestDataUtil.Categorys;
-import com.camunda.demo.customeronboarding.TestDataUtil.Employment;
 import com.camunda.demo.customeronboarding.model.NewApplication;
-import com.camunda.demo.customeronboarding.model.Person;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import io.camunda.zeebe.process.test.api.ZeebeTestEngine;
-import io.camunda.zeebe.process.test.filters.StreamFilter;
-import io.camunda.zeebe.protocol.record.Record;
-import io.camunda.zeebe.protocol.record.RejectionType;
-import io.camunda.zeebe.protocol.record.value.VariableRecordValue;
 import io.camunda.zeebe.spring.test.ZeebeSpringTest;
 
 @SpringBootTest
@@ -46,7 +31,7 @@ public class NewApplicationProcessTest {
         NewApplication application = TestDataUtil.greenApplication();
 
         ProcessInstanceEvent processInstance = client.newCreateInstanceCommand()
-                .bpmnProcessId(ProcessConstants.PROCESS_KEY_customer_onboarding_en).latestVersion()
+                .bpmnProcessId(ProcessConstants.PROCESS_KEY).latestVersion()
                 .variables(application).send().join();
 
         engine.waitForIdleState(Duration.ofSeconds(5));
@@ -67,7 +52,7 @@ public class NewApplicationProcessTest {
         NewApplication application = TestDataUtil.yellowApplication();
 
         ProcessInstanceEvent processInstance = client.newCreateInstanceCommand()
-                .bpmnProcessId(ProcessConstants.PROCESS_KEY_customer_onboarding_en).latestVersion()
+                .bpmnProcessId(ProcessConstants.PROCESS_KEY).latestVersion()
                 .variables(application).send().join();
 
         engine.waitForIdleState(Duration.ofSeconds(5));
@@ -91,7 +76,7 @@ public class NewApplicationProcessTest {
         NewApplication application = TestDataUtil.redApplication();
 
         ProcessInstanceEvent processInstance = client.newCreateInstanceCommand()
-                .bpmnProcessId(ProcessConstants.PROCESS_KEY_customer_onboarding_en).latestVersion()
+                .bpmnProcessId(ProcessConstants.PROCESS_KEY).latestVersion()
                 .variables(application).send().join();
 
         engine.waitForIdleState(Duration.ofSeconds(5));

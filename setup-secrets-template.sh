@@ -1,7 +1,3 @@
-# insert internal mail-server password
-
-export SMTP_PASSWORD=
-
 # copy-paste the credentials downloaded from Console while credential creation:
 
 export ZEEBE_ADDRESS=

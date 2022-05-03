@@ -137,7 +137,7 @@
     </bpmn2:endEvent>
     <bpmn2:serviceTask id="ServiceTask_RejectPolicy" name="Reject application">
       <bpmn2:extensionElements>
-        <zeebe:taskDefinition type="logger"/>
+        <zeebe:taskDefinition type="rejectPolicy"/>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_12</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_16</bpmn2:incoming>
