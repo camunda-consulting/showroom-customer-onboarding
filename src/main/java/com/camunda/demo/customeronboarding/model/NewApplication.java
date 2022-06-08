@@ -4,6 +4,10 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import org.apache.commons.lang3.builder.MultilineRecursiveToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class NewApplication {
 
     private String applicationNumber;
@@ -16,6 +20,7 @@ public class NewApplication {
     private String corporation;
 
     private String contractNumber;
+    private String contractDriveId;
     private long priceIndicationInCent;
     private long premiumInCent;
     private String uiBaseUrl;
@@ -147,4 +152,11 @@ public class NewApplication {
         this.score = score;
     }
 
+    public String getContractDriveId() {
+        return contractDriveId;
+    }
+
+    public void setContractDriveId(String contractDriveId) {
+        this.contractDriveId = contractDriveId;
+    }
 }
