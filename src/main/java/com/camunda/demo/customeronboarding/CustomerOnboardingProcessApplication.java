@@ -4,14 +4,21 @@ import io.camunda.zeebe.spring.client.EnableZeebeClient;
 import io.camunda.zeebe.spring.client.annotation.ZeebeDeployment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableZeebeClient
 @ZeebeDeployment(resources = {"static/bpmn/customer_onboarding_en.bpmn", "static/bpmn/document_request_en.bpmn", "static/bpmn/risk_check_en.dmn"})
 public class CustomerOnboardingProcessApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(CustomerOnboardingProcessApplication.class, args);
-  }
-  
+    public static void main(String[] args) {
+        SpringApplication.run(CustomerOnboardingProcessApplication.class, args);
+    }
+
+    @Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
+
 }

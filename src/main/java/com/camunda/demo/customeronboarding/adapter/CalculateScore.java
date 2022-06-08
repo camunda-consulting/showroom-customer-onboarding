@@ -1,30 +1,30 @@
 package com.camunda.demo.customeronboarding.adapter;
 
-import java.time.ZoneId;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.camunda.demo.customeronboarding.model.NewApplication;
+import com.camunda.demo.customeronboarding.service.ScoringService;
 
 import io.camunda.zeebe.spring.client.annotation.ZeebeVariablesAsType;
 import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
 
 @Component
 public class CalculateScore {
-
+    
+    @Autowired
+    private ScoringService scoringService;
+    
 	@ZeebeWorker(type = "calculateScore", autoComplete = true)
 	public NewApplication calculateScore(@ZeebeVariablesAsType NewApplication newApplication) {
 
-		int yearLastDigit = newApplication.getApplicant().getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() % 10;
-
-		int score = 97;
-
-		if(yearLastDigit == 3) {
-			score = 93;
-		} else if (yearLastDigit == 5) {
-			score = 82;
-		} 
-		newApplication.setScore(score);
+		newApplication.setScore(scoringService.getScore(newApplication));
 		return newApplication;
 	}
 }

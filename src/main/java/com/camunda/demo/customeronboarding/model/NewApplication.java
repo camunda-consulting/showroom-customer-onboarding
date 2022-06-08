@@ -3,6 +3,7 @@ package com.camunda.demo.customeronboarding.model;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 import org.apache.commons.lang3.builder.MultilineRecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -158,5 +159,22 @@ public class NewApplication {
 
     public void setContractDriveId(String contractDriveId) {
         this.contractDriveId = contractDriveId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(applicationNumber, product);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        NewApplication other = (NewApplication) obj;
+        return Objects.equals(applicationNumber, other.applicationNumber) && Objects.equals(product, other.product);
     }
 }
