@@ -51,33 +51,19 @@ public class ConfirmationNotification {
 
         // Create the gmail API client
         Gmail service = GmailUtils.gmail();
-
+        
         //get attachment
         String attachment = "Contract_"+application.getContractNumber()+".pdf";
         File file = DriveUtils.downloadFromDrive(application.getContractDriveId(), attachment);
 
-        //create MimeMessage
-        Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
-        MimeMessage email = new MimeMessage(session);
-        MimeMessageHelper messageHelper = new MimeMessageHelper(email, true);
-        messageHelper.setFrom(from);
-        messageHelper.setTo(application.getApplicant().getEmail());
-        messageHelper.setSubject("Welcome at Camunbankia, "+application.getApplicant().getName()+"!");
-        messageHelper.setText(mailContentBuilderService.buildConfirmationEmail(application, Locale.ENGLISH), true);
-        messageHelper.addAttachment(attachment, file);
-
-        // Encode and wrap the MIME message into a gmail message
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        messageHelper.getMimeMessage().writeTo(buffer);
-        byte[] rawMessageBytes = buffer.toByteArray();
-        String encodedEmail = Base64.encodeBase64URLSafeString(rawMessageBytes);
-        Message message = new Message();
-        message.setRaw(encodedEmail);
+        //Build message
+        MimeMessage mimeMessage = buildMimeMessage(application, file);
+        
+        Message gmailMessage = convertToGmailMessage(mimeMessage);
 
         try {
             // Create send message
-            message = service.users().messages().send("me", message).execute();
+            gmailMessage = service.users().messages().send("me", gmailMessage).execute();
 
             client.newCompleteCommand(job.getKey()).send().exceptionally((throwable -> {
                 throw new RuntimeException("Could not complete job", throwable);
@@ -89,11 +75,38 @@ public class ConfirmationNotification {
         finally {
 
             try {
-                Files.delete(Paths.get(attachment));
+                Files.delete(file.toPath());
             } catch (IOException e) {
                 LOG.error("Error deleting file", e);
             }
         }
+    }
+    
+    private MimeMessage buildMimeMessage(NewApplication application, File attachment) throws MessagingException, IOException {
+
+        //create MimeMessage
+        Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+        MimeMessage email = new MimeMessage(session);
+        MimeMessageHelper messageHelper = new MimeMessageHelper(email, true);
+        messageHelper.setFrom(from);
+        messageHelper.setTo(application.getApplicant().getEmail());
+        messageHelper.setSubject("Welcome at Camunbankia, "+application.getApplicant().getName()+"!");
+        messageHelper.setText(mailContentBuilderService.buildConfirmationEmail(application, Locale.ENGLISH), true);
+        messageHelper.addAttachment(attachment.getName(), attachment);
+
+        return messageHelper.getMimeMessage();
+    }
+    
+    private Message convertToGmailMessage(MimeMessage mimeMessage) throws IOException, MessagingException {
+        // Encode and wrap the MIME message into a gmail message
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        mimeMessage.writeTo(buffer);
+        byte[] rawMessageBytes = buffer.toByteArray();
+        String encodedEmail = Base64.encodeBase64URLSafeString(rawMessageBytes);
+        Message message = new Message();
+        message.setRaw(encodedEmail);
+        return message;
     }
 
 }
