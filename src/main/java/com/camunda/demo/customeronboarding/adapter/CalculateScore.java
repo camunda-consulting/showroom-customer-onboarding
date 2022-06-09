@@ -1,12 +1,6 @@
 package com.camunda.demo.customeronboarding.adapter;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.camunda.demo.customeronboarding.model.NewApplication;

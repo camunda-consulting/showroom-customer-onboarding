@@ -2,19 +2,20 @@ package com.camunda.demo.customeronboarding;
 
 import static io.camunda.zeebe.process.test.assertions.BpmnAssert.assertThat;
 import static io.camunda.zeebe.spring.test.ZeebeTestThreadSupport.waitForProcessInstanceHasPassedElement;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.camunda.demo.customeronboarding.model.NewApplication;
+import com.camunda.demo.customeronboarding.service.ContractService;
 import com.camunda.demo.customeronboarding.service.ScoringService;
+import com.camunda.demo.customeronboarding.service.SendMailService;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
@@ -24,6 +25,9 @@ import io.camunda.zeebe.spring.test.ZeebeSpringTest;
 @SpringBootTest
 @ZeebeSpringTest
 public class NewApplicationProcessTest {
+    
+    private static final String CONTRACT_NAME = "contract.pdf";
+    private static final String DRIVE_ID = "2";
 
     @Autowired
     private ZeebeClient client;
@@ -33,12 +37,22 @@ public class NewApplicationProcessTest {
 
     @MockBean
     private ScoringService scoringService;
+
+    @MockBean
+    private SendMailService sendMailService;
+
+    @MockBean
+    private ContractService contractService;
     
     @Test
     public void testGreenPath() throws Exception {
         
         NewApplication application = TestDataUtil.greenApplication();
         when(scoringService.getScore(application)).thenReturn(97);
+        when(contractService.generateContract(application)).thenReturn(CONTRACT_NAME);
+        when(contractService.deleteContract(CONTRACT_NAME)).thenReturn(true);
+        when(contractService.storeInDrive(CONTRACT_NAME)).thenReturn(DRIVE_ID);
+        doNothing().when(sendMailService).sendEmail(application);
         
         ProcessInstanceEvent processInstance = client.newCreateInstanceCommand()
                 .bpmnProcessId(ProcessConstants.PROCESS_KEY).latestVersion()
@@ -54,7 +68,7 @@ public class NewApplicationProcessTest {
 
         waitForProcessInstanceHasPassedElement(processInstance, "BusinessRuleTask_CheckApplicationAutomatically");
 
-        waitForProcessInstanceHasPassedElement(processInstance, "ServiceTask_DeliverPolicy", Duration.ofMillis(10000));
+        waitForProcessInstanceHasPassedElement(processInstance, "ServiceTask_DeliverPolicy");
 
     }
     
@@ -62,6 +76,10 @@ public class NewApplicationProcessTest {
     public void testYellowPath() throws Exception {
         NewApplication application = TestDataUtil.yellowApplication();
         when(scoringService.getScore(application)).thenReturn(93);
+        when(contractService.generateContract(application)).thenReturn(CONTRACT_NAME);
+        when(contractService.deleteContract(CONTRACT_NAME)).thenReturn(true);
+        when(contractService.storeInDrive(CONTRACT_NAME)).thenReturn(DRIVE_ID);
+        doNothing().when(sendMailService).sendEmail(application);
         
         ProcessInstanceEvent processInstance = client.newCreateInstanceCommand()
                 .bpmnProcessId(ProcessConstants.PROCESS_KEY).latestVersion()
@@ -86,6 +104,10 @@ public class NewApplicationProcessTest {
     public void testRedPath() throws Exception {
         NewApplication application = TestDataUtil.redApplication();
         when(scoringService.getScore(application)).thenReturn(82);
+        when(contractService.generateContract(application)).thenReturn(CONTRACT_NAME);
+        when(contractService.deleteContract(CONTRACT_NAME)).thenReturn(true);
+        when(contractService.storeInDrive(CONTRACT_NAME)).thenReturn(DRIVE_ID);
+        doNothing().when(sendMailService).sendEmail(application);
         
         ProcessInstanceEvent processInstance = client.newCreateInstanceCommand()
                 .bpmnProcessId(ProcessConstants.PROCESS_KEY).latestVersion()
@@ -101,7 +123,7 @@ public class NewApplicationProcessTest {
 
         waitForProcessInstanceHasPassedElement(processInstance, "BusinessRuleTask_CheckApplicationAutomatically");
 
-        waitForProcessInstanceHasPassedElement(processInstance, "ServiceTask_RejectPolicy", Duration.ofMillis(10000));
+        waitForProcessInstanceHasPassedElement(processInstance, "ServiceTask_RejectPolicy");
 
     }
 

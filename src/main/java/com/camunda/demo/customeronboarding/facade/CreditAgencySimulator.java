@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.camunda.demo.customeronboarding.ProcessConstants;
 import com.camunda.demo.customeronboarding.model.NewApplication;
 
 @RestController
