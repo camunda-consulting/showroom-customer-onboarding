@@ -15,7 +15,7 @@ public class RejectPolicy {
   @ZeebeWorker(type = "rejectPolicy", autoComplete = true)
   public NewApplication issuePolicy(@ZeebeVariablesAsType NewApplication newApplication) {
 
-    LOGGER.info("Policy for %s rejected!", newApplication.getApplicant().getName());
+    LOGGER.info("Policy for {} rejected!", newApplication.getApplicant().getName());
 
     return newApplication;
   }
