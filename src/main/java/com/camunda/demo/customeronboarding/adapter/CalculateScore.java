@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 
 import com.camunda.demo.customeronboarding.model.NewApplication;
 
-import io.camunda.zeebe.spring.client.annotation.ZeebeVariablesAsType;
-import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+import io.camunda.zeebe.spring.client.annotation.VariablesAsType;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 
 @Component
 public class CalculateScore {
 
-	@ZeebeWorker(type = "calculateScore", autoComplete = true)
-	public NewApplication calculateScore(@ZeebeVariablesAsType NewApplication newApplication) {
+	@JobWorker(type = "calculateScore", autoComplete = true)
+	public NewApplication calculateScore(@VariablesAsType NewApplication newApplication) {
 
 		int yearLastDigit = newApplication.getApplicant().getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear() % 10;
 

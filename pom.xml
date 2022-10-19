@@ -9,9 +9,9 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<springZeebe.version>8.0.3</springZeebe.version>
-		<zeebe.version>8.0.1</zeebe.version>
-		<springBoot.version>2.6.6</springBoot.version>
+		<springZeebe.version>8.1.0</springZeebe.version>
+		<zeebe.version>8.1.1</zeebe.version>
+		<springBoot.version>2.7.4</springBoot.version>
 
 		<version.java>11</version.java>
 		<maven.compiler.source>${version.java}</maven.compiler.source>
