@@ -1,9 +1,9 @@
 englishonly: false
 
-# zeebe.client.cloud:
-#   clusterId: YOUR_CLUSTER_ID
-#   clientId: YOUR_CLIENT_ID
-#   clientSecret: YOUR_CLIENT_SECRET
+zeebe.client.cloud:
+  clusterId: b1c5e41e-ccdf-49d9-bffa-976b890d4598
+  clientId: Whel5t.7eKf-_lKck3ZarY4iRrrWR2Ts
+  clientSecret: LtXkQuQQ2T70.C_WzfEv9YxNAuFG7mNsV3uuaWWzHaEQ~d~pVaQJNcsb-7pdnxtA
 
 server:
   servlet:
