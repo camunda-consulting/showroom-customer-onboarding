@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.camunda.demo.customeronboarding.ProcessConstants;
 import com.camunda.demo.customeronboarding.model.NewApplication;
 
-import io.camunda.zeebe.spring.client.ZeebeClientLifecycle;
+import io.camunda.zeebe.spring.client.ZeebeClientSpringConfiguration;
 
 @RestController
 @RequestMapping("API")
 public class ApplicationOnlineFacade {
 
   @Autowired
-  private ZeebeClientLifecycle client;
+  private ZeebeClientSpringConfiguration  client;
 
   @PostMapping(path="/new-application/{lang}", produces=MediaType.TEXT_HTML_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
   public String submitNewApplication(@RequestBody NewApplication application, @RequestHeader("referer") String referer, @PathVariable("lang") String lang) {
