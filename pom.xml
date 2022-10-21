@@ -9,8 +9,9 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<springZeebe.version>1.3.4</springZeebe.version>
-		<springBoot.version>2.4.4</springBoot.version>
+		<springZeebe.version>8.1.0</springZeebe.version>
+		<zeebe.version>8.1.1</zeebe.version>
+		<springBoot.version>2.7.4</springBoot.version>
 
 		<version.java>11</version.java>
 		<maven.compiler.source>${version.java}</maven.compiler.source>
@@ -58,6 +59,28 @@
 			<version>2.1.0-2</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.camunda</groupId>
+			<artifactId>spring-zeebe-test</artifactId>
+			<version>${springZeebe.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<!-- see: https://docs.camunda.io/docs/components/best-practices/development/testing-process-definitions/#writing-process-tests-in-java -->
+			<groupId>io.camunda</groupId>
+			<artifactId>zeebe-process-test-extension-testcontainer</artifactId>
+			<version>${zeebe.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -95,13 +118,11 @@
 				</executions>
 			</plugin>
 
-			<!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.0</version>
 			</plugin>
-			-->
 		</plugins>
 	</build>
 

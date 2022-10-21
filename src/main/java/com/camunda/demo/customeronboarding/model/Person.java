@@ -9,10 +9,10 @@ public class Person {
   private String email;
   private Date birthday;
   // TODO: EN/DE switch
-  private String gender = "Frau";
+  private String gender;
   private int age;
   
-  public int calculateAlter(Date atDate) {
+  public int calculateAge(Date atDate) {
     Calendar dob = Calendar.getInstance();  
     dob.setTime(birthday);  
     Calendar today = Calendar.getInstance(); 
@@ -34,7 +34,7 @@ public class Person {
   }
   public void setBirthday(Date birthday) {
     this.birthday = birthday;
-     setAge(calculateAlter(new Date()));
+     setAge(calculateAge(new Date()));
   }
 
   public String getGender() {

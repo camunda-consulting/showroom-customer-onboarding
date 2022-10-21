@@ -28,3 +28,5 @@ target
 
 # Visual Studio Code
 .vscode
+
+setup-secrets.sh
