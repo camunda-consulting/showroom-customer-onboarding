@@ -1,0 +1,35 @@
+# Inspired by https://github.com/hashicorp/learn-terraform-github-actions/blob/main/.github/workflows/terraform.yml
+# And https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-google-cloud-platform#updating-your-github-actions-workflow
+name: 'Deployment'
+on:
+  push:
+    branches:
+    - c8-demo-setup
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Authenticate to Google Cloud"
+        uses: google-github-actions/auth@v0
+        id: auth
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: projects/154311673726/locations/global/workloadIdentityPools/github/providers/camunda
+          service_account: github-actions@pre-sales-demo-setup.iam.gserviceaccount.com
+      - name: Docker Auth
+        uses: 'docker/login-action@v1'
+        with:
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.access_token }}'
+          registry: 'europe-north1-docker.pkg.dev'
+      - name: Build and Push image
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: |
+            europe-north1-docker.pkg.dev/pre-sales-demo-setup/presales-demo/presales-demo-executor:latest
+
