@@ -19,6 +19,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 
+		<project.build.outputTimestamp>10</project.build.outputTimestamp>
 	</properties>
 
 	<dependencyManagement>
