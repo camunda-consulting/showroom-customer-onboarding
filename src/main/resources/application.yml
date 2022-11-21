@@ -5,6 +5,13 @@ englishonly: false
 #   clientId: YOUR_CLIENT_ID
 #   clientSecret: YOUR_CLIENT_SECRET
 
+zeebe.client.cloud:
+      region: bru-2
+      clusterId: ${CLIENT_CLOUD_CLUSTER_ID}
+      clientId: ${CLIENT_CLOUD_CLIENT_ID}
+      clientSecret: ${CLIENT_CLOUD_CLIENT_SECRET}
+      defaultName: presalesDemoExecutor
+
 server:
   servlet:
     context-path: /camunda
