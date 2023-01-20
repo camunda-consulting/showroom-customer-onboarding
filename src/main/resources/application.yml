@@ -14,4 +14,4 @@ zeebe.client.cloud:
 
 server:
   servlet:
-    context-path: /
+    context-path: /camunda
