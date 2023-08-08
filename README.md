@@ -31,10 +31,10 @@ The workflow first executes an automated decision (in DMN), determining if the a
 The camunda web applications will be accessible under http://localhost:8080/camunda
 
 The user/password demo/demo can be used to login.
- 
+
 
 # Architecture
-The showcase uses Spring Boot and the Camunda Spring boot starters. 
+The showcase uses Spring Boot and the Camunda Spring boot starters.
 https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration
 
 Spring web is used for the REST services defined in *ApplicationOnlineFacade*
@@ -46,7 +46,7 @@ Spring web is used for the REST services defined in *ApplicationOnlineFacade*
 # How to build and run
 1. clone project or download sources
 2. build via Maven (*mvn clean package*)
-3. run via Spring boot (*mvn spring-boot:run*) 
+3. run via Spring boot (*mvn spring-boot:run*)
 
 During startup the showcase **will generate test data**. This can take a few minutes.
 You can already use the application during this time.
@@ -55,3 +55,13 @@ To start with a fresh database delete /camunda-db.mv.db and /camunda-db.trace.db
 Alternatively you can play online in the [Showroom](http://showroom.camunda.com/) without installing anything locally. The showroom is password protected and only accessible for camunda partners.
 
 
+# Releasing
+
+When you want to release a new Docker image, [create a GitHub release](https://github.com/camunda-consulting/showroom-customer-onboarding/releases/new):
+- Choose a tag: enter a new version (e.g. `v1.2.3`) and click `create a tag`
+- Target: `main`
+- Release title: new version (e.g. `v1.2.3`)
+- Description: click `Generate release notes` for GitHub to fill it.
+- Click `Publish Release` to release it.
+
+You can check the [actions page](https://github.com/camunda-consulting/showroom-customer-onboarding/actions) to follow the release.

@@ -1,0 +1,50 @@
+---
+name: Build Worker
+
+on:
+  push:
+    branches:
+    - '**'
+    # tags:
+    # - 'v*.*.*'
+
+defaults:
+  run:
+    # use bash shell by default to ensure pipefail behavior is the default
+    # see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference
+    shell: bash
+
+env:
+  IMAGE_NAME: team-consulting/showroom-customer-onboarding-external-nodejs
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Import Secrets
+      id: secrets # important to refer to it in later steps
+      uses: hashicorp/vault-action@v2.7.2
+      with:
+        url: ${{ secrets.VAULT_ADDR }}
+        method: approle
+        roleId: ${{ secrets.VAULT_ROLE_ID }}
+        secretId: ${{ secrets.VAULT_SECRET_ID }}
+        exportEnv: false # we rely on step outputs, no need for environment variables
+        secrets: |
+          secret/data/products/consulting/ci/consulting ARTIFACTS_USR;
+          secret/data/products/consulting/ci/consulting ARTIFACTS_PSW;
+          secret/data/products/consulting/ci/consulting SHOWCASE_MAIL_PASSWORD;
+
+    - name: Create mail password
+      run: |
+        sed -i "s/\${SHOWCASE_MAIL_PASSWORD}/${{ steps.secrets.outputs.SHOWCASE_MAIL_PASSWORD }}/g" external-task-worker/.env
+
+    - uses: camunda/infra-global-github-actions/build-docker-image@main
+      with:
+        registry_host: registry.camunda.cloud
+        registry_username: ${{ steps.secrets.outputs.ARTIFACTS_USR }}
+        registry_password: ${{ steps.secrets.outputs.ARTIFACTS_PSW }}
+        image_name: ${{ env.IMAGE_NAME }}
+        build_context: external-task-worker
