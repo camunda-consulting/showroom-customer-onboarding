@@ -47,7 +47,7 @@ async function uploadFile (
     .upload(srcFilename, options);
 
   console.log(
-    `${destFilename} uploaded to gs://${bucketName}/${srcFilename}.`
+    `${srcFilename} uploaded to gs://${bucketName}/${destFilename}.`
   );
 }
 

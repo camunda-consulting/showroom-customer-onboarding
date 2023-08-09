@@ -1,0 +1,84 @@
+---
+name: Build
+
+on:
+  push:
+    branches:
+    - '**'
+    tags:
+    - 'v*.*.*'
+
+defaults:
+  run:
+    # use bash shell by default to ensure pipefail behavior is the default
+    # see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference
+    shell: bash
+
+env:
+  IMAGE_NAME: team-consulting/showroom-customer-onboarding
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Import Secrets
+      id: secrets # important to refer to it in later steps
+      uses: hashicorp/vault-action@v2.7.2
+      with:
+        url: ${{ secrets.VAULT_ADDR }}
+        method: approle
+        roleId: ${{ secrets.VAULT_ROLE_ID }}
+        secretId: ${{ secrets.VAULT_SECRET_ID }}
+        exportEnv: false # we rely on step outputs, no need for environment variables
+        secrets: |
+          secret/data/products/consulting/ci/consulting ARTIFACTS_USR;
+          secret/data/products/consulting/ci/consulting ARTIFACTS_PSW;
+          secret/data/products/consulting/ci/consulting SHOWROOM_BUCKET_AUTH_BYTES;
+
+    - name: Setup Maven
+      uses: s4u/setup-maven-action@v1.8.0
+      with:
+        java-version: '8'
+        java-distribution: 'temurin'
+        maven-version: '3.3.9'
+
+    # Use CI Nexus as co-located pull-through cache for Maven artifacts via ~/.m2/settings.xml
+    - name: Create Maven Settings
+      uses: s4u/maven-settings-action@v2.8.0
+      with:
+        githubServer: false
+        servers: |
+          [{
+            "id": "camunda-nexus",
+            "username": "${{ steps.secrets.outputs.ARTIFACTS_USR }}",
+            "password": "${{ steps.secrets.outputs.ARTIFACTS_PSW }}"
+          }]
+        mirrors: '[{"url": "https://repository.nexus.camunda.cloud/content/groups/internal/", "id": "camunda-nexus", "mirrorOf": "*", "name": "Camunda Nexus"}]'
+
+    - name: Run Tests
+      run: |
+        mvn clean resources:resources package -B
+      env:
+        MAVEN_USERNAME: ${{ steps.secrets.outputs.ARTIFACTS_USR }}
+        MAVEN_PASSWORD: ${{ steps.secrets.outputs.ARTIFACTS_PSW }}
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always() # Publish results even if the job fails or is canceled
+      with:
+        files: |
+          **/target/surefire-reports/*.xml
+          **/target/failsafe-reports/TEST-*.xml
+
+    - name: Create bucket auth secret
+      run: |
+        echo "${{ steps.secrets.outputs.SHOWROOM_BUCKET_AUTH_BYTES }}" | base64 -d > ./auth/bucketAuth.json
+
+    - uses: camunda/infra-global-github-actions/build-docker-image@main
+      with:
+        registry_host: registry.camunda.cloud
+        registry_username: ${{ steps.secrets.outputs.ARTIFACTS_USR }}
+        registry_password: ${{ steps.secrets.outputs.ARTIFACTS_PSW }}
+        image_name: ${{ env.IMAGE_NAME }}
