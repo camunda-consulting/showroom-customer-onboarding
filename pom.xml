@@ -9,11 +9,10 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<springZeebe.version>8.0.3</springZeebe.version>
-		<zeebe.version>8.0.1</zeebe.version>
-		<springBoot.version>2.6.6</springBoot.version>
+		<springZeebe.version>8.2.3</springZeebe.version>
+		<zeebe.version>8.2.11</zeebe.version>
 
-		<version.java>11</version.java>
+		<version.java>17</version.java>
 		<maven.compiler.source>${version.java}</maven.compiler.source>
 		<maven.compiler.target>${version.java}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,24 +20,20 @@
 
 	</properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${springBoot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.9</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
 
 	<dependencies>
 
 		<dependency>
-			<groupId>io.camunda</groupId>
-			<artifactId>spring-zeebe-starter</artifactId>
-			<version>${springZeebe.version}</version>
+			<groupId>io.camunda.spring</groupId>
+			<artifactId>spring-boot-starter-camunda</artifactId>
+			<version>8.2.3</version>
 		</dependency>
 
 		<dependency>
@@ -73,14 +68,8 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<!-- see: https://docs.camunda.io/docs/components/best-practices/development/testing-process-definitions/#writing-process-tests-in-java -->
-			<groupId>io.camunda</groupId>
-			<artifactId>zeebe-process-test-extension-testcontainer</artifactId>
-			<version>${zeebe.version}</version>
-			<scope>test</scope>
-		</dependency>
-		
+
+
 	</dependencies>
 
 	<build>
@@ -105,7 +94,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${springBoot.version}</version>
 				<configuration>
 					<mainClass>com.camunda.demo.customeronboarding.CustomerOnboardingProcessApplication</mainClass>
 				</configuration>

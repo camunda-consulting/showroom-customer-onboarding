@@ -2,6 +2,7 @@ package com.camunda.demo.customeronboarding.facade;
 
 import java.io.UnsupportedEncodingException;
 
+import io.camunda.zeebe.client.ZeebeClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,14 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.camunda.demo.customeronboarding.ProcessConstants;
 import com.camunda.demo.customeronboarding.model.NewApplication;
 
-import io.camunda.zeebe.spring.client.ZeebeClientLifecycle;
 
 @RestController
 @RequestMapping("API")
 public class ApplicationOnlineFacade {
 
   @Autowired
-  private ZeebeClientLifecycle client;
+  private ZeebeClient client;
 
   @PostMapping(path="/new-application/{lang}", produces=MediaType.TEXT_HTML_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
   public String submitNewApplication(@RequestBody NewApplication application, @RequestHeader("referer") String referer, @PathVariable("lang") String lang) {
