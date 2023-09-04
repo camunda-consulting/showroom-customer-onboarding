@@ -1,8 +1,8 @@
 package com.camunda.demo.customeronboarding.adapter;
 
 import com.camunda.demo.customeronboarding.model.NewApplication;
-import io.camunda.zeebe.spring.client.annotation.ZeebeVariablesAsType;
-import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+import io.camunda.zeebe.spring.client.annotation.VariablesAsType;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -12,8 +12,8 @@ public class RejectPolicy {
   private static final Logger LOGGER = LoggerFactory.getLogger(RejectPolicy.class);
 
 
-  @ZeebeWorker(type = "rejectPolicy", autoComplete = true)
-  public NewApplication issuePolicy(@ZeebeVariablesAsType NewApplication newApplication) {
+  @JobWorker(type = "rejectPolicy", autoComplete = true)
+  public NewApplication issuePolicy(@VariablesAsType NewApplication newApplication) {
 
     LOGGER.info("Policy for {} rejected!", newApplication.getApplicant().getName());
 
